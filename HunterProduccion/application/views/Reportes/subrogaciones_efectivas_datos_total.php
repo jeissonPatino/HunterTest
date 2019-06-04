@@ -120,6 +120,7 @@
                 <th>Deudor</th>
                 <th>Tipo Identificación</th>
                 <th>Identificación</th>
+                
                 <th>IF</th>
                 <th>Valor pagado</th>
                 <th>Factura subrogación</th>
@@ -189,43 +190,43 @@
             datasets: [
                 {
                     label: "Base de Medición",
-                    fillColor: "#5F9EA0",
-                    strokeColor: "#5F9EA0",
-                    pointColor: "#5F9EA0",
+                    fillColor: "rgba(54, 162, 235)",
+                    strokeColor: "rgba(210, 214, 222)",
+                    pointColor: "rgba(180, 214, 222)",
                     pointStrokeColor: "#c1c7d1",
                     pointHighlightFill: "#fff",
-                    pointHighlightStroke: "rgba(220,220,220,1)",
+                    pointHighlightStroke: "rgba(220,220,220)",
                     data: <?php echo $data1;?>
                 },
                 {
                     label: "Número de obligaciones a subrogar",
-                    fillColor: "#ADFF2F",
-                    strokeColor: "#ADFF2F",
-                    pointColor: "#ADFF2F",
+                    fillColor: "rgba(255, 128, 0)",
+                    strokeColor: "rgba(210, 214, 222)",
+                    pointColor: "rgba(180, 214, 222)",
                     pointStrokeColor: "#c1c7d1",
                     pointHighlightFill: "#fff",
-                    pointHighlightStroke: "rgba(220,220,220,1)",
+                    pointHighlightStroke: "rgba(220,220,220)",
                     data: <?php echo $data2;?>
                     
                 },
                 {
                     label: "Cumple",
-                    fillColor: "#FFF000",
-                    strokeColor: "#FFF000",
-                    pointColor: "#FFF000",
+                    fillColor: "rgba(153, 255, 51)",
+                    strokeColor: "rgba(210, 214, 222)",
+                    pointColor: "rgba(180, 214, 222)",
                     pointStrokeColor: "#c1c7d1",
                     pointHighlightFill: "#fff",
-                    pointHighlightStroke: "rgba(220,220,220,1)",
+                    pointHighlightStroke: "rgba(220,220,220)",
                     data: <?php echo $data3;?>
                 },
                 {
                     label: "No Cumple",
-                    fillColor: "#FF0000",
-                    strokeColor: "#FF0000",
-                    pointColor: "#FF0000",
+                    fillColor: "rgba(255, 255, 51)",
+                    strokeColor: "rgba(210, 214, 222)",
+                    pointColor: "rgba(180, 214, 222)",
                     pointStrokeColor: "#c1c7d1",
                     pointHighlightFill: "#fff",
-                    pointHighlightStroke: "rgba(220,220,220,1)",
+                    pointHighlightStroke: "rgba(220,220,220)",
                     data: <?php echo $data4;?>
                 }
             ]
@@ -243,7 +244,7 @@
           //Boolean - Whether the scale should start at zero, or an order of magnitude down from the lowest value
           scaleBeginAtZero: true,
           //Boolean - Whether grid lines are shown across the chart
-          scaleShowGridLines: true,
+          scaleShowGridLines: false,
           //String - Colour of the grid lines
           scaleGridLineColor: "rgba(0,0,0,.05)",
           //Number - Width of the grid lines
@@ -255,7 +256,7 @@
           //Boolean - If there is a stroke on each bar
           barShowStroke: true,
           //Number - Pixel width of the bar stroke
-          barStrokeWidth: 2,
+          barStrokeWidth: 1,
           //Number - Spacing between each of the X value sets
           barValueSpacing: 5,
           //Number - Spacing between data sets within X values
@@ -279,6 +280,7 @@
                 { mData: "nombre"},
                 { mData: "tipo_identificacion"},
                 { mData: "identificacion"},
+                
                 { mData: "ifinanciero" },
                 { mData: "valorPagado" },
                 { mData: "Sub_factura_subrogacion"},

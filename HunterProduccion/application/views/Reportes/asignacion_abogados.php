@@ -1,17 +1,17 @@
 <section class="content-header">
     <h1>
-        Reportes
+        REPORTES
     </h1>
     <ol class="breadcrumb">
     	<li><a href="<?php echo base_url();?>home">Inicio</a></li>
-        <li class="active">Asignacion de abogados</li>
+        <li class="active">Asignación de abogados</li>
     </ol>
 </section>
 
 <section class="content">
 	<div class="box">
 		<div class="box-header with-border">
-			<h3 class="box-title">INFORMES FRG - Asignación de abogados</h3>
+			<h3 class="box-title">Informes FRG - Asignación de abogados</h3>
 		</div>
 		<div class="box-body">
 			<!-- de aqui estan desarrollados los reportes -->
@@ -41,7 +41,7 @@
 					<div class="form-group">
 						<label>Fecha inicial:</label>
 						<div class="input-group">
-							<input type="text" class="form-control pull-right" placeholder="Fecha inicial" id="reservation">
+							<input type="text" class="form-control pull-right" placeholder="Fecha inicial" id="reservation" readonly="readonly">
 						</div><!-- /.input group -->
 					</div><!-- /.form group -->
 				</div>	
@@ -49,17 +49,17 @@
 					<div class="form-group">
 						<label>Fecha final:</label>
 						<div class="input-group">
-							<input type="text" class="form-control pull-right" placeholder="Fecha final" id="reservationfinal">
+							<input type="text" class="form-control pull-right" placeholder="Fecha final" id="reservationfinal" readonly="readonly">
 						</div><!-- /.input group -->
 					</div><!-- /.form group -->
 				</div>		
 			</div>
 			<div class="row">
 				<div class="col-md-3">
-					<button class="btn btn-primary  btn-block" id="BtnBuscarInformes"><i class="fa fa-search"></i>&nbsp;&nbsp;Buscar</button>
+					<button class="btn btn-primary  btn-block" id="BtnBuscarInformes"><i class="fa fa-search"></i></button>
 				</div>	
 				<div class="col-md-3">
-					<a href="<?php echo base_url();?>reportes/exportarAsignacionAbogados" class="btn btn-primary  btn-block" id="btonExportar"><i class="fa fa-file-excel-o"></i>&nbsp;&nbsp;Exportar a Excel</a>
+					<a href="<?php echo base_url();?>reportes/exportarAsignacionAbogados" class="btn btn-success  " id="btonExportar">Excel</a>
 				</div>	
 			</div>
 		</div>

@@ -3,6 +3,7 @@
     header("Content-type: application/vnd.ms-excel; charset=utf-8");
     header("Content-Disposition: attachment; filename=reporte_radicacion_memoriales.xls");
 ?>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
         <table class="table table-hover table-bordered" width="50%">
             <thead>
@@ -125,8 +126,9 @@
   <tr>
       <th>No. Liquidaci&oacute;n</th>
       <th>Deudor</th>
-      <th>Tipo Identificaci&oacute;n</th>
-                  <th>No. Identificaci&oacute;n</th>
+       <th>Tipo Identificaci&oacute;n</th>
+      <th>No. Identificaci&oacute;n</th>
+     
       <th>SAP</th>
       <th>IF</th>
       <th>Fecha Envio Memorial </th>
@@ -141,8 +143,9 @@
              echo "<tr>
                         <td>".$contratos[$i]['liquidacion']."</td>
                         <td>".$contratos[$i]['nombre']."</td>
-                       <td>".$contratos[$i]['tipo_identificacion']."</td>
+                         <td>".$contratos[$i]['tipo_identificacion']."</td>
                         <td>".$contratos[$i]['identificacion']."</td>
+                        
                         <td>".$contratos[$i]['SAP']."</td>
                         <td>".$contratos[$i]['ifinanciero']."</td>
                         <td>".$contratos[$i]['envioMemorial']." </td>

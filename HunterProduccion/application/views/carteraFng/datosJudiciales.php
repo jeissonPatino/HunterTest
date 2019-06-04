@@ -6,31 +6,31 @@
 			switch ($vista) {
 				case '1':
 				//viene de Clientes nuevos
-					echo 'Cartera FNG - Mis procesos vigentes';	
+					echo 'CARTERA FNG - MIS PROCESOS VIGENTES';	
 					break;
 
 				case '2':
 				//viene de Clientes nuevos
-					echo 'Cartera FNG - Mis procesos irrecuperables';	
+					echo 'CARTERA FNG - MIS PROCESOS IRRECUPERABLES ';	
 					break;
 				case '3':
 				//viene de clientes con datos nuevos
-					echo 'Cartera FNG - Mis procesos vendidos';
+					echo 'CARTERA FNG - MIS PROCESOS VENDIDOS';
 					break;
 
 				case '4':
 				//viene de clientes con acuerdo de pago
-					echo 'Cartera FNG - Búsqueda avanzada';
+					echo 'CARTERA FNG - BÚSQUEDA AVANZADA';
 					break;
 
 				case '5':
 				//viene de clientes con acuerdo de pago
-					echo 'Cartera FNG - Obligaciones con paz y salvo';
+					echo 'CARTERA FNG - OBLIGACIONES CON PAZ Y SALVO';
 					break;
 			}
 		}else{
 			//viene de Clientes nuevos
-			echo 'Cartera FNG - Mis procesos vigentes';
+			echo 'CARTERA FNG - MIS PROCESOS VIGENTES';
 		}
 		
 	?>
@@ -818,6 +818,21 @@
 					</h4>
 				</div>
 				<div id="collapseOne" class="panel-collapse collapse">
+					<table >
+						<tbody style="background-color: #ef7f1a">
+							<ul>
+								<td style=""><i class="fa fa-circle" style="color: #f00"></i>&nbsp; Saldo</td>
+
+								<td><i class="fa fa-circle" style="color: #feff0d"></i>&nbsp; Acuerdos de pago</td>
+
+								<td><i class="fa fa-circle" style="color: #769462"></i>&nbsp; Saldo Cero</td>
+
+								<td><i class="fa fa-circle" style="color: #5ace10"></i>&nbsp; Paz y Salvo</td>
+
+								<td><i class="fa fa-circle" style="color: #adabab"></i>&nbsp; Vendida</td>
+							</ul>	
+						</tbody>
+					</table>
 					<div class="box-body">
 						<div row="row-fluid">
 							<div class="col-md-2">
@@ -839,54 +854,24 @@
 														    $query = $this->db->get();
 
 													$color = $this->Obligaciones_Model->getColoresLiquidacicones($contratos[$i]['contrato']);
-														json_decode($color);
+																json_encode($color);
 
 													
-														 	echo "<tr><td style='cursor:pointer;background-color:".$color."'; contrato ='".$query->row()->G719_ConsInte__b."'>".$contratos[$i]['contrato']." ".$query->row()->G730_C17126 ."</td></tr>";
+														 	echo "<tr><td style='cursor:pointer;background-color:".$color[0]->Color."; color:".$color[0]->ColorFunte."' contrato ='".$query->row()->G719_ConsInte__b."'>".$contratos[$i]['contrato']." ".$query->row()->G730_C17126 ."</td></tr>";
 
 														}
 													}
 												}
 											}else{
 												for($i=0;$i < count($contratos); $i++){
-													if(!is_null($contratos[$i])){
+														if(!is_null($contratos[$i])){
+														 	echo "<tr><td style='cursor:pointer;background-color:".$color[$i]->Color."; color:".$color[$i]->ColorFunte."' contrato ='".$contratos[$i]['No_CONTRATO']."'>".$contratos[$i]['contrato']." ".$contratos[$i]['if'] ."</td></tr>";
 
-													 	echo "<tr><td style='cursor:pointer;background-color:".$color."'; contrato ='".$contratos[$i]['No_CONTRATO']."'>".$contratos[$i]['contrato']." ".$contratos[$i]['if'] ."</td></tr>";
 
-
+														}
 													}
-												}
 											}
 										?>
-									</tbody>
-								</table>
-								<table class="table table-hover table-bordered">
-									<thead>
-										<th>
-											Especificaciones Color
-										</th>
-									</thead>
-									<tbody>
-										<tr>
-											<td style="background-color:#ef251a75">Vendidos</td>
-										</tr>	
-										<tr>
-											<td style="background-color:#ef7f1a94">Acuerdos de pago</td>
-										</tr>
-										<tr>
-											<td style="background-color:#f7ec016b">Saldo Cero</td>
-										</tr>
-											<td style="background-color:#97b0f3">Otros</td>
-										<tr>
-											<td style="background-color:#5ace77">Paz y Salvo</td>
-										</tr>
-										<tr>
-											<td style="background-color:#ad6d6d">Sentencia Irrecuperable</td>
-										</tr>
-										<tr>
-											<td style="background-color:#fff">Saldo Favor</td>
-
-										</tr>
 									</tbody>
 								</table>
 							</div>
@@ -903,16 +888,7 @@
 										<div class="box-body">
 											<div class="row-fluid">
 												<div class="col-md-12">
-													<div class="row">
-															<div class="col-md-3">
-																<div class="form-group">
-																	<label for="TxtCelulara">Estado de Asignación</label>
-											                 	</div>
-															</div>
-															<div class="col-md-3" id="AsigancionAbogado" >
-																
-															</div>
-														</div>
+													
 													<div class="row">
 														<div class="col-md-3">
 															<div class="form-group">
@@ -1031,7 +1007,16 @@
 														</div>
 														
 													</div>
-
+													<div class="row">
+															<div class="col-md-3">
+																<div class="form-group">
+																	<label for="TxtCelulara">Estado de Asignación</label>
+											                 	</div>
+															</div>
+															<div class="col-md-3" id="AsigancionAbogado" >
+																
+															</div>
+														</div>
 
 
 												</div>
@@ -1073,7 +1058,7 @@
 									</div>
 									<div id="collapsetwo" class="panel-collapse collapse ">
 										<div class="box-body table-responsive no-padding">
-											<a id="exportarExtrajudicial" class="btn btn-primary">Exportar a Excel</a><br><br>
+											<br><br>
 											<table class="table table-hover table-bordered" id="tblHistoricoExtrajudicial">
 												<thead>
 													<tr>
@@ -1107,7 +1092,7 @@
 									<div id="collapsethree" class="panel-collapse collapse ">
 										<div class="box-body table-responsive no-padding">
 											
-											<a id="exportarJudicial" class="btn btn-primary">Exportar a Excel</a><br><br>
+											<br><br>
 											<table class="table table-hover table-bordered" id="tblHistoricoJudicial">
 												<thead>
 													<tr>
@@ -1141,7 +1126,7 @@
 									<div id="collapsefour" class="panel-collapse collapse ">
 										<div class="box-body table-responsive no-padding">
 											
-											<a id="exportarMedidas" class="btn btn-primary">Exportar a Excel</a>
+											
 											<br><br>
 										  	<table class="table table-hover table-bordered" id="tblHistoricoMedidas">
 												<thead>
@@ -1172,6 +1157,7 @@
 									</div>
 									<div id="collapsefive" class="panel-collapse collapse ">
 										<div class="box-body table-responsive no-padding">
+											<br><br>
 										  	<table class="table table-hover table-bordered">
 												<thead>
 													<tr>
@@ -1198,6 +1184,7 @@
 									</div>
 									<div id="collapseSix" class="panel-collapse collapse ">
 										<div class="box-body table-responsive no-padding">
+											<br><br>
 										  	<table class="table table-hover table-bordered" id="tblAcuerdoPago">
 												<thead>
 													<tr>
@@ -1224,6 +1211,7 @@
 									</div>
 									<div id="collapseSven" class="panel-collapse collapse ">
 										<div class="box-body">
+											<br><br>
 										  	<table class="table table-hover table-bordered" id="tblGarantiaPagare">
 												<thead>
 													<tr>
@@ -1251,6 +1239,7 @@
 									</div>
 									<div id="collapseEigth" class="panel-collapse collapse ">
 										<div class="box-body table-responsive">
+											<br><br>
 										  	<table class="table table-hover table-bordered" id="tblFacturas">
 												<thead>
 													<tr>
@@ -1322,6 +1311,7 @@
 											</a>
 										</h4>
 									</div>
+									
 									<div id="collapseNine" class="panel-collapse collapse ">
 										<div class="box-body">
 										  	<div class="row">
@@ -1357,6 +1347,7 @@
 											</a>
 										</h4>
 									</div>
+									
 									<div id="collapseTen" class="panel-collapse collapse ">
 										<div class="box-body">
 										  	<div class="row">
@@ -1378,7 +1369,7 @@
 										  		<div class="col-md-3" id="AbogadoPromotor"> </div>
 										  	</div>
 										  	<div class="row">
-										  		<div class="col-md-3"><label>Fecha fijacion del aviso</label> </div>
+										  		<div class="col-md-3"><label>Fecha fijación del aviso</label> </div>
 										  		<div class="col-md-3"  id="AbogadoFechaFijacion"> </div>
 										  		<div class="col-md-3"><label>Celular</label> </div>
 										  		<div class="col-md-3" id="AbogadoCelular"> </div>
@@ -1412,6 +1403,7 @@
 											</a>
 										</h4>
 									</div>
+									
 									<div id="collapseEleven" class="panel-collapse collapse ">
 										<div class="box-body">
 										  	<div class="row">
@@ -1435,6 +1427,7 @@
 											</a>
 										</h4>
 									</div>
+									
 									<div id="collapseTwelve" class="panel-collapse collapse ">
 										<div class="box-body">
 										  	<div class="row">
@@ -1478,6 +1471,33 @@
 					</div>
 				</div>
 			</div>
+
+			<div class="panel box box-primary">
+				<div class="box-header with-border">
+					<h4 class="box-title">
+						<a data-toggle="collapse" data-parent="#accordion" href="#collapseThirteen3">
+							PROCESOS ASOCIADOS
+						</a>
+					</h4>
+				</div>
+				<div id="collapseThirteen3" class="panel-collapse collapse">
+					<div class="box-body table-responsive">
+						<table class="table table-hover" id="tablaProcesosAsociados">
+							<thead>
+								<tr>
+									<th>LIQUIDACIÓN</th>
+									<th>PROCESO</th>
+									<th>ESTADO PROCESO</th>	
+								</tr>
+							</thead>
+							<tbody>
+								
+							</tbody>
+						</table>
+				  		
+					</div>
+				</div>
+			</div> 
 			
 		</div><!-- /.box-body -->
 		
@@ -1497,7 +1517,7 @@
                 <div class="row">
                     <div class="col-md-12" >
                         <div class="form-group">
-                            <label>Que quieres hacer?</label>
+                            <label>Qué quieres hacer?</label>
                             <select class="form-control" id="gestionCombo">
                             	<option value="1792">Llamar</option>
                             	<option value="1793">Reunión</option>
@@ -1521,8 +1541,8 @@
                 <div class="row">
                     <div class="col-md-12" >
                         <div class="form-group">
-                            <label>Descripcion</label>
-                            <textarea class="form-control" rows="3" id="txtDescripcion" placeholder="Descripcion"></textarea>
+                            <label>Descripción</label>
+                            <textarea class="form-control" rows="3" id="txtDescripcion" placeholder="Descripción"></textarea>
                         </div>
                     </div>
                 </div>
@@ -1568,7 +1588,7 @@
             	<div class="nav-tabs-custom">
 	                <!-- Tabs within a box -->
 	                <ul class="nav nav-tabs pull-left">
-	              		<li class="active"><a id="tab1" href="#revenue-chart" data-toggle="tab">Que quieres hacer</a></li>
+	              		<li class="active"><a id="tab1" href="#revenue-chart" data-toggle="tab">Qué quieres hacer</a></li>
 	                 	<li><a id="tab2" href="#revenue-chart2" data-toggle="">Localizado o Ilocalizado</a></li>
 	           			<li><a id="tab3" href="#revenue-chart3" data-toggle="">Gestiones</a></li>
 	           			<li><a id="tab4" href="#revenue-chart4" data-toggle="">subgestiones</a></li>
@@ -1783,7 +1803,7 @@
 							echo '<div class="row">
 						  		<div class="col-md-3"><label>Nombre del Deudor</label></div>
 						  		<div class="col-md-3">'.utf8_encode($key->Deudor).'</div>
-						  		<div class="col-md-3"><label>Numero de Identificación</label></div>
+						  		<div class="col-md-3"><label>Número de Identificación</label></div>
 						  		<div class="col-md-3">'.$key->identificacion.'</div>
 						  	</div>
 						  	<div class="row">
@@ -1793,7 +1813,7 @@
 						  	
 						}?>
 					  	<div class="row">
-					  		<div class="col-md-3"><label>Numero de Contrato</label></div>
+					  		<div class="col-md-3"><label>Número de Contrato</label></div>
 					  		<div class="col-md-3" id='simularContrato'></div>
 					  		<div class="col-md-3"><label>Intermediario Financiero</label></div>
 					  		<div class="col-md-3" id="simuladorIntemediario"></div>
@@ -1911,7 +1931,7 @@
 					  		<div class="col-md-6">
 					  			<form class="form-horizontal">
 									<div class="form-group">
-										<label for="inputEmail3" class="col-sm-4 control-label">Numero de Cuotas</label>
+										<label for="inputEmail3" class="col-sm-4 control-label">Número de Cuotas</label>
 										<div class="col-sm-8">
 											<input type="text" class="form-control" value="10" id="txtNumeroCuotas">
 										</div>
@@ -1972,7 +1992,7 @@
 					  	<div class="row">
 					  		<div class="col-md-3"><label>TITULAR DE LA CUENTA</label></div>
 					  		<div class="col-md-3"><label>Fondo Nacional de Garantías S.A.</label></div>
-					  		<div class="col-md-3"><label>NUMERO DE REFERENCIA</label></div>
+					  		<div class="col-md-3"><label>NÚMERO DE REFERENCIA</label></div>
 					  		<div class="col-md-3" id="referenciaCOntratop"></div>
 					  	</div>
 					</div>
@@ -2591,7 +2611,15 @@ var tipoProceso = 0;
 								{ mData: "txtObservaciones" },
 								{ mData: "users" }
 								
-							],
+							],"bJQueryUI": true,
+							"bProcessing": true,
+							"bSort": true,
+							"aaSorting":[[1,"desc"]],
+							"bSortClasses": false,
+							"bDeferRender": true,
+							"sPaginationType": "simple",
+				            "iDisplayLength": 20,
+				            "aLengthMenu": [[20, 40, 60, 100], [20, 40, 60, 100]],
 							"oLanguage": {
 				                "sLengthMenu": "_MENU_ Registros por página",
 				                "sZeroRecords": "0 resultados en el criterio de busqueda",
@@ -2628,15 +2656,14 @@ var tipoProceso = 0;
 							    	});
 							   });
 							},
-							"bJQueryUI": true,
-							"bProcessing": true,
-							"bSort": true,
-							"aaSorting":[[1,"desc"]],
-							"bSortClasses": false,
-							"bDeferRender": true,
-							"sPaginationType": "simple",
-				            "iDisplayLength": 20,
-				            "aLengthMenu": [[20, 40, 60, 100], [20, 40, 60, 100]]
+							"dom": 'Blfrtip',
+		        			"buttons": [{
+			                  extend: 'csv',
+			                  text: 'Excel',
+			                  charset: 'utf-8',
+			                  fieldSeparator : ';',
+			                  extension: '.csv'}]
+							
 				            
 				    });
 					
@@ -2676,6 +2703,15 @@ var tipoProceso = 0;
 								{ mData: "fecha"},
 								{ mData: "Niidea"}
 							],
+							"bJQueryUI": true,
+							"bProcessing": true,
+							"bSort": true,
+							"aaSorting":[[7,"desc"]],
+							"bSortClasses": false,
+							"bDeferRender": true,
+							"sPaginationType": "simple",
+				           	"iDisplayLength": 20,
+				           	"aLengthMenu": [[20, 40, 60, 100], [20, 40, 60, 100]],
 							"oLanguage": {
 				                "sLengthMenu": "_MENU_ Registros por página",
 				                "sZeroRecords": "0 resultados en el criterio de busqueda",
@@ -2711,15 +2747,13 @@ var tipoProceso = 0;
 							    	});
 							   });
 							},
-							"bJQueryUI": true,
-							"bProcessing": true,
-							"bSort": true,
-							"aaSorting":[[7,"desc"]],
-							"bSortClasses": false,
-							"bDeferRender": true,
-							"sPaginationType": "simple",
-				           	"iDisplayLength": 20,
-				           	"aLengthMenu": [[20, 40, 60, 100], [20, 40, 60, 100]]
+							"dom": 'Blfrtip',
+			    			"buttons": [{
+			                  extend: 'csv',
+			                  text: 'Excel',
+			                  charset: 'utf-8',
+			                  fieldSeparator : ';',
+			                  extension: '.csv'}]
 				    });
 				
 	    		}
@@ -2751,6 +2785,15 @@ var tipoProceso = 0;
 							
 								
 							],
+							"bJQueryUI": true,
+							"bProcessing": true,
+							"bSort": true,
+							"aaSorting":[[0,"asc"]],
+							"bSortClasses": false,
+							"bDeferRender": true,
+							"sPaginationType": "simple",
+				            "iDisplayLength": 20,
+				            "aLengthMenu": [[20, 40, 60, 100], [20, 40, 60, 100]],
 							"oLanguage": {
 				                "sLengthMenu": "_MENU_ Registros por página",
 				                "sZeroRecords": "0 resultados en el criterio de busqueda",
@@ -2786,15 +2829,13 @@ var tipoProceso = 0;
 							    	});
 							   });
 							},
-							"bJQueryUI": true,
-							"bProcessing": true,
-							"bSort": true,
-							"aaSorting":[[0,"asc"]],
-							"bSortClasses": false,
-							"bDeferRender": true,
-							"sPaginationType": "simple",
-				            "iDisplayLength": 20,
-				            "aLengthMenu": [[20, 40, 60, 100], [20, 40, 60, 100]]
+							"dom": 'Blfrtip',
+			    			"buttons": [{
+			                  extend: 'csv',
+			                  text: 'Excel',
+			                  charset: 'utf-8',
+			                  fieldSeparator : ';',
+			                  extension: '.csv'}]
 				    });
 	    		}
 	    	});
@@ -2821,6 +2862,14 @@ var tipoProceso = 0;
 								{ mData: "pagare" },
 								{ mData: "vPagado"}
 							],
+							"bJQueryUI": true,
+							"bProcessing": true,
+							"bSort": true,
+							"bSortClasses": false,
+							"bDeferRender": true,
+							"sPaginationType": "simple",
+				           "iDisplayLength": 20,
+				           "aLengthMenu": [[20, 40, 60, 100], [20, 40, 60, 100]],
 							"oLanguage": {
 				                "sLengthMenu": "_MENU_ Registros por página",
 				                "sZeroRecords": "0 resultados en el criterio de busqueda",
@@ -2858,15 +2907,14 @@ var tipoProceso = 0;
 
 					
 							},
-
-							"bJQueryUI": true,
-							"bProcessing": true,
-							"bSort": true,
-							"bSortClasses": false,
-							"bDeferRender": true,
-							"sPaginationType": "simple",
-				           "iDisplayLength": 20,
-				           "aLengthMenu": [[20, 40, 60, 100], [20, 40, 60, 100]]
+							"dom": 'Blfrtip',
+			    			"buttons": [{
+			                  extend: 'csv',
+			                  text: 'Excel',
+			                  charset: 'utf-8',
+			                  fieldSeparator : ';',
+			                  extension: '.csv'}]
+							
 				    });
 	    		}
 	    	});
@@ -2894,6 +2942,13 @@ var tipoProceso = 0;
 								{ mData: "VALOR_DEL_ACUERDO" },
 								{ mData: "PLAZO_ACUERDO_DE_PAGO"}
 							],
+							"bProcessing": true,
+							"bSort": true,
+							"bSortClasses": false,
+							"bDeferRender": true,
+							"sPaginationType": "simple",
+				            "iDisplayLength": 20,
+				            "aLengthMenu": [[20, 40, 60, 100], [20, 40, 60, 100]],
 							"bAutoWidth": false , 
 							"responsive" : true,
 							"oLanguage": {
@@ -2937,13 +2992,13 @@ var tipoProceso = 0;
 							   });
 							},
 							
-							"bProcessing": true,
-							"bSort": true,
-							"bSortClasses": false,
-							"bDeferRender": true,
-							"sPaginationType": "simple",
-				            "iDisplayLength": 20,
-				            "aLengthMenu": [[20, 40, 60, 100], [20, 40, 60, 100]]
+							"dom": 'Blfrtip',
+			    			"buttons": [{
+			                  extend: 'csv',
+			                  text: 'Excel',
+			                  charset: 'utf-8',
+			                  fieldSeparator : ';',
+			                  extension: '.csv'}]
 				    });
   		
 				}
@@ -2975,6 +3030,13 @@ var tipoProceso = 0;
 								{ mData: "FECHA_AUTO_DE_SUBROGACION" },
 								{ mData: "VALOR_FACTURADO_AUTO_DE_SUBROGACION"}
 							],
+							"bProcessing": true,
+							"bSort": true,
+							"bSortClasses": false,
+							"bDeferRender": true,
+							"sPaginationType": "simple",
+				            "iDisplayLength": 20,
+				            "aLengthMenu": [[20, 40, 60, 100], [20, 40, 60, 100]],
 							"bAutoWidth": false , 
 							"responsive" : true,
 							"oLanguage": {
@@ -3017,14 +3079,14 @@ var tipoProceso = 0;
 							    	});
 							   });
 							},
+							"dom": 'Blfrtip',
+			    			"buttons": [{
+			                  extend: 'csv',
+			                  text: 'Excel',
+			                  charset: 'utf-8',
+			                  fieldSeparator : ';',
+			                  extension: '.csv'}]
 							
-							"bProcessing": true,
-							"bSort": true,
-							"bSortClasses": false,
-							"bDeferRender": true,
-							"sPaginationType": "simple",
-				            "iDisplayLength": 20,
-				            "aLengthMenu": [[20, 40, 60, 100], [20, 40, 60, 100]]
 				    });
 	    		}
 	    	});
@@ -3052,6 +3114,13 @@ var tipoProceso = 0;
 								{ mData: "FECHA_DE_FACTURA_SENTENCIA_IRRECUPERABLE" },
 								{ mData: "VALOR_FACTURADO_SENTENCIA_IRRECUPERABLE"}
 							],
+							"bProcessing": true,
+							"bSort": true,
+							"bSortClasses": false,
+							"bDeferRender": true,
+							"sPaginationType": "simple",
+				            "iDisplayLength": 20,
+				            "aLengthMenu": [[20, 40, 60, 100], [20, 40, 60, 100]],
 							"bAutoWidth": false , 
 							"responsive" : true,
 							"oLanguage": {
@@ -3094,14 +3163,14 @@ var tipoProceso = 0;
 							    	});
 							   });
 							},
+							"dom": 'Blfrtip',
+			    			"buttons": [{
+			                  extend: 'csv',
+			                  text: 'Excel',
+			                  charset: 'utf-8',
+			                  fieldSeparator : ';',
+			                  extension: '.csv'}]
 							
-							"bProcessing": true,
-							"bSort": true,
-							"bSortClasses": false,
-							"bDeferRender": true,
-							"sPaginationType": "simple",
-				            "iDisplayLength": 20,
-				            "aLengthMenu": [[20, 40, 60, 100], [20, 40, 60, 100]]
 				    });
 	    		}
 	    	});
@@ -3129,6 +3198,13 @@ var tipoProceso = 0;
 								{ mData: "fechaaprovacion"},
 								{ mData: "valor"}
 							],
+							"bProcessing": true,
+							"bSort": true,
+							"bSortClasses": false,
+							"bDeferRender": true,
+							"sPaginationType": "simple",
+				            "iDisplayLength": 20,
+				            "aLengthMenu": [[20, 40, 60, 100], [20, 40, 60, 100]],
 							"bAutoWidth": false , 
 							"responsive" : true,
 							"oLanguage": {
@@ -3172,13 +3248,13 @@ var tipoProceso = 0;
 							   });
 							},
 							
-							"bProcessing": true,
-							"bSort": true,
-							"bSortClasses": false,
-							"bDeferRender": true,
-							"sPaginationType": "simple",
-				            "iDisplayLength": 20,
-				            "aLengthMenu": [[20, 40, 60, 100], [20, 40, 60, 100]]
+							"dom": 'Blfrtip',
+			    			"buttons": [{
+			                  extend: 'csv',
+			                  text: 'Excel',
+			                  charset: 'utf-8',
+			                  fieldSeparator : ';',
+			                  extension: '.csv'}]
 				    });
 	    		}
 	    	});
@@ -3205,6 +3281,13 @@ var tipoProceso = 0;
 					            { mData: "fecha" },
 								{ mData: "valor"}
 							],
+							"bProcessing": true,
+							"bSort": true,
+							"bSortClasses": false,
+							"bDeferRender": true,
+							"sPaginationType": "simple",
+				            "iDisplayLength": 20,
+				            "aLengthMenu": [[20, 40, 60, 100], [20, 40, 60, 100]],
 							"bAutoWidth": false , 
 							"responsive" : true,
 							"oLanguage": {
@@ -3247,14 +3330,14 @@ var tipoProceso = 0;
 							    	});
 							   });
 							},
+							"dom": 'Blfrtip',
+			    			"buttons": [{
+			                  extend: 'csv',
+			                  text: 'Excel',
+			                  charset: 'utf-8',
+			                  fieldSeparator : ';',
+			                  extension: '.csv'}]
 							
-							"bProcessing": true,
-							"bSort": true,
-							"bSortClasses": false,
-							"bDeferRender": true,
-							"sPaginationType": "simple",
-				            "iDisplayLength": 20,
-				            "aLengthMenu": [[20, 40, 60, 100], [20, 40, 60, 100]]
 				    });
 	    		}
 	    	});
@@ -3443,6 +3526,7 @@ var tipoProceso = 0;
 		},
 
 		dartosadicionales : function (){
+		
 			$.ajax({
 	    		url    : '<?php echo base_url();?>cartera_fng/getdatosAdicionales/<?php echo $idUsuario;?>',
 	    		type   : 'POST',
@@ -3513,9 +3597,13 @@ var tipoProceso = 0;
 						"sPaginationType": "simple",
 			           	"iDisplayLength": 20,
 			           	"aLengthMenu": [[20, 40, 60, 100], [20, 40, 60, 100]],
-			            "dom": 'Bfrtip',
-				        "buttons": [
-				             'excel'
+			            "dom": 'Blfrtip',
+				        "buttons": [{
+			                  extend: 'csv',
+			                  text: 'Excel',
+			                  charset: 'utf-8',
+			                  fieldSeparator : ';',
+			                  extension: '.csv'}
 				        ]
 			    	});
 	    		}
@@ -3524,6 +3612,7 @@ var tipoProceso = 0;
 		},
 
 		datosIniciales : function(){
+echo(<?php echo $idUsuario;?>);
 			$.ajax({
 	    		url    : '<?php echo base_url();?>cartera_fng/getdatosIniciales/<?php echo $idUsuario;?>',
 	    		type   : 'POST',
@@ -3609,10 +3698,13 @@ var tipoProceso = 0;
 						"sPaginationType": "simple",
 			            "iDisplayLength": 20,
 			            "aLengthMenu": [[20, 40, 60, 100], [20, 40, 60, 100]],
-			            "dom": 'Bfrtip',
-				        "buttons": [
-				             'excel'
-				        ]
+			            "dom": 'Blfrtip',
+				        "buttons": [{
+			                  extend: 'csv',
+			                  text: 'Excel',
+			                  charset: 'utf-8',
+			                  fieldSeparator : ';',
+			                  extension: '.csv'}]
 			       	});
 
 			       	fng.asignarDatos(tablaExtraJudicial);
@@ -3620,6 +3712,7 @@ var tipoProceso = 0;
 	    	});
 		},
 
+		
 		asignarDatos :function(tablaExtraJudicial){
 			$.each(tablaExtraJudicial, function(i,item){
 	       		if(tablaExtraJudicial[i].cal_direccionDomicilio != ''){
@@ -3938,13 +4031,72 @@ var tipoProceso = 0;
 				"sPaginationType": "simple",
 	           	"iDisplayLength": 20,
 	           	"aLengthMenu": [[20, 40, 60, 100], [20, 40, 60, 100]],
-	            "dom": 'Bfrtip',
-		        "buttons": [
-		             'excel'
-		        ]
+	            "dom": 'Blfrtip',
+		        "buttons": [{
+			                  extend: 'csv',
+			                  text: 'Excel',
+			                  charset: 'utf-8',
+			                  fieldSeparator : ';',
+			                  extension: '.csv'}]
 	    });
 
+
 		<?php } ?>
+
+		<?php if($procesoAsociado != ''){ ?>
+			$("#tablaProcesosAsociados").DataTable({
+				"aaData": <?php echo $procesoAsociado;?>,
+				"aoColumns": [
+                	{ mData: "liquidacion" },
+					{ mData: "Proceso" },
+					{ mData: "EstadoProceso" },
+					
+				],
+				"oLanguage": {
+	                "sLengthMenu": "_MENU_ Registros por página",
+	                "sZeroRecords": "0 resultados en el criterio de busqueda",
+	                "sInfo": "Mostrando de _START_ a _END_ de _TOTAL_ registros",
+	                "sInfoEmpty": "Mostrando de 0 a 0 de 0 registros",
+	                "sInfoFiltered": "(Filtrado de _MAX_ total registros)",
+	                "sSearch": "Buscar:",
+	                "oPaginate": {
+				        "sNext": ">>",
+				        "sPrevious": "<<"
+			      	}
+	            },
+	            "processing": true,
+	           	"fnRowCallback": function( nRow, aData, iDisplayIndex ) {
+								var id = aData.identificacion;
+								$(nRow).attr("dato",id);
+								$(nRow).attr("class",'trobligacion');
+								return nRow;
+							   print(id);
+							},
+							"fnDrawCallback": function (oSettings, json) {
+							   //Aqui va el comando para activar los otros botones
+							   $(".trobligacion").dblclick(function(){
+									var garantia = $(this).attr('dato').replace(' ', '');
+									window.location.href = "<?php echo base_url();?>/cartera_fng/datosProcesoAsociado/"+garantia;
+							   });
+							},
+				"bJQueryUI": true,
+				"bProcessing": true,
+				"bSort": true,
+				"bSortClasses": false,
+				"bDeferRender": true,
+				"sPaginationType": "simple",
+	           	"iDisplayLength": 20,
+	           	"aLengthMenu": [[20, 40, 60, 100], [20, 40, 60, 100]],
+	            "dom": 'Blfrtip',
+		        "buttons": [{
+			                  extend: 'csv',
+			                  text: 'Excel',
+			                  charset: 'utf-8',
+			                  fieldSeparator : ';',
+			                  extension: '.csv'}]
+	    });
+			<?php } ?>
+		
 		fng.asignarDatos(<?php echo $iniciales;?>);
 
 		$("#tabladatos_Iniciales").DataTable({
@@ -4023,13 +4175,18 @@ var tipoProceso = 0;
 			"sPaginationType": "simple",
            	"iDisplayLength": 20,
            	"aLengthMenu": [[20, 40, 60, 100], [20, 40, 60, 100]],
-            "dom": 'Bfrtip',
-	        "buttons": [
-             	'excel'
-	        ]
+            "dom": 'Blfrtip',
+		        "buttons": [{
+			                  extend: 'csv',
+			                  text: 'Excel',
+			                  charset: 'utf-8',
+			                  fieldSeparator : ';',
+			                  extension: '.csv'}]
+	        
        	});
 
 	    $("#RowContrato td").click(function(){
+	    	
 	    	$("#txtNumeroContrato").html('');
 	    	$("#AsigancionAbogado").html('');
 	    	$("#txtValorPagado").html('');

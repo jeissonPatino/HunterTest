@@ -113,8 +113,9 @@
               <tr>
                 <th>No. Liquidaci&oacute;n</th>
                 <th>Deudor</th>
-                <th>Tipo Identificación</th>
+                 <th>Tipo Identificación</th>
                 <th>Identificación</th>
+               
                 <th>SAP</th>
                 <th>IF</th>
                 <th>Fecha Entrega Soporte</th>
@@ -145,12 +146,12 @@
           datasets: [
             {
               label: "Puebas",
-              fillColor: "rgba(180, 214, 222, 1)",
-              strokeColor: "rgba(210, 214, 222, 1)",
-              pointColor: "rgba(180, 214, 222, 1)",
+              fillColor: "rgba(54, 162, 235)",
+              strokeColor: "rgba(210, 214, 222)",
+              pointColor: "rgba(180, 214, 222)",
               pointStrokeColor: "#c1c7d1",
               pointHighlightFill: "#fff",
-              pointHighlightStroke: "rgba(220,220,220,1)",
+              pointHighlightStroke: "rgba(220,220,220)",
               data: <?php echo $data1;?>
             }
           ]
@@ -161,7 +162,7 @@
           //Boolean - If we should show the scale at all
           showScale: true,
           //Boolean - Whether grid lines are shown across the chart
-          scaleShowGridLines: false,
+          scaleShowGridLines: true,
           //String - Colour of the grid lines
           scaleGridLineColor: "rgba(0,0,0,.05)",
           //Number - Width of the grid lines
@@ -185,7 +186,7 @@
           //Boolean - Whether to show a stroke for datasets
           datasetStroke: true,
           //Number - Pixel width of dataset stroke
-          datasetStrokeWidth: 2,
+          datasetStrokeWidth: 1,
           //Boolean - Whether to fill the dataset with a color
           datasetFill: true,
           //String - A legend template
@@ -221,7 +222,7 @@
           //Number - Pixel width of the bar stroke
           barStrokeWidth: 2,
           //Number - Spacing between each of the X value sets
-          barValueSpacing: 5,
+          barValueSpacing: 95,
           //Number - Spacing between data sets within X values
           barDatasetSpacing: 1,
           //String - A legend template
@@ -241,8 +242,9 @@
                   
                   { mData: "contrato" },
                   { mData: "nombre"},
-                  { mData: "tipo_identificacion"},
+                   { mData: "tipo_identificacion"},
                   { mData: "identificacion"},
+                 
                   { mData: "SAP" },
                   { mData: "ifinanciero" },
                   { mData: "fecha_soprte" },

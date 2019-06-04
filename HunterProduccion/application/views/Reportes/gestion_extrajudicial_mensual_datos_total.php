@@ -129,8 +129,9 @@
               <tr>
                <th>No. Liquidaci&oacute;n</th>
                 <th>Deudor</th>
-                 <th>Tipo Identificaci&oacute;n</th>
-                <th>No. Identificaci&oacute;n</th>
+                <th>Tipo Identificación</th>
+                <th>No. Identificación</th>
+                
                 <th>IF</th>
                 <th>Valor Pagado</th>
                 <th>Gesti&oacute;n</th>
@@ -246,7 +247,7 @@
           //Number - Pixel width of the bar stroke
           barStrokeWidth: 2,
           //Number - Spacing between each of the X value sets
-          barValueSpacing: 5,
+          barValueSpacing: 1,
           //Number - Spacing between data sets within X values
           barDatasetSpacing: 1,
           //String - A legend template
@@ -257,7 +258,7 @@
         };
 
         barChartOptions.datasetFill = false;
-        barChart.Bar(barChartData, barChartOptions);
+        barChart.Bar(barChartData, barChartOptions);  
 /*
         
       var bar = new Morris.Bar({
@@ -291,8 +292,9 @@
               
                 { mData: "contrato" },
                 { mData: "nombre"},
-                { mData: "tipo_identificacion"},
-                  { mData: "identificacion"},
+                 { mData: "tipo_identificacion"},
+                { mData: "identificacion"},
+               
                 { mData: "ifinanciero" },
                 { mData: "valorPagado" },
                 { mData: "gestionado"}

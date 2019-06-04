@@ -5,15 +5,16 @@
 ?>
 
 
-    
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <table class="table table-hover table-bordered" id="tablacontratos">
       <thead>
         <tr>
            <tr>
                 <th>No. Liquidaci&oacute;n</th>
                 <th>Deudor</th>
-                <th>Tipo  Identificaci&oacute;n</th>
+                <th>Tipo Identificaci&oacute;n</th>
                 <th>No. Identificaci&oacute;n</th>
+                
                 <th>SAP</th>
                 <th>IF</th>
                 <th>Valor Pagado</th>
@@ -35,6 +36,7 @@
                     <th>".$todaBase[$i]['nombre']."</th>
                     <th>".$todaBase[$i]['tipo_identificacion']."</th>
                     <th>".$todaBase[$i]['identificacion']."</th>
+                    
                     <th>".$todaBase[$i]['SAP']."</th>
                     <th>".$todaBase[$i]['ifinanciero']."</th>
                     <th>".$todaBase[$i]['valorPagado']."</th>

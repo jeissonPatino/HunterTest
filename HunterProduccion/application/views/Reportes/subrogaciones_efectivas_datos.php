@@ -119,6 +119,7 @@ if ($totalNoCumple < 0){
                 <th>Deudor</th>
                 <th>Tipo Identificación</th>
                 <th>Identificación</th>
+                
                 <th>IF</th>
                 <th>Valor pagado</th>
                 <th>Factura subrogación</th>
@@ -159,12 +160,12 @@ if ($totalNoCumple < 0){
           datasets: [
             {
               label: "Puebas",
-              fillColor: "rgba(180, 214, 222, 1)",
-              strokeColor: "rgba(210, 214, 222, 1)",
-              pointColor: "rgba(180, 214, 222, 1)",
+              fillColor: "rgba(180, 214, 222)",
+              strokeColor: "rgba(210, 214, 222)",
+              pointColor: "rgba(180, 214, 222)",
               pointStrokeColor: "#c1c7d1",
               pointHighlightFill: "#fff",
-              pointHighlightStroke: "rgba(220,220,220,1)",
+              pointHighlightStroke: "rgba(220,220,220)",
               data: <?php echo $data1;?>
             }
           ]
@@ -175,7 +176,7 @@ if ($totalNoCumple < 0){
           //Boolean - If we should show the scale at all
           showScale: true,
           //Boolean - Whether grid lines are shown across the chart
-          scaleShowGridLines: false,
+          scaleShowGridLines: true,
           //String - Colour of the grid lines
           scaleGridLineColor: "rgba(0,0,0,.05)",
           //Number - Width of the grid lines
@@ -199,7 +200,7 @@ if ($totalNoCumple < 0){
           //Boolean - Whether to show a stroke for datasets
           datasetStroke: true,
           //Number - Pixel width of dataset stroke
-          datasetStrokeWidth: 2,
+          datasetStrokeWidth: 1,
           //Boolean - Whether to fill the dataset with a color
           datasetFill: true,
           //String - A legend template
@@ -213,7 +214,7 @@ if ($totalNoCumple < 0){
         var barChartCanvas = $("#barChart").get(0).getContext("2d");
         var barChart = new Chart(barChartCanvas);
         var barChartData = areaChartData;
-        barChartData.datasets[0].fillColor = "#00a65a";
+        //barChartData.datasets[0].fillColor = "#00a65a";
 
         var barChartOptions = {
           //Boolean - Whether the scale should start at zero, or an order of magnitude down from the lowest value
@@ -233,7 +234,7 @@ if ($totalNoCumple < 0){
           //Number - Pixel width of the bar stroke
           barStrokeWidth: 2,
           //Number - Spacing between each of the X value sets
-          barValueSpacing: 5,
+          barValueSpacing: 95,
           //Number - Spacing between data sets within X values
           barDatasetSpacing: 1,
           //String - A legend template
@@ -256,6 +257,7 @@ if ($totalNoCumple < 0){
               { mData: "nombre"},
               { mData: "tipo_identificacion"},
               { mData: "identificacion"},
+              
               { mData: "ifinanciero" },
               { mData: "valorPagado" },
               { mData: "Sub_factura_subrogacion"},

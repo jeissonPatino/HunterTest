@@ -24,7 +24,7 @@
 
 ?>
 
-
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
 <table class="table table-hover table-bordered" id="tablacontratos">
     <thead>
@@ -33,6 +33,7 @@
         <th>Deudor</th>
         <th>Tipo Identificaci&oacute;n</th>
         <th>Identificaci&oacute;n</th>
+        
         <th>SAP</th>
         <th>IF</th>
         <th>Fecha Entrega Soporte</th>
@@ -53,8 +54,9 @@
                     echo "<tr>
                             <td>".$key->contrato."</td>
                             <td>".$deudor."</th>
-                            <td>".$key->tipo_identificacion."</td>
+                             <td>".$key->tipo_identificacion."</td>
                             <td>".$key->identificacion."</td>
+                           
                             <td>".$key->SAP."</td>
                             <td>".utf8_encode($key->intermediario)."</td>
                             <td>".$key->Fecha_recepcion_soporte."</td>

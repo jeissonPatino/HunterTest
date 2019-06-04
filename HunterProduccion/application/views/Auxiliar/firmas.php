@@ -1,6 +1,6 @@
 <section class="content-header">
     <h1>
-      FIRMAS DE ABOGADOS
+     FIRMAS DE ABOGADOS
     </h1>
     <ol class="breadcrumb">
     	<li><a href="<?php echo base_url();?>home">Inicio</a></li>
@@ -63,7 +63,7 @@
 						</div>
 						<div class="form-group">
 							<Label>Correo Electrónico</Label>
-							<input type="text" class="form-control" placeholder="Correo Electronico"  id="correo" name="correo" disabled>
+							<input type="text" class="form-control" placeholder="Correo Electrónico"  id="correo" name="correo" disabled>
 						</div>
 					</form>
 					

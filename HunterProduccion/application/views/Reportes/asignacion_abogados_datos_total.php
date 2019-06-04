@@ -154,6 +154,7 @@
                 <th>Deudor</th>
                 <th>Tipo Identificación</th>
                 <th>No. Identificación</th>
+                
                 <th>IF</th>
                 <th>Valor Pagado</th>
                 <th>Fecha Env&iacute;o Memorial</th>
@@ -221,9 +222,9 @@
             datasets: [
                 {
                     label: "Memoriales enviados",
-                    fillColor: "#0080FF",
-                    strokeColor: "#0080FF",
-                    pointColor: "#0080FF",
+                    fillColor: "rgba(54, 162, 235)",
+                    strokeColor: "rgba(210, 214, 222, 1)",
+                    pointColor: "rgba(180, 214, 222, 1)",
                     pointStrokeColor: "#c1c7d1",
                     pointHighlightFill: "#fff",
                     pointHighlightStroke: "rgba(220,220,220,1)",
@@ -231,42 +232,42 @@
                 },
                 {
                     label: "Memoriales en tiempo",
-                    fillColor: "#B43104",
-                    strokeColor: "#B43104",
-                    pointColor: "#B43104",
+                    fillColor: "rgba(255, 128, 0)",
+                    strokeColor: "rgba(210, 214, 222)",
+                    pointColor: "rgba(180, 214, 222)",
                     pointStrokeColor: "#c1c7d1",
                     pointHighlightFill: "#fff",
-                    pointHighlightStroke: "rgba(220,220,220,1)",
+                    pointHighlightStroke: "rgba(220,220,220)",
                     data: <?php echo $data2;?>
                 },
                 {
                     label: "Memoriales fuera de tiempo",
-                    fillColor: "#31B404",
-                    strokeColor: "#31B404",
-                    pointColor: "#31B404",
+                    fillColor: "rgba(153, 255, 51)",
+                    strokeColor: "rgba(210, 214, 222)",
+                    pointColor: "rgba(180, 214, 222)",
                     pointStrokeColor: "#c1c7d1",
                     pointHighlightFill: "#fff",
-                    pointHighlightStroke: "rgba(220,220,220,1)",
+                    pointHighlightStroke: "rgba(220,220,220)",
                     data: <?php echo $data3;?>
                 },
                 {
                     label: "Sin asignar en tiempo",
-                    fillColor: "#B404AE",
-                    strokeColor: "#B404AE",
-                    pointColor: "#B404AE",
+                    fillColor: "rgba(51, 51, 251)",
+                    strokeColor: "rgba(210, 214, 222)",
+                    pointColor: "rgba(180, 214, 222)",
                     pointStrokeColor: "#c1c7d1",
                     pointHighlightFill: "#fff",
-                    pointHighlightStroke: "rgba(220,220,220,1)",
+                    pointHighlightStroke: "rgba(220,220,220)",
                     data: <?php echo $data4;?>
                 },
                 {
                     label: "Sin asignar fuera de tiempo",
-                    fillColor: "#B404AE",
-                    strokeColor: "#B404AE",
-                    pointColor: "#B404AE",
+                    fillColor: "rgba(255, 255, 51)",
+                    strokeColor: "rgba(210, 214, 222)",
+                    pointColor: "rgba(180, 214, 222)",
                     pointStrokeColor: "#c1c7d1",
                     pointHighlightFill: "#fff",
-                    pointHighlightStroke: "rgba(220,220,220,1)",
+                    pointHighlightStroke: "rgba(220,220,220)",
                     data: <?php echo $data5;?>
                 }
             ]
@@ -296,7 +297,7 @@
           //Boolean - If there is a stroke on each bar
           barShowStroke: true,
           //Number - Pixel width of the bar stroke
-          barStrokeWidth: 2,
+          barStrokeWidth: 1,
           //Number - Spacing between each of the X value sets
           barValueSpacing: 5,
           //Number - Spacing between data sets within X values
@@ -343,6 +344,7 @@
               { mData: "nombre"},
               { mData: "tipo_identificacion"},
               { mData: "identificacion"},
+              
               { mData: "ifinanciero" },
               { mData: "valorPagado" },
               { mData: "Fasignacion"},

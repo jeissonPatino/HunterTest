@@ -3690,10 +3690,10 @@ function exportar_clientessingestionjudicial($filtroFecha){
         if($this->session->userdata('login_ok')){
                       
             $Frgs = $this->Configuraciones_Model->getFrgs();
-            $gestores = $this->Reportes_Model->GetGestores();
-            $datos = array( 'frgs' =>  $Frgs, 'gestores'=>$gestores);
+            #$gestores = $this->Reportes_Model->GetGestores();
+            #$datos = array( 'frgs' =>  $Frgs, 'gestores'=>$gestores);
 
-
+            $datos = array( 'frgs' =>  $Frgs);
             $this->load->view('Includes/head');
             $this->load->view('Includes/header');
             $this->load->view('Includes/sidebar');
@@ -3705,129 +3705,127 @@ function exportar_clientessingestionjudicial($filtroFecha){
         }
 
     }
+	
+	public function getFrgGestoresById(){
+        $datos=array();
+        $gestores = $this->Reportes_Model->GetGestoresByFRG($_POST['codigo']);
+        if (!empty($gestores)) {
+            foreach ($gestores as $key => $val) {
+                $datos[] = array('id' => utf8_decode($val->IdGestor), 'valor' => utf8_encode($val->Gestor));
+            }
+        }
+        return $this->output->set_content_type('application/json')->set_output(json_encode( $datos ));
+    }
+
 
     
-    function getFrgGestores(){
-        
+    public function getFrgGestores(){
         $frgs = $_POST['frg'];
         $idgestores = $_POST['gestores'];
         $fechaInicial = $_POST['fechainicial'];
         $fechaFinal = $_POST['fechafinal'];
 
-      /* $frgs = '2';
-        $idgestores='3429';
-        $fechaInicial='2016-09-07';
-        $fechaFinal ='2016-09-20';*/
+        $partesFecha=explode('-', $_POST['fechainicial']);
+        $fechaInicial = date("Y-m-d H:i:s");
+        if (count($partesFecha)==3) {
+            # La función checkdate() recibe tres parámetros, el mes, el día y el año.
+            if (checkdate($partesFecha[1], $partesFecha[2], $partesFecha[0])) {
+                $fechaInicial = date("Y-m-d H:i:s", strtotime($_POST['fechainicial'].' 00:00:00'));
+            }
+        }
 
-        if( $frgs != NULL && $frgs != '' && $frgs != 0){
+        $partesFecha=explode('-', $_POST['fechafinal']);
+        $fechaFinal = date("Y-m-d H:i:s");
+        if (count($partesFecha)==3) {
+            # La función checkdate() recibe tres parámetros, el mes, el día y el año.
+            if (checkdate($partesFecha[1], $partesFecha[2], $partesFecha[0])) {
+                $fechaFinal = date("Y-m-d H:i:s", strtotime($_POST['fechafinal'].'23:59:59'));
+            }
+        }
 
+
+        if(!empty($frgs) and !empty($idgestores) and !empty($fechaInicial) and !empty($fechaFinal)){
+            
             $arregloFrgGestores = $this->Reportes_Model->getInformeFrgGestion($frgs,$idgestores,$fechaInicial,$fechaFinal);
-            $arreglocantidad = $this->Reportes_Model->getCantidadGestionada($frgs,$idgestores,$fechaInicial,$fechaFinal);
-              $json = array();
-              $i= 0;
-            foreach ($arregloFrgGestores as $key) {
-
-                    $deudor = trim(utf8_encode($key->NombreDeudor));
-                    
-                    $json[$i]['TipoIdentificacion'] = $key->TipoIdentificacion ;
-                    $json[$i]['NumeroId'] = utf8_encode($key->NumeroId);
-                    $json[$i]['NombreDeudor'] =$deudor ;
-                    $json[$i]['NumeroLiquidacion'] = $key->NumeroLiquidacion;
-                    $json[$i]['FechaPagoGarantia'] = $key->FechaPagoGarantia;
-                    $json[$i]['Intermediariofinancero'] = $key->Intermediariofinancero;
-                    $json[$i]['FechaGestion'] = $key->FechaGestion;
-                    $json[$i]['Gestor'] = $key->Gestor;
-                    
-                   $fecha2 = NULL;
-                   $fecha3 = NULL;
-                   if(!is_null($key->FechaPagoGarantia)){
-                        $fecha2 = explode(" ", $key->FechaPagoGarantia)[0];
-                        $fecha2 = explode("-", $fecha2);
-                        $fecha2 = $fecha2[2]."/".$fecha2[1]."/".$fecha2[0];
-                    }
-                    if(!is_null($key->FechaGestion)){
-                        $fecha3 = explode(" ", $key->FechaGestion)[0];
-                        $fecha3 = explode("-", $fecha3);
-                        $fecha3 = $fecha3[2]."/".$fecha3[1]."/".$fecha3[0];
-                    }                   
-                    $json[$i]['FechaPagoGarantia'] =  $fecha2;
-                    $json[$i]['FechaGestion'] =  $fecha3;
-                  $i++;
-              
-            } 
+            if (!empty($arregloFrgGestores)) {
+            $arreglocantidad = array('cantidad' => count($arregloFrgGestores) ,'Gestor' => utf8_encode($arregloFrgGestores[0]->Gestor) );
+            
+            $json = array();
             $i= 0;
-            $json1 = array();
-            foreach ($arreglocantidad as $key) {
 
-                    $json1[$i]['cantidad'] = $key->cantidad;
-                    $json1[$i]['Gestor'] = $key->Gestor;
-                    $i++;
+            foreach ($arregloFrgGestores as $key) {
+                $json[$i]['TipoIdentificacion']     = $key->TipoIdentificacion ;
+                $json[$i]['NumeroId']               = utf8_encode($key->NumeroId);
+                $json[$i]['NombreDeudor']           = trim(utf8_encode($key->NombreDeudor));
+                $json[$i]['NumeroLiquidacion']      = $key->NumeroLiquidacion;
+                $json[$i]['FechaPagoGarantia']      = $key->FechaPagoGarantia;
+                $json[$i]['Intermediariofinancero'] = utf8_encode($key->Intermediariofinancero);
+                $json[$i]['FechaGestion']           = $key->FechaGestion;
+                $json[$i]['Gestor']                 = utf8_encode($key->Gestor);
+                $fecha2 = $fecha3 = NULL;
+                if(!is_null($key->FechaPagoGarantia)){
+                    $fecha2 = explode(" ", $key->FechaPagoGarantia)[0];
+                    $fecha2 = explode("-", $fecha2);
+                    $fecha2 = $fecha2[2]."/".$fecha2[1]."/".$fecha2[0];
+                }
+                if(!is_null($key->FechaGestion)){
+                    $fecha3 = explode(" ", $key->FechaGestion)[0];
+                    $fecha3 = explode("-", $fecha3);
+                    $fecha3 = $fecha3[2]."/".$fecha3[1]."/".$fecha3[0];
+                }                   
+                $json[$i]['FechaPagoGarantia'] =  $fecha2;
+                $json[$i]['FechaGestion'] =  $fecha3;
+                $i++;
             } 
 
-            $datos = array( 'ResultadoFrgGestiones' => json_encode($json), 'ResultadoCantidadGestionada' => json_encode($json1));
+            $infoCantidad[0]=$arreglocantidad;
+            $datos = array( 'ResultadoFrgGestiones' => json_encode($json), 'ResultadoCantidadGestionada' => json_encode($infoCantidad));
 
-            //var_dump(json_encode($json)); 
+											
             $this->load->view('Reportes/InformeGestoresDatos', $datos);
         }
-
-    }
-
-    function ExportarGestores($frgs = null , $idgestores = null ,$fechaInicial = null,  $fechaFinal=null  ){
-
-
-        if( $frgs != NULL && $frgs != '' && $frgs != 0){
-
-            $arregloFrgGestores = $this->Reportes_Model->getInformeFrgGestion($frgs,$idgestores,$fechaInicial,$fechaFinal);
-            $arreglocantidad = $this->Reportes_Model->getCantidadGestionada($frgs,$idgestores,$fechaInicial,$fechaFinal);
-              $json = array();
-              $i= 0;
-            foreach ($arregloFrgGestores as $key) {
-
-                    $deudor = trim(utf8_encode($key->NombreDeudor));
-                    
-                    $json[$i]['TipoIdentificacion'] = $key->TipoIdentificacion ;
-                    $json[$i]['NumeroId'] = utf8_encode($key->NumeroId);
-                    $json[$i]['NombreDeudor'] =$deudor ;
-                    $json[$i]['NumeroLiquidacion'] = $key->NumeroLiquidacion;
-                    $json[$i]['FechaPagoGarantia'] = $key->FechaPagoGarantia;
-                    $json[$i]['Intermediariofinancero'] = $key->Intermediariofinancero;
-                    $json[$i]['FechaGestion'] = $key->FechaGestion;
-                    $json[$i]['Gestor'] = $key->Gestor;
-                    
-                   $fecha2 = NULL;
-                   $fecha3 = NULL;
-                   if(!is_null($key->FechaPagoGarantia)){
-                        $fecha2 = explode(" ", $key->FechaPagoGarantia)[0];
-                        $fecha2 = explode("-", $fecha2);
-                        $fecha2 = $fecha2[2]."/".$fecha2[1]."/".$fecha2[0];
-                    }
-                    if(!is_null($key->FechaGestion)){
-                        $fecha3 = explode(" ", $key->FechaGestion)[0];
-                        $fecha3 = explode("-", $fecha3);
-                        $fecha3 = $fecha3[2]."/".$fecha3[1]."/".$fecha3[0];
-                    }                   
-                    $json[$i]['FechaPagoGarantia'] =  $fecha2;
-                    $json[$i]['FechaGestion'] =  $fecha3;
-                  $i++;
-              
-            } 
-            $i= 0;
-            $json1 = array();
-            foreach ($arreglocantidad as $key) {
-
-                    $json1[$i]['cantidad'] = $key->cantidad;
-                    $json1[$i]['Gestor'] = $key->Gestor;
-                    $i++;
-            } 
-
-            $datos = array( 'ResultadoFrgGestiones' => json_encode($json), 'ResultadoCantidadGestionada' => json_encode($json1));
-
-            //var_dump(json_encode($json)); 
-            $this->load->view('Reportes/ExportarGestores', $datos);
         }
-
     }
 
+    function ExportarGestores($frgs, $idgestores ,$fechaInicial ,  $fechaFinal){
+        $arregloFrgGestores = $this->Reportes_Model->getInformeFrgGestion($frgs,$idgestores,$fechaInicial,$fechaFinal);
+        
+        $arreglocantidad = array('cantidad' => count($arregloFrgGestores) ,'Gestor' =>utf8_encode($arregloFrgGestores[0]->Gestor));
+        $json = array();
+        $i= 0;
+        foreach ($arregloFrgGestores as $key) {
+
+            $json[$i]['TipoIdentificacion'] = $key->TipoIdentificacion ;
+            $json[$i]['NumeroId'] = utf8_encode($key->NumeroId);
+            $json[$i]['NombreDeudor'] = trim(utf8_encode($key->NombreDeudor));
+            $json[$i]['NumeroLiquidacion'] = $key->NumeroLiquidacion;
+            $json[$i]['FechaPagoGarantia'] = $key->FechaPagoGarantia;
+            $json[$i]['Intermediariofinancero'] = utf8_encode($key->Intermediariofinancero);
+            $json[$i]['FechaGestion'] = $key->FechaGestion;
+            $json[$i]['Gestor'] = utf8_encode($key->Gestor);
+            $fecha2 = NULL;
+            $fecha3 = NULL;
+            if(!is_null($key->FechaPagoGarantia)){
+                $fecha2 = explode(" ", $key->FechaPagoGarantia)[0];
+                $fecha2 = explode("-", $fecha2);
+                $fecha2 = $fecha2[2]."/".$fecha2[1]."/".$fecha2[0];
+            }
+            if(!is_null($key->FechaGestion)){
+                $fecha3 = explode(" ", $key->FechaGestion)[0];
+                $fecha3 = explode("-", $fecha3);
+                $fecha3 = $fecha3[2]."/".$fecha3[1]."/".$fecha3[0];
+            }                   
+            $json[$i]['FechaPagoGarantia'] =  $fecha2;
+            $json[$i]['FechaGestion'] =  $fecha3;
+          $i++;
+          
+        } 
+
+            $infoCantidad[0]=$arreglocantidad;
+            $datos = array( 'ResultadoFrgGestiones' => json_encode($json), 'ResultadoCantidadGestionada' => json_encode($infoCantidad));
+
+            $this->load->view('Reportes/ExportarGestores', $datos);
+    }
 
 
     function imprimirPlano2 ($texto){

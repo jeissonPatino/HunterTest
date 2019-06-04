@@ -1,7 +1,7 @@
 <section class="content-header">
     <h1>
         
-        CONFIGURACIÓN - CONCEPTOS Y VALORES A PAGAR
+        CONCEPTOS Y VALORES A PAGAR
     </h1>
     <ol class="breadcrumb">
     	<li><a href="<?php echo base_url();?>home">Inicio</a></li>
@@ -24,13 +24,13 @@
 		    	 		</div>
 		    	 		<div class="col-sm-7">
 		    	 			<label>
-		                      	<input type="radio" name="optionsRadios" id="masivo" value="option1">
+		                      	<input type="checkbox" name="optionsRadios" id="masivo" value="option1">
 		                      		Cargue masivo por excel
 		                    </label>
 		    	 		</div>
 		    	 		<div class="col-sm-4">
 		    	 			<label>
-		                      	<input type="radio" name="optionsRadios" id="unouno" value="option2">
+		                      	<input type="checkbox" name="optionsRadios" id="unouno" value="option2">
 		                  			Uno a uno
 		                    </label>	
 		    	 		</div>

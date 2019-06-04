@@ -1,10 +1,10 @@
 <section class="content-header">
     <h1>
-        ASIGNACIÓN - ABOGADOS
+        ASIGNACIÓN - ABOGADOS 
     </h1>
     <ol class="breadcrumb">
     	<li><a href="<?php echo base_url();?>home">Inicio</a></li>
-        <li class="active">Asignacion - Abogados</li>
+        <li class="active">Asignación - Abogados</li>
     </ol>
 </section>
 
@@ -20,12 +20,12 @@
     	 		
     	 		<div class="col-sm-4">
     	 			<label>
-              	<input type="radio" name="optionsRadios" id="masivo" value="option1">Cargue masivo por excel
+              	<input type="checkbox" name="optionsRadios" id="masivo" value="option1">Cargue masivo por excel
             </label>
     	 		</div>
     	 		<div class="col-sm-4">
     	 			<label>
-              	<input type="radio" name="optionsRadios" id="unouno" value="option2">Uno a uno
+              	<input type="checkbox" name="optionsRadios" id="unouno" value="option2">Uno a uno
             </label>	
     	 		</div>
     	 		<div class="col-sm-4">
@@ -215,7 +215,7 @@
           }
 
           if($("#txtnumeroSap").val().length < 1){
-              alertify.error('Debe escribir el numero del proceso');
+              alertify.error('Debe escribir el número del proceso');
               validador = 1;
           }
 
@@ -237,7 +237,7 @@
                                 alertify.success("Registro guardado!");
                                 otherForm[0].reset();
                             }else if(data == 'NOP'){
-                                alertify.error("El numero SAP no es valido!");
+                                alertify.error("El número SAP no es valido!");
                                // otherForm[0].reset();
                             }
                         }

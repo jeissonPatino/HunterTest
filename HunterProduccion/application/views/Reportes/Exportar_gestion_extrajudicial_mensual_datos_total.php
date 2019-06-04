@@ -3,7 +3,7 @@
     header("Content-type: application/vnd.ms-excel; charset=utf-8");
     header("Content-Disposition: attachment; filename=gestion_extrajudicial_mensual.xls");
 ?>
-
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <table class="table table-hover table-bordered" width="50%">
     <thead>
         <tr>
@@ -19,8 +19,9 @@
       <tr>
         <th>No. Liquidaci&oacute;n</th>
         <th>Deudor</th>
-         <th>Tipo Identificaci&oacute;n</th>
+        <th>Tipo Identificaci&oacute;n</th>
         <th>No. Identificaci&oacute;n</th>
+        
         <th>IF</th>
         <th>Valor Pagado</th>
         <th>Gesti&oacute;n</th>
@@ -34,6 +35,7 @@
                         <td>".$gestiones_deglosado[$i]['nombre']."</td>
                         <td>".$gestiones_deglosado[$i]['tipo_identificacion']."</td>
                         <td>".$gestiones_deglosado[$i]['identificacion']."</td>
+                        
                         <td>".$gestiones_deglosado[$i]['ifinanciero']."</td>
                         <td>".$gestiones_deglosado[$i]['valorPagado']."</td>
                         <td>".$gestiones_deglosado[$i]['gestionado']."</td>

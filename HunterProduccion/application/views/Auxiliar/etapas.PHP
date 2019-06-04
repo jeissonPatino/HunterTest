@@ -61,7 +61,7 @@
 							<input type="text" class="form-control" placeholder="Etapa FNG"  id="etapa" name="etapa" required disabled>
 						</div>
 						<div class="form-group">
-							<Label>Imagen del boton</Label>
+							<Label>Imagen del botón</Label>
 							<input type="file" class="form-control" id="bottonCara" name="bottonCara" disabled>
 							<input type="hidden" id="hidenesto" name="hidenesto" value='0'>
 						</div>

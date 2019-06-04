@@ -1,10 +1,10 @@
 <section class="content-header">
     <h1>
-        Asignación - Abogados
+        ASIGNACIÓN - ABOGADOS
     </h1>
     <ol class="breadcrumb">
     	<li><a href="<?php echo base_url();?>home">Inicio</a></li>
-        <li class="active">Asignacion - Abogados</li>
+        <li class="active">Asignación - Abogados</li>
     </ol>
 </section>
 
@@ -241,7 +241,7 @@
           }
 
           if($("#txtnumeroSap").val().length < 1){
-              alertify.error('Debe escribir el numero del proceso');
+              alertify.error('Debe escribir el número del proceso');
               validador = 1;
           }
 
@@ -249,7 +249,7 @@
               alertify.confirm("¿Esta seguro de esta operación?", function (e) {
                 if (e) {
                     var otherForm = $("#formSOlo");
-                    debugger;
+                    
                     $.ajax({
                         url: '<?php echo base_url(); ?>asignacion/cargueABogados',  
                         type: 'POST',
@@ -257,12 +257,15 @@
 
                         success : function(data){
                             if(data == 1){
+
+                             /* $("#botonSolo").attr('href', '<?php echo base_url();?>asignacion/mandarCorreoAsigancionProcesos/' + $("#txtnumeroSap").val() +"/"+ $("#cmbabogados").val()+"/"+ $("#txtnumeroSap").val());*/
+
                                 alertify.success("Registro guardado!");
                                 otherForm[0].reset();
                                 
                             }else if(data == 'NOP'){
 
-                                alertify.error("El numero SAP no es valido!");
+                                alertify.error("El número SAP no es valido!");
                                // otherForm[0].reset();
                             }
                         }

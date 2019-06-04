@@ -8,10 +8,11 @@ class Asignacion extends CI_Controller {
 
         parent::__construct();
 
+        
         $this->load->model('Configuraciones_Model');
         $this->load->model('Wizard_Model');
 		$this->load->model('Obligaciones_Model');
-     
+
 
 
     }
@@ -147,17 +148,14 @@ class Asignacion extends CI_Controller {
     }
 
 
-    function completarZerosProcesoSAP($proceso){
-        $totalCaracteres =strlen($proceso);
-        $zerosConcat = 0;
-        
-        if ($totalCaracteres >= 8) return $proceso;
-        else{
-            $zerosConcat =  10 - $totalCaracteres;
-            for ($i = 0; $i < $zerosConcat; $i++) $proceso = '0'.$proceso;
+    public function completarZerosProcesoSAP( $proceso ){
+        if ( strlen($proceso)>=7 ) {
+            return $proceso;
+        }else{
+            return str_pad(trim($proceso), 10, '0', STR_PAD_LEFT);
         }
-        return $proceso;
     }
+
 
 
     function cargueABogados(){
@@ -166,7 +164,7 @@ class Asignacion extends CI_Controller {
             $this->load->library('excel');
             date_default_timezone_set('America/Bogota');
             $fechaIngreso =  date("Y-m-d H:i:s");
-            $filtro = $_POST['filtro'];
+            $filtro = $_POST['filtro']; 
             $abogado = $_POST['cmbAbogados'];
             $sap = $_POST['txtnumeroSap'];
             $proceso = $this->completarZerosProcesoSAP($sap);
@@ -407,7 +405,7 @@ public function gestoresAux() {
 
     public function frgAux() {
         $data = array('title' => 'Frg Aux');
-        $this->load->view('Includes/head', $data);
+        $this->load->view('Includes/head', $data); 
         $this->load->view('Includes/header');
         $this->load->view('Includes/sidebar');
         $this->load->view('Asignacion/frgAux');
@@ -511,135 +509,6 @@ public function gestoresAux() {
 
     }
 
-    
-
-    function mandarCorreo($sap, $abogado){
-        $this->load->library('My_PHPMailer');
-        $this->db->select(' G717_C17240 as Deudor, G717_C17005 as identificacion,
-                            G717_C17006 as TelefonoD, G717_C17008 as TelefonoO,
-                            G737_C17182 As No_CONTRATO,  
-                            G737_C17183 AS ROL ,
-                            G719_C17423 as OBLIGACION,
-                            G719_C17039 as SAP,  
-                            G733_C17132 as Despacho,
-                            G718_C17015 as ciudaddespacho,
-                            G719_C17043 as radicado,
-                            G729_C17121 as frg');
-        $this->db->from('G717');
-    
-        $this->db->join('G737', 'G717_ConsInte__b = G737_C17181');
-        $this->db->join('G719', 'G719_ConsInte__b = G737_C17182');
-        $this->db->join('G718', 'G718_ConsInte__b = G719_C17041', 'LEFT');
-        $this->db->join('G733', 'G733_ConsInte__b = G719_C17040', 'LEFT');
-        $this->db->join('G729', 'G729_ConsInte__b = G719_C17029', 'LEFT');
-        $this->db->where('G719_C17039', $sap);
-        $query  = $this->db->get();
-        $usuarios = '';
-        $resultados = $query->result();
-        $i = 1;
-        $frg = '';
-        foreach ($resultados as $key ) {
-            $frg = $key->frg;
-            $usuarios .= "<p>".$i.". ".utf8_encode($key->Deudor)." identificado con C.C. / NIT. ".$key->identificacion.", ".utf8_encode($key->Despacho)." de ".utf8_encode($key->ciudaddespacho).", expediente No. ".$key->radicado.", con No. de  proceso SAP ".$key->SAP.".</p>";
-            $i++;
-        }
-
-     
-
-        $abogados = $this->Configuraciones_Model->getAbogadoById($abogado);
-        $correo = NULL;
-        $nombre = NULL;
-        foreach ($abogados as $key) {
-            if(!is_null($key->correo)){
-                $correo = $key->correo;
-                $nombre = utf8_encode($key->Nombre);
-            }
-        }
-
-$NewCorreo = '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-        <title>Alertas Hunter</title>
-    </head>
-    <body>
-        <div style="width: 640px; font-family: Arial, Helvetica, sans-serif; font-size: 12px;text-align:justify;">
-            <h4>Estimado(a) Dr.(a). '.$nombre.' </h4>
-            
-            <p> 
-             El FNG le recuerda que tiene un plazo de 25 días para radicar el memorial de subrogación de el (los) cliente (s) que se relacionan a continuación, contados a partir de la fecha de recibo de este mensaje. En el evento en que no reciba el (los) memorial (es) de subrogación, le solicitamos ponerse en contacto con el '. $frg .'.
-            </p>
-            <p style="text-align:center;"> 
-                '.$usuarios.'
-            </p>
-            <P>
-                Le solicitamos presentar este documento en el menor tiempo posible, debido a que para el FNG es indispensable estar reconocido dentro del proceso como acreedor subrogatario. Recuerde que la radicación oportuna del memorial de subrogación es una manera de medir su gestión como abogado del FNG.  
-            </P>
-            <p>
-                Cordialmente,
-            </p>
-            </br>
-            <p>
-                Subdirección de Procesos Judiciales</br>
-                <b>FONDO NACIONAL DE GARANTÍAS S.A - FNG</b></br>
-                Calle 26 A No. 13-97 Piso 25</br>
-                Bogotá D.C. - Colombia</br>
-                www.fng.gov.co
-            </p>
-            </br>
-            </br>
-            <p>
-                MANEJO Y PROTECCIÓN DE DATOS PERSONALES - Este mensaje (incluyendo cualquier archivo adjunto) se dirige exclusivamente a su destinatario y contiene información personal confidencial y/o privilegiada que se encuentra protegida por la Ley. En consecuencia, la información aquí contenida sólo puede ser utilizada por la persona o compañía a la cual está dirigido. Si ha recibido este mensaje por error, por favor comuníquese inmediatamente con nosotros por esta misma vía y proceda a su eliminación. Recuerde que los datos personales aquí contenidos pertenecen a cada uno de sus Titulares y/o al Fondo Nacional de Garantías S.A. - FNG, y que su Tratamiento sólo se encuentra legitimado si se cuenta con autorización para un Responsable determinado y con unas finalidades previamente informadas a éste. En consecuencia queda prohibido su Tratamiento y cesión so pena de sanciones civiles, administrativas, e incluso penales. Finalmente, señalamos que es responsabilidad del destinatario protegerse de la existencia de posibles virus informáticos que pudiera llegar a tener el correo o cualquier anexo a él, razón por la cual el FNG no aceptará responsabilidad alguna por daños causados por cualquier virus transmitido en este correo.
-            </p>
-        </div>
-    </body>
-</html>';
-        if(!is_null($correo)){
-            $Newmail = new PHPMailer;
-            //Tell PHPMailer to use SMTP
-            $Newmail->isSMTP();
-            //Enable SMTP debugging
-            // 0 = off (for production use)
-            // 1 = client messages
-            // 2 = client and server messages
-            $Newmail->SMTPDebug = 0;
-            //Newmail for HTML-friendly debug output
-            $Newmail->Debugoutput = 'html';
-            //Set the hostname of the mail server
-            $Newmail->Host = "192.168.1.122";
-            //Set the SMTP port number - likely to be 25, 465 or 587
-            $Newmail->Port = 25;
-            //Whether to use SMTP authentication
-            $Newmail->SMTPAuth = false;
-            //Username to use for SMTP authentication
-            $Newmail->Username = "alertas.hunter@fng.gov.co";
-            //Password to use for SMTP authentication
-            $Newmail->Password = "abcd$1234";
-            //Set who the message is to be sent from
-            $Newmail->setFrom('alertas.hunter@fng.gov.co', 'Alertas Hunter');
-            //Set an alternative reply-to address
-           //ssssss $Newmail->addReplyTo('angelica.agudelo@fng.gov.co', 'Angelica Agudelo');
-            //Set who the message is to be sent to
-            $Newmail->addAddress($correo, $nombre);
-            //Set the subject line
-            
-
-            $Newmail->Subject = 'ALERTAS HUNTER - ASIGNACIÓN  DE ABOGADOS';
-            //Read an HTML message body from an external file, convert referenced images to embedded,
-            //convert HTML into a basic plain-text alternative body
-            $Newmail->msgHTML($NewCorreo);
-            //Replace the plain text body with one created manually
-            $Newmail->AltBody = '“Antes de imprimir este e-mail, evalúa si realmente es necesario hacerlo. ¡Cuidemos el ambiente!”';
-            //Attach an image file
-            //$mail->addAttachment('examples/images/phpmailer_mini.png');
-            $Newmail->CharSet = 'UTF-8';
-            //send the message, check for errors
-            if (!$Newmail->send()) {
-                echo "Mailer Error A diana: " . $Newmail->ErrorInfo;
-            }
-
-        }
-    }
 
     function envioCorreoMaxibo($usuarios, $abogado, $frg){
          $this->load->library('My_PHPMailer');
@@ -899,7 +768,7 @@ $NewCorreo = '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "ht
         return $n_div;
 
     }
-
+    
 }
 
 ?>

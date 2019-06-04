@@ -350,7 +350,7 @@ class SMTP
         // Begin encrypted connection
         if (!stream_socket_enable_crypto(
             $this->smtp_conn,
-            true,
+            false,
             $crypto_method
         )) {
             return false;

@@ -1,6 +1,6 @@
 <section class="content-header">
     <h1>
-        CONFIGURACION - ELIMINAR FACTURAS
+         ELIMINAR FACTURAS
     </h1>
     <ol class="breadcrumb">
     	<li><a href="<?php echo base_url();?>home">Inicio</a></li>
@@ -20,12 +20,12 @@
                 
                 <div class="col-sm-4">
                     <label>
-                <input type="radio" name="optionsRadios" id="masivo" value="option1">Eliminación masiva por excel
+                <input type="checkbox" name="optionsRadios" id="masivo" value="option1">Eliminación masiva por excel
             </label>
                 </div>
                 <div class="col-sm-4">
                     <label>
-                <input type="radio" name="optionsRadios" id="unouno" value="option2">Uno a uno
+                <input type="checkbox" name="optionsRadios" id="unouno" value="option2">Uno a uno
             </label>    
                 </div>
                 <div class="col-sm-4">
@@ -221,7 +221,7 @@
           }
 
           if($("#txtnumeroSap").val().length < 1){
-              alertify.error('Debe escribir el numero de la factura');
+              alertify.error('Debe escribir el número de la factura');
               validador = 1;
           }
 
@@ -239,7 +239,7 @@
                                 alertify.success("Registro eliminado!");
                                 otherForm[0].reset();
                             }else if(data == 'NOP'){
-                                alertify.error("El numero de factura no es valido!");
+                                alertify.error("El número de factura no es valido!");
                                // otherForm[0].reset();
                             }
                         }

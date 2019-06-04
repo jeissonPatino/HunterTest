@@ -1,6 +1,6 @@
 <section class="content-header">
     <h1>
-        CONFIGURACIÓN F. DEVOLUCIÓN M. SUBROGACIÓN FRG
+        Configuración F. Devolución M. Subrogación FRG
     </h1>
     <ol class="breadcrumb">
     	<li><a href="<?php echo base_url();?>home">Inicio</a></li>
@@ -20,12 +20,12 @@
     	 		</div>
     	 		<div class="col-sm-4">
     	 			<label>
-              	<input type="radio" name="optionsRadios" id="masivo" value="option1">Cargue masivo por excel
+              	<input type="checkbox" name="optionsRadios" id="masivo" value="option1">Cargue masivo por excel
             </label>
     	 		</div>
     	 		<div class="col-sm-4">
     	 			<label>
-              	<input type="radio" name="optionsRadios" id="unouno" value="option2">Uno a uno
+              	<input type="checkbox" name="optionsRadios" id="unouno" value="option2">Uno a uno
             </label>	
     	 		</div>
     	 		<div class="col-sm-2">
@@ -144,7 +144,7 @@
          var validador = 0;
           
           if($("#txtnumeroSap").val().length < 1){
-              alertify.error('Debe escribir el numero de liquidacion');
+              alertify.error('Debe escribir el número de liquidacion');
               validador = 1;
           }
 

@@ -1,6 +1,6 @@
 <section class="content-header">
     <h1>
-        configuracion -  Log Eliminación 
+        CONFIGURACIÓN - LOG ELIMINACIÓN 
     </h1>
     <ol class="breadcrumb">
     	<li><a href="<?php echo base_url();?>home">Inicio</a></li>
@@ -18,7 +18,7 @@
 				<div class="form-group">
 					<label>Fecha inicial:</label>
 					<div class="input-group">
-						<input type="text" class="form-control pull-right" placeholder="Fecha inicial" id="reservation">
+						<input type="text" class="form-control pull-right" placeholder="Fecha inicial" id="reservation" readonly="readonly">
 					</div><!-- /.input group -->
 				</div><!-- /.form group -->
 			</div>	
@@ -26,7 +26,7 @@
 				<div class="form-group">
 					<label>Fecha final:</label>
 					<div class="input-group">
-						<input type="text" class="form-control pull-right" placeholder="Fecha final" id="reservationfinal">
+						<input type="text" class="form-control pull-right" placeholder="Fecha final" id="reservationfinal" readonly="readonly">
 					</div><!-- /.input group -->
 				</div><!-- /.form group -->
 			</div>

@@ -4,7 +4,7 @@
     </h1>
     <ol class="breadcrumb">
     	<li><a href="<?php echo base_url();?>home">Inicio</a></li>
-    	<li><a href="<?php echo base_url();?>cartera_fng">Cartera Fng</a></li>
+    	<li><a href="<?php echo base_url();?>Extrajudicial">Cartera Fng</a></li>
         <li class="active">Cartera Fng - Clientes sin gestión por más de 15 días</li>
     </ol>
 </section>
@@ -26,8 +26,8 @@
 				<thead>
 					<tr>
 						<th style="text-align:center;" class="col-md-3">Nombre</th>
-						<th class="col-md-2" style="text-align:center;">Tipo Identificación</th>
-						<th class="col-md-2" style="text-align:center;">Identificación</th>
+						<th style="text-align:center;">Tipo Identificación</th>
+						<th style="text-align:center;">No. Identificación</th>
 						<th style="text-align:center;" class="col-md-3">Intermediario Financiero</th>
 						<th style="text-align:center;">No. Liquidación</th>
 						<th style="text-align:center;">Valor Pagado</th>
@@ -52,7 +52,7 @@
 			"aoColumns": [
 				
 				{ mData: "deudor" },
-				{ mData: "tipo_identificacion" },
+					{ mData: "tipo_identificacion" },
 				{ mData: "identificacion" },
 				{ mData: "financiera"},
 				{ mData: "contrato" },

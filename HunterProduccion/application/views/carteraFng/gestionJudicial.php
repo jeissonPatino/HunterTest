@@ -43,13 +43,10 @@
                 </div>
                 <div class="col-md-1">
                     &nbsp;
-                </div>
+                </div>  
         	</div>
         	<br>
-        	<div  class="row">
-                
-
-        	</div>  
+        	
              </br></br></br> 	 
     	</div><!-- /.box-body -->
   	</div><!-- /.box -->

@@ -4,7 +4,7 @@
     header("Content-Disposition: attachment; filename=reporteSoporteCisa.xls");
     
 ?>
-
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <table class="table table-hover table-bordered" id="tablacontratos">
     <thead>
         <tr>
@@ -12,6 +12,7 @@
         <th>Deudor</th>
         <th>Tipo Identificaci&oacute;n</th>
         <th>Identificaci&oacute;n</th>
+        
         <th>SAP</th>
         <th>IF</th>
         <th>Fecha Entrega Soporte</th>
@@ -27,8 +28,9 @@
                     echo "<tr>
                             <td>".$gestiones_deglosado[$i]['contrato']."</td>
                             <td>".$deudor."</th>
-                            <td>".$key->tipo_identificacion."</td>
-                            <td>".$key->identificacion."</td>
+                             <td>".$gestiones_deglosado[$i]['tipo_identificacion']."</td>
+                            <td>".$gestiones_deglosado[$i]['identificacion']."</td>
+                           
                             <td>".$gestiones_deglosado[$i]['SAP']."</td>
                             <td>".utf8_encode($gestiones_deglosado[$i]['ifinanciero'])."</td>
                             <td>".$gestiones_deglosado[$i]['fecha_soprte']."</td>

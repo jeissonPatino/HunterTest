@@ -2,6 +2,7 @@
     header("Content-type: application/vnd.ms-excel; charset=utf-8");
     header("Content-Disposition: attachment; filename=Subrogaciones_efectivas".$fechas.".xls");
 ?>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
 <table class="table table-hover table-bordered" width="50%">
     <thead>
@@ -71,8 +72,9 @@
         <tr>
             <th>No. Liquidaci&oacute;n</th>
             <th>Deudor</th>
-            <th>Tipo Identificaci&oacute;n</th>
+             <th>Tipo Identificaci&oacute;n</th>
             <th>No. Identificaci&oacute;n</th>
+           
             <th>IF</th>
             <th>Valor pagado</th>
             <th>Factura subrogaci&oacute;n</th>
@@ -88,8 +90,9 @@
                     echo " <tr>
                             <td>".$Contratos[$i]['contrato']."</td>
                             <td>".$Contratos[$i]['nombre']."</td>
-                            <td>".$Contratos[$i]['tipo_identificacion']."</td>
+                             <td>".$Contratos[$i]['tipo_identificacion']."</td>
                             <td>".$Contratos[$i]['identificacion']."</td>
+                           
                             <td>".$Contratos[$i]['ifinanciero']."</td>
                             <td>".$Contratos[$i]['valorPagado']."</td>
                             <td>".$Contratos[$i]['Sub_factura_subrogacion']."</td>

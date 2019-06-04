@@ -24,6 +24,7 @@
       
     }
 ?>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
  <table class="table table-hover table-bordered" width="50%">
     <thead>
         <tr>
@@ -95,6 +96,7 @@
           <th>Deudor</th>
           <th>Tipo Identificaci&oacute;n</th>
           <th>No. Identificaci&oacute;n</th>
+          
           <th>IF</th>
           <th>Valor pagado</th>
           <th>Factura subrogaci&oacute;n</th>
@@ -112,8 +114,9 @@
                     echo "<tr>
                         <td>".$key->contrato."</td>
                         <td>".utf8_encode($key->nombre)."</td>
-                         <td>".$key->tipo_identificacion."</td>
+                        <td>".$key->tipo_identificacion."</td>
                         <td>".$key->identificacion."</td>
+                         
                         <td>".utf8_encode($key->intermediario)."</td>
                         <td>"."$ ".number_format($key->Vlorpagado, 0, ',','.')."</td>
                         <td>".$key->Sub_factura_subrogacion."</td>

@@ -1,6 +1,6 @@
 <section class="content-header">
     <h1>
-        Usuarios
+       USUARIOS
     </h1>
     <ol class="breadcrumb">
     	<li><a href="<?php echo base_url();?>home">Inicio</a></li>
@@ -81,6 +81,25 @@
 						<div class="form-group">
 							<Label>Repetir Contraseña</Label>
 							<input type="password" class="form-control" placeholder="Repetir Contraseña"  id="txPasswordR" name="txPasswordR" required disabled>
+						</div>
+						<!-- (JAPR) Se agrega el check box para el envio de correos -->
+						<h3 class="box-title">Envio Correo</h3>
+						<div class="box">
+							<div class="box-header">
+								<h3 class="box-title">Supervisores FRG</h3>
+							</div>
+							<div class="box-body">
+								<div class="row">
+									<div class="col-lg-6">
+										<div class="checkbox">
+											<label>
+												<input type="checkbox" name="EnvioCorreo" disabled value="1">
+												Abogado Supervisor FRG
+											</label>
+										</div>
+									</div>
+								</div>
+							</div>
 						</div>
 						<h3 class="box-title">Permisos</h3>
 						<div class="box">
@@ -467,7 +486,7 @@
 												<div class="checkbox">
 													<label>
 														<input type="checkbox" name="reporte_7" disabled value="1">
-														Reporte de medidas cautelares prácticadas
+														Reporte de medidas cautelares practicadas
 													</label>
 												</div>
 												
@@ -600,6 +619,8 @@
 			$("#txPassword").prop('disabled', false);
 			$("#txPasswordR").prop('disabled', false);
 
+
+			$('input[name=EnvioCorreo]').prop('disabled', false);
 			$('input[name=abogados]').prop('disabled', false);
 			$('input[name=gestores]').prop('disabled', false);
 			$('input[name=abogadosC]').prop('disabled', false);
@@ -681,7 +702,7 @@
 				$("#selFrg").prop('disabled', true);	
 			}
 			
-
+			$('input[name=EnvioCorreo]').prop('disabled', false);
 			$('input[name=abogados]').prop('disabled', false);
 			$('input[name=gestores]').prop('disabled', false);
 			$('input[name=abogadosC]').prop('disabled', false);
@@ -756,6 +777,8 @@
 			$("#txPassword").prop('disabled', true);
 			$("#txPasswordR").prop('disabled', true);
 			$("#selFrg").prop('disabled', true);
+
+			$('input[name=EnvioCorreo]').prop('disabled', true);
 			$('input[name=abogados]').prop('disabled', true);
 			$('input[name=gestores]').prop('disabled', true);
 			$('input[name=abogadosC]').prop('disabled', true);
@@ -817,6 +840,8 @@
 			$("#txPasswordR").val('');
 			$("#selFrg").val('');
 
+
+			$('input[name=EnvioCorreo]').prop('disabled', false);
 			$('input[name=abogados]').prop('checked', false);
 			$('input[name=gestores]').prop('checked', false);
 			$('input[name=abogadosC]').prop('checked', false);
@@ -1023,6 +1048,11 @@
 
                 if(data[0].EliminarGestores == '1'){
                 	$('input[name=EliminarGestores_EliminarAbogados]').attr('checked', true);
+                }
+
+
+                if(data[0].EnvioCorreo == '1'){
+                	$('input[name=EnvioCorreo]').attr('checked', true);
                 }
 
                 if(data[0].Logeliminacion == '1'){

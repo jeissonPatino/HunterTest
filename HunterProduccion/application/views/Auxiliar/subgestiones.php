@@ -1,6 +1,6 @@
 <section class="content-header">
     <h1>
-        SUBGESTIONES
+       SUBGESTIONES
     </h1>
     <ol class="breadcrumb">
     	<li><a href="<?php echo base_url();?>home">Inicio</a></li>

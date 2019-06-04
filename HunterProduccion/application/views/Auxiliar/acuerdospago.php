@@ -62,7 +62,7 @@
 								</div>
 								<div class="form-group">
 									<Label >Fecha de pago de la última cuota</Label>
-									<input type="text" class="form-control datemask" placeholder="Fecha de pago de la última cuota"  id="FechaPagoUltimaCuota" name="FechaPagoUltimaCuota" required disabled>
+									<input type="text" class="form-control datemask" placeholder="Fecha de pago de la última cuota"  id="FechaPagoUltimaCuota" name="FechaPagoUltimaCuota"  disabled>
 								</div>
 							</div>
 							<div class="col-md-6">
@@ -80,11 +80,11 @@
 								</div>
 								<div class="form-group">
 									<Label>Fecha de pago de la primera cuota</Label>
-									<input type="text" class="form-control datemask" placeholder="Fecha de pago de la primera cuota"  id="FechaPrimeraCuoota" name="FechaPrimeraCuoota" required disabled>
+									<input type="text" class="form-control datemask" placeholder="Fecha de pago de la primera cuota"  id="FechaPrimeraCuoota" name="FechaPrimeraCuoota"  disabled>
 								</div>
 								<div class="form-group">
 									<Label>Taza de interés corriente %</Label>
-									<input type="text" class="form-control" placeholder="Taza de interés corriente %"  id="TazaInteres" name="TazaInteres" required disabled>
+									<input type="text" class="form-control" placeholder="Taza de interés corriente %"  id="TazaInteres" name="TazaInteres"  disabled>
 								</div>
 							</div>
 						</div>
@@ -308,7 +308,7 @@
 				if(data.length > 0){
 					getdatos(data, id);
 				}else{
-					alertify.error('Ese numero de contrato no existe');
+					alertify.error('Ese número de contrato no existe');
 				}
 			}
 		});
@@ -322,9 +322,9 @@
 			success : function(data){
 				if(data.length > 0){
 					$("#NumeroContrato").val(data);
-					alertify.success('Numero de contrato Valido!');
+					alertify.success('Número de contrato Valido!');
 				}else{
-					alertify.error('Ese numero de contrato no existe');
+					alertify.error('Ese número de contrato no existe');
 				}
 			}
 		});

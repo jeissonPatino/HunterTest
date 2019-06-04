@@ -80,7 +80,6 @@ class CI_Controller {
 		log_message('info', 'Controller Class Initialized');
 	}
 
-	
 	// --------------------------------------------------------------------
 
 	/**
@@ -92,25 +91,6 @@ class CI_Controller {
 	public static function &get_instance()
 	{
 		return self::$instance;
-	}
-
-	public  function guardarLogDS($MensajeP){
-		$nombre_archivo = "logsDaniel.txt"; 
-	 
-	    
-	    if($archivo = fopen($nombre_archivo, "a"))
-	    {
-	        if(fwrite($archivo," ". $MensajeP. "\n"))
-	        {
-	            return "Se ha ejecutado correctamente";
-	        }
-	        else
-	        {
-	            return "Ha habido un problema al crear el archivo";
-	        }
-	 
-	        fclose($archivo);
-	    }
 	}
 
 }

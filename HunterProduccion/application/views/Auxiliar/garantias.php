@@ -1,6 +1,6 @@
 <section class="content-header">
     <h1>
-        GARANTIAS Y PAGARÉS
+        GARANTÍAS Y PAGARÉS
     </h1>
     <ol class="breadcrumb">
     	<li><a href="<?php echo base_url();?>home">Inicio</a></li>
@@ -229,7 +229,7 @@
 		$("#Save").click(function(){
 			var form = $("#FrmAbogados");
 			if($("#NumeroCon").val() == '0'){
-				alert("Por favor revisa el numero de contrato, valida que se este sea valido!");
+				alert("Por favor revisa el número de contrato, valida que se este sea valido!");
 				$("#NumeroContratoTex").focus();
 			}else{
 				if(form.valid()){
@@ -294,9 +294,9 @@
 				if(data.length > 0){
 					$("#NumeroCon").val(data);
 					$("#btnFiltrar2").prop('disabled', true);
-					alertify.success('Numero de contrato Valido!');
+					alertify.success('Número de contrato Valido!');
 				}else{
-					alertify.error('Ese numero de contrato no existe');
+					alertify.error('Ese número de contrato no existe');
 				}
 			}
 		});

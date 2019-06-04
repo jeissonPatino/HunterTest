@@ -2,13 +2,14 @@
 	header("Content-type: application/vnd.ms-excel; charset=utf-8");
     header("Content-Disposition: attachment; filename=HistoricoMedidas.xls");
 ?>
-
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <table>
 	<thead>
 		<tr>
 			<th style="text-align:center;">Nombre Deudor</th>
 			<th style="text-align:center;">Tipo Identificaci&oacute;n</th>
 			<th style="text-align:center;">No. Identificaci&oacute;n</th>
+			
 			<th style="text-align:center;">Proceso SAP</th>
 			<th style="text-align:center;">IF</th>
 			<th style="text-align:center;">Valor Pagado</th>
@@ -30,7 +31,7 @@
       	?>  
       		<TR>
       			<td style="text-align:center;"><?php echo $deudor;?></td>
-				<td style="text-align:center;"><?php echo $key->tipo_identificacion;?></td>
+      			<td style="text-align:center;"><?php echo $key->tipo_identificacion;?></td>
 				<td style="text-align:center;"><?php echo $key->identificacion;?></td>
 				<td style="text-align:center;"><?php echo $key->SAP; ?></td>
 				<td style="text-align:center;"><?php echo utf8_encode($key->financiero); ?></td>

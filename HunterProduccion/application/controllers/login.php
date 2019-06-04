@@ -7,6 +7,7 @@ class Login extends CI_Controller {
     {
         parent::__construct();
 	$this->load->model('autenticacion_model');
+
     }
     
     public function index()
@@ -14,8 +15,10 @@ class Login extends CI_Controller {
 
         if($this->session->userdata('login_ok')){
             redirect('home', 'refresh');
+            $this->load->controllers('asignacion/envioCorreoIlocalizado');
         }else{
             $this->load->view('Login/login');
+
         }
     }
 
@@ -91,6 +94,7 @@ class Login extends CI_Controller {
                                             );  
                     }			
                     $this->session->set_userdata($datasession);
+
                     //echo "logueado";
                     redirect('home', 'refresh');
                     

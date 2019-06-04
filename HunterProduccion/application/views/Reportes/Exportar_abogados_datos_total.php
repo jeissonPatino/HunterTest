@@ -17,15 +17,15 @@
     }
 
 ?>
-
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <table class="table table-hover table-bordered" id="tablacontratos">
     <thead>
       	<tr>
 			<th>No. Liquidaci&oacute;n</th>
 			<th>IF</th>
 			<th>Deudor</th>
-			<th>Tipo Identificaci&oacute;n</th>
-            <th>No. Identificaci&oacute;n</th>
+            <th>Tipo Identificaci&oacute;n</th>
+			<th>No. Identificaci&oacute;n</th>
 			
 			<th>Valor Pagado</th>
             <th>Fecha Env&iacute;o Memorial</th>
@@ -121,6 +121,7 @@
                             <th>".$deudor."</th>
                              <th>".$key->tipo_identificacion."</th>
                             <th>".$key->identificacion."</th>
+                           
                             <th>$ ".sanear_string($key->Vlorpagado, 0, ',','.')."</th>
                             <th>".$fecha2."</th>
                             <th>".$fecha1."</th>

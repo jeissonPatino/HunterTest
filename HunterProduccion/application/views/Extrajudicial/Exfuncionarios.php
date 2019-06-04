@@ -4,8 +4,7 @@
     </h1>
     <ol class="breadcrumb">
     	<li><a href="<?php echo base_url();?>home">Inicio</a></li>
-    	<li><a href="<?php echo base_url();?>cartera_fng">Cartera Fng</a></li>
-        <li class="active">Cartera Fng - Cartera exfuncionario</li>
+        <li class="active">Cartera Fng - Cartera exfuncionarios</li>
     </ol>
 </section>
 
@@ -26,8 +25,9 @@
 				<thead>
 					<tr>
 						<th style="text-align:center;">Nombre</th>
-						<th class="col-md-2" style="text-align:center;">Tipo Identificación</th>
-						<th class="col-md-2" style="text-align:center;">Identificación</th>
+						<th style="text-align:center;">Tipo Identificación</th>
+						<th style="text-align:center;">No. Identificación</th>
+						
 						<th style="text-align:center;">No. Contrato</th>
 						<th style="text-align:center;">valor desembolsado</th>
 						<th style="text-align:center;">Rol</th>
@@ -66,6 +66,7 @@
 					{ mData: "nombre" },
 					{ mData: "tipo_identificacion" },
 					{ mData: "identificacion" },
+					
 					{ mData: "contrato"},
 					{ mData: "valor_pagado" },
 					{ mData: "rol" }

@@ -1,10 +1,11 @@
 <section class="content-header">
     <h1>
-        CARTERA FNG
+        CARTERA FNG - CLIENTES POR VALOR ADEUDADO
     </h1>
     <ol class="breadcrumb">
     	<li><a href="<?php echo base_url();?>home">Inicio</a></li>
-        <li class="active">CLientes por valor adeudado</li>
+    	<li><a href="<?php echo base_url();?>Extrajudicial">Cartera Fng</a></li>
+        <li class="active">Clientes por valor adeudado</li>
     </ol>
 </section>
 

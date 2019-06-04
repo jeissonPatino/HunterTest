@@ -276,7 +276,7 @@
                    // $("#txtNumeroContrato").val(item.Contrato);
                     estaGaver += '<div class="radio">';
                     estaGaver += '<label>';
-                    estaGaver += '<input type="radio" name="optionsRadios" id="optionsRadios1" value="'+ item.G724_ConsInte__b +'">';
+                    estaGaver += '<input type="checkbox" name="optionsRadios" id="optionsRadios1" value="'+ item.G724_ConsInte__b +'">';
                     estaGaver +=  item.G724_C17105;
                     estaGaver += '</label>';
                     estaGaver += '</div>';

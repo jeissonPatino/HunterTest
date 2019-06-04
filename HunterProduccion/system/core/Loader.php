@@ -233,7 +233,6 @@ class CI_Loader {
 	 */
 	public function model($model, $name = '', $db_conn = FALSE)
 	{
-		
 		if (empty($model))
 		{
 			return $this;

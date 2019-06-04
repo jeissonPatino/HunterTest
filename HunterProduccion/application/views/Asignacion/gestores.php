@@ -4,7 +4,7 @@
     </h1>
     <ol class="breadcrumb">
     	<li><a href="<?php echo base_url();?>home">Inicio</a></li>
-        <li class="active">Asignacion - FRG gestores.</li>
+        <li class="active">Asignación - FRG gestores.</li>
     </ol>
 </section>
 
@@ -20,13 +20,13 @@
     	 		</div>
     	 		<div class="col-sm-4">
     	 			<label>
-                      	<input type="radio" name="optionsRadios" id="masivo" value="option1">
+                      	<input type="checkbox" name="optionsRadios" id="masivo" value="option1">
                       		Cargue masivo por excel
                     </label>
     	 		</div>
     	 		<div class="col-sm-4">
     	 			<label>
-                      	<input type="radio" name="optionsRadios" id="unouno" value="option2">
+                      	<input type="checkbox" name="optionsRadios" id="unouno" value="option2">
                   			Uno a uno
                     </label>	
     	 		</div>
@@ -176,7 +176,7 @@
   	</div><!-- /.box -->
 
 </section>
-<<script src="<?php echo base_url();?>assets/plugins/validate/jquery.validate.min.js"></script>
+<script src="<?php echo base_url();?>assets/plugins/validate/jquery.validate.min.js"></script>
 <script src="<?php echo base_url();?>assets/dist/js/alertify.js"></script>
 <script type="text/javascript">
 
@@ -245,6 +245,7 @@
                   if (e) {
                     var otherForm = $("#enviomasivo");
                     var formData = new FormData($("#enviomasivo")[0]);
+                    
                     $.ajax({
                         xhr: function()
                         {

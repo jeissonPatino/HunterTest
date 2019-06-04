@@ -17,7 +17,7 @@
     }
 
 ?>
-
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
 <table class="table table-hover table-bordered" id="tablacontratos">
     <thead>
@@ -124,6 +124,7 @@
 							<th>".$deudor."</th>
 							<th>".$key->tipo_identificacion."</th>
 							<th>".$key->identificacion."</th>
+							
 							<th>$ ".number_format($key->Vlorpagado, 0, ',','.')."</th>
 							<th>".$fecha2."</th>
 							<th>".$fecha1."</th>

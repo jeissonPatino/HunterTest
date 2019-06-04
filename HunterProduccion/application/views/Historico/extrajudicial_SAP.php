@@ -1,14 +1,14 @@
 <section class="content-header">
     <h1>
        
-        HISTÓRICO GESTIÓN EXTRAJUDICIAL SAP
+      HISTÓRICO GESTIÓN EXTRAJUDICIAL SAP
     </h1>
     <ol class="breadcrumb">
     	<li><a href="<?php echo base_url();?>home">Inicio</a></li>
         <li class="active">Histórico gestión extrajudicial SAP</li>
     </ol>
 </section>
-
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <section class="content">
 	
 
@@ -58,7 +58,7 @@
 									<div class="form-group">
 										<label>Fecha inicial:</label>
 										<div class="input-group">
-											<input type="text" class="form-control pull-right" placeholder="Fecha inicial" id="reservation">
+											<input type="text" class="form-control pull-right" placeholder="Fecha inicial" id="reservation" readonly="readonly">
 										</div><!-- /.input group -->
 									</div><!-- /.form group -->
 								</div>	
@@ -66,7 +66,7 @@
 									<div class="form-group">
 										<label>Fecha final:</label>
 										<div class="input-group">
-											<input type="text" class="form-control pull-right" placeholder="Fecha final" id="reservationfinal">
+											<input type="text" class="form-control pull-right" placeholder="Fecha final" id="reservationfinal" readonly="readonly">
 										</div><!-- /.input group -->
 									</div><!-- /.form group -->
 								</div>
@@ -90,6 +90,7 @@
 										<th style="text-align:center;">Nombre Deudor</th>
 										<th style="text-align:center;">Tipo Identificación</th>
 										<th style="text-align:center;">No. Identificación</th>
+										
 										<th style="text-align:center;">IF</th>
 										<th style="text-align:center;">No. Contrato / No. Liquidación</th>
 										<th style="text-align:center;">Proceso SAP</th>
@@ -154,6 +155,7 @@
 			        	{ mData : "noombres"},
 			        	{ mData : "tipo_identificacion"},
 			        	{ mData : "identificacion"},
+			        	
 			        	{ mData : "intermediario"},
 			        	{ mData : "contrato" },
 			        	{ mData : "SAP"},
@@ -164,29 +166,36 @@
 			       		{ mData : "fechaIngreso" },
 		            	{ mData : "mediocomunicacion" }
 		            ],
-		         
-		            "bJQueryUI": true,
-		            "bProcessing": true,
-		            "bSort": true,
-		            "aaSorting":[[4,"desc"]],
-		            "bSortClasses": false,
-		            "bDeferRender": true,
-		            "sPaginationType": "simple",
-			        "oLanguage": {
-		                "sLengthMenu": "_MENU_ reg.",
-		                "sZeroRecords": "No hay registros",
+		         	"dom": 'Blfrtip',
+					"bJQueryUI": true,
+					"bProcessing": true,
+					"bSort": true,
+					"bSortClasses": false,
+					"bDeferRender": true,
+					"sPaginationType": "simple",
+		            "iDisplayLength": 20,
+		            "aaSorting":[[0,"asc"]],
+				    "buttons": [{
+			                  extend: 'csv',
+			                  text: 'Excel',
+			                  fieldSeparator : ';',
+			                  charset: 'utf-8',
+			                  extension: '.csv',
+								filename: 'Histórico gestión extrajudicial SAP'}],
+		            "aLengthMenu": [[20, 40, 60, 100], [20, 40, 60, 100]],
+					"oLanguage": {
+		                "sLengthMenu": "_MENU_ registros por página",
+		                "sZeroRecords": "0 resultados en el criterio de busqueda",
 		                "sInfo": "Mostrando de _START_ a _END_ de _TOTAL_ registros",
-		                "sInfoEmpty": "0 a 0 de 0 registros",
+		                "sInfoEmpty": "Mostrando de 0 a 0 de 0 registros",
 		                "sInfoFiltered": "(Filtrado de _MAX_ total registros)",
-		                "sSearch": "",
+		                "sSearch": "Buscar:",
 		                "oPaginate": {
 					        "sNext": ">>",
 					        "sPrevious": "<<"
-				      	}
-		                
+				      	} 
 		            },
-		            "iDisplayLength": 10,
-		            "aLengthMenu": [[10, 20, 30, 40], [10, 20, 30, 40]],
+		            
 			        "fnRowCallback": function( nRow, aData, iDisplayIndex ) {
 		          		var id = aData.id;
 			            $(nRow).attr("dato",id);
@@ -200,11 +209,8 @@
 		               		var garantia = $(this).attr('dato');
 		               		getdatos(garantia);
 		               });
-		            },
-		            "dom": 'Bfrtip',
-			        "buttons": [
-			              'csv'
-			        ]
+		            }
+		            
 			    });
 
 			});
@@ -296,7 +302,8 @@
 	        "aoColumns": [
 	        	{ mData : "noombres"},
 	        	{ mData : "tipo_identificacion"},
-			    { mData : "identificacion"},
+	        	{ mData : "identificacion"},
+	        	
 	        	{ mData : "intermediario"},
 	        	{ mData : "contrato" },
 	        	{ mData : "SAP"},
@@ -308,28 +315,35 @@
             	{ mData : "mediocomunicacion" }
             ],
          
-            "bJQueryUI": true,
-            "bProcessing": true,
-            "bSort": true,
-            "aaSorting":[[4,"desc"]],
-            "bSortClasses": false,
-            "bDeferRender": true,
-            "sPaginationType": "simple",
-	        "oLanguage": {
-                "sLengthMenu": "_MENU_ reg.",
-                "sZeroRecords": "No hay registros",
+            "dom": 'Blfrtip',
+			"bJQueryUI": true,
+			"bProcessing": true,
+			"bSort": true,
+			"bSortClasses": false,
+			"bDeferRender": true,
+			"sPaginationType": "simple",
+            "iDisplayLength": 20,
+            "aaSorting":[[0,"asc"]],
+		    "buttons": [{
+			                  extend: 'csv',
+			                  text: 'Excel',
+			                  fieldSeparator : ';',
+			                  charset: 'utf-8',
+			                  extension: '.csv',
+						filename: 'Histórico gestión extrajudicial SAP'}],
+            "aLengthMenu": [[20, 40, 60, 100], [20, 40, 60, 100]],
+			"oLanguage": {
+                "sLengthMenu": "_MENU_ registros por página",
+                "sZeroRecords": "0 resultados en el criterio de busqueda",
                 "sInfo": "Mostrando de _START_ a _END_ de _TOTAL_ registros",
-                "sInfoEmpty": "0 a 0 de 0 registros",
+                "sInfoEmpty": "Mostrando de 0 a 0 de 0 registros",
                 "sInfoFiltered": "(Filtrado de _MAX_ total registros)",
-                "sSearch": "",
+                "sSearch": "Buscar:",
                 "oPaginate": {
 			        "sNext": ">>",
 			        "sPrevious": "<<"
-		      	}
-                
+		      	} 
             },
-            "iDisplayLength": 10,
-            "aLengthMenu": [[10, 20, 30, 40], [10, 20, 30, 40]],
 	        "fnRowCallback": function( nRow, aData, iDisplayIndex ) {
           		var id = aData.id;
 	            $(nRow).attr("dato",id);
@@ -343,11 +357,7 @@
                		var garantia = $(this).attr('dato');
                		getdatos(garantia);
                });
-            },
-            "dom": 'Bfrtip',
-	        "buttons": [
-	            'csv'
-	        ]
+            }
 	    });
 
 	});

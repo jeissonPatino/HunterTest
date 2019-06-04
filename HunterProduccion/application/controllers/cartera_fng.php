@@ -41,7 +41,7 @@ class Cartera_fng extends CI_Controller {
             foreach($clientes as $key){
                 $deudor = trim(utf8_encode($key->cliente));
                 $nombre = substr($deudor, 0, 3);
-                $datosDelarray[$i]['cliente'] = "<span style='display: none;'>".utf8_encode($nombre)."</span>".$deudor ;
+                $datosDelarray[$i]['cliente'] = $deudor ;
                 
 
                 $datosDelarray[$i]['SAP'] = $key->SAP ;
@@ -86,13 +86,13 @@ class Cartera_fng extends CI_Controller {
                 if(!is_null($key->Fecha_Factura)){
                     $fecha = explode(" ",$key->Fecha_Factura)[0];
                     $fecha = explode("-", $fecha);
-                    $fecha = "<span style='display: none;'>".$fecha[0]."/".$fecha[1]."/".$fecha[2]."</span>".$fecha[2]."/".$fecha[1]."/".$fecha[0];
+                    $fecha = $fecha[2]."/".$fecha[1]."/".$fecha[0];
                 }
                 
 
                 $deudor = trim(utf8_encode($key->cliente));
                 $nombre = substr($deudor, 0, 3);
-                $datosDelarray[$i]['cliente'] = "<span style='display: none;'>".utf8_encode($nombre)."</span>".$deudor ;
+                $datosDelarray[$i]['cliente'] = $deudor ;
                 
 
                 
@@ -131,7 +131,7 @@ class Cartera_fng extends CI_Controller {
                 $fecha = explode("-", $fecha);
                 $deudor = trim(utf8_encode($key->cliente));
                 $nombre = substr($deudor, 0, 3);
-                $datosDelarray[$i]['cliente'] = "<span style='display: none;'>".utf8_encode($nombre)."</span>".$deudor ;
+                $datosDelarray[$i]['cliente'] = $deudor ;
                 
                 $datosDelarray[$i]['identificacion'] = $key->identificacion ;
                 $datosDelarray[$i]['tipo_identificacion'] = $key->tipo_identificacion ;
@@ -142,7 +142,7 @@ class Cartera_fng extends CI_Controller {
                     $datosDelarray[$i]['No_contrato'] = $key->No_contrato  ; 
                 }
                 
-                $datosDelarray[$i]['Fecha_de_Venta'] = "<span style='display: none;'>".$fecha[0]."/".$fecha[1]."/".$fecha[2]."</span>".$fecha[2]."/".$fecha[1]."/".$fecha[0] ;
+                $datosDelarray[$i]['Fecha_de_Venta'] = $fecha[2]."/".$fecha[1]."/".$fecha[0] ;
                 $i++;
             }
             
@@ -224,7 +224,7 @@ class Cartera_fng extends CI_Controller {
             foreach($clientes as $key){
                 $deudor = trim(utf8_encode($key->DEUDOR));
                 $nombre = substr($deudor, 0, 3);
-                $data[$i]['DEUDOR'] = "<span style='display: none;'>".utf8_encode($nombre)."</span>".$deudor ;
+                $data[$i]['DEUDOR'] = $deudor ;
                 
                 
                 $data[$i]['IDENTIFICACION'] = $key->IDENTIFICACION ;
@@ -340,7 +340,7 @@ class Cartera_fng extends CI_Controller {
                 foreach($clientes as $key){
                     $deudor = trim(utf8_encode($key->DEUDOR));
                     $nombre = substr($deudor, 0, 3);
-                    $data[$i]['DEUDOR'] = "<span style='display: none;'>".utf8_encode($nombre)."</span>".$deudor ;
+                    $data[$i]['DEUDOR'] = $deudor ;
                 
 
                     $data[$i]['IDENTIFICACION'] = $key->IDENTIFICACION ;
@@ -367,7 +367,7 @@ class Cartera_fng extends CI_Controller {
                     
                     $deudor = trim(utf8_encode($key->DEUDOR));
                     $nombre = substr($deudor, 0, 3);
-                    $data[$i]['DEUDOR'] = "<span style='display: none;'>".utf8_encode($nombre)."</span>".$deudor ;
+                    $data[$i]['DEUDOR'] = $deudor ;
                 
                     $data[$i]['IDENTIFICACION'] = $key->IDENTIFICACION ;
                     $data[$i]['tipo_identificacion'] = $key->tipo_identificacion ;
@@ -402,7 +402,7 @@ class Cartera_fng extends CI_Controller {
             foreach($clientes as $key){
                 $deudor = trim(utf8_encode($key->DEUDOR));
                 $nombre = substr($deudor, 0, 3);
-                $data[$i]['DEUDOR'] = "<span style='display: none;'>".utf8_encode($nombre)."</span>".$deudor ;
+                $data[$i]['DEUDOR'] = $deudor ;
                 
                 $data[$i]['IDENTIFICACION'] = $key->IDENTIFICACION ;
                 $data[$i]['tipo_identificacion'] = $key->tipo_identificacion ;
@@ -430,6 +430,7 @@ class Cartera_fng extends CI_Controller {
     function getdatosAdicionales($idUduario){
        if($this->session->userdata('login_ok')){
             $abogados = $this->Wizard_Model->getDatosAdicionales($idUduario);
+            
             $datosw = array();
             $i = 0;
             foreach ($abogados as $key) {
@@ -468,7 +469,8 @@ class Cartera_fng extends CI_Controller {
     public function datosJudiciales($identificacion, $vista=null){
         if($this->session->userdata('login_ok')){
             $datosFooter = array('ul'=> 'ULcartera' , 'li' => 'LIjudicial');
-            
+
+
             $clientes = $this->Obligaciones_Model->getDatosersonales($identificacion);
             $idUduario = $this->Obligaciones_Model->getIdUsuario($identificacion);
             $contratos = 0;
@@ -587,16 +589,29 @@ class Cartera_fng extends CI_Controller {
                 $datosIniciales[$j]['id_log_datos'] = $key->id_log_datos;
                 $j++;
             }
-           
 
+
+            $proceso  = array();
+            $l=0;
+            $datosProcesoAsociados = $this->Wizard_Model->getProcesoAsociado($idUduario);
+            foreach ($datosProcesoAsociados as $key) {
+
+                $proceso[$i]['liquidacion'] = $key->liquidacion;
+                $proceso[$i]['Proceso'] = $key->Proceso;   
+                $proceso[$i]['EstadoProceso'] = $key->EstadoProceso;
+                $proceso[$i]['identificacion'] = $key->identificacion;
+                $proceso[$i]['idUsuario'] = $key->idUsuario;
+            $l++;
+            }
+            
             $ciudades = $this->Configuraciones_Model->getCiudades();
             $calificacion = $this->CarteraFng_Model->getListasLisop(198);
 
             $datos = array();
             if($vista != null){
-                $datos = array('iniciales'=> json_encode($datosIniciales), 'vista' => $vista, 'ciudades' => $ciudades, 'ciudades2' => $ciudades, 'ciudades3' => $ciudades,  'calificacion' => $calificacion, 'datosadicionales' => json_encode($datosw), 'Sminimo' => $minimo, 'cliente' => $clientes, 'otrosDatos' => $clientes, 'identificacion' => $identificacion, 'idUsuario' => $idUduario, 'contratos' => $valores, 'numeroLiquidaciones' => $numeroLiquidaciones, 'obligaciones' =>  $obligacioes, 'masliquidaciones' => $numeroLiquidaciones2);
+                $datos = array('iniciales'=> json_encode($datosIniciales), 'vista' => $vista, 'ciudades' => $ciudades, 'ciudades2' => $ciudades, 'ciudades3' => $ciudades,  'calificacion' => $calificacion, 'datosadicionales' => json_encode($datosw), 'Sminimo' => $minimo, 'cliente' => $clientes, 'otrosDatos' => $clientes, 'identificacion' => $identificacion, 'idUsuario' => $idUduario, 'contratos' => $valores, 'numeroLiquidaciones' => $numeroLiquidaciones, 'obligaciones' =>  $obligacioes, 'masliquidaciones' => $numeroLiquidaciones2,'procesoAsociado' =>json_encode($proceso));
             }else{
-                $datos = array('iniciales'=> json_encode($datosIniciales), 'ciudades' => $ciudades, 'ciudades2' => $ciudades, 'ciudades3' => $ciudades, 'calificacion' => $calificacion, 'datosadicionales' => json_encode($datosw), 'Sminimo' => $minimo, 'cliente' => $clientes, 'otrosDatos' => $clientes, 'identificacion' => $identificacion, 'idUsuario' => $idUduario, 'contratos' => $valores, 'numeroLiquidaciones' => $numeroLiquidaciones, 'obligaciones' =>  $obligacioes, 'masliquidaciones' => $numeroLiquidaciones2);
+                $datos = array('iniciales'=> json_encode($datosIniciales), 'ciudades' => $ciudades, 'ciudades2' => $ciudades, 'ciudades3' => $ciudades, 'calificacion' => $calificacion, 'datosadicionales' => json_encode($datosw), 'Sminimo' => $minimo, 'cliente' => $clientes, 'otrosDatos' => $clientes, 'identificacion' => $identificacion, 'idUsuario' => $idUduario, 'contratos' => $valores, 'numeroLiquidaciones' => $numeroLiquidaciones, 'obligaciones' =>  $obligacioes, 'masliquidaciones' => $numeroLiquidaciones2,'procesoAsociado' =>json_encode($proceso));
             }
             
             $this->load->view('Includes/head');
@@ -682,7 +697,11 @@ class Cartera_fng extends CI_Controller {
         
     }
 
+
     function getdatosObligaciones($Contrato){
+
+
+
         if($this->session->userdata('login_ok')){
             $datosObligacion = $this->Obligaciones_Model->getDatosObligaciones($Contrato);
             $data = array();
@@ -782,7 +801,7 @@ class Cartera_fng extends CI_Controller {
             foreach ($datosWizard as $key) {
                 $estaGaver .= '<div class="radio">';
                 $estaGaver .= '<label>';
-                $estaGaver .= '<input type="checkbox" name="optionsRadios" id="optionsRadios1" value="'. $key->G724_ConsInte__b .'">';
+                $estaGaver .= '<input type="radio" style = "position= inherit" name="optionsRadios" id="optionsRadios1" value="'. $key->G724_ConsInte__b .'">';
                 $estaGaver .=  utf8_encode($key->G724_C17105);
                 $estaGaver .= '</label>';
                 $estaGaver .= '</div>';
@@ -818,7 +837,7 @@ class Cartera_fng extends CI_Controller {
             foreach ($datosWizard as $key) {
                 $estaGaver .= '<div class="radio">';
                 $estaGaver .= '<label>';
-                $estaGaver .= '<input type="checkbox" name="localizadoSeleccionado" id="optionsRadios1" value="'. $key->gestion .'">';
+                $estaGaver .= '<input type="radio" style = "position= inherit" name="localizadoSeleccionado" id="optionsRadios1" value="'. $key->gestion .'">';
                 $estaGaver .=  utf8_encode($key->enunciado);
                 $estaGaver .= '</label>';
                 $estaGaver .= '</div>';
@@ -837,7 +856,7 @@ class Cartera_fng extends CI_Controller {
             foreach ($datosWizard as $key) {
                 $estaGaver .= '<div class="radio">';
                 $estaGaver .= '<label>';
-                $estaGaver .= '<input type="checkbox" name="cafeSeleccionado" id="optionsRadios1" value="'. $key->id .'">';
+                $estaGaver .= '<input type="radio" style = "position= inherit" name="cafeSeleccionado" id="optionsRadios1" value="'. $key->id .'">';
                 $estaGaver .=  utf8_encode($key->enunciado);
                 $estaGaver .= '</label>';
                 $estaGaver .= '</div>';
@@ -870,7 +889,7 @@ class Cartera_fng extends CI_Controller {
             foreach ($datosWizard as $key) {
                 $estaGaver .= '<div class="radio">';
                 $estaGaver .= '<label>';
-                $estaGaver .= '<input type="checkbox" name="cafeSeleccionadoTotal" id="optionsRadios1" value="'. $key->id .'">';
+                $estaGaver .= '<input type="radio"  style = "position= inherit" name="cafeSeleccionadoTotal" id="optionsRadios1" value="'. $key->id .'">';
                 $estaGaver .=  utf8_encode($key->enunciado);
                 $estaGaver .= '</label>';
                 $estaGaver .= '</div>';
@@ -932,7 +951,7 @@ class Cartera_fng extends CI_Controller {
                         $array[$i]['subgestion'] = utf8_encode($key->subgestion);
                         $array[$i]['observaciones'] = utf8_encode($key->observaciones);
                         $array[$i]['users'] = utf8_encode($key->users).$key->tarea;
-                        $array[$i]['fecha'] = "<span style='display: none;'>".$fecha3.$otroNidea."</span>".$fecha2;
+                        $array[$i]['fecha'] = $fecha2;
                         $array[$i]['Niidea'] = $niidea;
                         $array[$i]['codigo'] = $key->id;
                         $i++;
@@ -971,7 +990,7 @@ class Cartera_fng extends CI_Controller {
                     $array[$i]['subgestion'] = utf8_encode($key->subgestion);
                     $array[$i]['observaciones'] = utf8_encode($key->observaciones);
                     $array[$i]['users'] = utf8_encode($key->users).$key->tarea;
-                    $array[$i]['fecha'] = "<span style='display: none;'>".$fecha3.$otroNidea."</span>".$fecha2;
+                    $array[$i]['fecha'] = $fecha2;
                     $array[$i]['Niidea'] = $niidea;
                     $array[$i]['codigo'] = $key->id;
                     $i++;
@@ -1097,7 +1116,7 @@ class Cartera_fng extends CI_Controller {
                     
 
                         $datosarray[$i]['TipoProceso'] = utf8_encode($key->TipoProceso);
-                        $datosarray[$i]['txtFechaIngreso'] = "<span style='display: none;'>".$fecha1[0].$fecha1[1].$fecha1[2].$otroNidea."</span>".$fecha1[2]."/". $fecha1[1]."/". $fecha1[0];
+                        $datosarray[$i]['txtFechaIngreso'] = $fecha1[2]."/". $fecha1[1]."/". $fecha1[0];
                         $datosarray[$i]['Etapa'] = utf8_encode($key->Etapa);
                         $datosarray[$i]['actuacion'] = utf8_encode($key->actuacion) ;
                         $datosarray[$i]['fecha'] = $fecha[2]."/". $fecha[1]."/". $fecha[0];
@@ -1127,7 +1146,7 @@ class Cartera_fng extends CI_Controller {
                     $datosarray[$i]['txtFechaIngreso'] = $fecha1[2]."/". $fecha1[1]."/". $fecha1[0];
                     $datosarray[$i]['Etapa'] = utf8_encode($key->Etapa);
                     $datosarray[$i]['actuacion'] = utf8_encode($key->actuacion) ;
-                    $datosarray[$i]['fecha'] = "<span style='display: none;'>".$fecha[0].$fecha[1].$fecha[2].$otroNidea."</span>".$fecha[2]."/". $fecha[1]."/". $fecha[0];
+                    $datosarray[$i]['fecha'] = $fecha[2]."/". $fecha[1]."/". $fecha[0];
                     $datosarray[$i]['txtObservaciones'] = utf8_encode($key->txtObservaciones) ;
                     $datosarray[$i]['users'] = utf8_encode($key->users);
                     $datosarray[$i]['codigo'] =$key->id;
@@ -1844,7 +1863,7 @@ class Cartera_fng extends CI_Controller {
                         $var3 = explode(' ', $key->FechaPractica)[0];
                         $var3 = explode('-', $var3);
 
-                        $array[$i]['fecha'] = "<span style='display: none;'>".$fache[0].$fache[1].$fache[2]."</span>".$fache[2]."/".$fache[1]."/".$fache[0];
+                        $array[$i]['fecha'] = $fache[2]."/".$fache[1]."/".$fache[0];
                         $array[$i]['Medida'] = utf8_encode($key->Medida);
                         $array[$i]['var1'] = $var1[2]."/".$var1[1]."/".$var1[0];
                         $array[$i]['var2'] = $var2[2]."/".$var2[1]."/".$var2[0];
@@ -1875,7 +1894,7 @@ class Cartera_fng extends CI_Controller {
                     $var3 = explode(' ', $key->FechaPractica)[0];
                     $var3 = explode('-', $var3);
 
-                    $array[$i]['fecha'] = "<span style='display: none;'>".$fache[0].$fache[1].$fache[2]."</span>".$fache[2]."/".$fache[1]."/".$fache[0];
+                    $array[$i]['fecha'] = $fache[2]."/".$fache[1]."/".$fache[0];
                     $array[$i]['Medida'] = utf8_encode($key->Medida);
                     $array[$i]['var1'] = $var1[2]."/".$var1[1]."/".$var1[0];
                     $array[$i]['var2'] = $var2[2]."/".$var2[1]."/".$var2[0];
@@ -2090,6 +2109,17 @@ class Cartera_fng extends CI_Controller {
         }
     }
 
+    // Proceso Asociado Jeisson patiño - 23/01/2018
+
+
+    function imprimirPlano4 ($texto){
+        $file = fopen("archivo.txt", "w");
+        fwrite($file, $texto . PHP_EOL);
+        fwrite($file, "Otra más" . PHP_EOL);
+        fclose($file);
+    }
+
+    
     function getDatosGarantias($Contrato){
         if($this->session->userdata('login_ok')){
             $datosObligacion = $this->Wizard_Model->getGarantiasById($Contrato);
@@ -2522,34 +2552,6 @@ class Cartera_fng extends CI_Controller {
 
             if($this->Wizard_Model->guardardatos('G742', $datos)){
                 
-                /*$this->db->select('G719_ConsInte__b, G719_C17039, G719_C17423');
-                $this->db->from('G719');
-                $this->db->where('G719_ConsInte__b', $_POST['contrato']);
-                $query = $this->db->get();
-
-                $this->db->select('G719_ConsInte__b');
-                $this->db->from('G719');
-                $this->db->where('G719_C17039', $query->G719_C17039);
-                $this->db->where("G719_C17423 !=  ".$query->G719_C17423);
-                $query2 = $this->db->get();
-
-                if($query2->num_rows() > 0){
-                    $result = $query2->result();
-                    foreach ($result as $key) {
-                        $datos = array( 'G742_C17242' => $fechaIngreso,
-                            'G742_C17243' => $fechaIngreso,
-                            'G742_C17244' => $key->G719_ConsInte__b,
-                            'G742_C17425' => $_POST['cliente'],
-                            'G742_C17245' => $user,
-                            'G742_C17246' => utf8_decode($_POST['txtObservaciones']),
-                            'G742_C17249' => $_POST['mediocomunicacion'],
-                            'G742_C17250' => $_POST['resultadocomunicacion'],
-                            'G742_C17251' => $_POST['gestion'],
-                            'G742_C17252' => $_POST['subgestion'],
-                            'G742_Usuario' => $this->session->userdata('identificacion'));
-                        $this->Wizard_Model->guardardatos('G742', $datos);
-                    }
-                }*/
                 echo '1';
             }else{
                 echo 'Un error a ocurrido';
@@ -2564,6 +2566,11 @@ class Cartera_fng extends CI_Controller {
             $user  = $this->session->userdata('nombres');
             date_default_timezone_set('America/Bogota');
             $fechaIngreso =  date("Y-m-d H:i:s");
+            $subgestion = '';
+            if(isset($_POST['subgestion'])){
+                    $subgestion = $_POST['subgestion'];
+            }
+
 
             $datos = array( 'G742_C17242' => $fechaIngreso,
                             'G742_C17243' => $fechaIngreso,
@@ -2574,7 +2581,7 @@ class Cartera_fng extends CI_Controller {
                             'G742_C17249' => $_POST['mediocomunicacion'],
                             'G742_C17250' => $_POST['resultadocomunicacion'],
                             'G742_C17251' => $_POST['gestion'],
-                            'G742_C17252' => $_POST['subgestion'],
+                            'G742_C17252' => $subgestion,
                             'G742_Usuario' => $this->session->userdata('identificacion'),
                             'G742_C17426' => ' - Tarea');
 
@@ -2855,7 +2862,7 @@ class Cartera_fng extends CI_Controller {
                     if(!is_null($query->row()->txtFechaTramite)){
                         $fecha_Tramite1 = explode(" ",$query->row()->txtFechaTramite)[0];
                         $fecha_Tramite = explode("-",$fecha_Tramite1);
-                        $fechT = "<span style='display: none;'>".$fecha_Tramite[0]."/".$fecha_Tramite[1]."/".$fecha_Tramite[2]."</span>".$fecha_Tramite[2]."/".$fecha_Tramite[1]."/".$fecha_Tramite[0];
+                        $fechT = $fecha_Tramite[2]."/".$fecha_Tramite[1]."/".$fecha_Tramite[0];
                     }
                 }else{
                     $this->db->select('G735_C17139 as txtFechaTramite');
@@ -2872,7 +2879,7 @@ class Cartera_fng extends CI_Controller {
                     }
                 }
                 
-                $data[$i]['nombre'] = "<span style='display: none;'>".utf8_encode($nombre)."</span>".$deudor ;
+                $data[$i]['nombre'] = $deudor ;
                 $data[$i]['identificacion'] =  $key->identificacion ;
                 $data[$i]['tipo_identificacion'] =  $key->tipo_identificacion ;
                 if($key->liquidacion != '' && !is_null($key->liquidacion)){
@@ -2881,7 +2888,7 @@ class Cartera_fng extends CI_Controller {
                     $data[$i]['contrato'] = $key->contrato;
                 }
                 $data[$i]['sap'] = $key->sap;
-                $data[$i]['fecha'] = "<span style='display: none;'>".$fecha[0]."/".$fecha[1]."/".$fecha[2]."</span>".$fecha[2]."/".$fecha[1]."/".$fecha[0];
+                $data[$i]['fecha'] =$fecha[2]."/".$fecha[1]."/".$fecha[0];
                 $data[$i]['fechaTramite'] = $fechT;
                 $i++;
             }
@@ -2921,7 +2928,7 @@ class Cartera_fng extends CI_Controller {
             foreach($clientes as $key){
                 $deudor = trim(utf8_encode($key->deudor));
                 $nombre = substr($deudor, 0, 3);
-                $data[$i]['DEUDOR'] = "<span style='display: none;'>".utf8_encode($nombre)."</span>".$deudor ;
+                $data[$i]['DEUDOR'] = $deudor ;
                 
                 $data[$i]['IDENTIFICACION'] = $key->identificacion ;
                 $data[$i]['tipo_identificacion'] = $key->tipo_identificacion ;
@@ -3035,12 +3042,7 @@ class Cartera_fng extends CI_Controller {
     }
 
 
-    function imprimirPlano ($texto){
-        $file = fopen("archivo.txt", "w");
-        fwrite($file, $texto . PHP_EOL);
-        fwrite($file, "Otra más" . PHP_EOL);
-        fclose($file);
-    }
+    
 
      function FechaVentaCisa(){
         $anio = $_POST['anio'];
@@ -3064,7 +3066,7 @@ class Cartera_fng extends CI_Controller {
             foreach($fechaventa as $key){
                 $DEUDOR = trim(utf8_encode($key->DEUDOR));
                 $nombre = substr($DEUDOR, 0, 3);
-                $data[$i]['DEUDOR'] = "<span style='display: none;'>".utf8_encode($nombre)."</span>".$DEUDOR ;
+                $data[$i]['DEUDOR'] = $DEUDOR ;
                 
                 $data[$i]['Identificacion'] = $key->Identificacion ;
                 $data[$i]['TipoIdentificacion'] = $key->TipoIdentificacion ;
@@ -3086,5 +3088,1036 @@ class Cartera_fng extends CI_Controller {
             echo "No tiene permisos para ver esta información!";
         }
     }
+
+
+    // Funcion Procesos Asociados Ventana Hoja de vida 
+    public function datosProcesoAsociados($idUsuario){
+
+        if($this->session->userdata('login_ok')){
+            $cliente = $this->Obligaciones_Model->getDatosersonalesProceso($idUsuario);
+            $asociado = array();
+            $i=0;
+            foreach($cliente as $key){
+                $asociado[$i]['contrato'] = $key->contrato ;
+                $asociado[$i]['No_CONTRATO'] = $key->No_CONTRATO ;
+                $asociado[$i]['Inter'] = utf8_encode($key->Inter) ;
+                $i++;
+            }
+            
+            $datosCliente = $this->Wizard_Model->getDatosAdicionales($idUsuario);
+            $datosw = array();
+            $i = 0;
+
+            foreach ($datosCliente as $key) {
+
+                $fecha = explode(" ", $key->Fecha)[0];
+                $fecha = explode("-", $fecha);
+
+
+                $datosw[$i]['id'] = $key->id;
+                $datosw[$i]['obligaciones'] = utf8_encode($key->obligacion);
+                $datosw[$i]['deudor'] = utf8_encode($key->deudor);
+                $datosw[$i]['rol'] = utf8_encode($key->rol);
+
+                $datosw[$i]['CORREO_ELECTRONICO'] = utf8_encode($key->Correo_electronico);
+                $datosw[$i]['TELEFONO'] = utf8_encode($key->Telefono);
+                $datosw[$i]['DIRECCION'] = utf8_encode($key->Direccion);
+                $datosw[$i]['CIUDAD'] = utf8_encode($key->Ciudad);
+                $datosw[$i]['DESCRIPCION'] = utf8_encode($key->Descripcion);
+                $datosw[$i]['Calificacion_correo'] = utf8_encode($key->Calificacion_correo);
+                $datosw[$i]['Calificacion_telefono'] = utf8_encode($key->Calificacion_telefono);
+                $datosw[$i]['Calificacion_direccion'] = utf8_encode($key->Calificacion_direccion);
+                $datosw[$i]['Calificacion_ciudad'] = utf8_encode($key->Calificacion_ciudad);
+                $datosw[$i]['DESCRIPCION'] = utf8_encode($key->Descripcion);
+                $datosw[$i]['fecha'] = $fecha[2]."/".$fecha[1]."/".$fecha[0];
+                $i++;
+            }
+             
+
+
+
+        $datos = array('cliente'=> $cliente,'contrato' => $asociado,'datosadicionales' =>json_encode($datosw));
+            
+            
+            $this->load->view('Includes/head');
+            $this->load->view('Includes/header');
+            $this->load->view('Includes/sidebar');
+            $this->load->view('carteraFng/datosProcesoAsociado',$datos);
+            $this->load->view('Includes/footer');
+        }else{
+            $this->load->view('Login/login');
+        }
+    }
+
+     public function datosProcesoAsociado($identificacion){
+        if($this->session->userdata('login_ok')){
+            
+ $datosFooter = array('ul'=> 'ULcartera' , 'li' => 'LIjudicial');
+
+            $clientes = $this->Obligaciones_Model->getDatosersonalesProceso($identificacion);
+            $idUduario = $this->Obligaciones_Model->getIdUsuario($identificacion);
+            $contratos = 0;
+            $liquidaciones = $this->Obligaciones_Model->getLiquidacionesNumero_SProcesoAsociado($idUduario);
+            $valores= array();
+            $i=0;
+            $numeroLiquidaciones = $this->Obligaciones_Model->getLiquidacionesNumeroAsociado($idUduario);
+            $numeroLiquidaciones2 = $this->Obligaciones_Model->getLiquidacionesNumeroAsociado($idUduario);
+            $obligacioes = array();
+
+            if($numeroLiquidaciones2 < 1){
+                $contratos = $this->Obligaciones_Model->getContratosProcesoAsociado($idUduario);
+                if($contratos != 0){
+                    foreach ($contratos as $key2) {
+                        $valores[$i]['contrato'] = $key2->OBLIGACION;
+                        $valores[$i]['if'] = $key2->financiero;
+                        $valores[$i]['No_CONTRATO'] = $key2->No_CONTRATO;
+                        
+                        $obligacioes[$i]['contrato'] = $key2->No_CONTRATO;
+                        $obligacioes[$i]['if'] = 'Jose';
+                        $obligacioes[$i]['No_CONTRATO'] = 2;
+
+                        $i++;
+                    }
+                }
+            }else{
+                $contratos = $this->Obligaciones_Model->getLiquidacionesProcesoAsociado($idUduario);
+                if($contratos != 0){
+                    foreach ($contratos as $key2) {
+                       $valores[$i]['contrato'] = $key2->liquidacion;
+                       $valores[$i]['if'] = 'Jose';
+                       $valores[$i]['No_CONTRATO'] = 2;
+
+                       $obligacioes[$i]['contrato'] = $key2->liquidacion;
+                       $obligacioes[$i]['if'] = 'Jose';
+                       $obligacioes[$i]['No_CONTRATO'] = 2;
+                       
+                       $i++;
+                    }
+                }
+            }
+
+            $minimo = $this->Wizard_Model->getSalariomin();
+
+            $abogados = $this->Wizard_Model->getDatosAdicionales($idUduario);
+            $datosw = array();
+            $i = 0;
+
+            foreach ($abogados as $key) {
+
+                $fecha = explode(" ", $key->Fecha)[0];
+                $fecha = explode("-", $fecha);
+
+
+                $datosw[$i]['id'] = $key->id;
+                $datosw[$i]['obligaciones'] = utf8_encode($key->obligacion);
+                $datosw[$i]['deudor'] = utf8_encode($key->deudor);
+                $datosw[$i]['rol'] = utf8_encode($key->rol);
+
+                $datosw[$i]['CORREO_ELECTRONICO'] = utf8_encode($key->Correo_electronico);
+                $datosw[$i]['TELEFONO'] = utf8_encode($key->Telefono);
+                $datosw[$i]['DIRECCION'] = utf8_encode($key->Direccion);
+                $datosw[$i]['CIUDAD'] = utf8_encode($key->Ciudad);
+                $datosw[$i]['DESCRIPCION'] = utf8_encode($key->Descripcion);
+                $datosw[$i]['Calificacion_correo'] = utf8_encode($key->Calificacion_correo);
+                $datosw[$i]['Calificacion_telefono'] = utf8_encode($key->Calificacion_telefono);
+                $datosw[$i]['Calificacion_direccion'] = utf8_encode($key->Calificacion_direccion);
+                $datosw[$i]['Calificacion_ciudad'] = utf8_encode($key->Calificacion_ciudad);
+                $datosw[$i]['DESCRIPCION'] = utf8_encode($key->Descripcion);
+                $datosw[$i]['fecha'] = $fecha[2]."/".$fecha[1]."/".$fecha[0];
+                $i++;
+            }
+
+            $datosIniciales =array();
+            $j = 0;
+            $iniciales = $this->Configuraciones_Model->getDatosinicialesCalificados($idUduario);
+            foreach ($iniciales as $key) {
+                $fecha2 = null;
+                if(!is_null($key->fecha_modificacion)){
+                    $fecha = explode(" ", $key->fecha_modificacion)[0];
+                    $fecha = explode("-", $fecha);
+                    $fecha2 = $fecha[2]."/".$fecha[1]."/".$fecha[0];
+                }
+
+                $datosIniciales[$j]['ciudadDomicilio'] = utf8_encode($key->ciudadDomicilio) ;
+                $datosIniciales[$j]['ciudadOficina'] = utf8_encode($key->ciudadOficina) ;
+                $datosIniciales[$j]['tefonoOficina'] = utf8_encode($key->tefonoOficina) ;
+                $datosIniciales[$j]['telefonoDomicilio'] = utf8_encode($key->telefonoDomicilio) ; 
+                $datosIniciales[$j]['celular'] = utf8_encode($key->celular) ;
+                $datosIniciales[$j]['celularAdicional'] = utf8_encode($key->celularAdicional) ;
+                $datosIniciales[$j]['mail'] = utf8_encode($key->mail) ;
+                $datosIniciales[$j]['direccionDomicilio'] = utf8_encode($key->direccionDomicilio) ;
+                $datosIniciales[$j]['direccionOficina'] = utf8_encode($key->direccionOficina) ;
+                $datosIniciales[$j]['dir_Adicional'] = utf8_encode($key->dir_Adicional) ;
+                $datosIniciales[$j]['tele_adicional'] = utf8_encode($key->tele_adicional) ;
+                $datosIniciales[$j]['ciudad_adicional'] = utf8_encode($key->ciudad_adicional) ;
+                $datosIniciales[$j]['cal_ciudadDomicilio'] = utf8_encode($key->cal_ciudadDomicilio) ;
+                $datosIniciales[$j]['cal_ciudadOficina'] = utf8_encode($key->cal_ciudadOficina) ;
+                $datosIniciales[$j]['cal_tefonoOficina'] = utf8_encode($key->cal_tefonoOficina) ;
+                $datosIniciales[$j]['cal_telefonoDomicilio'] = utf8_encode($key->cal_telefonoDomicilio) ;
+                $datosIniciales[$j]['cal_celular'] = utf8_encode($key->cal_celular) ;
+                $datosIniciales[$j]['cal_celularAdicional'] = utf8_encode($key->cal_celularAdicional) ;
+                $datosIniciales[$j]['cal_mail'] = utf8_encode($key->cal_mail) ;
+                $datosIniciales[$j]['cal_direccionDomicilio'] = utf8_encode($key->cal_direccionDomicilio) ;
+                $datosIniciales[$j]['cal_direccionOficina'] = utf8_encode($key->cal_direccionOficina) ;
+                $datosIniciales[$j]['cal_dir_Adicional'] = utf8_encode($key->cal_dir_Adicional) ;
+                $datosIniciales[$j]['cal_tele_adicional'] = utf8_encode($key->cal_tele_adicional) ;
+                $datosIniciales[$j]['cal_ciudad_adicional'] = utf8_encode($key->cal_ciudad_adicional) ;
+                $datosIniciales[$j]['fecha_modificacion'] = $fecha2 ;
+                $datosIniciales[$j]['id_log_datos'] = $key->id_log_datos;
+                $j++;
+            }
+            
+            $ciudades = $this->Configuraciones_Model->getCiudades();
+            $calificacion = $this->CarteraFng_Model->getListasLisop(198);
+
+            $datos = array();
+            
+                $datos = array('iniciales'=> json_encode($datosIniciales), 'ciudades' => $ciudades, 'ciudades2' => $ciudades, 'ciudades3' => $ciudades, 'calificacion' => $calificacion, 'datosadicionales' => json_encode($datosw), 'Sminimo' => $minimo, 'cliente' => $clientes, 'otrosDatos' => $clientes, 'identificacion' => $identificacion, 'idUsuario' => $idUduario, 'contratos' => $valores, 'numeroLiquidaciones' => $numeroLiquidaciones, 'obligaciones' =>  $obligacioes, 'masliquidaciones' => $numeroLiquidaciones2);
+            
+           
+            $this->load->view('Includes/head');
+            $this->load->view('Includes/header');
+            $this->load->view('Includes/sidebar');
+            $this->load->view('carteraFng/datosProcesoAsociado', $datos);
+            $this->load->view('Includes/footer', $datosFooter);
+        }else{
+            $this->load->view('Login/login');
+        }
+    }
+
+
+    function getdatosObligacionesProcesoAsociado($Contrato){
+        if($this->session->userdata('login_ok')){
+            $datosObligacion = $this->Obligaciones_Model->getDatosObligacionesProcesoAsociado($Contrato);
+            $data = array();
+            $i = 0;
+
+            foreach ($datosObligacion as $key) {
+                if($key->liquidacion != '' && !is_null($key->liquidacion)){
+                    $data[$i]['Contrato'] = $key->liquidacion;
+                }else{
+                    $data[$i]['Contrato'] = $key->Contrato;
+                }
+
+               
+                $data[$i]['EstadoAbogado'] = $key->EstadoAbogado ;
+                $data[$i]['Vlorpagado'] = $key->Vlorpagado ; 
+                $data[$i]['fgarantia'] = $key->fgarantia ;
+                $data[$i]['intermediario'] = utf8_encode($key->intermediario) ;
+                $data[$i]['financiero'] = utf8_encode($key->financiero);
+                $data[$i]['Cobertura'] = utf8_encode($key->Cobertura) ;
+                $data[$i]['FRG'] = utf8_encode($key->FRG) ;
+                $data[$i]['SAP'] = $key->SAP ;
+                $data[$i]['Despacho'] = utf8_encode($key->Despacho) ;
+                $data[$i]['ciudaddespacho'] = utf8_encode($key->ciudaddespacho);
+                $data[$i]['claseProceso'] = utf8_encode($key->claseProceso) ;
+                $data[$i]['estadoP'] = utf8_encode($key->estadoP) ;
+                $data[$i]['saldo'] = $key->saldo ;
+                $data[$i]['interespormora'] = $key->interespormora ;
+                $data[$i]['GastoJudiciales'] = $key->GastoJudiciales ;
+                $data[$i]['porcentajeAbogado'] = $key->porcentajeAbogado;
+                $data[$i]['ultimoavnoFecha'] = $key->ultimoavnoFecha ;
+                $data[$i]['Judiciable'] = utf8_encode($key->Judiciable) ;
+                $data[$i]['procesoGu'] = $key->procesoGu;
+                $i++;
+            }
+            echo json_encode($data);
+        }else{
+            echo "No tienes Permiso para ver este contenido!";
+        }
+        
+    }
+
+    function getgestionExtrajudicialProcesoAsociado($Contrato){
+        if($this->session->userdata('login_ok')){
+            ini_set('memory_limit', '1024M');
+            $array  = array();
+            $i = 0;
+
+
+            $this->db->select('liquidacion as liquidacion');
+            $this->db->from('HistoricoProcesoAsociado');
+            $this->db->where('IdCredito', $Contrato);
+            $query = $this->db->get();
+
+            if(!is_null($query->row()->liquidacion)){
+                $this->db->select('IdCredito as id');
+                $this->db->from('HistoricoProcesoAsociado');
+                $this->db->where('liquidacion', $query->row()->liquidacion);
+                $query2 = $this->db->get();
+                $resultado = $query2->result();
+                foreach ($resultado as $key2) {
+                    $datosObligacion = $this->Wizard_Model->getgestionExtrajudicialProcesoAsociado($key2->id);
+                    $tablaExtraJudicial  = '';
+                   
+                    foreach ($datosObligacion as $key) {
+                        $fecha = null;
+                        $fecha2 = null;
+                        $fecha3 =null;
+                        if(!is_null($key->fechaIngreso)){
+                            $fecha = explode(" ", $key->fechaIngreso)[0];
+                            $fecha = explode("-", $fecha);
+                           
+                            $fecha2 = $fecha[2]."/". $fecha[1]."/". $fecha[0];
+                            $fecha3 = $fecha[0].$fecha[1].$fecha[2];
+                        }
+                        
+
+
+                        $niidea = '00:00:00';
+                        $otroNidea = 0;
+                        if(!is_null($key->Niidea)){
+                           $niidea = explode( ".", explode(" ", $key->Niidea)[1])[0]; 
+                           $otroNidea = str_replace(':', '', $niidea);
+                        }
+
+                        $array[$i]['nombres'] = utf8_encode($key->nombres);
+                        $array[$i]['mediocomunicacion'] = utf8_encode($key->mediocomunicacion) ;
+                        $array[$i]['resultadocomunicacion'] = utf8_encode($key->resultadocomunicacion) ;
+                        $array[$i]['gestion'] = utf8_encode($key->gestion);
+                        $array[$i]['subgestion'] = utf8_encode($key->subgestion);
+                        $array[$i]['observaciones'] = utf8_encode($key->observaciones);
+                        $array[$i]['users'] = utf8_encode($key->users).$key->tarea;
+                        $array[$i]['fecha'] = $fecha2;
+                        $array[$i]['Niidea'] = $niidea;
+                        $array[$i]['codigo'] = $key->id;
+                        $i++;
+                    }
+                }
+            }else{
+                $datosObligacion = $this->Wizard_Model->getgestionExtrajudicialProcesoAsociado($Contrato);
+                $tablaExtraJudicial  = '';
+               
+                foreach ($datosObligacion as $key) {
+                    $fecha = null;
+                    $fecha2 = null;
+                    $fecha3 =null;
+                    if(!is_null($key->fechaIngreso)){
+                        $fecha = explode(" ", $key->fechaIngreso)[0];
+                        $fecha = explode("-", $fecha);
+                       
+                        $fecha2 = $fecha[2]."/". $fecha[1]."/". $fecha[0];
+                        $fecha3 = $fecha[0].$fecha[1].$fecha[2];
+                    }
+                    
+
+
+                    $niidea = '00:00:00';
+                    $otroNidea = 0;
+                    if(!is_null($key->Niidea)){
+                       $niidea = explode( ".", explode(" ", $key->Niidea)[1])[0]; 
+                       $otroNidea = str_replace(':', '', $niidea);
+                    }
+
+
+                    $array[$i]['nombres'] = utf8_encode($key->nombres);
+                    $array[$i]['mediocomunicacion'] = utf8_encode($key->mediocomunicacion) ;
+                    $array[$i]['resultadocomunicacion'] = utf8_encode($key->resultadocomunicacion) ;
+                    $array[$i]['gestion'] = utf8_encode($key->gestion);
+                    $array[$i]['subgestion'] = utf8_encode($key->subgestion);
+                    $array[$i]['observaciones'] = utf8_encode($key->observaciones);
+                    $array[$i]['users'] = utf8_encode($key->users).$key->tarea;
+                    $array[$i]['fecha'] = $fecha2;
+                    $array[$i]['Niidea'] = $niidea;
+                    $array[$i]['codigo'] = $key->id;
+                    $i++;
+                }
+    
+            }
+            echo json_encode($array);
+        }else{
+            echo "No tienes Permiso para ver este contenido!";
+        }
+    }
+
+     function getgestioJudicialProcesoAsociado($Contrato){
+        if($this->session->userdata('login_ok')){
+            ini_set('memory_limit', '1024M');
+            $tablaExtraJudicial  = '';
+            $datosarray = array();
+            $i = 0;
+
+
+            $this->db->select('liquidacion as liquidacion');
+            $this->db->from('HistoricoProcesoAsociado');
+            $this->db->where('IdCredito', $Contrato);
+            $query = $this->db->get();
+
+            if(!is_null($query->row()->liquidacion)){
+                $this->db->select('IdCredito as id');
+                $this->db->from('HistoricoProcesoAsociado');
+                $this->db->where('liquidacion', $query->row()->liquidacion);
+                $query2 = $this->db->get();
+                $resultado = $query2->result();
+                foreach ($resultado as $key2) {
+
+                    $datosObligacion = $this->Wizard_Model->getgestioJudicialProcesoAsociado($key2->id);
+                    foreach ($datosObligacion as $key) {
+                        $fecha = explode(" ", $key->txtFechaTramite)[0];
+                        $fecha = explode("-", $fecha);
+
+                        $fecha1 = explode(" ", $key->txtFechaIngreso)[0];
+                        $fecha1 = explode("-", $fecha1);
+
+                        
+                        $otroNidea = 0;
+                        $niidea = explode(" ", $key->txtFechaTramite)[1];
+                        $otroNidea = str_replace(':', '', $niidea);
+                    
+
+                        $datosarray[$i]['TipoProceso'] = utf8_encode($key->TipoProceso);
+                        $datosarray[$i]['txtFechaIngreso'] = $fecha1[2]."/". $fecha1[1]."/". $fecha1[0];
+                        $datosarray[$i]['Etapa'] = utf8_encode($key->Etapa);
+                        $datosarray[$i]['actuacion'] = utf8_encode($key->actuacion) ;
+                        $datosarray[$i]['fecha'] = $fecha[2]."/". $fecha[1]."/". $fecha[0];
+                        $datosarray[$i]['txtObservaciones'] = utf8_encode($key->txtObservaciones) ;
+                        $datosarray[$i]['users'] = utf8_encode($key->users);
+                        $datosarray[$i]['codigo'] =$key->id;
+                        /*$datosarray[$i]['eliminar'] = '<a class="btn btn-sm btn-danger" role="button" title="Eliminar" onclick="javascript: eliminarGestion('.$key->id.')"><i class="fa fa-trash"></i></a>';*/
+                        $i++;
+                        
+                    }
+                }
+            }else{
+                $datosObligacion = $this->Wizard_Model->getgestioJudicialProcesoAsociado($Contrato);
+                foreach ($datosObligacion as $key) {
+                    $fecha = explode(" ", $key->txtFechaTramite)[0];
+                    $fecha = explode("-", $fecha);
+
+                    $fecha1 = explode(" ", $key->txtFechaIngreso)[0];
+                    $fecha1 = explode("-", $fecha1);
+
+                    $otroNidea = 0;
+                    $niidea = explode(" ", $key->txtFechaTramite)[1];
+                    $otroNidea = str_replace(':', '', $niidea);
+
+
+                    $datosarray[$i]['TipoProceso'] = utf8_encode($key->TipoProceso);
+                    $datosarray[$i]['txtFechaIngreso'] = $fecha1[2]."/". $fecha1[1]."/". $fecha1[0];
+                    $datosarray[$i]['Etapa'] = utf8_encode($key->Etapa);
+                    $datosarray[$i]['actuacion'] = utf8_encode($key->actuacion) ;
+                    $datosarray[$i]['fecha'] = $fecha[2]."/". $fecha[1]."/". $fecha[0];
+                    $datosarray[$i]['txtObservaciones'] = utf8_encode($key->txtObservaciones) ;
+                    $datosarray[$i]['users'] = utf8_encode($key->users);
+                    $datosarray[$i]['codigo'] =$key->id;
+                    /*$datosarray[$i]['eliminar'] = '<a class="btn btn-sm btn-danger" role="button" title="Eliminar" onclick="javascript: eliminarGestion('.$key->id.')"><i class="fa fa-trash"></i></a>';*/
+                    $i++;
+                    
+                }
+                
+            }
+          
+            echo json_encode($datosarray);
+        }else{
+            echo "No tienes Permiso para ver este contenido!";
+        }
+    }
+
+
+    function getTablaMedidaProcesoAsociado($Contrato){
+        
+        if($this->session->userdata('login_ok')){
+            $tablaExtraJudicial  = '';
+            $array = array();
+            $i = 0;
+
+            $this->db->select('liquidacion as liquidacion');
+            $this->db->from('HistoricoProcesoAsociado');
+            $this->db->where('IdCredito', $Contrato);
+            $query = $this->db->get();
+
+            if(!is_null($query->row()->liquidacion)){
+                $this->db->select('IdCredito as id');
+                $this->db->from('HistoricoProcesoAsociado');
+                $this->db->where('liquidacion', $query->row()->liquidacion);
+                $query2 = $this->db->get();
+                $resultado = $query2->result();
+                foreach ($resultado as $key2) {
+                    $datosObligacion = $this->Wizard_Model->getMedidasCautelaresProcesoAsociado($key2->id);
+            
+                    foreach ($datosObligacion as $key) {
+                       
+                        $fache = explode(' ', $key->FechaInforme);
+                        $fache = explode('-', $fache[0]);
+                        $var1 = explode(' ', $key->FechaSolicitud)[0];
+                        $var1 = explode('-', $var1);
+                        $var2 = explode(' ', $key->FechaDecreto)[0];
+                        $var2 = explode('-', $var2);
+                        $var3 = explode(' ', $key->FechaPractica)[0];
+                        $var3 = explode('-', $var3);
+
+                        $array[$i]['fecha'] = $fache[2]."/".$fache[1]."/".$fache[0];
+                        $array[$i]['Medida'] = utf8_encode($key->Medida);
+                        $array[$i]['var1'] = $var1[2]."/".$var1[1]."/".$var1[0];
+                        $array[$i]['var2'] = $var2[2]."/".$var2[1]."/".$var2[0];
+                        $array[$i]['var3'] = $var3[2]."/".$var3[1]."/".$var3[0];
+                        $array[$i]['Secuestre'] = utf8_encode($key->Secuestre);
+                        $array[$i]['G736_ConsInte__b'] = $key->G736_ConsInte__b;
+                        if($key->resultadoMedida != ''){
+                            $array[$i]['calificar'] = $key->resultadoMedida;
+                        }else{
+                            $array[$i]['calificar'] = '<a class="btn btn-sm btn-success" role="button" onclick="javascript: calificarMedidas('.$key->G736_ConsInte__b.', 1)">SI</a><a class="btn btn-sm btn-danger" role="button" onclick="javascript: calificarMedidas('.$key->G736_ConsInte__b.', 2)">NO</a>';
+         
+                        }
+                        
+                        $i++;
+                    }
+                }
+            }else{
+                $datosObligacion = $this->Wizard_Model->getMedidasCautelaresProcesoAsociado($Contrato);
+            
+                foreach ($datosObligacion as $key) {
+                   
+                    $fache = explode(' ', $key->FechaInforme);
+                    $fache = explode('-', $fache[0]);
+                    $var1 = explode(' ', $key->FechaSolicitud)[0];
+                    $var1 = explode('-', $var1);
+                    $var2 = explode(' ', $key->FechaDecreto)[0];
+                    $var2 = explode('-', $var2);
+                    $var3 = explode(' ', $key->FechaPractica)[0];
+                    $var3 = explode('-', $var3);
+
+                    $array[$i]['fecha'] = $fache[2]."/".$fache[1]."/".$fache[0];
+                    $array[$i]['Medida'] = utf8_encode($key->Medida);
+                    $array[$i]['var1'] = $var1[2]."/".$var1[1]."/".$var1[0];
+                    $array[$i]['var2'] = $var2[2]."/".$var2[1]."/".$var2[0];
+                    $array[$i]['var3'] = $var3[2]."/".$var3[1]."/".$var3[0];
+                    $array[$i]['Secuestre'] = utf8_encode($key->Secuestre);
+                    $array[$i]['G736_ConsInte__b'] = $key->G736_ConsInte__b;
+                    if($key->resultadoMedida != ''){
+                        $array[$i]['calificar'] = $key->resultadoMedida;
+                    }else{
+                        $array[$i]['calificar'] = '<a class="btn btn-sm btn-success" role="button" onclick="javascript: calificarMedidas('.$key->G736_ConsInte__b.', 1)">SI</a><a class="btn btn-sm btn-danger" role="button" onclick="javascript: calificarMedidas('.$key->G736_ConsInte__b.', 2)">NO</a>';
+     
+                    }
+                    
+                    $i++;
+                }
+            }
+            
+
+            echo json_encode($array);
+        }else{
+            echo "No tienes Permiso para ver este contenido!";
+        }
+    }
+
+
+    function getCodeudoresProcesoAsociado($Contrato){
+        if($this->session->userdata('login_ok')){
+            $datosObligacion = $this->Wizard_Model->getCodeudoresProcesoAsociado($Contrato);
+            $tablaExtraJudicial  = '';
+            
+            if($datosObligacion != 0){
+                foreach ($datosObligacion as $key) {
+                    $bumero = $this->Obligaciones_Model->getNumObligacionesUsuario($key->id);
+                    $tablaExtraJudicial .= '<tr>';
+                    $tablaExtraJudicial .= '<td>'.$bumero.'</td>';
+                    $tablaExtraJudicial .= '<td><a href="#" class="obligacionesHref" usuario="'.$key->id.'">Obligaciones asociadas</a></td>';
+                    $tablaExtraJudicial .= '<td>'.$key->nombre.'</td>';
+                    $tablaExtraJudicial .= '<td>'.$key->Identificacion.'</td>';
+                    $tablaExtraJudicial .= '</tr>';
+                }
+            }else{
+                $tablaExtraJudicial .= '<tr>';
+                $tablaExtraJudicial .= '<td colspan="4">No hay codeudores</td>';
+                $tablaExtraJudicial .= '</tr>';
+            }
+            
+
+            echo $tablaExtraJudicial;
+        }else{
+            echo "No tienes Permiso para ver este contenido!";
+        }
+        
+    }
+
+
+    function gerAcuerdoPagoProcesoAsociado($Contrato){
+        if($this->session->userdata('login_ok')){
+            $datosObligacion = $this->Wizard_Model->gerAcuerdoPago($Contrato);
+            $tablaExtraJudicial  = '';
+            $datos = array();
+            $i = 0;
+            foreach ($datosObligacion as $key) {
+
+                $fecha1 = '';
+                $fecha2 = '';
+                $fecha3 = '';
+                $fecha4 = '';
+                $fecha5 = '';
+
+                if(!is_null($key->FECHA_CONSIGNACION_ANTICIPO)){
+                    $fecha1 = explode(" ", $key->FECHA_CONSIGNACION_ANTICIPO)[0];
+                    $fecha1 = explode("-", $fecha1);
+                    $fecha1 = $fecha1[2]."/".$fecha1[1]."/".$fecha1[0];
+                }
+
+                if(!is_null($key->FECHA_DE_LEGALIZACION)){
+                    $fecha2 = explode(" ", $key->FECHA_DE_LEGALIZACION)[0];
+                    $fecha2 = explode("-", $fecha2);
+                    $fecha2 = $fecha2[2]."/".$fecha2[1]."/".$fecha2[0];
+                }
+
+                if(!is_null($key->FECHA_DE_PAGO_DE_LA_PRIMERA_CUOTA)){
+                    $fecha3 = explode(" ", $key->FECHA_DE_PAGO_DE_LA_PRIMERA_CUOTA)[0];
+                    $fecha3 = explode("-", $fecha3);
+                    $fecha3 = $fecha3[2]."/".$fecha3[1]."/".$fecha3[0];
+                }
+
+                if(!is_null($key->FECHA_LIQUIDACION)){
+                    $fecha4 = explode(" ", $key->FECHA_LIQUIDACION)[0];
+                    $fecha4 = explode("-", $fecha4);
+                    $fecha4 = $fecha4[2]."/".$fecha4[1]."/".$fecha4[0];
+                }
+
+                if(!is_null($key->FECHA_ULTIMACUOTA)){
+                    $fecha5 = explode(" ", $key->FECHA_ULTIMACUOTA)[0];
+                    $fecha5 = explode("-", $fecha5);
+                    $fecha5 = $fecha5[2]."/".$fecha5[1]."/".$fecha5[0];
+                }
+
+               // var_dump($fecha1);var_dump($fecha2); var_dump($fecha3); var_dump($fecha4); var_dump($fecha5);
+                $datos[$i]['FECHA_CONSIGNACION_ANTICIPO'] = $fecha1;
+                $datos[$i]['FECHA_DE_LEGALIZACION'] = $fecha2;
+                $datos[$i]['VALOR_DEL_ACUERDO'] = "$".number_format($key->VALOR_DEL_ACUERDO, 0, '.',',') ;
+                $datos[$i]['PLAZO_ACUERDO_DE_PAGO'] = $key->PLAZO_ACUERDO_DE_PAGO;
+                $datos[$i]['FECHA_DE_PAGO_DE_LA_PRIMERA_CUOTA'] = $fecha3;
+                $datos[$i]['FECHA_LIQUIDACION'] = $fecha4;
+                $datos[$i]['FECHA_ULTIMACUOTA'] = $fecha5;
+                $datos[$i]['TASAINTERES'] = $key->TASAINTERES." %";
+                $datos[$i]['VALOR_CUOTA_DEL_ACUERDO'] = "$".number_format($key->VALOR_CUOTA_DEL_ACUERDO, 0, '.',',') ;
+                $datos[$i]['id'] = $key->id ;
+                $i++;
+                
+            }
+
+            echo json_encode($datos);
+        }else{
+            echo "No tienes Permiso para ver este contenido!";
+        }
+    }
+
+
+    function getGarantiasProcesoAsociado($Contrato){
+        if($this->session->userdata('login_ok')){
+            $liquidacion = 0;
+            $array = array();
+            $i = 0;
+            $garantias = 'No aplica';
+            $pagares = 'No aplica';
+            $total = 0;
+            $nuevo = 0;
+            $viejo = 0;
+
+
+            $liquidacion = $this->Wizard_Model->getLiquidacionNProcesoAsociado($Contrato);
+            $datosObligacion = NULL;
+            if($liquidacion == 0){
+                $datosObligacion = $this->Wizard_Model->getGarantiasProcesoAsociado($Contrato);
+                foreach ($datosObligacion as $key) {
+                    $nuevo = $key->contrato;
+                    if($nuevo != $viejo){
+                        if(!is_null($key->garantia)){
+                            $garantias = $key->garantia;
+                        }
+
+                        if(!is_null($key->pagare)){
+                            $pagares = $key->pagare;
+                        }
+                        $array[$i]['garantia'] = $garantias;
+                        $array[$i]['pagare']   = $pagares;
+                        $array[$i]['contrato'] = $key->contrato;
+                        $array[$i]['vPagado'] = '$'.number_format($key->vPagado, 0);
+                        $array[$i]['codigo']   = $key->id;
+                        $total += $key->vPagado;
+                        $i++;
+                    }
+                    $viejo = $nuevo;
+                }
+
+            }else{
+
+                $contratos = $this->Wizard_Model->getcontratosXLiquidacionProcesoAsociado($liquidacion);
+                foreach ($contratos as $contrato) {
+                    $datosObligacion = $this->Wizard_Model->getGarantiasProcesoAsociado($contrato->IdCredito);
+                    foreach ($datosObligacion as $key) {
+                        $nuevo = $key->contrato;
+                        if($nuevo != $viejo){
+                            if(!is_null($key->garantia)){
+                                $garantias = $key->garantia;
+                            }
+
+                            if(!is_null($key->pagare)){
+                                $pagares = $key->pagare;
+                            }
+                            $array[$i]['garantia'] = $garantias;
+                            $array[$i]['pagare']   = $pagares;
+                            $array[$i]['contrato'] = $key->contrato;
+                            $array[$i]['vPagado'] = '$'.number_format($key->vPagado, 0);
+                            $array[$i]['codigo']   = $key->id;
+                            $total += $key->vPagado;
+                            $i++;
+                        }
+                        $viejo = $nuevo;
+                    }
+                }
+            }
+        
+            $this->imprimirPlano4(json_encode($array));
+            echo json_encode($array);
+        }else{
+            echo "No tienes Permiso para ver este contenido!";
+        }
+    }
+
+    function getFacturasProcesoAsociado($Contrato){
+         if($this->session->userdata('login_ok')){
+            $datosObligacion = $this->Wizard_Model->getFacturasProcesoAsociado($Contrato);
+            $tablaExtraJudicial  = '';
+            $datosarray = array();
+            $i = 0;
+
+            foreach ($datosObligacion as $key) {
+
+                $FECHA_AUTO_DE_SUBROGACION = '';
+                if(!is_null($key->FECHA_AUTO_DE_SUBROGACION)){
+                    $FECHA_AUTO_DE_SUBROGACION = explode(" ", $key->FECHA_AUTO_DE_SUBROGACION)[0];
+                    $FECHA_AUTO_DE_SUBROGACION = explode("-", $FECHA_AUTO_DE_SUBROGACION);
+                    $FECHA_AUTO_DE_SUBROGACION = $FECHA_AUTO_DE_SUBROGACION[2]."/".$FECHA_AUTO_DE_SUBROGACION[1]."/".$FECHA_AUTO_DE_SUBROGACION[0];
+                }
+
+
+                $FECHA_SENTENCIA_IRRECUPERABLE = '';
+                if(!is_null($key->FECHA_SENTENCIA_IRRECUPERABLE)){
+                    $FECHA_SENTENCIA_IRRECUPERABLE = explode(" ", $key->FECHA_SENTENCIA_IRRECUPERABLE)[0];
+                    $FECHA_SENTENCIA_IRRECUPERABLE = explode("-", $FECHA_SENTENCIA_IRRECUPERABLE);
+                    $FECHA_SENTENCIA_IRRECUPERABLE = $FECHA_SENTENCIA_IRRECUPERABLE[2]."/".$FECHA_SENTENCIA_IRRECUPERABLE[1]."/".$FECHA_SENTENCIA_IRRECUPERABLE[0];
+                }
+
+                $FECHA_DE_FACTURA_SENTENCIA_IRRECUPERABLE = '';
+                if(!is_null($key->FECHA_DE_FACTURA_SENTENCIA_IRRECUPERABLE)){
+                    $FECHA_DE_FACTURA_SENTENCIA_IRRECUPERABLE = explode(" ", $key->FECHA_DE_FACTURA_SENTENCIA_IRRECUPERABLE)[0];
+                    $FECHA_DE_FACTURA_SENTENCIA_IRRECUPERABLE = explode("-", $FECHA_DE_FACTURA_SENTENCIA_IRRECUPERABLE);
+                    $FECHA_DE_FACTURA_SENTENCIA_IRRECUPERABLE = $FECHA_DE_FACTURA_SENTENCIA_IRRECUPERABLE[2]."/".$FECHA_DE_FACTURA_SENTENCIA_IRRECUPERABLE[1]."/".$FECHA_DE_FACTURA_SENTENCIA_IRRECUPERABLE[0];
+                }
+
+                $FECHA_LIQUIDACION_CREDITO = '';
+                if(!is_null($key->FECHA_LIQUIDACION_CREDITO)){
+                    $FECHA_LIQUIDACION_CREDITO = explode(" ", $key->FECHA_LIQUIDACION_CREDITO)[0];
+                    $FECHA_LIQUIDACION_CREDITO = explode("-", $FECHA_LIQUIDACION_CREDITO);
+                    $FECHA_LIQUIDACION_CREDITO = $FECHA_LIQUIDACION_CREDITO[2]."/".$FECHA_LIQUIDACION_CREDITO[1]."/".$FECHA_LIQUIDACION_CREDITO[0];
+                }
+
+                $FECHA_AUTO_IRRECUPERABLE = '';
+                if(!is_null($key->FECHA_AUTO_IRRECUPERABLE)){
+                    $FECHA_AUTO_IRRECUPERABLE = explode(" ", $key->FECHA_AUTO_IRRECUPERABLE)[0];
+                    $FECHA_AUTO_IRRECUPERABLE = explode("-", $FECHA_AUTO_IRRECUPERABLE);
+                    $FECHA_AUTO_IRRECUPERABLE = $FECHA_AUTO_IRRECUPERABLE[2]."/".$FECHA_AUTO_IRRECUPERABLE[1]."/".$FECHA_AUTO_IRRECUPERABLE[0];
+                }
+
+                $FECHA_FACTURA_SOPORTES_CISA = '';
+                if(!is_null($key->FECHA_FACTURA_SOPORTES_CISA)){
+                    $FECHA_FACTURA_SOPORTES_CISA = explode(" ", $key->FECHA_FACTURA_SOPORTES_CISA)[0];
+                    $FECHA_FACTURA_SOPORTES_CISA = explode("-", $FECHA_FACTURA_SOPORTES_CISA);
+                    $FECHA_FACTURA_SOPORTES_CISA = $FECHA_FACTURA_SOPORTES_CISA[2]."/".$FECHA_FACTURA_SOPORTES_CISA[1]."/".$FECHA_FACTURA_SOPORTES_CISA[0];
+                }
+
+                $Fecha_de_factura_honorarios_venta_CISA = '';
+                if(!is_null($key->Fecha_de_factura_honorarios_venta_CISA)){
+                    $Fecha_de_factura_honorarios_venta_CISA = explode(" ", $key->Fecha_de_factura_honorarios_venta_CISA)[0];
+                    $Fecha_de_factura_honorarios_venta_CISA = explode("-", $Fecha_de_factura_honorarios_venta_CISA);
+                    $Fecha_de_factura_honorarios_venta_CISA = $Fecha_de_factura_honorarios_venta_CISA[2]."/".$Fecha_de_factura_honorarios_venta_CISA[1]."/".$Fecha_de_factura_honorarios_venta_CISA[0];
+                }            
+                $fecha = '';
+                if(!is_null($key->FECHA_DE_FACTURA_AUTO_DE_SUBROGACION)){
+                    $fecha = explode(" ", $key->FECHA_DE_FACTURA_AUTO_DE_SUBROGACION)[0];
+                    $fecha = explode("-", $fecha);
+                    $fecha = $fecha[2]."/".$fecha[1]."/".$fecha[0];
+                } 
+
+                $datosarray[$i]['N_DE_FACTURA_AUTO_DE_SUBROGACION'] = $key->N_DE_FACTURA_AUTO_DE_SUBROGACION;
+                $datosarray[$i]['FECHA'] = $fecha;
+                $datosarray[$i]['FECHA_AUTO_DE_SUBROGACION'] = $FECHA_AUTO_DE_SUBROGACION;
+                $datosarray[$i]['VALOR_FACTURADO_AUTO_DE_SUBROGACION'] = '$'.number_format($key->VALOR_FACTURADO_AUTO_DE_SUBROGACION, 0, '.',',') ;
+                $datosarray[$i]['codigo'] =$key->G744_ConsInte__b;
+
+                $i++;
+                
+            }
+
+            echo json_encode($datosarray);
+        }else{
+            echo "No tienes Permiso para ver este contenido!";
+        }
+
+    }
+    function getFacturasIrrecuperablesProcesoAsociado($Contrato){
+         if($this->session->userdata('login_ok')){
+            $datosObligacion = $this->Wizard_Model->getFacturasProcesoAsociado($Contrato);
+            $tablaExtraJudicial  = '';
+            $datosarray = array();
+            $i = 0;
+
+            foreach ($datosObligacion as $key) {
+
+               
+                $FECHA_SENTENCIA_IRRECUPERABLE = '';
+                if(!is_null($key->FECHA_SENTENCIA_IRRECUPERABLE)){
+                    $FECHA_SENTENCIA_IRRECUPERABLE = explode(" ", $key->FECHA_SENTENCIA_IRRECUPERABLE)[0];
+                    $FECHA_SENTENCIA_IRRECUPERABLE = explode("-", $FECHA_SENTENCIA_IRRECUPERABLE);
+                    $FECHA_SENTENCIA_IRRECUPERABLE = $FECHA_SENTENCIA_IRRECUPERABLE[2]."/".$FECHA_SENTENCIA_IRRECUPERABLE[1]."/".$FECHA_SENTENCIA_IRRECUPERABLE[0];
+                }
+
+                $FECHA_DE_FACTURA_SENTENCIA_IRRECUPERABLE = '';
+                if(!is_null($key->FECHA_DE_FACTURA_SENTENCIA_IRRECUPERABLE)){
+                    $FECHA_DE_FACTURA_SENTENCIA_IRRECUPERABLE = explode(" ", $key->FECHA_DE_FACTURA_SENTENCIA_IRRECUPERABLE)[0];
+                    $FECHA_DE_FACTURA_SENTENCIA_IRRECUPERABLE = explode("-", $FECHA_DE_FACTURA_SENTENCIA_IRRECUPERABLE);
+                    $FECHA_DE_FACTURA_SENTENCIA_IRRECUPERABLE = $FECHA_DE_FACTURA_SENTENCIA_IRRECUPERABLE[2]."/".$FECHA_DE_FACTURA_SENTENCIA_IRRECUPERABLE[1]."/".$FECHA_DE_FACTURA_SENTENCIA_IRRECUPERABLE[0];
+                }
+
+                
+                $datosarray[$i]['N_DE_FACTURA_IRRECUPERABLE'] = $key->N_DE_FACTURA_SENTENCIA_IRRECUPERABLE;
+                $datosarray[$i]['FECHA_DE_FACTURA_SENTENCIA_IRRECUPERABLE'] = $FECHA_DE_FACTURA_SENTENCIA_IRRECUPERABLE;
+                $datosarray[$i]['FECHA_SENTENCIA_IRRECUPERABLE'] = $FECHA_SENTENCIA_IRRECUPERABLE;
+                $datosarray[$i]['VALOR_FACTURADO_SENTENCIA_IRRECUPERABLE'] = '$'.number_format($key->VALOR_FACTURADO_SENTENCIA_IRRECUPERABLE, 0, '.',',') ;
+                $datosarray[$i]['codigo'] =$key->G744_ConsInte__b;
+
+                $i++;
+                
+            }
+
+            echo json_encode($datosarray);
+        }else{
+            echo "No tienes Permiso para ver este contenido!";
+        }
+
+    }
+
+
+    function getinformacionJudicialProcesoAsociado($Contrato){
+        if($this->session->userdata('login_ok')){
+            ini_set('memory_limit', '1024M');
+            $datosObligacion = $this->Wizard_Model->getinformacionJudicialProcesoAsociado($Contrato);
+            $datos = array();
+            $i = 0;
+            foreach ($datosObligacion as $key ) {
+
+                $this->db->select('G735_C17139 as txtFechaTramite');
+                $this->db->from('G735');
+                $this->db->where('G735_C17138', $Contrato);
+                $this->db->where('G735.G735_C17137 = 153');
+                $query = $this->db->get();
+                $fechT = NULL;
+                
+                if($query->num_rows() > 0){
+                    if(!is_null($query->row()->txtFechaTramite)){
+                        $fecha_Tramite1 = explode(" ",$query->row()->txtFechaTramite)[0];
+                        $fecha_Tramite = explode("-",$fecha_Tramite1);
+                        $fechT = $fecha_Tramite[2]."/".$fecha_Tramite[1]."/".$fecha_Tramite[0];
+                    }
+                }else{
+                    $this->db->select('G735_C17139 as txtFechaTramite');
+                    $this->db->from('G735');
+                    $this->db->where('G735_C17138', $key->id);
+                    $this->db->where('G735.G735_C17137 = 157');
+                    $query = $this->db->get();
+                    if($query->num_rows() > 0){
+                        if(!is_null($query->row()->txtFechaTramite)){
+                            $fecha_Tramite1 = explode(" ",$query->row()->txtFechaTramite)[0];
+                            $fecha_Tramite = explode("-",$fecha_Tramite1);
+                            $fechT = $fecha_Tramite[2]."/".$fecha_Tramite[1]."/".$fecha_Tramite[0];
+                        }
+                    }
+                }
+
+                $fecha1 = '';
+                $fecha2 = '';
+                $fecha3 = '';
+                $fecha4 = '';
+
+                if(!is_null($key->Fech_demanda)){
+                    $fecha1 = explode(" ", $key->Fech_demanda)[0];
+                    $fecha1 = explode("-", $fecha1);
+                    $fecha1 = $fecha1[2]."/".$fecha1[1]."/".$fecha1[0];
+                }
+
+                if(!is_null($key->Fecha_admision_demanda)){
+                    $fecha2 = explode(" ", $key->Fecha_admision_demanda)[0];
+                    $fecha2 = explode("-", $fecha2);
+                    $fecha2 = $fecha2[2]."/".$fecha2[1]."/".$fecha2[0];
+                }
+
+                if(!is_null($key->Fecha_mandamiento_de_pago)){
+                    $fecha3 = explode(" ", $key->Fecha_mandamiento_de_pago)[0];
+                    $fecha3 = explode("-", $fecha3);
+                    $fecha3 = $fecha3[2]."/".$fecha3[1]."/".$fecha3[0];
+                }
+
+                if(!is_null($key->fechaenvioterminacion)){
+                    $fecha4 = explode(" ", $key->fechaenvioterminacion)[0];
+                    $fecha4 = explode("-", $fecha4);
+                    $fecha4 = $fecha4[2]."/".$fecha4[1]."/".$fecha4[0];
+                }
+
+                $datos[$i]['Radicado_o_expediente'] = $key->Radicado_o_expediente;
+                $datos[$i]['Fech_demanda'] = $fecha1 ;
+                $datos[$i]['Fecha_admision_demanda'] = $fecha2 ;
+                $datos[$i]['Fecha_mandamiento_de_pago'] = $fecha3 ;
+                $datos[$i]['Total_gastos_judiciales'] = $key->Total_gastos_judiciales ;
+                $datos[$i]['fechaTErminacion'] = $fechT;
+                $datos[$i]['fechaEnvioTErminacion'] = $fecha4;
+                $datos[$i]['abogadoIf'] = utf8_encode($key->abogado_if);
+                $i++;
+            }
+            echo json_encode($datos);
+        }else{
+            echo "No tienes Permiso para ver este contenido!";
+        }
+        
+    }
+
+    function getInformacionAbogadoProcesoAsociado($Contrato){
+        if($this->session->userdata('login_ok')){
+            $datosObligacion = $this->Wizard_Model->getInformacionAbogadoProcesoAsociado($Contrato);
+            $datos = array();
+            $i = 0;
+            foreach ($datosObligacion as $key ) {
+                $datos[$i]['Abogado'] = utf8_encode($key->Abogado);
+                $datos[$i]['Fecha_asignacion_abogado'] = $key->Fecha_asignacion_abogado ;
+                $datos[$i]['No_Poliza'] = $key->No_Poliza ;
+                $datos[$i]['Fecha_de_aprobacion_de_Poliza'] = $key->Fecha_de_aprobacion_de_Poliza ;
+                $datos[$i]['Fecha_de_vencimiento'] = $key->Fecha_de_vencimiento ;
+
+                $datos[$i]['celular'] = utf8_encode($key->celular );
+                $datos[$i]['correo'] = utf8_encode($key->correo) ;
+                $datos[$i]['direccion'] = utf8_encode($key->direccion) ;
+                $datos[$i]['telefono'] = utf8_encode($key->telefono) ;
+
+                $datos[$i]['firma'] = utf8_encode($key->firma) ;
+                $datos[$i]['frg'] = utf8_encode($key->frg) ;
+                $datos[$i]['promotor'] = utf8_encode($key->promotor);
+
+                $i++;
+            }
+            echo json_encode($datos);
+        }else{
+            echo "No tienes Permiso para ver este contenido!";
+        }
+
+    }
+
+
+     function getPazYsalvoProcesoAsociado($Contrato){
+        if($this->session->userdata('login_ok')){
+            $datosObligacion = $this->Wizard_Model->getPazYsalvoProcesoAsociado($Contrato);
+            $datos = array();
+            $i = 0;
+            foreach ($datosObligacion as $key ) {
+                $fecha1 = '';
+                $fecha2 = '';
+
+                if(!is_null($key->Fecha_de_expedicion_del_paz_y_salvo)){
+                    $fecha1 = explode(" ", $key->Fecha_de_expedicion_del_paz_y_salvo)[0];
+                    $fecha1 = explode("-", $fecha1);
+                    $fecha1 = $fecha1[2]."/".$fecha1[1]."/".$fecha1[0];
+                }
+
+                if(!is_null($key->Fecha_venta)){
+                    $fecha2 = explode(" ", $key->Fecha_venta)[0];
+                    $fecha2 = explode("-", $fecha2);
+
+                    $fecha2 = $fecha2[2]."/".$fecha2[1]."/".$fecha2[0];
+                }
+
+                $datos[$i]['Paz_y_salvo'] = $key->Paz_y_salvo;
+                $datos[$i]['Fecha_venta'] = $fecha2 ;
+                $datos[$i]['Fecha_de_expedicion_del_paz_y_salvo'] = $fecha1 ;
+                
+                $i++;
+            }
+            echo json_encode($datos);
+        }else{
+            echo "No tienes Permiso para ver este contenido!";
+        }
+    }
+
+
+    function getSubrogacionProcesoAsociado($Contrato){
+        if($this->session->userdata('login_ok')){
+            $datosObligacion = $this->Wizard_Model->getSubrogacionProcesoAsociado($Contrato);
+            $datos = array();
+            $i = 0;
+            foreach ($datosObligacion as $key) {
+                
+                $fecha1 = '';
+                $fecha2 = '';
+                $fecha3 = '';
+                $fecha4 = '';
+                $fecha5 = '';
+                $fecha6 = '';
+                $fecha7 = '';
+
+                if(!is_null($key->Fecha_envio_memorial_de_subrogacion_al_FRG)){
+                    $fecha1 = explode(" ", $key->Fecha_envio_memorial_de_subrogacion_al_FRG)[0];
+                    $fecha1 = explode("-", $fecha1);
+                    $fecha1 = $fecha1[2]."/".$fecha1[1]."/".$fecha1[0];
+                }
+
+                if(!is_null($key->Fecha_devolucion_FRG_memorial_de_subrogacion_por_errores)){
+                    $fecha2 = explode(" ", $key->Fecha_devolucion_FRG_memorial_de_subrogacion_por_errores)[0];
+                    $fecha2 = explode("-", $fecha2);
+                    $fecha2 = $fecha2[2]."/".$fecha2[1]."/".$fecha2[0];
+                }
+
+                if(!is_null($key->Fecha_envio_memorial_de_subrogacion_corregido)){
+                    $fecha3 = explode(" ", $key->Fecha_envio_memorial_de_subrogacion_corregido)[0];
+                    $fecha3 = explode("-", $fecha3);
+                    $fecha3 = $fecha3[2]."/".$fecha3[1]."/".$fecha3[0];
+                }
+
+                if(!is_null($key->Fecha_radicacion_memorial)){
+                    $fecha4 = explode(" ", $key->Fecha_radicacion_memorial)[0];
+                    $fecha4 = explode("-", $fecha4);
+                    $fecha4 = $fecha4[2]."/".$fecha4[1]."/".$fecha4[0];
+                }
+
+                if(!is_null($key->Fecha_impugnacion_decision_final)){
+                    $fecha5 = explode(" ", $key->Fecha_impugnacion_decision_final)[0];
+                    $fecha5 = explode("-", $fecha5);
+                    $fecha5 = $fecha5[2]."/".$fecha5[1]."/".$fecha5[0];
+                }
+
+                if(!is_null($key->Fecha_pronunciamiento)){
+                    $fecha6 = explode(" ", $key->Fecha_pronunciamiento)[0];
+                    $fecha6 = explode("-", $fecha6);
+                    $fecha6 = $fecha6[2]."/".$fecha6[1]."/".$fecha6[0];
+                }
+
+                if(!is_null($key->Fecha_decision_final)){
+                    $fecha7 = explode(" ", $key->Fecha_decision_final)[0];
+                    $fecha7 = explode("-", $fecha7);
+                    $fecha7 = $fecha7[2]."/".$fecha7[1]."/".$fecha7[0];
+                }
+
+                $datos[$i]['Fecha_envio_memorial_de_subrogacion_al_FRG'] = $fecha1;
+                $datos[$i]['Fecha_devolucion_FRG_memorial_de_subrogacion_por_errores'] = $fecha2 ;
+                $datos[$i]['Fecha_envio_memorial_de_subrogacion_corregido'] = $fecha3 ;
+                $datos[$i]['Fecha_radicacion_memorial'] = $fecha4 ;
+                $datos[$i]['Decision'] = utf8_encode($key->Decision) ;
+                $datos[$i]['Fecha_impugnacion_decision_final'] = $fecha5 ;
+                $datos[$i]['Nombre_clase_de_impugnacion'] = utf8_encode($key->Nombre_clase_de_impugnacion) ;
+                $datos[$i]['Fecha_pronunciamiento'] =  $fecha6  ;
+                $datos[$i]['decicion_Final'] =  utf8_encode($key->decicion_Final) ; 
+                $datos[$i]['Fecha_decision_final'] =   $fecha7; 
+                
+                $i++;
+            }
+            echo json_encode($datos);
+        }else{
+            echo "No tienes Permiso para ver este contenido!";
+        }
+    }
+
 
 }

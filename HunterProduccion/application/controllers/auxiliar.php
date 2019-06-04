@@ -855,6 +855,8 @@ class Auxiliar extends CI_Controller {
     }
 	
 	function guardarAcuerdoDePago(){
+
+        
 		 if($this->session->userdata('login_ok')){
 
 			date_default_timezone_set('America/Bogota');
@@ -885,6 +887,30 @@ class Auxiliar extends CI_Controller {
                  $tazadeinterez = $_POST['TazaInteres'];
             }
 
+            #calcular fecha Fecha primera Cuota 
+            $FechaPrimeraCuoota = date("Y-m-d H:i:s", strtotime(date("Y-m-d H:i:s").' + 46 days'));
+            $partesFecha=explode('-', $_POST['FechaLiquidacion']);
+            if (count($partesFecha)==3 and strlen($_POST['FechaLiquidacion']) ==10) {
+                # La función checkdate() recibe tres parámetros, el mes, el día y el año.
+                if (checkdate($partesFecha[1], $partesFecha[2], $partesFecha[0])) {
+                    $FechaPrimeraCuoota = date("Y-m-d H:i:s", strtotime($_POST['FechaLiquidacion'].' + 46 days'));
+                }
+            }
+
+            #calcular fecha Fecha Ultima  Cuota
+            $FechaPagoUltimaCuota = date("Y-m-d H:i:s", strtotime(date("Y-m-d H:i:s").' + '.$_POST['AcuerdoPlazo'].' months'));
+            $partesFecha1=explode('-', $FechaPrimeraCuoota);
+            if (count($partesFecha)==3 and strlen($FechaPrimeraCuoota) ==10) {
+                # La función checkdate() recibe tres parámetros, el mes, el día y el año.
+                if (checkdate($partesFecha[1], $partesFecha[2], $partesFecha[0])) {
+                    $FechaPagoUltimaCuota = date("Y-m-d H:i:s", strtotime($FechaPrimeraCuoota.' + '.$_POST['AcuerdoPlazo'].' months'));
+                }
+            }
+
+            $FechaPrimeraCuoota = date("Y-m-d H:i:s", strtotime($_POST['FechaLiquidacion'].' + 46 days'));
+            $FechaPagoUltimaCuota = date("Y-m-d H:i:s", strtotime($FechaPrimeraCuoota.' + '.$_POST['AcuerdoPlazo'].' months'));
+
+
             $datos = array(
                     'G726_C17237' => $_POST['const_contrato_'],
                     'G726_C17109' => $_POST['FechaLiquidacion'],
@@ -893,9 +919,10 @@ class Auxiliar extends CI_Controller {
 					'G726_C17112' => $ValorAcuerdo,
                     'G726_C17113' => $_POST['AcuerdoPlazo'],
                     'G726_C17223' => $Cuota,
-					'G726_C17224' => $_POST['FechaPrimeraCuoota'],
-					'G726_C17225' => $_POST['FechaPagoUltimaCuota'],
+					'G726_C17224' => $FechaPrimeraCuoota,
+					'G726_C17225' => $FechaPagoUltimaCuota,
 					'G726_c17419' => $tazadeinterez
+
                   );
             $resultado = false;
             if($_POST['id'] == '0'){
@@ -906,8 +933,9 @@ class Auxiliar extends CI_Controller {
                     'G726_C17109' => $_POST['FechaLiquidacion'],
                     'G726_C17110' => $_POST['FechaAnticipo'],
                     'G726_C17113' => $_POST['AcuerdoPlazo'],
-                    'G726_C17224' => $_POST['FechaPrimeraCuoota'],
-                    'G726_C17225' => $_POST['FechaPagoUltimaCuota']
+                    'G726_C17224' => $FechaPrimeraCuoota,
+                    'G726_C17225' => $FechaPagoUltimaCuota,
+                    'FECHA_EMAIL' => $FechaPrimeraCuoota
                   );
 
 
@@ -3102,7 +3130,7 @@ class Auxiliar extends CI_Controller {
                     $datosAdcicionales[$i]['observacion'] = NULL ;
                     $fecha = explode(' ', $key2->fecha_modificacion)[0];
                     $fecha = explode('-', $fecha);
-                    $datosAdcicionales[$i]['fecharegistro'] = "<span style='display: none;'>".$fecha[2].$fecha[1].$fecha[0]."</span>".$fecha[2].'/'.$fecha[1].'/'.$fecha[0] ;
+                    $datosAdcicionales[$i]['fecharegistro'] = $fecha[2].'/'.$fecha[1].'/'.$fecha[0] ;
                     $datosAdcicionales[$i]['rol'] = 'Deudor' ;
                     $datosAdcicionales[$i]['deudor'] = utf8_encode($key2->deudor) ;
                     $datosAdcicionales[$i]['liquidacion'] = NULL ;

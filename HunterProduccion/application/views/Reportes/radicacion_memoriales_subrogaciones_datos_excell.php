@@ -84,7 +84,7 @@
 
 ?>
 
-
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
    
 <table class="table table-hover table-bordered" width="50%">
             <table class="table table-hover table-bordered" width="50%">
@@ -165,6 +165,7 @@
       <th>Deudor</th>
       <th>Tipo Identificaci&oacute;n</th>
       <th>No. Identificaci&oacute;n</th>
+       
       <th>SAP</th>
       <th>IF</th>
       <th>Fecha Envio Memorial </th>
@@ -181,6 +182,7 @@
                         <td>".$contratos[$i]['nombre']."</td>
                         <td>".$contratos[$i]['tipo_identificacion']."</td>
                         <td>".$contratos[$i]['identificacion']."</td>
+                        
                         <td>".$contratos[$i]['SAP']."</td>
                         <td>".$contratos[$i]['ifinanciero']."</td>
                         <td>".$contratos[$i]['envioMemorial']." </td>

@@ -752,6 +752,15 @@ class Reportes_Model extends CI_Model {
         return $query->result();
     }
 
+	    function GetGestoresByFRG( $codigo ){
+        $this->db->select('IdGestor, Gestor');
+        $this->db->where('Gestor is not null');
+        $this->db->where('IdFRG', $codigo);
+        $this->db->order_by("Gestor", "asc");
+        $query = $this->db->group_by('Gestor, IdGestor');
+        $query = $this->db->get('InformefrgGestores');
+        return $query->result();
+    }
     function getCantidadGestionada($frg = NULL, $gestores = NULL, $fechaInicial, $fechaFinal){
          $this->db->select('Count(NumeroLiquidacion) as cantidad,
                             Gestor');
@@ -770,7 +779,7 @@ class Reportes_Model extends CI_Model {
     
     function getInformeFrgGestion($frg = NULL, $gestores = NULL, $fechaInicial, $fechaFinal){
         
-
+ 
         $this->db->select(' NumeroLiquidacion,
                             NombreDeudor,
                             TipoIdentificacion, 

@@ -75,12 +75,12 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'Driver={SQL Server};Server=LSTKBO220099\SQLEXPRESS;Database=DYALOGOPRB',
+	'hostname' => 'Driver={SQL Server};Server=LSTKBO220099\SQLEXPRESS;Database=DYALOGOPRB2',
 	//'hostname' => 'Driver={SQL Server};Server=LSTKBO49838\MSSQLSERVERDS;Database=DYALOGODEV',
 	'username' => 'sa',
-	'password' => '1234Va',
+	'password' => '*/Softtek10*/',
 	//'database' => 'DYALOGODEV',
-	'database' => 'DYALOGOPRB',
+	'database' => 'DYALOGOPRB2',
 	'dbdriver' => 'odbc',
 	'dbprefix' => '',
 	'pconnect' => FALSE,

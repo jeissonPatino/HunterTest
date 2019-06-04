@@ -135,8 +135,9 @@
               <tr>
                 <th>No. Liquidaci&oacute;n</th>
                 <th>Deudor</th>
-                 <th>Tipo Identificaci&oacute;n</th>
-                <th>No. Identificaci&oacute;n</th>
+                <th>Tipo Identificación</th>
+                <th>No. Identificación</th>
+                
                 <th>SAP</th>
                 <th>IF</th>
                 <th>Valor pagado</th>
@@ -208,42 +209,42 @@
             datasets: [
                 {
                     label: "Total Obligaciones",
-                    fillColor: "#FFFF00",
-                    strokeColor: "#FFFF00",
-                    pointColor: "#FFFF00",
+                    fillColor: "rgba(54, 162, 235)",
+                    strokeColor: "rgba(210, 214, 222)",
+                    pointColor: "rgba(180, 214, 222)",
                     pointStrokeColor: "#c1c7d1",
                     pointHighlightFill: "#fff",
-                    pointHighlightStroke: "rgba(220,220,220,1)",
+                    pointHighlightStroke: "rgba(220,220,220)",
                     data: <?php echo $data1;?>
                 },
                 {
                     label: "Total Procesos SAP",
-                    fillColor: "#243898",
-                    strokeColor: "#243898",
-                    pointColor: "#243898",
+                    fillColor: "rgba(255, 128, 0)",
+                    strokeColor: "rgba(210, 214, 222)",
+                    pointColor: "rgba(180, 214, 222)",
                     pointStrokeColor: "#c1c7d1",
                     pointHighlightFill: "#fff",
-                    pointHighlightStroke: "rgba(220,220,220,1)",
+                    pointHighlightStroke: "rgba(220,220,220)",
                     data: <?php echo $data4;?>
                 },
                 {
                     label: "Obligaciones Gestionadas",
-                    fillColor: "#31B404",
-                    strokeColor: "#31B404",
-                    pointColor: "#31B404",
+                    fillColor: "rgba(51, 51, 251)",
+                    strokeColor: "rgba(210, 214, 222)",
+                    pointColor: "rgba(180, 214, 222)",
                     pointStrokeColor: "#c1c7d1",
                     pointHighlightFill: "#fff",
-                    pointHighlightStroke: "rgba(220,220,220,1)",
+                    pointHighlightStroke: "rgba(220,220,220)",
                     data: <?php echo $data2;?>
                 },
                 {
                     label: "Obligaciones Sin Gestionar",
-                    fillColor: "#B43104",
-                    strokeColor: "#B43104",
-                    pointColor: "#B43104",
+                    fillColor: "rgba(255, 255, 51)",
+                    strokeColor: "rgba(210, 214, 222)",
+                    pointColor: "rgba(180, 214, 222)",
                     pointStrokeColor: "#c1c7d1",
                     pointHighlightFill: "#fff",
-                    pointHighlightStroke: "rgba(220,220,220,1)",
+                    pointHighlightStroke: "rgba(220,220,220)",
                     data: <?php echo $data3;?>
                 }
             ]
@@ -271,7 +272,7 @@
           //Boolean - If there is a stroke on each bar
           barShowStroke: true,
           //Number - Pixel width of the bar stroke
-          barStrokeWidth: 2,
+          barStrokeWidth: 1,
           //Number - Spacing between each of the X value sets
           barValueSpacing: 5,
           //Number - Spacing between data sets within X values
@@ -295,6 +296,7 @@
                   { mData: "nombre"},
                   { mData: "tipo_identificacion"},
                   { mData: "identificacion"},
+                  
                   { mData: "SAP" },
                   { mData: "ifinanciero" },
                   { mData: "valorPagado" },

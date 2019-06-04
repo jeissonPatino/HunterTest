@@ -35,22 +35,22 @@
           datasets: [
             {
               label: "Electronics",
-              fillColor: "rgba(210, 214, 222, 1)",
-              strokeColor: "rgba(210, 214, 222, 1)",
-              pointColor: "rgba(210, 214, 222, 1)",
-              pointStrokeColor: "#c1c7d1",
-              pointHighlightFill: "#fff",
-              pointHighlightStroke: "rgba(220,220,220,1)",
+              fillColor: "rgba(54, 162, 235)",
+                    strokeColor: "rgba(210, 214, 222)",
+                    pointColor: "rgba(180, 214, 222)",
+                    pointStrokeColor: "#c1c7d1",
+                    pointHighlightFill: "#fff",
+                    pointHighlightStroke: "rgba(220,220,220)",
               data: [65, 59, 80, 81, 56, 55, 40]
             },
             {
               label: "Digital Goods",
-              fillColor: "rgba(60,141,188,0.9)",
-              strokeColor: "rgba(60,141,188,0.8)",
-              pointColor: "#3b8bba",
-              pointStrokeColor: "rgba(60,141,188,1)",
-              pointHighlightFill: "#fff",
-              pointHighlightStroke: "rgba(60,141,188,1)",
+              fillColor: "rgba(153, 255, 51, 0.2)",
+                    strokeColor: "rgba(210, 214, 222, 1)",
+                    pointColor: "rgba(180, 214, 222, 1)",
+                    pointStrokeColor: "#c1c7d1",
+                    pointHighlightFill: "#fff",
+                    pointHighlightStroke: "rgba(220,220,220,1)",
               data: [28, 48, 40, 19, 86, 27, 90]
             }
           ]
@@ -125,7 +125,7 @@
           //Number - Pixel width of the bar stroke
           barStrokeWidth: 2,
           //Number - Spacing between each of the X value sets
-          barValueSpacing: 5,
+          barValueSpacing: 95,
           //Number - Spacing between data sets within X values
           barDatasetSpacing: 1,
           //String - A legend template

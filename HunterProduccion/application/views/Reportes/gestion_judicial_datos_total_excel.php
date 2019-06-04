@@ -21,8 +21,9 @@
               <tr>
                 <th>No. Liquidaci&oacute;n</th>
                 <th>Deudor</th>
-                <th>Tipo Identificaci&oacute;n</th>
+                  <th>Tipo Identificaci&oacute;n</th>
                 <th>No. Identificaci&oacute;n</th>
+              
                 <th>SAP</th>
                 <th>IF</th>
                 <th>Valor Pagado</th>
@@ -40,8 +41,9 @@
             echo "<tr>
                     <th>".$gestiones_deglosado[$i]['contrato']."</th>
                     <th>".$gestiones_deglosado[$i]['nombre']."</th>
-                    <th>".$gestiones_deglosado[$i]['tipo_identificacion']."</th>
+                     <th>".$gestiones_deglosado[$i]['tipo_identificacion']."</th>
                     <th>".$gestiones_deglosado[$i]['identificacion']."</th>
+                   
                     <th>".$gestiones_deglosado[$i]['SAP']."</th>
                     <th>".$gestiones_deglosado[$i]['ifinanciero']."</th>
                     <th>".$gestiones_deglosado[$i]['valorPagado']."</th>

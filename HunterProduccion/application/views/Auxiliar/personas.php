@@ -88,7 +88,7 @@
 							<table class="table table-hover" id="tblAbogados">
 								<thead>
 									<tr>
-										<th style="text-align:center;">Identificación</th>
+										<th style="text-align:center;">No. Identificación</th>
 										<th style="text-align:center;">No. Liquidaci&oacute;n</th>
 										<th style="text-align:center;">Rol</th>
 										<th style="text-align:center;">Id</th>
@@ -340,9 +340,9 @@
 					$("#contr_int_").val(data);
 					$("#NumeroContratoTex").prop('disabled', true);
 					$("#btnFiltrar2").prop('disabled', true);
-					alertify.success('Numero de contrato Valido!');
+					alertify.success('Número de contrato Valido!');
 				}else{
-					alertify.error('Ese numero de contrato no existe');
+					alertify.error('Ese número de contrato no existe');
 				}
 			}
 		});
@@ -360,7 +360,7 @@
 					$("#cedula").prop('disabled', true);
 					alertify.success('Identificación Valida!');
 				}else{
-					alertify.error('Ese numero de contrato no existe');
+					alertify.error('Ese número de contrato no existe');
 				}
 			}
 		});

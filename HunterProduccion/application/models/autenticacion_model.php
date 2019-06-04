@@ -76,6 +76,7 @@ class Autenticacion_Model extends CI_Model {
                             Exportar_datos_adicionales_permisos_,
                             Eliminar_Gestiones_judiciales_permisos_,
                             GestionarDatosClientes,
+                            EliminarAbogados,
                             EliminarGestores,
                             Logeliminacion');
         $this->db->from('USUARI');

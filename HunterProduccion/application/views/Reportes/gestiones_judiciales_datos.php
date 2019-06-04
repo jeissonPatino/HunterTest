@@ -45,7 +45,7 @@
             </thead>
             <tbody>
                         <tr>
-                            <th><?php echo $frg;?></th>
+                            <th><?php echo utf8_encode($frg);?></th>
                             <th><?php echo $basemedicion;?></th>
                             <td><?php echo $totalSap;?></td>
                             <td><?php echo $cumplimiento;?></td>
@@ -55,12 +55,12 @@
           </table>    
         </div>
       </div>
-      
       <br>
       <br>
         <div class="chart">
           <canvas id="barChart" style="height:230px"></canvas>
         </div>
+       
         <br>
          <br>
         <div class="row">
@@ -78,7 +78,7 @@
             </thead>
             <tbody>
               <tr>
-                <th><?php echo $frg;?></th>
+                <td><?php echo utf8_encode($frg);?></td>
                 <td><?php if($totalSap > 0) { echo number_format(($cumplimiento/$totalSap) * 100, 0); }else{ echo '0';} ?> %</td>
                 <td><?php if($totalSap > 0) { echo number_format(($incumpliemiento/$totalSap) * 100, 0) ;}else{ echo '0';}?> %</td>
                             
@@ -87,9 +87,7 @@
           </table>
         </div>
       </div>
-
-
-
+          
     </div><!-- /.box-body -->
 </div><!-- /.box -->
 
@@ -108,8 +106,9 @@
               <tr>
                 <th>No. Liquidaci&oacute;n</th>
                 <th>Deudor</th>
-             <th>Tipo  Identificaci&oacute;n</th>
+                <th>Tipo  Identificaci&oacute;n</th>
                 <th>No. Identificaci&oacute;n</th>
+                 
                 <th>SAP</th>
                 <th>IF</th>
                 <th>Valor Pagado</th>
@@ -130,13 +129,19 @@
         </div>
       </div>
     </div><!-- /.box-body -->
-</div><!-- /.box -->
+</div>
+<!-- /.box -->
 <script src="<?php echo base_url();?>assets/plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="<?php echo base_url();?>assets/plugins/datatables/dataTables.bootstrap.min.js"></script>
+<script src="<?php echo base_url();?>assets/Chart.js-master/Chart.js-master/src/Chart.js"></script>
+<script src="<?php echo base_url();?>assets/Chart.js-master/Chart.js-master/src/Chart/chart.Bar.js"></script>
 <script src="<?php echo base_url();?>assets/plugins/chartjs/Chart.min.js"></script>
     <!-- FastClick -->
 <script src="<?php echo base_url();?>assets/plugins/fastclick/fastclick.min.js"></script>
+
+
 <script type="text/javascript">
+  var obj = "";
     $(function(){
 
 
@@ -145,13 +150,14 @@
           datasets: [
             {
               label: "Puebas",
-              fillColor: "rgba(180, 214, 222, 1)",
-              strokeColor: "rgba(210, 214, 222, 1)",
-              pointColor: "rgba(180, 214, 222, 1)",
+              fillColor: "rgba(54, 162, 235)",
+              strokeColor: "rgba(210, 214, 222)",
+              pointColor: "rgba(180, 214, 222)",
               pointStrokeColor: "#c1c7d1",
               pointHighlightFill: "#fff",
-              pointHighlightStroke: "rgba(220,220,220,1)",
-              data: <?php echo $data1;?>
+              pointHighlightStroke: "rgba(220,220,220)",
+              data: <?php echo $data1;?>,
+              
             }
           ]
         };
@@ -187,7 +193,7 @@
           //Number - Pixel width of dataset stroke
           datasetStrokeWidth: 2,
           //Boolean - Whether to fill the dataset with a color
-          datasetFill: true,
+          datasetFill: false,
           //String - A legend template
           legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].lineColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>",
           //Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
@@ -199,9 +205,13 @@
         var barChartCanvas = $("#barChart").get(0).getContext("2d");
         var barChart = new Chart(barChartCanvas);
         var barChartData = areaChartData;
-        barChartData.datasets[0].fillColor = "#00a65a";
-        barChartData.datasets[0].strokeColor = "#00a65a";
-        barChartData.datasets[0].pointColor = "#00a65a";
+        //barChartData.datasets[0].fillColor = "#ccc";  
+        obj = barChartData;
+
+           
+
+        //barChartData.datasets[0].strokeColor = "#00a65a";
+        //barChartData.datasets[0].pointColor = "#00a65a";
 
         var barChartOptions = {
           //Boolean - Whether the scale should start at zero, or an order of magnitude down from the lowest value
@@ -219,9 +229,9 @@
           //Boolean - If there is a stroke on each bar
           barShowStroke: true,
           //Number - Pixel width of the bar stroke
-          barStrokeWidth: 2,
+          barStrokeWidth: 1,
           //Number - Spacing between each of the X value sets
-          barValueSpacing: 5,
+          barValueSpacing: 95,
           //Number - Spacing between data sets within X values
           barDatasetSpacing: 1,
           //String - A legend template
@@ -243,6 +253,7 @@
                   { mData: "nombre"},
                   { mData: "tipo_identificacion"},
                   { mData: "identificacion"},
+                  
                   { mData: "SAP" },
                   { mData: "ifinanciero" },
                   { mData: "valorPagado" },
@@ -279,5 +290,9 @@
                  "aaSorting":[[1,"asc"]],
                  "aLengthMenu": [[20, 40, 60, 100], [20, 40, 60, 100]]
               });
+
+        
     });
+
+
 </script>

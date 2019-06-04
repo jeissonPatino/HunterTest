@@ -1,8 +1,9 @@
 <?php 
 	header("Content-type: application/vnd.ms-excel; charset=utf-8");
     header("Content-Disposition: attachment; filename=HistoricoExtrajudicial.xls");
+    
 ?>
-
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <table>
 	<thead>
 		<tr>
@@ -39,8 +40,9 @@
       	?> 
       		<tr>
 	            <td style="text-align:center;"><?php echo $deudor;?></td>
-				<td style="text-align:center;"><?php echo $key->tipo_identificacion;?></td>
+	            <td style="text-align:center;"><?php echo $key->tipo_identificacion;?></td>
 				<td style="text-align:center;"><?php echo $key->identificacion;?></td>
+				
 				<td style="text-align:center;"><?php echo $key->SAP; ?></td>
 				<td style="text-align:center;"><?php echo utf8_encode($key->financiero); ?></td>
 				<td style="text-align:center;"><?php echo "$ ".number_format($key->Vlorpagado,0, ',', '.'); ?></td>

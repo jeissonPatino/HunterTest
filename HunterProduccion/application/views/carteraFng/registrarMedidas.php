@@ -7,7 +7,7 @@
             </div>
             <div class="modal-body" >
             	
-                <div class="row">
+                <div class="row row-primary">
                 	<div class="col-md-1" >
 
                 	</div>

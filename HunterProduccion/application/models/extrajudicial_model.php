@@ -275,6 +275,9 @@ class Extrajudicial_Model extends CI_Model {
                 $this->db->where('G719.G719_C17029', $this->session->userdata('frg'));
             }
         }
+		  # (ACB2) 
+        $this->db->where('G719.G719_C17048 IS NULL');
+        $this->db->where('G719.G719_C17035 > 0');		 
 
         $this->db->group_by('[G717_C17240]
                 ,[G717_C17005]
@@ -321,24 +324,22 @@ class Extrajudicial_Model extends CI_Model {
 
     function getClientesSingestionquincedias($filtro){
       
-    	$this->db->select('G717_V6.[G717_C17240] as deudor
-					      ,G717_V6.[G717_C17005] as identificacion
-                ,G717_V6.[tipo_identificacion] as tipo_identificacion
-					      ,[G742_ConsInte__b]
-					      ,[G717_V6].[G719_ConsInte__b]
-					      ,[G742_C17244] 
-					      ,[G737_C17183]
-                ,G719.G719_C17423 as liquidacion
-					      ,[G717_V6].[G719_C17034] as valor_pagado
-					      ,[G730_C17126] as financiera
-                ,[G717_V6].G719_C17039 AS PROCESO_SAP
-                ,[G717_V6].LISOPC_Nombre____b AS ROL
-                ,[G717_V6].G718_C17015 AS CIUDAD_DOMICILIO 
-               
-					      ');
+    	$this->db->select('
+                          G717_V6.[G717_C17240] as deudor, 
+                          G717_V6.[G717_C17005] as identificacion, 
+                          G717_V6.[tipo_identificacion] as tipo_identificacion, 
+                          [G742_ConsInte__b],
+                          [G717_V6].[G719_ConsInte__b], 
+                          [G742_C17244], 
+                          [G737_C17183], 
+                          G719.G719_C17423 as liquidacion, 
+                          [G717_V6].[G719_C17034] as valor_pagado, 
+                          [G730_C17126] as financiera, 
+                          [G717_V6].G719_C17039 AS PROCESO_SAP, 
+                          [G717_V6].LISOPC_Nombre____b AS ROL,
+                          [G717_V6].G718_C17015 AS CIUDAD_DOMICILIO
+                        ');
         $this->db->join('G719', 'G717_V6.G719_ConsInte__b = G719.G719_ConsInte__b');
-
-
         if ($this->session->userdata('tpo_usuario') == 'ABOGADO') {
           if( $this->session->userdata('codigo_abogado') != NULL){
               $this->db->where('G719.G719_C17153', $this->session->userdata('codigo_abogado'));
@@ -370,10 +371,13 @@ class Extrajudicial_Model extends CI_Model {
           $fecha2 = explode('-', $fechas[2]);
           $fechas[2] = "$fecha2[2]-$fecha2[1]-$fecha2[0]";
 
-             $this->db->where("Fecha_gestion BETWEEN '$fechas[1]' AND '$fechas[2]'"); 
-          
+      $this->db->where("G719.G719_C17423 not in ( select 
+                                                    distinct G719_C17423
+                                                  from G742 
+                                                  join G719 ON G719.G719_ConsInte__b = G742_C17244
+                                                  where G742_C17242 BETWEEN '$fechas[1]' AND '$fechas[2]') 
+                        and  Fecha_gestion < '$fechas[1]'"); 
         }
-
         $this->db->group_by('G717_V6.[G717_C17240]
                 ,G717_V6.[G717_C17005]
                 ,G717_V6.[tipo_identificacion] 
@@ -414,11 +418,13 @@ class Extrajudicial_Model extends CI_Model {
 					      ,G717_V7.[G719_ConsInte__b]
                 ,G719.G719_C17423 as liquidacion
                 ,G719.G719_C17032 as garantia
-					      ,G717_V7.[G719_C17034] as valor
+					      ,G717_V7.[G719_C17034] as valor 
 					      ,[G737_ConsInte__b]
 					      ,[G737_C17183]
 					      ');
         $this->db->join('G719', 'G717_V7.G719_ConsInte__b = G719.G719_ConsInte__b');
+        $this->db->where('G717_V7.[G719_C17034] > 0 AND G719.G719_C17073 IS NULL AND G719.G719_C17071 IS NULL');
+        
 
         if ($this->session->userdata('tpo_usuario') == 'ABOGADO') {
           if( $this->session->userdata('codigo_abogado') != NULL){
@@ -457,6 +463,7 @@ class Extrajudicial_Model extends CI_Model {
         $query = $this->db->get('G717_V7');
 
         return $query->result();
+        
     }
 
     function getTotalMisClientesVigentes(){
@@ -978,37 +985,87 @@ class Extrajudicial_Model extends CI_Model {
 
     // Creado por Jeisson Patiño 26/11/2018
     // La funcion getFiltrosGestion trae los parametros para filtrar en busqueda Tipo de Gestiones
+// resultado comunicacion 
+    function getfiltrosEstado(){
+        $this->db->select('G732_C17129,
+                           LISOPC_Nombre____b');
+        $this->db->join('LISOPC' , 'LISOPC_ConsInte__b = G732_C17129', 'LEFT');
+        $this->db->group_by('G732_C17129,
+                            LISOPC_Nombre____b');
+        $query = $this->db->get('G732');
+        return $query->result();
+    }
 
-    function getFiltrosGestion(){
-        $this->db->select('LISOPC_Nombre____b as Gestiones,
-                            LISOPC_ConsInte__b as Id');
-        $this->db->where("LISOPC_ConsInte__OPCION_b in (192,193)"); 
+// gestion
+    function getFiltrosGestion($codigo){
+        $this->db->select('G732_C17130,
+                           LISOPC_Nombre____b');
+        $this->db->join('LISOPC' , 'LISOPC_ConsInte__b = G732_C17130', 'LEFT');
+        if($codigo == 1781){
+         $this->db->where('G732_C17130 != 1785');
+         $this->db->where('G732_C17129', $codigo);
+        }else{
+        $this->db->where('G732_C17129', $codigo);
+        $this->db->where('G732_C17130 != 1816');
+        }
+        $this->db->group_by('G732_C17130,
+                            LISOPC_Nombre____b');
+        $query = $this->db->get('G732');
+        return $query->result();
+    }
 
-        $query = $this->db->get('LISOPC');
-
-       return $query->result();
+// Subgestion
+    function getfiltrosSubgestion($codigo,$gestion){
+        $this->db->select('G732_ConsInte__b,
+                           G732_C17131');
+        $this->db->where('G732_C17129', $codigo);
+        $this->db->where('G732_C17130',$gestion);
+        $this->db->group_by('G732_ConsInte__b,
+                            G732_C17131');
+        $query = $this->db->get('G732');
+        return $query->result();
     }
 
 
-    function getliquidacionPorGestion($tipoGestion,$fechaInicial,$fechaFinal){
-      $this->db->select('NombreDeudor ,
-                         TipoIdentificacion,
-                          NumeroId, 
-                          CiudadDespacho, 
-                          Intermediariofinancero ,   
-                          NumeroLiquidacion,
-                          ProcesoSAP,
-                          valorPagado,
-                          ROL,
-                          fechaIngreso');
+    function getliquidacionPorGestion($codigo,$gestion,$subgestion,$fechaInicial,$fechaFinal){
+      $this->db->select('LISOPC_Nombre____b rol,
+                        G717_C17240 as nombre,
+                        tipo_identificacion as ti,
+                        G717_C17005 as identificacion,
+                        G730_C17126 as intermediario,
+                        G719_C17423 as liquidacion,
+                        G719_C17039 as SAP,
+                        G719_C17424 as Valor,
+                        G742_C17245 as Gestor,
+                        MAX(dbo.G742.G742_C17243) AS fechaIngreso');
+      $this->db->join('G719' , 'G742_C17244 = G719_ConsInte__b', 'LEFT');
+      $this->db->join('G730' , 'G719_C17030 = G730_ConsInte__b', 'LEFT');
+      $this->db->join('G737' , 'G737_C17182 = G719_ConsInte__b', 'LEFT');
+      $this->db->join('G717' , 'G737_C17181 = G717_ConsInte__b', 'LEFT'); 
+      $this->db->join('LISOPC' , 'G737_C17183 = LISOPC_ConsInte__b', 'LEFT');
+      $this->db->where('G719_C17423 is not null');
+      $this->db->where('G742_C17250', $codigo);
+      $this->db->where('G742_C17243 >= ', $fechaInicial);
+      $this->db->where('G742_C17243 <= ', $fechaFinal);
 
-      $this->db->where('fechaIngreso >= ', $fechaInicial);
-      $this->db->where('fechaIngreso <= ', $fechaFinal);  
-      $this->db->where('Id', $tipoGestion);
-
+      if($gestion != NULL || $gestion != 0 || $gestion != ''){
+        $this->db->where('G742_C17251', $gestion);
+        if($subgestion != NULL || $subgestion != 0 || $subgestion != ''){
+          $this->db->where('G742_C17252', $subgestion);
+        }
+      }
+      
+      $this->db->group_by('LISOPC_Nombre____b,
+                        G717_C17240,
+                        tipo_identificacion,
+                        G717_C17005,
+                        G730_C17126,
+                        G719_C17423,
+                        G719_C17039,
+                        G719_C17424,
+                        G742_C17245');
       $this->db->order_by('fechaIngreso', 'ASC');
-
-      $query = $this->db->get('VistaGestiones');
+      $query = $this->db->get('G742');
     return $query->result();
 
     }
