@@ -1,10 +1,10 @@
 <section class="content-header">
     <h1>
-        CONFIGURACIÓN - GESTIONAR DATOS 
+        configuracion - Gestionar Datos Clientes
     </h1>
     <ol class="breadcrumb">
     	<li><a href="<?php echo base_url();?>home">Inicio</a></li>
-        <li class="active">Gestionar Datos </li>
+        <li class="active">Gestionar Datos Clientes</li>
     </ol>
 </section>
 
@@ -340,7 +340,6 @@
 		});
 
 		$("#delete1").click(function(){
-
 			alertify.confirm("¿Ésta seguro que desea eliminar el registro?", function (e) {
 			    if (e) {
 		         	$.ajax({
@@ -349,7 +348,6 @@
 				            data: { id : $("#const_int_").val() },
 				            //una vez finalizado correctamente
 				            success: function(data){
-				            	console.log(data);
 				            	if(data == '1'){
 				            		alertify.success('Datos eliminados correctamente');
 				            		window.location.reload(true);

@@ -248,7 +248,7 @@
 									<div class="box-header with-border">
 										<h4 class="box-title">
 											<a data-toggle="collapse" data-parent="#accordion" href="#collapseOneOne">
-												DATOS OBLIGACIÓN
+												DATOS OBLIGACION
 											</a>
 										</h4>
 									</div>
@@ -1018,7 +1018,7 @@
                 <div class="box-header with-border">
 					<h4 class="box-title">
 						<a data-toggle="collapse" data-parent="#accordion" href="#collapseObligacciob">
-							DATOS DE LA OBLIGACIÓN
+							DATOS DE LA OBLIGACION
 						</a>
 					</h4>
 				</div>
@@ -1028,13 +1028,13 @@
 							echo '<div class="row">
 						  		<div class="col-md-3"><label>Nombre del Deudor</label></div>
 						  		<div class="col-md-3">'.$key->Deudor.'</div>
-						  		<div class="col-md-3"><label>Número de Identificación</label></div>
+						  		<div class="col-md-3"><label>Numero de Identificación</label></div>
 						  		<div class="col-md-3">'.$key->identificacion.'</div>
 						  	</div>';
 						  	
 						}?>
 					  	<div class="row">
-					  		<div class="col-md-3"><label>Número de Contrato</label></div>
+					  		<div class="col-md-3"><label>Numero de Contrato</label></div>
 					  		<div class="col-md-3" id='simularContrato'></div>
 					  		<div class="col-md-3"><label>Intermediario Financiero</label></div>
 					  		<div class="col-md-3" id="simuladorIntemediario"></div>
@@ -1152,7 +1152,7 @@
 					  		<div class="col-md-6">
 					  			<form class="form-horizontal">
 									<div class="form-group">
-										<label for="inputEmail3" class="col-sm-4 control-label">Número de Cuotas</label>
+										<label for="inputEmail3" class="col-sm-4 control-label">Numero de Cuotas</label>
 										<div class="col-sm-8">
 											<input type="text" class="form-control" value="10" id="txtNumeroCuotas">
 										</div>
@@ -1213,7 +1213,7 @@
 					  	<div class="row">
 					  		<div class="col-md-3"><label>TITULAR DE LA CUENTA</label></div>
 					  		<div class="col-md-3"><label>Fondo Nacional de Garantías S.A.</label></div>
-					  		<div class="col-md-3"><label>NÚMERO DE REFERENCIA</label></div>
+					  		<div class="col-md-3"><label>NUMERO DE REFERENCIA</label></div>
 					  		<div class="col-md-3" id="referenciaCOntratop"></div>
 					  	</div>
 					</div>
@@ -1456,8 +1456,8 @@
                 <div class="row">
                     <div class="col-md-12" >
                         <div class="form-group">
-                            <label>Descripción</label>
-                            <textarea class="form-control" rows="3" id="txtDescripcion" placeholder="Descripción"></textarea>
+                            <label>Descripcion</label>
+                            <textarea class="form-control" rows="3" id="txtDescripcion" placeholder="Descripcion"></textarea>
                         </div>
                     </div>
                 </div>

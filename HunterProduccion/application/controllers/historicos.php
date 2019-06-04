@@ -86,7 +86,7 @@ class Historicos extends CI_Controller {
                 if(!is_null($key->fechaIngreso)){
                     $fecha1 = explode(" ", $key->fechaIngreso)[0];
                     $fecha2 = explode("-", $fecha1);
-                    $fecha =  $fecha2[2]."/". $fecha2[1]."/". $fecha2[0];
+                    $fecha =  "<span style='display: none;'>".$fecha2[0].$fecha2[1].$fecha2[2]."</span>".$fecha2[2]."/". $fecha2[1]."/". $fecha2[0];
                 }
                 
                 $deudor = trim(utf8_encode($key->nombres));
@@ -106,7 +106,7 @@ class Historicos extends CI_Controller {
                 $abogados[$i]['resultadocomunicacion'] = utf8_encode($key->resultadocomunicacion) ;
                 $abogados[$i]['gestion'] = utf8_encode($key->gestion);
                 $abogados[$i]['subgestion'] = utf8_encode($key->subgestion);
-                $abogados[$i]['noombres'] = $deudor ;
+                $abogados[$i]['noombres'] = "<span style='display: none;'>".utf8_encode($nombre)."</span>".$deudor ;
                 $abogados[$i]['identificacion'] = $key->identificacion;
                 $abogados[$i]['tipo_identificacion'] = $key->tipo_identificacion;
                 $abogados[$i]['SAP'] = $key->SAP;
@@ -143,7 +143,7 @@ class Historicos extends CI_Controller {
                 if(!is_null($key->fechaIngreso)){
                     $fecha1 = explode(" ", $key->fechaIngreso)[0];
                     $fecha2 = explode("-", $fecha1);
-                    $fecha =  $fecha2[2]."/". $fecha2[1]."/". $fecha2[0];
+                    $fecha =  "<span style='display: none;'>".$fecha2[0].$fecha2[1].$fecha2[2]."</span>".$fecha2[2]."/". $fecha2[1]."/". $fecha2[0];
                 }
                 
                 $deudor = trim(utf8_encode($key->nombres));
@@ -163,7 +163,7 @@ class Historicos extends CI_Controller {
                 $abogados[$i]['resultadocomunicacion'] = utf8_encode($key->resultadocomunicacion) ;
                 $abogados[$i]['gestion'] = utf8_encode($key->gestion);
                 $abogados[$i]['subgestion'] = utf8_encode($key->subgestion);
-                $abogados[$i]['noombres'] = $deudor ;
+                $abogados[$i]['noombres'] = "<span style='display: none;'>".utf8_encode($nombre)."</span>".$deudor ;
                 $abogados[$i]['identificacion'] = $key->identificacion;
                 $abogados[$i]['tipo_identificacion'] = $key->tipo_identificacion;
                 $abogados[$i]['SAP'] = $key->SAP;
@@ -193,7 +193,7 @@ class Historicos extends CI_Controller {
                 if(!is_null($key->fechaIngreso)){
                     $fecha1 = explode(" ", $key->fechaIngreso)[0];
                     $fecha2 = explode("-", $fecha1);
-                    $fecha =  $fecha2[2]."/". $fecha2[1]."/". $fecha2[0];
+                    $fecha =  "<span style='display: none;'>".$fecha2[0].$fecha2[1].$fecha2[2]."</span>".$fecha2[2]."/". $fecha2[1]."/". $fecha2[0];
                 }
                 
                 $deudor = trim(utf8_encode($key->nombres));
@@ -213,7 +213,7 @@ class Historicos extends CI_Controller {
                 $abogados[$i]['resultadocomunicacion'] = utf8_encode($key->resultadocomunicacion) ;
                 $abogados[$i]['gestion'] = utf8_encode($key->gestion);
                 $abogados[$i]['subgestion'] = utf8_encode($key->subgestion);
-                $abogados[$i]['noombres'] = $deudor ;
+                $abogados[$i]['noombres'] = "<span style='display: none;'>".utf8_encode($nombre)."</span>".$deudor ;
                 $abogados[$i]['identificacion'] = $key->identificacion;
                  $abogados[$i]['tipo_identificacion'] = $key->tipo_identificacion;
                 $abogados[$i]['SAP'] = $key->SAP;
@@ -243,7 +243,7 @@ class Historicos extends CI_Controller {
                 if(!is_null($key->fechaIngreso)){
                     $fecha1 = explode(" ", $key->fechaIngreso)[0];
                     $fecha2 = explode("-", $fecha1);
-                    $fecha =  $fecha2[2]."/". $fecha2[1]."/". $fecha2[0];
+                    $fecha =  "<span style='display: none;'>".$fecha2[0].$fecha2[1].$fecha2[2]."</span>".$fecha2[2]."/". $fecha2[1]."/". $fecha2[0];
                 }
                 
                 $deudor = trim(utf8_encode($key->nombres));
@@ -263,7 +263,7 @@ class Historicos extends CI_Controller {
                 $abogados[$i]['resultadocomunicacion'] = utf8_encode($key->resultadocomunicacion) ;
                 $abogados[$i]['gestion'] = utf8_encode($key->gestion);
                 $abogados[$i]['subgestion'] = utf8_encode($key->subgestion);
-                $abogados[$i]['noombres'] = $deudor ;
+                $abogados[$i]['noombres'] = "<span style='display: none;'>".utf8_encode($nombre)."</span>".$deudor ;
                 $abogados[$i]['identificacion'] = $key->identificacion;
                 $abogados[$i]['tipo_identificacion'] = $key->tipo_identificacion;
                 $abogados[$i]['SAP'] = $key->SAP;
@@ -354,7 +354,7 @@ class Historicos extends CI_Controller {
                 $nombre = substr($deudor, 0, 3);
 
                 $abogados[$i]['Etapa'] = utf8_encode($key->Etapa) ;
-                $abogados[$i]['txtFechaIngreso'] =  $fecha[2]."/". $fecha[1]."/". $fecha[0] ;
+                $abogados[$i]['txtFechaIngreso'] =  "<span style='display: none;'>".$fecha[0].$fecha[1].$fecha[2]."</span>".$fecha[2]."/". $fecha[1]."/". $fecha[0] ;
                 $abogados[$i]['txtObservaciones'] = utf8_encode($key->txtObservaciones) ;
                 $abogados[$i]['TipoProceso'] = utf8_encode($key->claseProceso) ;
                 $abogados[$i]['users'] = utf8_encode($key->users );
@@ -365,7 +365,7 @@ class Historicos extends CI_Controller {
                     $abogados[$i]['contrato'] = $key->contrato ;
                 }
                 $abogados[$i]['actuacion'] = utf8_encode($key->actuacion);
-                $abogados[$i]['noombres'] = $deudor ;
+                $abogados[$i]['noombres'] = "<span style='display: none;'>".utf8_encode($nombre)."</span>".$deudor ;
                 $abogados[$i]['identificacion'] = $key->identificacion;
                 $abogados[$i]['tipo_identificacion'] = $key->tipo_identificacion;
                 $abogados[$i]['SAP'] = $key->SAP;
@@ -441,11 +441,11 @@ class Historicos extends CI_Controller {
         }
     }
 
-    public function historicoJudicialjson($fechaInicial, $fechaFinal){
-        if($this->session->userdata('login_ok')){
+    public function historicoJudicialjson($numeroliquidacion){
+    if($this->session->userdata('login_ok')){
             ini_set('memory_limit', '1024M');
 
-            $extrajudicial = $this->Wizard_Model->getgestioJudicialTotal($fechaInicial, $fechaFinal);
+            $extrajudicial = $this->Wizard_Model->getgestioJudicialTotal($numeroliquidacion);
            
             $abogados =array();
             $i = 0;
@@ -529,7 +529,7 @@ class Historicos extends CI_Controller {
                 $nombre = substr($deudor, 0, 3);
 
                 $abogados[$i]['Etapa'] = utf8_encode($key->Etapa) ;
-                $abogados[$i]['txtFechaIngreso'] =  $fecha;
+                $abogados[$i]['txtFechaIngreso'] =  "<span style='display: none;'>".$fecha2 ."</span>".$fecha;
                 $abogados[$i]['txtObservaciones'] = utf8_encode($key->txtObservaciones) ;
                 $abogados[$i]['TipoProceso'] = utf8_encode($key->claseProceso) ;
                 $abogados[$i]['users'] = utf8_encode($key->users );
@@ -540,7 +540,7 @@ class Historicos extends CI_Controller {
                     $abogados[$i]['contrato'] = $key->contrato ;
                 }
                 $abogados[$i]['actuacion'] = utf8_encode($key->actuacion);
-                $abogados[$i]['noombres'] = $deudor ;
+                $abogados[$i]['noombres'] = "<span style='display: none;'>".utf8_encode($nombre)."</span>".$deudor ;
                 $abogados[$i]['identificacion'] = $key->identificacion;
                 $abogados[$i]['tipo_identificacion'] = $key->tipo_identificacion;
                 $abogados[$i]['SAP'] = $key->SAP;
@@ -656,7 +656,7 @@ class Historicos extends CI_Controller {
                 $deudor = trim(utf8_encode($key->nombres));
                 $nombre = substr($deudor, 0, 3); 
 
-                $abogados[$i]['FechaSolicitud'] = $fecha5;
+                $abogados[$i]['FechaSolicitud'] = "<span style='display: none;'>".$sapan."</span>".$fecha5;
                 $abogados[$i]['FechaDecreto'] = $fecha4;
                 $abogados[$i]['users'] = utf8_encode($key->users) ;
                 $abogados[$i]['Secuestre'] = utf8_encode($key->Secuestre) ;
@@ -671,7 +671,7 @@ class Historicos extends CI_Controller {
 
                 $abogados[$i]['Medida'] = utf8_encode($key->Medida);
                 $abogados[$i]['id'] = $key->G736_ConsInte__b;
-                $abogados[$i]['noombres'] = $deudor ;
+                $abogados[$i]['noombres'] = "<span style='display: none;'>".utf8_encode($nombre)."</span>".$deudor ;
                 $abogados[$i]['identificacion'] = $key->identificacion;
                 $abogados[$i]['tipo_identificacion'] = $key->tipo_identificacion;
                 $abogados[$i]['SAP'] = $key->SAP;
@@ -742,7 +742,7 @@ class Historicos extends CI_Controller {
                 $deudor = trim(utf8_encode($key->nombres));
                 $nombre = substr($deudor, 0, 3); 
 
-                $abogados[$i]['FechaSolicitud'] = $fecha5;
+                $abogados[$i]['FechaSolicitud'] = "<span style='display: none;'>".$sapan."</span>".$fecha5;
                 $abogados[$i]['FechaDecreto'] = $fecha4;
                 $abogados[$i]['users'] = utf8_encode($key->users) ;
                 $abogados[$i]['Secuestre'] = utf8_encode($key->Secuestre) ;
@@ -757,7 +757,7 @@ class Historicos extends CI_Controller {
 
                 $abogados[$i]['Medida'] = utf8_encode($key->Medida);
                 $abogados[$i]['id'] = $key->G736_ConsInte__b;
-                $abogados[$i]['noombres'] = $deudor ;
+                $abogados[$i]['noombres'] = "<span style='display: none;'>".utf8_encode($nombre)."</span>".$deudor ;
                 $abogados[$i]['identificacion'] = $key->identificacion;
                 $abogados[$i]['tipo_identificacion'] = $key->tipo_identificacion;
                 $abogados[$i]['SAP'] = $key->SAP;
@@ -821,7 +821,7 @@ class Historicos extends CI_Controller {
             $deudor = trim(utf8_encode($key->nombres));
             $nombre = substr($deudor, 0, 3); 
 
-            $abogados[$i]['FechaSolicitud'] = $fecha5;
+            $abogados[$i]['FechaSolicitud'] = "<span style='display: none;'>".$sapan."</span>".$fecha5;
             $abogados[$i]['FechaDecreto'] = $fecha4;
             $abogados[$i]['users'] = utf8_encode($key->users) ;
             $abogados[$i]['Secuestre'] = utf8_encode($key->Secuestre) ;
@@ -836,7 +836,7 @@ class Historicos extends CI_Controller {
 
             $abogados[$i]['Medida'] = utf8_encode($key->Medida);
             $abogados[$i]['id'] = $key->G736_ConsInte__b;
-            $abogados[$i]['noombres'] = $deudor ;
+            $abogados[$i]['noombres'] = "<span style='display: none;'>".utf8_encode($nombre)."</span>".$deudor ;
             $abogados[$i]['identificacion'] = $key->identificacion;
             $abogados[$i]['tipo_identificacion'] = $key->tipo_identificacion;
             $abogados[$i]['SAP'] = $key->SAP;
@@ -893,7 +893,7 @@ class Historicos extends CI_Controller {
             $deudor = trim(utf8_encode($key->nombres));
             $nombre = substr($deudor, 0, 3); 
 
-            $abogados[$i]['FechaSolicitud'] = $fecha5;
+            $abogados[$i]['FechaSolicitud'] = "<span style='display: none;'>".$sapan."</span>".$fecha5;
             $abogados[$i]['FechaDecreto'] = $fecha4;
             $abogados[$i]['users'] = utf8_encode($key->users) ;
             $abogados[$i]['Secuestre'] = utf8_encode($key->Secuestre) ;
@@ -908,7 +908,7 @@ class Historicos extends CI_Controller {
 
             $abogados[$i]['Medida'] = utf8_encode($key->Medida);
             $abogados[$i]['id'] = $key->G736_ConsInte__b;
-            $abogados[$i]['noombres'] = $deudor ;
+            $abogados[$i]['noombres'] = "<span style='display: none;'>".utf8_encode($nombre)."</span>".$deudor ;
             $abogados[$i]['identificacion'] = $key->identificacion;
             $abogados[$i]['tipo_identificacion'] = $key->tipo_identificacion;
             $abogados[$i]['SAP'] = $key->SAP;
@@ -1118,25 +1118,25 @@ class Historicos extends CI_Controller {
                         if(!is_null($key2->fechaabogado)){
                             $fechaAbogado2 = explode(" ", $key2->fechaabogado)[0];
                             $fechaAbogado2 = explode("-", $fechaAbogado2);
-                            $fechaAbogado =  $fechaAbogado2[0].$fechaAbogado2[1].$fechaAbogado2[2]."</span>".$fechaAbogado2[2]."/". $fechaAbogado2[1]."/". $fechaAbogado2[0];
+                            $fechaAbogado =  "<span style='display: none;'>".$fechaAbogado2[0].$fechaAbogado2[1].$fechaAbogado2[2]."</span>".$fechaAbogado2[2]."/". $fechaAbogado2[1]."/". $fechaAbogado2[0];
                         }
 
                         $fechaAPoliza = NULL;
                         if(!is_null($key2->fecha_aprovacion)){
                             $fechaAPoliza2 = explode(" ", $key2->fecha_aprovacion)[0];
                             $fechaAPoliza2 = explode("-", $fechaAPoliza2);
-                            $fechaAPoliza =  $fechaAPoliza2[0].$fechaAPoliza2[1].$fechaAPoliza2[2]."</span>".$fechaAPoliza2[2]."/". $fechaAPoliza2[1]."/". $fechaAbogado2[0];
+                            $fechaAPoliza =  "<span style='display: none;'>".$fechaAPoliza2[0].$fechaAPoliza2[1].$fechaAPoliza2[2]."</span>".$fechaAPoliza2[2]."/". $fechaAPoliza2[1]."/". $fechaAbogado2[0];
                         }
 
                         $fechaVPoliza = NULL;
                         if(!is_null($key2->fecha_vencimiento)){
                             $fechaVPoliza2 = explode(" ", $key2->fecha_vencimiento)[0];
                             $ffechaVPoliza2 = explode("-", $fechaVPoliza2);
-                            $fechaVPoliza =  $fechaVPoliza2[2]."/". $fechaVPoliza2[1]."/". $fechaVPoliza2[0];
+                            $fechaVPoliza =  "<span style='display: none;'>".$fechaVPoliza2[0].$fechaVPoliza2[1].$fechaVPoliza2[2]."</span>".$fechaVPoliza2[2]."/". $fechaVPoliza2[1]."/". $fechaVPoliza2[0];
                         }
 
                         $abogados[$i]['Etapa'] = utf8_encode($key2->Etapa) ;
-                        $abogados[$i]['txtFechaIngreso'] =  $fecha;
+                        $abogados[$i]['txtFechaIngreso'] =  "<span style='display: none;'>".$fecha2 ."</span>".$fecha;
                         $abogados[$i]['txtObservaciones'] = utf8_encode($key2->txtObservaciones) ;
                         $abogados[$i]['TipoProceso'] = utf8_encode($key2->claseProceso) ;
                         $abogados[$i]['users'] = utf8_encode($key2->users );
@@ -1152,7 +1152,7 @@ class Historicos extends CI_Controller {
                         $abogados[$i]['credito'] = $key2->liquidacion;
                         $deudor = trim(utf8_encode($key2->abogado));
                         $nombre = substr($deudor, 0, 3);
-                        $abogados[$i]['noombres'] = $deudor ;
+                        $abogados[$i]['noombres'] = "<span style='display: none;'>".utf8_encode($nombre)."</span>".$deudor ;
                         $abogados[$i]['SAP'] = $key2->SAP;
 
                         $fechaAlla = NULL;
@@ -1228,7 +1228,7 @@ class Historicos extends CI_Controller {
                             $fecha4 = $fecha3[2]."/". $fecha3[1]."/". $fecha3[0];
                         }
                         
-                        $abogados[$i]['FechaSolicitud'] = $fecha5;
+                        $abogados[$i]['FechaSolicitud'] = "<span style='display: none;'>".$sapan."</span>".$fecha5;
                         $abogados[$i]['FechaDecreto'] = $fecha4;
                         $abogados[$i]['users'] = utf8_encode($key3->users) ;
                         $abogados[$i]['Secuestre'] = utf8_encode($key3->Secuestre) ;
@@ -1368,25 +1368,25 @@ class Historicos extends CI_Controller {
                         if(!is_null($key2->fechaabogado)){
                             $fechaAbogado2 = explode(" ", $key2->fechaabogado)[0];
                             $fechaAbogado2 = explode("-", $fechaAbogado2);
-                            $fechaAbogado =  $fechaAbogado2[2]."/". $fechaAbogado2[1]."/". $fechaAbogado2[0];
+                            $fechaAbogado =  "<span style='display: none;'>".$fechaAbogado2[0].$fechaAbogado2[1].$fechaAbogado2[2]."</span>".$fechaAbogado2[2]."/". $fechaAbogado2[1]."/". $fechaAbogado2[0];
                         }
 
                         $fechaAPoliza = NULL;
                         if(!is_null($key2->fecha_aprovacion)){
                             $fechaAPoliza2 = explode(" ", $key2->fecha_aprovacion)[0];
                             $fechaAPoliza2 = explode("-", $fechaAPoliza2);
-                            $fechaAPoliza =  $fechaAPoliza2[2]."/". $fechaAPoliza2[1]."/". $fechaAbogado2[0];
+                            $fechaAPoliza =  "<span style='display: none;'>".$fechaAPoliza2[0].$fechaAPoliza2[1].$fechaAPoliza2[2]."</span>".$fechaAPoliza2[2]."/". $fechaAPoliza2[1]."/". $fechaAbogado2[0];
                         }
 
                         $fechaVPoliza = NULL;
                         if(!is_null($key2->fecha_vencimiento)){
                             $fechaVPoliza2 = explode(" ", $key2->fecha_vencimiento)[0];
                             $ffechaVPoliza2 = explode("-", $fechaVPoliza2);
-                            $fechaVPoliza =  $fechaVPoliza2[2]."/". $fechaVPoliza2[1]."/". $fechaVPoliza2[0];
+                            $fechaVPoliza =  "<span style='display: none;'>".$fechaVPoliza2[0].$fechaVPoliza2[1].$fechaVPoliza2[2]."</span>".$fechaVPoliza2[2]."/". $fechaVPoliza2[1]."/". $fechaVPoliza2[0];
                         }
 
                         $abogados[$i]['Etapa'] = utf8_encode($key2->Etapa) ;
-                        $abogados[$i]['txtFechaIngreso'] =  $fecha;
+                        $abogados[$i]['txtFechaIngreso'] =  "<span style='display: none;'>".$fecha2 ."</span>".$fecha;
                         $abogados[$i]['txtObservaciones'] = utf8_encode($key2->txtObservaciones) ;
                         $abogados[$i]['TipoProceso'] = utf8_encode($key2->claseProceso) ;
                         $abogados[$i]['users'] = utf8_encode($key2->users );
@@ -1404,7 +1404,7 @@ class Historicos extends CI_Controller {
                         $abogados[$i]['credito'] = $key2->liquidacion;
                         $deudor = trim(utf8_encode($key2->abogado));
                         $nombre = substr($deudor, 0, 3);
-                        $abogados[$i]['noombres'] = $deudor ;
+                        $abogados[$i]['noombres'] = "<span style='display: none;'>".utf8_encode($nombre)."</span>".$deudor ;
                         $abogados[$i]['SAP'] = $key2->SAP;
 
                         $fechaAlla = NULL;
@@ -1480,7 +1480,7 @@ class Historicos extends CI_Controller {
                             $fecha4 = $fecha3[2]."/". $fecha3[1]."/". $fecha3[0];
                         }
                         
-                        $abogados[$i]['FechaSolicitud'] = $fecha5;
+                        $abogados[$i]['FechaSolicitud'] = "<span style='display: none;'>".$sapan."</span>".$fecha5;
                         $abogados[$i]['FechaDecreto'] = $fecha4;
                         $abogados[$i]['users'] = utf8_encode($key3->users) ;
                         $abogados[$i]['Secuestre'] = utf8_encode($key3->Secuestre) ;

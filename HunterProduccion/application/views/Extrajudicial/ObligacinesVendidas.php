@@ -1,10 +1,10 @@
 <section class="content-header">
     <h1>
-        CARTERA FNG - OBLIGACIONES VENDIDAS
+        Cartera FNG - Obligaciones vendidas
     </h1>
     <ol class="breadcrumb">
     	<li><a href="<?php echo base_url();?>home">Inicio</a></li>
-    	<li><a href="<?php echo base_url();?>Extrajudicial">Cartera Fng</a></li>
+    	<li><a href="<?php echo base_url();?>cartera_fng">Cartera Fng</a></li>
         <li class="active">Cartera Fng - Obligaciones Vendidas</li>
     </ol>
 </section>
@@ -65,7 +65,6 @@
 
 
 		$("#tablaJudicial").DataTable({
-
 				"aaData": <?php echo $clientes; ?>,
 				"aoColumns": [
 					
@@ -78,38 +77,29 @@
 					{ mData: "fecha_venta" }
 					
 				],
-
-				"dom": 'Blfrtip',
-				"bJQueryUI": true,
+				"	bJQueryUI": true,
 				"bProcessing": true,
 				"bSort": true,
 				"bSortClasses": false,
 				"bDeferRender": true,
 				"sPaginationType": "simple",
-		        "iDisplayLength": 20,
-		        "aaSorting":[[0,"asc"]],
-			    "buttons": [{
-			                  extend: 'csv',
-			                  text: 'Excel',
-			                  fieldSeparator : ';',
-			                  charset: 'utf-8',
-			                  extension: '.csv',
-							filename: 'Obligaciones Vendidas',
-							bom: false
-							}],
-		        "aLengthMenu": [[20, 40, 60, 100], [20, 40, 60, 100]],
+	            "iDisplayLength": 20,
+	            "aaSorting":[[0,"asc"]],
+	            "aLengthMenu": [[20, 40, 60, 100], [20, 40, 60, 100]],
+				"aoColumnDefs": [ {"aTargets":[0], "sType": "html"} , {"aTargets":[3], "sType": "numeric"} ],
+
 				"oLanguage": {
-		            "sLengthMenu": "_MENU_ registros por página",
-		            "sZeroRecords": "0 resultados en el criterio de busqueda",
-		            "sInfo": "Mostrando de _START_ a _END_ de _TOTAL_ registros",
-		            "sInfoEmpty": "Mostrando de 0 a 0 de 0 registros",
-		            "sInfoFiltered": "(Filtrado de _MAX_ total registros)",
-		            "sSearch": "Buscar:",
-		            "oPaginate": {
+	                "sLengthMenu": "_MENU_ registros por página",
+	                "sZeroRecords": "0 resultados en el criterio de busqueda",
+	                "sInfo": "Mostrando de _START_ a _END_ de _TOTAL_ registros",
+	                "sInfoEmpty": "Mostrando de 0 a 0 de 0 registros",
+	                "sInfoFiltered": "(Filtrado de _MAX_ total registros)",
+	                "sSearch": "Buscar:",
+	                "oPaginate": {
 				        "sNext": ">>",
 				        "sPrevious": "<<"
-			      	} 
-		        },
+			      	}
+	            },
 	            "processing": true,
 	           //	"ajax": "<?php echo base_url();?>Cartera_fng/getDatosProcesosVigentes",
 	            "fnRowCallback": function( nRow, aData, iDisplayIndex ) {
@@ -126,10 +116,11 @@
 						window.location.href = "<?php echo base_url();?>extrajudicial/gestionar/"+garantia+"/8";
 				   });
 				},
-				
+				"dom": 'Bfrtip',
+			    "buttons": ['excel']
 	    });
 
-		console.log(<?php echo $clientes; ?>);
+
 	     $("#tablaJudicial td").dblclick(function(){
 	    	var dato = $(this).attr('identificacion').replace(' ', '');
 	    	window.location.href = "<?php echo base_url();?>extrajudicial/gestionar/"+dato+"/8";

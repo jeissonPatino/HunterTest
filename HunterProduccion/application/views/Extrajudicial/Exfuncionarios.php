@@ -1,10 +1,11 @@
 <section class="content-header">
     <h1>
-        CARTERA FNG - CARTERA EXFUNCIONARIOS
+        Cartera FNG - Cartera exfuncionarios
     </h1>
     <ol class="breadcrumb">
     	<li><a href="<?php echo base_url();?>home">Inicio</a></li>
-        <li class="active">Cartera Fng - Cartera exfuncionarios</li>
+    	<li><a href="<?php echo base_url();?>cartera_fng">Cartera Fng</a></li>
+        <li class="active">Cartera Fng - Cartera exfuncionario</li>
     </ol>
 </section>
 

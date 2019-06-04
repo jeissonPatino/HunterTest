@@ -1,10 +1,10 @@
 <section class="content-header">
     <h1>
-        CONFIGURACIÓN CARGUE DE SUBROGACIONES
+        Configuración cargue de subrogaciones
     </h1>
     <ol class="breadcrumb">
     	<li><a href="<?php echo base_url();?>home">Inicio</a></li>
-        <li class="active">Asignación - Abogados</li>
+        <li class="active">Asignacion - Abogados</li>
     </ol>
 </section>
 
@@ -157,7 +157,7 @@
          var validador = 0;
           
           if($("#txtnumeroSap").val().length < 1){
-              alertify.error('Debe escribir el número del contrato y/o liquidacion');
+              alertify.error('Debe escribir el numero del contrato y/o liquidacion');
               validador = 1;
           }
 

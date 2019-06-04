@@ -1,6 +1,6 @@
 <section class="content-header">
     <h1>
-        CONFIGURACIÓN SALARIO
+        Configuración Salario
     </h1>
     <ol class="breadcrumb">
     	<li><a href="<?php echo base_url();?>home">Inicio</a></li>
@@ -73,7 +73,7 @@
 			</div>
 			<div class="row-fluid">
 				<div class="col-md-12">
-					<p>Para editar un registro, usted puede seleccionarlo de la tabla y cambiar su valor o utilizar el botón editar.</p>
+					<p>Para editar un registro, usted puede seleccionarlo de la tabla y cambiar su valor o utilizar el boton editar.</p>
 				</div>
 			</div>
 		</div><!-- /.box-body -->

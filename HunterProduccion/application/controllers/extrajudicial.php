@@ -60,7 +60,7 @@ class Extrajudicial extends CI_Controller {
                 $deudor = trim(utf8_encode($key->deudor));
                 $nombre = substr($deudor, 0, 3);
 
-				$datosDelarray[$i]['deudor'] =utf8_encode($deudor) ;
+				$datosDelarray[$i]['deudor'] = "<span style='display: none;'>".utf8_encode($nombre)."</span>".$deudor ;
 				$datosDelarray[$i]['identificacion'] = $key->identificacion ;
         $datosDelarray[$i]['tipo_identificacion'] = $key->tipo_identificacion ;
 				$datosDelarray[$i]['intemediario'] = utf8_encode($key->intemediario) ;
@@ -441,7 +441,7 @@ class Extrajudicial extends CI_Controller {
 
                 $deudor = trim(utf8_encode($key->Nombre));
                 $nombre = substr($deudor, 0, 3);
-                $data[$i]['Nombre'] = $deudor ;
+                $data[$i]['Nombre'] = "<span style='display: none;'>".utf8_encode($nombre)."</span>".$deudor ;
                 $data[$i]['identificacion'] = $cedula->row()->G717_C17005;
                 $data[$i]['tipo_identificacion'] = $key->tipo_identificacion;
                 $data[$i]['direccion'] =  utf8_encode($key->direccion) ;
@@ -455,7 +455,7 @@ class Extrajudicial extends CI_Controller {
 
                 $deudor = trim(utf8_encode($key->Nombre));
                 $nombre = substr($deudor, 0, 3);
-                $data[$i]['Nombre'] = $deudor ;
+                $data[$i]['Nombre'] = "<span style='display: none;'>".utf8_encode($nombre)."</span>".$deudor ;
                 $data[$i]['identificacion'] =$key->identificacion ;
                 $data[$i]['tipo_identificacion'] = $key->tipo_identificacion;
                 $data[$i]['direccion'] =  utf8_encode($key->direccion) ;
@@ -490,7 +490,7 @@ class Extrajudicial extends CI_Controller {
             foreach($clientes as $key){
                 $deudor = trim(utf8_encode($key->nombre));
                 $nombre = substr($deudor, 0, 3);
-                $data[$i]['nombre'] = $deudor ;
+                $data[$i]['nombre'] = "<span style='display: none;'>".utf8_encode($nombre)."</span>".$deudor ;
                 $data[$i]['identificacion'] =  $key->identificacion ;
                 $data[$i]['tipo_identificacion'] =  $key->tipo_identificacion ;
                 $data[$i]['valor'] = "$".number_format($key->valor_pagado, 0, '.',',') ;
@@ -524,7 +524,7 @@ class Extrajudicial extends CI_Controller {
 
                 $deudor = trim(utf8_encode($key->nombre));
                 $nombre = substr($deudor, 0, 3);
-                $data[$i]['nombre'] = $deudor ;
+                $data[$i]['nombre'] = "<span style='display: none;'>".utf8_encode($nombre)."</span>".$deudor ;
                 $data[$i]['identificacion'] =  $key->identificacion ;
                 $data[$i]['tipo_identificacion'] =  $key->tipo_identificacion ;
                 $data[$i]['valor'] = "$".number_format($key->valor_pagado, 0, '.',',') ;
@@ -558,7 +558,7 @@ class Extrajudicial extends CI_Controller {
 
                 $deudor = trim(utf8_encode($key->nombre));
                 $nombre = substr($deudor, 0, 3);
-                $data[$i]['nombre'] = $deudor ;
+                $data[$i]['nombre'] = "<span style='display: none;'>".utf8_encode($nombre)."</span>".$deudor ;
                 $data[$i]['identificacion'] =  $key->identificacion ;
                 $data[$i]['tipo_identificacion'] =  $key->tipo_identificacion ;
                 $data[$i]['valor'] = "$".number_format($key->valor_pagado, 0, '.',',') ;
@@ -592,7 +592,7 @@ class Extrajudicial extends CI_Controller {
 
                 $deudor = trim(utf8_encode($key->nombre));
                 $nombre = substr($deudor, 0, 3);
-                $data[$i]['nombre'] = $deudor ;
+                $data[$i]['nombre'] = "<span style='display: none;'>".utf8_encode($nombre)."</span>".$deudor ;
                 $data[$i]['identificacion'] =  $key->identificacion ;
                 $data[$i]['tipo_identificacion'] =  $key->tipo_identificacion ;
                 $data[$i]['valor'] = "$".number_format($key->valor_pagado, 0, '.',',') ;
@@ -626,7 +626,7 @@ class Extrajudicial extends CI_Controller {
 
                 $deudor = trim(utf8_encode($key->nombre));
                 $nombre = substr($deudor, 0, 3);
-                $data[$i]['nombre'] = $deudor ;
+                $data[$i]['nombre'] = "<span style='display: none;'>".utf8_encode($nombre)."</span>".$deudor ;
                 $data[$i]['identificacion'] =  $key->identificacion ;
                 $data[$i]['tipo_identificacion'] =  $key->tipo_identificacion ;
                 $data[$i]['valor'] = "$".number_format($key->valor_pagado, 0, '.',',') ;
@@ -664,12 +664,12 @@ class Extrajudicial extends CI_Controller {
 
                 $deudor = trim(utf8_encode($key->Nombre));
                 $nombre = substr($deudor, 0, 3);
-                $data[$i]['Nombre'] = $deudor ;
+                $data[$i]['Nombre'] = "<span style='display: none;'>".utf8_encode($nombre)."</span>".$deudor ;
                 $data[$i]['identificacion'] =  $key->identificacion ;
                 $data[$i]['tipo_identificacion'] =  $key->tipo_identificacion ;
                 $data[$i]['contrato'] = $key->liquidacion;
                 //$data[$i]['contrato'] = $key->contrato;
-                $data[$i]['fecha_legal'] =$fecha[2]."/".$fecha[1]."/".$fecha[0] ;
+                $data[$i]['fecha_legal'] = "<span style='display: none;'>".$fecha[0]."/".$fecha[1]."/".$fecha[2]."</span>".$fecha[2]."/".$fecha[1]."/".$fecha[0] ;
 
                 $i++;
             }
@@ -705,7 +705,7 @@ class Extrajudicial extends CI_Controller {
                
                 $deudor = trim(utf8_encode($key->deudor));
                 $nombre = substr($deudor, 0, 3);
-                $data[$i]['deudor'] = $deudor ;
+                $data[$i]['deudor'] = "<span style='display: none;'>".utf8_encode($nombre)."</span>".$deudor ;
                 $data[$i]['identificacion'] =  $key->identificacion ;
                 $data[$i]['tipo_identificacion'] =  $key->tipo_identificacion ;
                 $data[$i]['financiera'] = utf8_encode($key->financiera);
@@ -741,7 +741,7 @@ class Extrajudicial extends CI_Controller {
             foreach($clientes as $key){
                 $deudor = trim(utf8_encode($key->deudor));
                 $nombre = substr($deudor, 0, 3);
-                $data[$i]['deudor'] = $deudor ;
+                $data[$i]['deudor'] = "<span style='display: none;'>".utf8_encode($nombre)."</span>".$deudor ;
                 $data[$i]['identificacion'] =  $key->identificacion ;
                 $data[$i]['tipo_identificacion'] =  $key->tipo_identificacion ;
                 $data[$i]['contrato'] = $key->liquidacion;
@@ -749,7 +749,7 @@ class Extrajudicial extends CI_Controller {
                 if(!is_null($key->garantia)){
                     $fecha = explode(" ", $key->garantia)[0];
                     $fecha = explode("-", $fecha);
-                    $fecha = $fecha[2]."/".$fecha[1]."/".$fecha[0];
+                    $fecha = "<span style='display: none;'>".$fecha[0]."/".$fecha[1]."/".$fecha[2]."</span>".$fecha[2]."/".$fecha[1]."/".$fecha[0];
                 }
                  
 
@@ -783,7 +783,7 @@ class Extrajudicial extends CI_Controller {
             foreach($clientes as $key){
                 $deudor = trim(utf8_encode($key->nombre));
                 $nombre = substr($deudor, 0, 3);
-                $data[$i]['nombre'] = $deudor ;
+                $data[$i]['nombre'] = "<span style='display: none;'>".utf8_encode($nombre)."</span>".$deudor ;
                 $data[$i]['identificacion'] =  $key->identificacion ;
                  $data[$i]['tipo_identificacion'] =  $key->tipo_identificacion ;
                 $data[$i]['contrato'] = $key->contrato;
@@ -820,11 +820,11 @@ class Extrajudicial extends CI_Controller {
                 if(!is_null($key->fecha_venta))
                 $fecha = explode(" ",$key->fecha_venta)[0];
                 $fecha = explode("-",$fecha);
-                $fecha = $fecha[2]."/".$fecha[1]."/".$fecha[0];
+                $fecha = "<span style='display: none;'>".$fecha[0]."/".$fecha[1]."/".$fecha[2]."</span>".$fecha[2]."/".$fecha[1]."/".$fecha[0];
 
                 $deudor = trim(utf8_encode($key->nombre));
                 $nombre = substr($deudor, 0, 3);
-                $data[$i]['nombre'] = $deudor ;
+                $data[$i]['nombre'] = "<span style='display: none;'>".utf8_encode($nombre)."</span>".$deudor ;
                 $data[$i]['identificacion'] =  $key->identificacion ;
                 $data[$i]['tipo_identificacion'] =  $key->tipo_identificacion ;
                 $data[$i]['contrato'] = $key->liquidacion;
@@ -863,13 +863,13 @@ class Extrajudicial extends CI_Controller {
                 $fecha = explode("-",$fecha);
                 $deudor = trim(utf8_encode($key->nombre));
                 $nombre = substr($deudor, 0, 3);
-                $data[$i]['nombre'] = $deudor ;
+                $data[$i]['nombre'] = "<span style='display: none;'>".utf8_encode($nombre)."</span>".$deudor ;
                 $data[$i]['identificacion'] =  $key->identificacion ;
                 $data[$i]['tipo_identificacion'] =  $key->tipo_identificacion ;
                 $data[$i]['contrato'] = $key->liquidacion;
                 $data[$i]['valor_pagado'] = "$".number_format($key->valor_pagado, 0, '.',',') ;
                 $data[$i]['financiera'] = utf8_encode($key->financiera);
-                $data[$i]['fecha'] = $fecha[2]."/".$fecha[1]."/".$fecha[0];
+                $data[$i]['fecha'] = "<span style='display: none;'>".$fecha[0]."/".$fecha[1]."/".$fecha[2]."</span>".$fecha[2]."/".$fecha[1]."/".$fecha[0];
                 $i++;
             }
             
@@ -944,7 +944,7 @@ class Extrajudicial extends CI_Controller {
            foreach($clientes as $key){
                     $deudor = trim(utf8_encode($key->DEUDOR));
                     $nombre = substr($deudor, 0, 3);
-                    $datosRary[$i]['DEUDOR'] = $deudor ;
+                    $datosRary[$i]['DEUDOR'] = "<span style='display: none;'>".utf8_encode($nombre)."</span>".$deudor ;
                         
             $datosRary[$i]['IDENTIFICACION'] = $key->IDENTIFICACION ;
              $datosRary[$i]['tipo_identificacion'] = $key->tipo_identificacion ;
@@ -1044,7 +1044,7 @@ class Extrajudicial extends CI_Controller {
                 $datosw[$i]['Calificacion_direccion'] = utf8_encode($key->Calificacion_direccion);
                 $datosw[$i]['Calificacion_ciudad'] = utf8_encode($key->Calificacion_ciudad);
                 $datosw[$i]['DESCRIPCION'] = utf8_encode($key->Descripcion);
-                $datosw[$i]['fecha'] = $fecha[2]."/".$fecha[1]."/".$fecha[0];
+                $datosw[$i]['fecha'] = "<span style='display: none;'>".$fecha[0]."/".$fecha[1]."/".$fecha[2]."</span>".$fecha[2]."/".$fecha[1]."/".$fecha[0];
                 $i++;
             }
 
@@ -1056,7 +1056,7 @@ class Extrajudicial extends CI_Controller {
                 if(!is_null($key->fecha_modificacion)){
                     $fecha = explode(" ", $key->fecha_modificacion)[0];
                     $fecha = explode("-", $fecha);
-                    $fecha2 = $fecha[2]."/".$fecha[1]."/".$fecha[0];
+                    $fecha2 = "<span style='display: none;'>".$fecha[0]."/".$fecha[1]."/".$fecha[2]."</span>".$fecha[2]."/".$fecha[1]."/".$fecha[0];
                 }
 
                 $datosIniciales[$j]['ciudadDomicilio'] = utf8_encode($key->ciudadDomicilio) ;
@@ -1202,7 +1202,7 @@ class Extrajudicial extends CI_Controller {
                 foreach($clientes as $key){
                     $deudor = trim(utf8_encode($key->DEUDOR));
                     $nombre = substr($deudor, 0, 3);
-                    $data[$i]['DEUDOR'] = $deudor ;
+                    $data[$i]['DEUDOR'] = "<span style='display: none;' >".utf8_encode($nombre)."</span>".$deudor ;
                 
 
                     $data[$i]['IDENTIFICACION'] = $key->IDENTIFICACION ;
@@ -1230,7 +1230,7 @@ class Extrajudicial extends CI_Controller {
                     
                     $deudor = trim(utf8_encode($key->DEUDOR));
                     $nombre = substr($deudor, 0, 3);
-                    $data[$i]['DEUDOR'] = $deudor ;
+                    $data[$i]['DEUDOR'] = "<span style='display: none;'>".utf8_encode($nombre)."</span>".$deudor ;
                 
                     $data[$i]['IDENTIFICACION'] = $key->IDENTIFICACION  ;
                     $data[$i]['tipo_identificacion'] = $key->tipo_identificacion ;
@@ -1265,7 +1265,7 @@ class Extrajudicial extends CI_Controller {
             foreach($clientes as $key){
 				$deudor = trim(utf8_encode($key->DEUDOR));
                 $nombre = substr($deudor, 0, 3);
-                $data[$i]['DEUDOR'] = $deudor ;
+                $data[$i]['DEUDOR'] = "<span style='display: none;'>".utf8_encode($nombre)."</span>".$deudor ;
                 
 				$data[$i]['IDENTIFICACION'] = $key->IDENTIFICACION ;
         $data[$i]['tipo_identificacion'] = $key->tipo_identificacion ;
@@ -1303,7 +1303,7 @@ class Extrajudicial extends CI_Controller {
             foreach($clientes as $key){
                 $deudor = trim(utf8_encode($key->deudor));
                 $nombre = substr($deudor, 0, 3);
-                $data[$i]['DEUDOR'] = $deudor ;
+                $data[$i]['DEUDOR'] = "<span style='display: none;'>".utf8_encode($nombre)."</span>".$deudor ;
                 
                 $data[$i]['IDENTIFICACION'] = $key->identificacion ;
                 $data[$i]['tipo_identificacion'] = $key->tipo_identificacion ;
@@ -1322,13 +1322,12 @@ class Extrajudicial extends CI_Controller {
         }
     }
     // 
-    function busquedaEstado(){
+    function busquedaGestion(){
 
         if($this->session->userdata('login_ok')){
-              
-            $filtrosEstado = $this->Extrajudicial_Model->getfiltrosEstado();
-
-            $datos = array('filtrosEstado' => $filtrosEstado);
+                      
+            $tiposGestion = $this->Extrajudicial_Model->getFiltrosGestion();
+            $datos = array( 'tiposGestion' =>  $tiposGestion);
 
             $this->load->view('Includes/head');
             $this->load->view('Includes/header');
@@ -1340,73 +1339,53 @@ class Extrajudicial extends CI_Controller {
             $this->load->view('Login/login');
         }
     }
-     function busquedaGestion(){
-
-            $datos=array();
-            $tiposGestion = $this->Extrajudicial_Model->getfiltrosGestion($_POST['codigo']);
-
-            if (!empty($tiposGestion)) {
-            foreach ($tiposGestion as $key => $val) {
-                $datos[] = array('id' => utf8_decode($val->G732_C17130), 'valor' => utf8_encode($val->LISOPC_Nombre____b));
-            }
-        }
-        return $this->output->set_content_type('application/json')->set_output(json_encode( $datos ));
-    }
-
-
-    function busquedaSubGestion(){
-
-            $datos=array();
-            $tiposGestion = $this->Extrajudicial_Model->getfiltrosSubgestion($_POST['codigo'],$_POST['gestion']);
-
-            if (!empty($tiposGestion)) {
-            foreach ($tiposGestion as $key => $val) {
-                $datos[] = array('id' => utf8_decode($val->G732_ConsInte__b), 'valor' => utf8_encode($val->G732_C17131));
-            }
-        }
-        return $this->output->set_content_type('application/json')->set_output(json_encode( $datos ));
-    }
-
-    function imprimirPlano3 ($texto){
-        $file = fopen("archivo.txt", "w");
-        fwrite($file, $texto . PHP_EOL);
-        fwrite($file, "Otra más" . PHP_EOL);
-        fclose($file);
-    }
 
     function getBusquedaGestion(){
-
-      $arregloGestiones = $this->Extrajudicial_Model->getliquidacionPorGestion($_POST['codigo'],$_POST['gestion'],$_POST['subgestion'],$_POST['fechainicial'],$_POST['fechafinal']);
-        #echo "<br><br><br>".$this->db->last_query($arregloGestiones); die ('Prueba');
-        $json = array();
-        $i= 0;
-      foreach ($arregloGestiones as $key) {
-              
-              $json[$i]['ti'] = $key->ti ;
-              $json[$i]['identificacion'] = utf8_encode($key->identificacion);
-              $json[$i]['nombre'] =trim(utf8_encode($key->nombre));
-              $json[$i]['liquidacion'] = $key->liquidacion;
-              $json[$i]['intermediario'] = utf8_encode($key->intermediario);
-              $json[$i]['SAP'] = $key->SAP;
-              $json[$i]['rol'] = $key->rol;
-              $json[$i]['Valor'] = "$ ".number_format($key->Valor, 0, ',','.');
-              $json[$i]['Gestor'] = utf8_encode($key->Gestor);
-              
-              $fecha2 = NULL;
-              $fecha3 = NULL;
-              if(!is_null($key->fechaIngreso)){
-                  $fecha2 = explode(" ", $key->fechaIngreso)[0];
-                  $fecha2 = explode("-", $fecha2);
-                  $fecha2 = $fecha2[2]."/".$fecha2[1]."/".$fecha2[0];
-              }
-                                  
-              $json[$i]['fechaIngreso'] =  $fecha2;
-            $i++;
-      } 
-      $datos = array( 'ResultadoGestiones' => json_encode($json));
-      #$this->imprimirPlano3(json_encode($json));
-      $this->load->view('Extrajudicial/busquedaGestionDatos', $datos);
         
+        $tipoGestion = $_POST['idTipoGestion'];
+      
+        $fechaInicial = $_POST['fechainicial'].' 00:00:00';
+        $fechaFinal = $_POST['fechafinal'].' 23:59:00';
+
+        //$tipoGestion = '1782';
+        //$fechaInicial = '2018-02-05'.' 00:00:00';
+        //$fechaFinal = '2018-02-05'.' 23:59:00';
+
+        if( $tipoGestion != NULL && $tipoGestion != '' && $tipoGestion != 0){
+
+            $arregloGestiones = $this->Extrajudicial_Model->getliquidacionPorGestion($tipoGestion,$fechaInicial,$fechaFinal);
+              $json = array();
+              $i= 0;
+            foreach ($arregloGestiones as $key) {
+
+                    $deudor = trim(utf8_encode($key->NombreDeudor));
+                    
+                    $json[$i]['TipoIdentificacion'] = $key->TipoIdentificacion ;
+                    $json[$i]['NumeroId'] = utf8_encode($key->NumeroId);
+                    $json[$i]['nombre'] =$deudor ;
+                    $json[$i]['NumeroLiquidacion'] = $key->NumeroLiquidacion;
+                    $json[$i]['CiudadDespacho'] = $key->CiudadDespacho;
+                    $json[$i]['Intermediariofinancero'] = $key->Intermediariofinancero;
+                    $json[$i]['ProcesoSAP'] = $key->ProcesoSAP;
+                    $json[$i]['ROL'] = $key->ROL;
+                    $json[$i]['valorPagado'] = "$ ".number_format($key->valorPagado, 0, ',','.');
+                    
+                    $fecha2 = NULL;
+                    $fecha3 = NULL;
+                    if(!is_null($key->fechaIngreso)){
+                        $fecha2 = explode(" ", $key->fechaIngreso)[0];
+                        $fecha2 = explode("-", $fecha2);
+                        $fecha2 = $fecha2[2]."/".$fecha2[1]."/".$fecha2[0];
+                    }
+                                        
+                    $json[$i]['fechaIngreso'] =  $fecha2;
+                  $i++;
+              
+            } 
+            $datos = array( 'ResultadoGestiones' => json_encode($json));
+            //var_dump(json_encode($json)); 
+            $this->load->view('Extrajudicial/busquedaGestionDatos', $datos);
+        }
 
     }
     # (ACB2) - Cargue masivo por acuerdo de pago. 
@@ -1535,7 +1514,6 @@ class Extrajudicial extends CI_Controller {
             return str_pad(trim($liquidacion), 10, '0', STR_PAD_LEFT);
         }
     }
-
 
 }
 

@@ -45,7 +45,7 @@
             </thead>
             <tbody>
                         <tr>
-                            <th><?php echo utf8_encode($frg);?></th>
+                            <th><?php echo $frg;?></th>
                             <th><?php echo $basemedicion;?></th>
                             <td><?php echo $totalSap;?></td>
                             <td><?php echo $cumplimiento;?></td>
@@ -78,7 +78,7 @@
             </thead>
             <tbody>
               <tr>
-                <td><?php echo utf8_encode($frg);?></td>
+                <td><?php echo $frg;?></td>
                 <td><?php if($totalSap > 0) { echo number_format(($cumplimiento/$totalSap) * 100, 0); }else{ echo '0';} ?> %</td>
                 <td><?php if($totalSap > 0) { echo number_format(($incumpliemiento/$totalSap) * 100, 0) ;}else{ echo '0';}?> %</td>
                             

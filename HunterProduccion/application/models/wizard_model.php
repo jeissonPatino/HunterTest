@@ -29,9 +29,9 @@ class Wizard_Model extends CI_Model {
 
     function getDeudores($contrato){
         $this->db->select(' G717_ConsInte__b as id,  G717_C17240 as deudor');
-        $this->db->join('G737', 'G737_C17182 = G719_ConsInte__b ','LEFT');
-        //$this->db->join('LISOPC', 'LISOPC_ConsInte__b = G737_C17183','LEFT');
-        $this->db->join('G717', 'G717_ConsInte__b = G737_C17181','LEFT'); 
+        $this->db->join('G737', 'G737_C17182 = G719_ConsInte__b ');
+        $this->db->join('LISOPC', 'LISOPC_ConsInte__b = G737_C17183');
+        $this->db->join('G717', 'G717_ConsInte__b = G737_C17181'); 
         $this->db->where('G719_ConsInte__b', $contrato); 
         $query = $this->db->get('G719');
 
@@ -360,7 +360,7 @@ function getGestionExtrajudicialTotalEliminar($numeroLiquidacion){
         return $query->result();
     }
 
-   function getgestioJudicialTotal($fechaInicial = NULL, $fechaFinal = NULL){
+    function getgestioJudicialTotal($numeroliquidacion){
         $this->db->select(' G735_ConsInte__b as id, 
                             G724_C17105 as actuacion ,
                             G719_C17026 as contrato,
@@ -414,13 +414,10 @@ function getGestionExtrajudicialTotalEliminar($numeroLiquidacion){
                 $this->db->where('G719.G719_C17029', $this->session->userdata('frg'));
             }
         }
-         if($fechaInicial != NULL && $fechaFinal != NULL){
-            $this->db->where("G735_C17141 BETWEEN '".$fechaInicial."' AND '".$fechaFinal."'");
-        }
-
+        $this->db->where('G719_C17423',  $numeroliquidacion);   
 
         $this->db->where('G737.G737_C17183', 1786);
-        $this->db->order_by('G735_C17141','DESC');
+		$this->db->order_by('G735_C17141','DESC');
 
         $query = $this->db->get('G735');
         return $query->result();

@@ -1,6 +1,6 @@
 <section class="content-header">
     <h1>
-        REPORTES
+        Reportes
     </h1>
     <ol class="breadcrumb">
     	<li><a href="<?php echo base_url();?>home">Inicio</a></li>
@@ -17,7 +17,7 @@
 			<div class="row">
 				<div class="col-md-3">
 					<div class="form-group">
-						<label>FRG:</label>
+						<label>Frg:</label>
 						<select id="cmbFrgs" class="form-control">
 							<option value="0">Todos los FRG</option>
 							<?php 
@@ -32,7 +32,7 @@
 					<div class="form-group">
 						<label>Fecha inicial:</label>
 						<div class="input-group">
-							<input type="text" class="form-control pull-right" placeholder="Fecha inicial" id="reservation" readonly="readonly">
+							<input type="text" class="form-control pull-right" placeholder="Fecha inicial" id="reservation">
 						</div><!-- /.input group -->
 					</div><!-- /.form group -->
 				</div>	
@@ -40,17 +40,17 @@
 					<div class="form-group">
 						<label>Fecha final:</label>
 						<div class="input-group">
-							<input type="text" class="form-control pull-right" placeholder="Fecha final" id="reservationfinal" readonly="readonly">
+							<input type="text" class="form-control pull-right" placeholder="Fecha final" id="reservationfinal">
 						</div><!-- /.input group -->
 					</div><!-- /.form group -->
 				</div>		
 			</div>
 			<div class="row">
 				<div class="col-md-3">
-					<button class="btn btn-primary  btn-block" id="BtnBuscarInformes"><i class="fa fa-search"></i></button>
+					<button class="btn btn-primary  btn-block" id="BtnBuscarInformes"><i class="fa fa-search"></i>&nbsp;&nbsp;Buscar</button>
 				</div>	
 				<div class="col-md-3">
-					<a href="<?php echo base_url();?>reportes/ExportarGestionesJudiciales" class="btn btn-success" id="btonExportar">Excel</a>
+					<a href="<?php echo base_url();?>reportes/ExportarGestionesJudiciales" class="btn btn-primary  btn-block" id="btonExportar"><i class="fa fa-file-excel-o"></i>&nbsp;&nbsp;Exportar a Excel</a>
 				</div>	
 			</div>
 		</div>

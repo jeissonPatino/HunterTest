@@ -144,7 +144,7 @@
          var validador = 0;
           
           if($("#txtnumeroSap").val().length < 1){
-              alertify.error('Debe escribir el número de liquidacion');
+              alertify.error('Debe escribir el numero de liquidacion');
               validador = 1;
           }
 

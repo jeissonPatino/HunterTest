@@ -143,7 +143,7 @@
          var validador = 0;
           
           if($("#txtnumeroSap").val().length < 1){
-              alertify.error('Debe escribir el número del contrato y/o liquidacion');
+              alertify.error('Debe escribir el numero del contrato y/o liquidacion');
               validador = 1;
           }
 

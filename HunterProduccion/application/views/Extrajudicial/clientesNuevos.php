@@ -1,11 +1,10 @@
-
 <section class="content-header">
     <h1>
-        CARTERA FNG - CLIENTES NUEVOS
+        Cartera FNG - Clientes nuevos
     </h1>
     <ol class="breadcrumb">
     	<li><a href="<?php echo base_url();?>home">Inicio</a></li>
-    	<li><a href="<?php echo base_url();?>Extrajudicial">Cartera Fng</a></li>
+    	<li><a href="<?php echo base_url();?>cartera_fng">Cartera Fng</a></li>
         <li class="active">Cartera Fng - Clientes nuevos</li>
     </ol>
 </section>
@@ -19,7 +18,7 @@
 			<div class="box-tools">
 				
 			</div>
-		</div><!-- /.bofx-header -->
+		</div><!-- /.box-header -->
 		<div class="box-body table-responsive no-padding">
 			
 			
@@ -81,7 +80,6 @@
 					{ mData: "valor"  },
 					{ mData: "fecha" }	
 				],
-				"dom": 'Blfrtip',
 				"bJQueryUI": true,
 				"bProcessing": true,
 				"bSort": true,
@@ -90,13 +88,6 @@
 				"sPaginationType": "simple",
 	            "iDisplayLength": 20,
 	            "aaSorting":[[0,"asc"]],
-			    "buttons": [{
-			                  extend: 'csv',
-			                  text: 'Excel',
-			                  fieldSeparator : ';',
-			                  charset: 'utf-8',
-			                  extension: '.csv',
-							filename: 'Clientes Nuevos'}],
 	            "aLengthMenu": [[20, 40, 60, 100], [20, 40, 60, 100]],
 				"oLanguage": {
 	                "sLengthMenu": "_MENU_ registros por página",
@@ -126,7 +117,9 @@
 						var dato = $(this).attr('dato').replace(' ', '');
 						window.location.href = "<?php echo base_url();?>extrajudicial/gestionar/"+dato+"/2";
 				   });
-				}
+				},
+				"dom": 'Bfrtip',
+			    "buttons": ['excel']
 	    });
 
 

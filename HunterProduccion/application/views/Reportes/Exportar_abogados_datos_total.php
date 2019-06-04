@@ -17,7 +17,7 @@
     }
 
 ?>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
 <table class="table table-hover table-bordered" id="tablacontratos">
     <thead>
       	<tr>

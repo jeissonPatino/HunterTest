@@ -1,6 +1,6 @@
 <section class="content-header">
     <h1>
-        RELACIÓN PERSONAS - OBLIGACIÓN
+        Relación Personas - Obligación
     </h1>
     <ol class="breadcrumb">
     	<li><a href="<?php echo base_url();?>home">Inicio</a></li>
@@ -340,9 +340,9 @@
 					$("#contr_int_").val(data);
 					$("#NumeroContratoTex").prop('disabled', true);
 					$("#btnFiltrar2").prop('disabled', true);
-					alertify.success('Número de contrato Valido!');
+					alertify.success('Numero de contrato Valido!');
 				}else{
-					alertify.error('Ese número de contrato no existe');
+					alertify.error('Ese numero de contrato no existe');
 				}
 			}
 		});
@@ -360,7 +360,7 @@
 					$("#cedula").prop('disabled', true);
 					alertify.success('Identificación Valida!');
 				}else{
-					alertify.error('Ese número de contrato no existe');
+					alertify.error('Ese numero de contrato no existe');
 				}
 			}
 		});

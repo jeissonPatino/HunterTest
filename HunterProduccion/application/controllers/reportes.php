@@ -3745,14 +3745,13 @@ function exportar_clientessingestionjudicial($filtroFecha){
 
 
         if(!empty($frgs) and !empty($idgestores) and !empty($fechaInicial) and !empty($fechaFinal)){
-            
+
             $arregloFrgGestores = $this->Reportes_Model->getInformeFrgGestion($frgs,$idgestores,$fechaInicial,$fechaFinal);
-            if (!empty($arregloFrgGestores)) {
+        
+
             $arreglocantidad = array('cantidad' => count($arregloFrgGestores) ,'Gestor' => utf8_encode($arregloFrgGestores[0]->Gestor) );
-            
             $json = array();
             $i= 0;
-
             foreach ($arregloFrgGestores as $key) {
                 $json[$i]['TipoIdentificacion']     = $key->TipoIdentificacion ;
                 $json[$i]['NumeroId']               = utf8_encode($key->NumeroId);
@@ -3777,19 +3776,17 @@ function exportar_clientessingestionjudicial($filtroFecha){
                 $json[$i]['FechaGestion'] =  $fecha3;
                 $i++;
             } 
-
             $infoCantidad[0]=$arreglocantidad;
             $datos = array( 'ResultadoFrgGestiones' => json_encode($json), 'ResultadoCantidadGestionada' => json_encode($infoCantidad));
 
 											
             $this->load->view('Reportes/InformeGestoresDatos', $datos);
         }
-        }
+
     }
 
-    function ExportarGestores($frgs, $idgestores ,$fechaInicial ,  $fechaFinal){
+    function ExportarGestores($frgs = null , $idgestores = null ,$fechaInicial = null,  $fechaFinal=null  ){
         $arregloFrgGestores = $this->Reportes_Model->getInformeFrgGestion($frgs,$idgestores,$fechaInicial,$fechaFinal);
-        
         $arreglocantidad = array('cantidad' => count($arregloFrgGestores) ,'Gestor' =>utf8_encode($arregloFrgGestores[0]->Gestor));
         $json = array();
         $i= 0;

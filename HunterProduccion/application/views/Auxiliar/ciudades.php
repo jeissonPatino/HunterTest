@@ -1,6 +1,6 @@
 <section class="content-header">
     <h1>
-      CIUDADES
+       Ciudades
     </h1>
     <ol class="breadcrumb">
     	<li><a href="<?php echo base_url();?>home">Inicio</a></li>
@@ -45,7 +45,7 @@
 						<div class="form-group">
 							<Label>Departamento</Label>
 							<select id="departamento" name ="departamento" class="form-control" disabled>
-								<option value="0">Seleccione</option>
+								<option value="0">Pais</option>
 								<?php 
 									foreach ($departamentos as $key) {
 										echo "<option value='".$key->G718_C17016."'>".utf8_encode($key->G718_C17016)."</option>";
