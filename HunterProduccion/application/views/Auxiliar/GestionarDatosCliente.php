@@ -1,6 +1,6 @@
 <section class="content-header">
     <h1>
-        CONFIGURACIÓN - GESTIONAR DATOS CLIENTES
+        configuracion - Gestionar Datos Clientes
     </h1>
     <ol class="breadcrumb">
     	<li><a href="<?php echo base_url();?>home">Inicio</a></li>
@@ -37,7 +37,8 @@
                                                 <table class="table table-hover table-bordered" id="DatosNoEfecttivos">
                                                     <thead>
                                                         <tr>
-                                                            
+                                                            <th>Liquidación</th>
+                                                            <th>Tipo Identificación</th>
                                                             <th>No. Identificación</th>
                                                             <th>Dirección domicilio</th>
                                                             <th>Calificación Dir. Domicilio</th>
@@ -112,7 +113,7 @@
                     </div><!-- termina el cargue masivo vista -->
                     <div id="GenerarInformes" style="display: none;">
                     <div class="box-header with-border" id ="tituloinformes" >
-                        <h3 class="box-title">Generación de informes</h3>
+                        <h3 class="box-title">Generacion de informes</h3>
                     </div>
                     <div class="nav-tabs-custom">
                         <!-- Tabs within a box -->
@@ -132,7 +133,8 @@
                                                     <table class="table table-hover table-bordered" id="DatosNoEfectivosInformes">
                                                         <thead>
                                                             <tr>
-                                                             
+                                                                <th>Liquidación</th>
+                                                                <th>Tipo Identificación</th>
                                                                 <th>No. Identificación</th>
                                                                 <th>Dirección domicilio</th>
                                                                 <th>Calificación Dir. Domicilio</th>
@@ -181,7 +183,8 @@
                                                     <table class="table table-hover table-bordered" id="DatosEfecttivosInformes" style="display: none">
                                                         <thead>
                                                             <tr>
-                                                                
+                                                                <th>Liquidación</th>
+                                                                <th>Tipo Identificación</th>
                                                                 <th>No. Identificación</th>
                                                                 <th>Dirección domicilio</th>
                                                                 <th>Calificación Dir. Domicilio</th>
@@ -230,7 +233,8 @@
                                                     <table class="table table-hover table-bordered" id="DatosGestionados" style="display: none">
                                                         <thead>
                                                             <tr>
-                                                                
+                                                                <th>Liquidación</th>
+                                                                <th>Tipo Identificación</th>
                                                                 <th>No. Identificación</th>
                                                                 <th>Dirección domicilio</th>
                                                                 <th>Calificación Dir. Domicilio</th>
@@ -364,7 +368,8 @@
          $("#DatosNoEfecttivos").DataTable({
             "aaData": <?php echo $ResultadoNoEfectivos; ?>, 
             "aoColumns": [
-
+                                { mData: "liquidacion" },
+                                { mData: "tipo_identifiacion" },
                                 { mData: "identificacion" },
                                 { mData: "direccionDomicilio" },
                                 { mData: "cal_direccionDomicilio"},
@@ -419,11 +424,8 @@
                    });
                 },
             "buttons":[{
-                              extend: 'csv',
-                              text: 'Excel',
-                              charset: 'utf-8',
-                              fieldSeparator : ';',
-                              extension: '.csv'
+                            text: 'Exportar Excel',
+                            extend: 'excel'
                           }],
             "processing": true,
             "bJQueryUI": true,
@@ -442,7 +444,8 @@
             $("#DatosNoEfectivosInformes").DataTable({
             "aaData": <?php echo $ResultadoNoEfectivoInforme; ?>, 
             "aoColumns": [
-
+                                { mData: "liquidacion" },
+                                { mData: "TipoIdentificacion" },
                                 { mData: "Identificacion" },
                                 { mData: "Direccion_domicilio" },
                                 { mData: "Calificacion_Dir_Domicilio"},
@@ -497,11 +500,8 @@
                    });
                 },
             "buttons":[{
-                              extend: 'csv',
-                              text: 'Excel',
-                              charset: 'utf-8',
-                              fieldSeparator : ';',
-                              extension: '.csv'
+                            text: 'Exportar Excel',
+                            extend: 'excel'
                           }],
             "processing": true,
             "bJQueryUI": true,
@@ -521,7 +521,8 @@
         $("#DatosEfecttivosInformes").DataTable({
             "aaData": <?php echo $ResultadoEfectivoInforme; ?>, 
             "aoColumns": [
-
+                              { mData: "liquidacion" },
+                                { mData: "TipoIdentificacion" },
                                 { mData: "Identificacion" },
                                 { mData: "Direccion_domicilio" },
                                 { mData: "Calificacion_Dir_Domicilio"},
@@ -576,11 +577,8 @@
                    });
                 },
             "buttons":[{
-                              extend: 'csv',
-                              text: 'Excel',
-                              charset: 'utf-8',
-                              fieldSeparator : ';',
-                              extension: '.csv'
+                            text: 'Exportar Excel',
+                            extend: 'excel'
                           }],
             "processing": true,
             "bJQueryUI": true,
@@ -599,7 +597,8 @@
          $("#DatosGestionados").DataTable({
             "aaData": <?php echo $DatoSinGestionar; ?>, 
             "aoColumns": [
-
+                              { mData: "liquidacion" },
+                                { mData: "TipoIdentificacion" },
                                 { mData: "Identificacion" },
                                 { mData: "Direccion_domicilio" },
                                 { mData: "Calificacion_Dir_Domicilio"},
@@ -654,11 +653,8 @@
                    });
                 },
             "buttons":[{
-                              extend: 'csv',
-                              text: 'Excel',
-                              charset: 'utf-8',
-                              fieldSeparator : ';',
-                              extension: '.csv'
+                            text: 'Exportar Excel',
+                            extend: 'excel'
                           }],
             "processing": true,
             "bJQueryUI": true,
@@ -736,54 +732,56 @@
                         },
                         url: '<?php echo base_url(); ?>configuraciones/CargarMasivaDatosCLientes', 
                         type: 'POST',
-                            data: formData,
-                            cache: false,
-                            contentType: false,
-                            processData: false,
-                            dataType: "json",
-                            beforeSend : function(){
-                                /*$.blockUI({ message: $("#containerPogresBar") });*/
-                                $("#mostrarPorcentaje").show();
-                                //$("#archivo_excel, #btncarguedos").prop('disabled', true);
-                                $("#progressbarComercial").addClass('progress-bar-striped');
-                                $("#progressbarComercial").addClass('active');
-                            },
-                            //una vez finalizado correctamente
-                            success: function(data){
-                                if(data.estado == "1"){
-                                    alertify.success( data.mensaje );
-                                    otherForm[0].reset();
-                                }else{
-                                    alertify.error( data.mensaje );
-                                }
-                                var masInfo =data.mensaje+='<a onclick="$(\'#resultado_proceso\').html(\'\')" style=\'cursor:pointer\' >Cerrar</a>';
-                                $("#resultado_proceso").html(data.mensaje);
+                        data: formData,
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        dataType: "json",
+                            
+                        beforeSend : function() {
 
-                                /*if(data.valid == "1"){
-                                    alertify.success("La cantidad  de registros son "+ data.registros +", asignados "+ data.total + ", " + data.noexisten + " no se pudieron asignar porque no existen en la base de datos ");
-                                    otherForm[0].reset();
-                                }else{
-                                    alertify.error("aaaaaaaaa");
-                                }*/
-                            },
-                            complete: function(){
-                                //$("#archivo_excel, #btncarguedos").prop('disabled', true);
-                                $("#progressbarComercial").removeClass('progress-bar-striped');
-                                $("#progressbarComercial").removeClass('active');
-                                $("#progressbarComercial").attr('aria-valuenow', '0');
-                                $("#progressbarComercial").attr('style', "width: 0%");
-                                $("#mostrarPorcentaje").hide();
-                            },
-                            //si ha ocurrido un error
-                            error: function(){
-                                //$("#archivo_excel, #btncarguedos").prop('disabled', true);
-                                $("#progressbarComercial").removeClass('progress-bar-striped');
-                                $("#progressbarComercial").removeClass('active');
-                                $("#progressbarComercial").attr('aria-valuenow', '0');
-                                $("#progressbarComercial").attr('style', "width: 0%");
-                                $("#mostrarPorcentaje").hide();
-                                alertify.error('Ocurrio un error, intenta mas tarde.');
-                            }
+                            /*$.blockUI({ message: $("#containerPogresBar") });*/
+                            $("#mostrarPorcentaje").show();
+                            $("#containerPogresBar2").addClass('progress-bar-striped');
+                            $("#containerPogresBar2").addClass('active');
+                        }, 
+                        //una vez finalizado correctamente
+                        success: function(data){
+
+                            
+                          if(data.valid == "1"){
+                              alertify.success("La cantidad  de registros son "+ data.registros +", asignados "+ data.total + ", " + data.noexisten + " no se pudieron asignar porque no existen en la base de datos " );
+                                  otherForm[0].reset();
+
+                              } 
+                            
+                        },
+                        complete: function(){
+                          location.reload();
+                          otherForm[0].reset();
+
+                            
+                          $("#containerPogresBar2").removeClass('progress-bar-striped');
+                          $("#containerPogresBar2").removeClass('active');
+                          $("#containerPogresBar2").attr('aria-valuenow', '0');
+                          $("#containerPogresBar2").attr('style', "width: 0%");
+                          $("#mostrarPorcentaje").hide();
+                          
+                        },
+
+                        //si ha ocurrido un error
+                        error: function(){
+                          /*$.unblockUI();*/
+
+                            otherForm[0].reset();
+                          
+                            $("#containerPogresBar2").removeClass('progress-bar-striped');
+                            $("#containerPogresBar2").removeClass('active');
+                            $("#containerPogresBar2").attr('aria-valuenow', '0');
+                            $("#containerPogresBar2").attr('style', "width: 0%");
+                            $("#mostrarPorcentaje").hide();
+                            alertify.error('Ocurrio un error, intenta mas tarde');
+                        }
                     }); 
                   } else {
                       // user clicked "cancel"

@@ -1,6 +1,6 @@
 <section class="content-header">
     <h1>
-        CARTERA FNG - PROCESOS VIGENTES
+        Cartera FNG - Procesos vigentes
     </h1>
     <ol class="breadcrumb">
     	<li><a href="<?php echo base_url();?>home">Inicio</a></li>

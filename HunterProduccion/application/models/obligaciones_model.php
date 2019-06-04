@@ -277,7 +277,8 @@ class Obligaciones_Model extends CI_Model {
     
     function getColoresLiquidacicones($contrato){
 
-        $this->db->select('DISTINCT  ColorLiquidaciones.Color, ColorLiquidaciones.ColorFunte ');
+        $this->db->select(' TOP 1  
+                            ColorLiquidaciones.Color');
         //$this->db->from('CondicionesLiquidaciones');
         $this->db->join('ColorLiquidaciones', 'ID = CondicionesLiquidaciones.Estado', 'LEFT');
         $this->db->where('Liquidacion is not null');
@@ -286,7 +287,7 @@ class Obligaciones_Model extends CI_Model {
         
         $query = $this->db->get('CondicionesLiquidaciones');
         if($query->num_rows() > 0){
-            return $query->result();
+            return $query->row()->Color;    
         }
 
     }

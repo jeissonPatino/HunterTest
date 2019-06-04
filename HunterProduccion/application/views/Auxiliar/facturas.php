@@ -1,6 +1,6 @@
 <section class="content-header">
     <h1>
-      FACTURAS
+      Facturas
     </h1>
     <ol class="breadcrumb">
     	<li><a href="<?php echo base_url();?>home">Inicio</a></li>
@@ -816,7 +816,7 @@
 					getdatos(data, getId);
 					//alert(data);
 				}else{
-					alertify.error('Ese número de contrato no existe');
+					alertify.error('Ese numero de contrato no existe');
 				}
 			}
 		});
@@ -830,9 +830,9 @@
 			success : function(data){
 				if(data.length > 0){
 					$("#NumeroContrato").val(data);
-					alertify.success('Número de contrato Valido!');
+					alertify.success('Numero de contrato Valido!');
 				}else{
-					alertify.error('Ese número de contrato no existe');
+					alertify.error('Ese numero de contrato no existe');
 				}
 			}
 		});

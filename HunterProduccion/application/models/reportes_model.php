@@ -779,7 +779,7 @@ class Reportes_Model extends CI_Model {
     
     function getInformeFrgGestion($frg = NULL, $gestores = NULL, $fechaInicial, $fechaFinal){
         
- 
+
         $this->db->select(' NumeroLiquidacion,
                             NombreDeudor,
                             TipoIdentificacion, 

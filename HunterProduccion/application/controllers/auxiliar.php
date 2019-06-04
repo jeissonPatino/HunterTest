@@ -3130,7 +3130,7 @@ class Auxiliar extends CI_Controller {
                     $datosAdcicionales[$i]['observacion'] = NULL ;
                     $fecha = explode(' ', $key2->fecha_modificacion)[0];
                     $fecha = explode('-', $fecha);
-                    $datosAdcicionales[$i]['fecharegistro'] = $fecha[2].'/'.$fecha[1].'/'.$fecha[0] ;
+                    $datosAdcicionales[$i]['fecharegistro'] = "<span style='display: none;'>".$fecha[2].$fecha[1].$fecha[0]."</span>".$fecha[2].'/'.$fecha[1].'/'.$fecha[0] ;
                     $datosAdcicionales[$i]['rol'] = 'Deudor' ;
                     $datosAdcicionales[$i]['deudor'] = utf8_encode($key2->deudor) ;
                     $datosAdcicionales[$i]['liquidacion'] = NULL ;

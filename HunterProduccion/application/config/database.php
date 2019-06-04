@@ -78,7 +78,7 @@ $db['default'] = array(
 	'hostname' => 'Driver={SQL Server};Server=LSTKBO220099\SQLEXPRESS;Database=DYALOGOPRB2',
 	//'hostname' => 'Driver={SQL Server};Server=LSTKBO49838\MSSQLSERVERDS;Database=DYALOGODEV',
 	'username' => 'sa',
-	'password' => '*/Softtek10*/',
+	'password' => '1234Va',
 	//'database' => 'DYALOGODEV',
 	'database' => 'DYALOGOPRB2',
 	'dbdriver' => 'odbc',

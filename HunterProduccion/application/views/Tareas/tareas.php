@@ -18,7 +18,9 @@
             ?>
                     <li><!-- start message -->
                         <a href="<?php echo base_url();?>tareas/detalleTarea/<?php echo $key->G738_ConsInte__b;?>">
-                           
+                            <div class="pull-left">
+                                <img src="<?php echo base_url();?>assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                            </div>
                             <h4>
                                 Liquidación N° <?php echo $key->contrato_ejecucion;?> 
                  

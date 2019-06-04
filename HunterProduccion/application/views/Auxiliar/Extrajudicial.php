@@ -1,7 +1,7 @@
 <section class="content-header">
     <h1>
        
-        ELIMINAR GESTIÓN EXTRAJUDICIAL
+        Eliminar gestión extrajudicial
     </h1>
     <ol class="breadcrumb">
     	<li><a href="<?php echo base_url();?>home">Inicio</a></li>
@@ -26,13 +26,13 @@
 								<div class="col-md-4">
 									<div class="form-group">
 										<label>Nº Liquidación</label>
-							  			<input type="text" class="form-control " placeholder="Ingrese Número Liquidación a Buscar"  id="txtNoLiquidacion" name="txtNoLiquidacion" > 
+							  			<input type="text" class="form-control " placeholder="Ingrese Numero Liquidación a Buscar"  id="txtNoLiquidacion" name="txtNoLiquidacion" > 
 									</div>
 						  		</div>
 						  		<div class="col-md-8" style="padding-top: 25px;">
 									<div class="form-group">
 						
-											<button class="btn btn-info fa fa-search" id="btnBuscarNoLiquidacion"> </button>
+											<button class="btn" id="btnBuscarNoLiquidacion">Buscar Liquidación</button>
 									</div>
 						  		</div>
 							</div>
@@ -145,27 +145,29 @@
 		            	{ mData : "users"},
 		            	{ mData  : "eliminar"}
 		            ],
-					"bJQueryUI": true,
-					"bProcessing": true,
-					"bSort": true,
-					"bSortClasses": false,
-					"bDeferRender": true,
-					"sPaginationType": "simple",
-		            "iDisplayLength": 20,
-		            "aaSorting":[[0,"asc"]],
-		            "aLengthMenu": [[20, 40, 60, 100], [20, 40, 60, 100]],
-					"oLanguage": {
-		                "sLengthMenu": "_MENU_ registros por página",
-		                "sZeroRecords": "0 resultados en el criterio de busqueda",
+		         
+		            "bJQueryUI": true,
+		            "bProcessing": true,
+		            "bSort": true,
+		            "aaSorting":[[4,"desc"]],
+		            "bSortClasses": false,
+		            "bDeferRender": true,
+		            "sPaginationType": "simple",
+			        "oLanguage": {
+		                "sLengthMenu": "_MENU_ reg.",
+		                "sZeroRecords": "No hay registros",
 		                "sInfo": "Mostrando de _START_ a _END_ de _TOTAL_ registros",
-		                "sInfoEmpty": "Mostrando de 0 a 0 de 0 registros",
+		                "sInfoEmpty": "0 a 0 de 0 registros",
 		                "sInfoFiltered": "(Filtrado de _MAX_ total registros)",
-		                "sSearch": "Buscar:",
+		                "sSearch": "",
 		                "oPaginate": {
 					        "sNext": ">>",
 					        "sPrevious": "<<"
-				      	} 
+				      	}
+		                
 		            },
+		            "iDisplayLength": 10,
+		            "aLengthMenu": [[10, 20, 30, 40], [10, 20, 30, 40]],
 			        "fnRowCallback": function( nRow, aData, iDisplayIndex ) {
 		          		var id = aData.id;
 			            $(nRow).attr("dato",id);
@@ -180,7 +182,10 @@
 		               		getdatos(garantia);
 		               });
 		            },
-
+		            "dom": 'Bfrtip',
+			        "buttons": [
+			             'excel'
+			        ]
 			    });
 
 			});
@@ -191,7 +196,7 @@
 		//buscar.extrajudicial(null , null, null);
 		$("#btnBuscarNoLiquidacion").click(function(){
 			if ($("#txtNoLiquidacion").val().length < 1){
-				alertify.error('Debe ingresar número de liquidacion a buscar');
+				alertify.error('Debe ingresar numero de liquidacion a buscar');
 			}else{
 				buscar.extrajudicial($("#txtNoLiquidacion").val());	
 			}

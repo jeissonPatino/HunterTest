@@ -2,11 +2,11 @@
   <link rel="stylesheet" href="<?php echo base_url();?>assets/bootstrap/css/chosen.css">
 <section class="content-header">
     <h1>
-        CARTERA FNG - BÚSQUEDA AVANZADA
+        Cartera FNG - Búsqueda avanzada
     </h1>
     <ol class="breadcrumb">
     	<li><a href="<?php echo base_url();?>home">Inicio</a></li>
-    	<li><a href="<?php echo base_url();?>Extrajudicial">Cartera Fng</a></li>
+    	<li><a href="<?php echo base_url();?>cartera_fng">Cartera Fng</a></li>
         <li class="active">Cartera Fng - Búsqueda avanzada</li>
     </ol>
 </section>
@@ -25,7 +25,7 @@
 					<div class="row-fuid">
 						<div class="col-md-6">
 							<div class="form-group">
-								<select class="form-control js-example-basic-single" tabindex="2" id="selFilro">
+								<select class="form-control chosen-select" tabindex="2" id="selFilro">
 										<option value="0">Seleccione un Filtro</option>
 									<?php 
 										foreach ($filtros as $ke) {
@@ -53,7 +53,7 @@
 						</div>
 
 					</div>
-					
+					<a href="<?php echo base_url();?>reportes/exportar_clientessingestion" onclick="location.href=this.href+'/'+ $('#exportar').prop('data');return false;" class="btn btn-success btn-flat"  id="exportar" data=""><i class="fa fa-file-excel-o"hidden="hidden"></i>&nbsp;&nbsp;Exportar a Excel</a>
 					
 				</div>	
 		<div class="box-body table-responsive no-padding">
@@ -115,7 +115,7 @@
 			<div class="input-group input-group-sm">
 	            <input class="form-control" id="txtBusqueda" type="text" onblur="this.value=this.value.toUpperCase();" placeholder="Valor a buscar">
 	            <span class="input-group-btn">
-	              	<button class=" btn btn-info fa fa-search" id="btnFiltrar" type="button"></button>
+	              	<button class="btn btn-info btn-flat" id="btnFiltrar" type="button">Go!!</button>
 	            </span>
 	      	</div>
 		</div>
@@ -138,7 +138,7 @@
 				</select>
 	            <input class="form-control" id="txtBusquedaFijo" type="text" onblur="this.value=this.value.toUpperCase();" placeholder="Valor a buscar">
 	            <span class="input-group-btn">
-	              	<button class=" btn btn-info fa fa-search" id="btnFiltrarFijo" type="button"></button>
+	              	<button class="btn btn-info btn-flat" id="btnFiltrarFijo" type="button">Go!!</button>
 	            </span>
 	      	</div>
 		</div>
@@ -162,7 +162,7 @@
 					<input class="form-control datemask1" id="txtBusquedaFechaFinal" type="text" onblur="this.value=this.value.toUpperCase();" placeholder="Fecha Final">
 				</div>
 				<div class="col-md-4">
-					<button class=" btn btn-info fa fa-search" id="btnFiltrar2" type="button"></button>
+					<button class="btn btn-info btn-flat" id="btnFiltrar2" type="button">Go!!</button>
 				</div>
 			</div>
 		</div>
@@ -224,7 +224,7 @@
 					<input class="form-control numeros" id="txtBusquedaNumerosFinal" type="text" placeholder="Hasta">
 				</div>
 				<div class="col-md-4">
-					<button class=" btn btn-info fa fa-search" id="btnFiltrar3" type="button"></button>
+					<button class="btn btn-info btn-flat" id="btnFiltrar3" type="button">Go!!</button>
 				</div>
 			</div>
 		</div>
@@ -237,8 +237,7 @@
 <script src="<?php echo base_url();?>assets/plugins/datatables/dataTables.bootstrap.min.js"></script>
 <script src="<?php echo base_url();?>assets/plugins/validate/jquery.validate.min.js"></script>
 <script src="<?php echo base_url();?>assets/dist/js/alertify.js"></script>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+
 
 <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/plugins/datatables/extensions/Buttons/css/buttons.dataTables.min.css">
 <!--<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.1.2/css/buttons.dataTables.min.css">-->
@@ -252,9 +251,7 @@
 <script src="<?php echo base_url();?>assets/plugins/datatables/extensions/Buttons/js/buttons.print.min.js"></script>
 
 <script type="text/javascript">
-	$(document).ready(function() {
-    		$('.js-example-basic-single').select2();
-		});
+	
 
  	var contadorfiltros = 0;
  	var array_datos = new Array();
@@ -290,7 +287,6 @@
 								{ mData: "VALOR_PAGADO" },
 								{ mData: "ROL" }
 							],
-							"dom": 'Blfrtip',
 							"bJQueryUI": true,
 							"bProcessing": true,
 							"bSort": true,
@@ -299,27 +295,19 @@
 							"sPaginationType": "simple",
 				            "iDisplayLength": 20,
 				            "aaSorting":[[0,"asc"]],
-						    "buttons": [{
-			                  extend: 'csv',
-			                  text: 'Excel',
-			                  fieldSeparator : ';',
-			                  charset: 'utf-8',
-			                  extension: '.csv',
-										filename: 'Busqueda avanzada'}],
 				            "aLengthMenu": [[20, 40, 60, 100], [20, 40, 60, 100]],
 							"oLanguage": {
-				                "sLengthMenu": "_MENU_ registros por página",
-				                "sZeroRecords": "0 resultados en el criterio de busqueda",
-				                "sInfo": "Mostrando de _START_ a _END_ de _TOTAL_ registros",
-				                "sInfoEmpty": "Mostrando de 0 a 0 de 0 registros",
-				                "sInfoFiltered": "(Filtrado de _MAX_ total registros)",
-				                "sSearch": "Buscar:",
-				                "oPaginate": {
-							        "sNext": ">>",
-							        "sPrevious": "<<"
-						      	} 
-				            },
-							
+								"sLengthMenu": "_MENU_ registros por página",
+								"sZeroRecords": "0 resultados en el criterio de busqueda",
+								"sInfo": "Mostrando de _START_ a _END_ de _TOTAL_ registros",
+								"sInfoEmpty": "Mostrando de 0 a 0 de 0 registros",
+								"sInfoFiltered": "(Filtrado de _MAX_ total registros)",
+								"sSearch": "Buscar:",
+								"oPaginate": {
+									"sNext": ">>",
+									"sPrevious": "<<"
+								}
+							},
 							"processing": true,
 						   //	"ajax": "<?php echo base_url();?>Cartera_fng/getDatosProcesosVigentes",
 							"fnRowCallback": function( nRow, aData, iDisplayIndex ) {
@@ -335,7 +323,9 @@
 									var garantia = $(this).attr('dato').replace(' ', '');
 									window.location.href = "<?php echo base_url();?>extrajudicial/gestionar/"+garantia+"/11";
 							   });
-							}
+							},
+							"dom": 'Bfrtip',
+			    			"buttons": ['excel']
 					});
 					
 						
@@ -369,7 +359,8 @@
 								{ mData: "VALOR_PAGADO" },
 								{ mData: "ROL" }
 							],
-							"dom": 'Blfrtip',
+							 "dom": 'Bfrtip',
+			       			 "buttons": ['csv'],
 							"bJQueryUI": true,
 							"bProcessing": true,
 							"bSort": true,
@@ -378,26 +369,19 @@
 							"sPaginationType": "simple",
 				            "iDisplayLength": 20,
 				            "aaSorting":[[0,"asc"]],
-						    "buttons": [{
-			                  extend: 'csv',
-			                  text: 'Excel',
-			                  fieldSeparator : ';',
-			                  charset: 'utf-8',
-			                  extension: '.csv',
-										filename: 'Busqueda avanzada'}],
 				            "aLengthMenu": [[20, 40, 60, 100], [20, 40, 60, 100]],
 							"oLanguage": {
-				                "sLengthMenu": "_MENU_ registros por página",
-				                "sZeroRecords": "0 resultados en el criterio de busqueda",
-				                "sInfo": "Mostrando de _START_ a _END_ de _TOTAL_ registros",
-				                "sInfoEmpty": "Mostrando de 0 a 0 de 0 registros",
-				                "sInfoFiltered": "(Filtrado de _MAX_ total registros)",
-				                "sSearch": "Buscar:",
-				                "oPaginate": {
-							        "sNext": ">>",
-							        "sPrevious": "<<"
-						      	} 
-				            },
+								"sLengthMenu": "_MENU_ registros por página",
+								"sZeroRecords": "0 resultados en el criterio de busqueda",
+								"sInfo": "Mostrando de _START_ a _END_ de _TOTAL_ registros",
+								"sInfoEmpty": "Mostrando de 0 a 0 de 0 registros",
+								"sInfoFiltered": "(Filtrado de _MAX_ total registros)",
+								"sSearch": "Buscar:",
+								"oPaginate": {
+									"sNext": ">>",
+									"sPrevious": "<<"
+								}
+							},
 							"processing": true,
 						   //	"ajax": "<?php echo base_url();?>Cartera_fng/getDatosProcesosVigentes",
 							"fnRowCallback": function( nRow, aData, iDisplayIndex ) {
@@ -414,7 +398,9 @@
 									window.location.href = "<?php echo base_url();?>extrajudicial/gestionar/"+garantia+"/11";
 							   });
 
-							}
+							},
+							"dom": 'Bfrtip',
+			    			"buttons": ['excel']
 						}); 
 					
 					//console.log(data);
@@ -654,7 +640,6 @@
 					if($.fn.dataTable.isDataTable( '#tablaBusquedaAvanzada' )){
 	    				$("#tablaBusquedaAvanzada").dataTable().fnDestroy();
 	    			} console.log(data);
-
 					$("#tablaBusquedaAvanzada").DataTable({
 						"aaData": data,
 							"aoColumns": [
@@ -669,7 +654,6 @@
 								{ mData: "VALOR_PAGADO" },
 								{ mData: "ROL" }
 							],
-							"dom": 'Blfrtip',
 							"bJQueryUI": true,
 							"bProcessing": true,
 							"bSort": true,
@@ -678,26 +662,19 @@
 							"sPaginationType": "simple",
 				            "iDisplayLength": 20,
 				            "aaSorting":[[0,"asc"]],
-						    "buttons": [{
-			                  extend: 'csv',
-			                  text: 'Excel',
-			                  fieldSeparator : ';',
-			                  charset: 'utf-8',
-			                  extension: '.csv',
-										filename: 'Busqueda avanzada'}],
 				            "aLengthMenu": [[20, 40, 60, 100], [20, 40, 60, 100]],
 							"oLanguage": {
-				                "sLengthMenu": "_MENU_ registros por página",
-				                "sZeroRecords": "0 resultados en el criterio de busqueda",
-				                "sInfo": "Mostrando de _START_ a _END_ de _TOTAL_ registros",
-				                "sInfoEmpty": "Mostrando de 0 a 0 de 0 registros",
-				                "sInfoFiltered": "(Filtrado de _MAX_ total registros)",
-				                "sSearch": "Buscar:",
-				                "oPaginate": {
-							        "sNext": ">>",
-							        "sPrevious": "<<"
-						      	} 
-				            },
+								"sLengthMenu": "_MENU_ registros por página",
+								"sZeroRecords": "0 resultados en el criterio de busqueda",
+								"sInfo": "Mostrando de _START_ a _END_ de _TOTAL_ registros",
+								"sInfoEmpty": "Mostrando de 0 a 0 de 0 registros",
+								"sInfoFiltered": "(Filtrado de _MAX_ total registros)",
+								"sSearch": "Buscar:",
+								"oPaginate": {
+									"sNext": ">>",
+									"sPrevious": "<<"
+								}
+							},
 							"processing": true,
 						   //	"ajax": "<?php echo base_url();?>Cartera_fng/getDatosProcesosVigentes",
 							"fnRowCallback": function( nRow, aData, iDisplayIndex ) {
@@ -713,7 +690,9 @@
 									var garantia = $(this).attr('dato').replace(' ', '');
 									window.location.href = "<?php echo base_url();?>extrajudicial/gestionar/"+garantia+"/11";
 							   });
-							}
+							},
+							"dom": 'Bfrtip',
+			    			"buttons": ['excel']
 						});
 					
 					//console.log(data);
@@ -1037,7 +1016,10 @@
 	function eliminarFiltro(id){
 		array_datos.splice(id, 1);
 		$("."+id).hide();
-		//console.log(array_datos.length);
+		var tablafiltro = $("#TbodyFiltros");
+		tablafiltro.clear();
+		tablafiltro.draw(array_datos);
+
 		//$("#tablaBusquedaAvanzada").dataTable().fnDestroy();
 		var table = $('#tablaBusquedaAvanzada').DataTable();
 		 table

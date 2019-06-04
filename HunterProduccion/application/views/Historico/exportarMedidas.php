@@ -2,7 +2,7 @@
 	header("Content-type: application/vnd.ms-excel; charset=utf-8");
     header("Content-Disposition: attachment; filename=HistoricoMedidas.xls");
 ?>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
 <table>
 	<thead>
 		<tr>

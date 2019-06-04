@@ -1,7 +1,7 @@
 <section class="content-header">
     <h1>
         
-        CONCEPTOS Y VALORES A PAGAR
+        Conceptos y valores a pagar
     </h1>
     <ol class="breadcrumb">
     	<li><a href="<?php echo base_url();?>home">Inicio</a></li>

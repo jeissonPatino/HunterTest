@@ -1,6 +1,6 @@
 <section class="content-header">
     <h1>
-        INICIO 
+        Inicio
     </h1>
     <ol class="breadcrumb">
         <li class="breadcrumb-item active">Inicio</li>

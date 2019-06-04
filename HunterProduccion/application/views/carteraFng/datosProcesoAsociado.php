@@ -1,6 +1,6 @@
 <section class="content-header">
     <h1>
-        GESTIÓN JUDICIAL - PROCESO ASOCIADO
+        Gestión Judicial - Proceso Asociado
     </h1>
     <ol class="breadcrumb">
     	<li><a href="<?php echo base_url();?>home">Inicio</a></li>
@@ -810,7 +810,7 @@
 										  		<div class="col-md-3" id="AbogadoPromotor"> </div>
 										  	</div>
 										  	<div class="row">
-										  		<div class="col-md-3"><label>Fecha fijación del aviso</label> </div>
+										  		<div class="col-md-3"><label>Fecha fijacion del aviso</label> </div>
 										  		<div class="col-md-3"  id="AbogadoFechaFijacion"> </div>
 										  		<div class="col-md-3"><label>Celular</label> </div>
 										  		<div class="col-md-3" id="AbogadoCelular"> </div>

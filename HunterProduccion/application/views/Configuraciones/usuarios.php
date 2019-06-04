@@ -1,6 +1,6 @@
 <section class="content-header">
     <h1>
-       USUARIOS
+        Usuarios
     </h1>
     <ol class="breadcrumb">
     	<li><a href="<?php echo base_url();?>home">Inicio</a></li>
@@ -486,7 +486,7 @@
 												<div class="checkbox">
 													<label>
 														<input type="checkbox" name="reporte_7" disabled value="1">
-														Reporte de medidas cautelares practicadas
+														Reporte de medidas cautelares prácticadas
 													</label>
 												</div>
 												

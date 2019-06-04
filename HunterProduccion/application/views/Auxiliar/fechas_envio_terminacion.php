@@ -1,6 +1,6 @@
 <section class="content-header">
     <h1>
-       FECHA ENVIÓ MEMORIAL DE TERMINACIÓN
+       Fecha envio memorial de terminación
     </h1>
     <ol class="breadcrumb">
     	<li><a href="<?php echo base_url();?>home">Inicio</a></li>
@@ -203,7 +203,7 @@
           }
 
           if($("#txtnumeroSap").val().length < 1){
-              alertify.error('Debe escribir el número del proceso');
+              alertify.error('Debe escribir el numero del proceso');
               validador = 1;
           }
 
@@ -225,7 +225,7 @@
                                 alertify.success("Registro guardado!");
                                 otherForm[0].reset();
                             }else if(data == 'NOP'){
-                                alertify.error("El número SAP no es valido!");
+                                alertify.error("El numero SAP no es valido!");
                                // otherForm[0].reset();
                             }
                         }

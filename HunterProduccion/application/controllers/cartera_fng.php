@@ -41,7 +41,7 @@ class Cartera_fng extends CI_Controller {
             foreach($clientes as $key){
                 $deudor = trim(utf8_encode($key->cliente));
                 $nombre = substr($deudor, 0, 3);
-                $datosDelarray[$i]['cliente'] = $deudor ;
+                $datosDelarray[$i]['cliente'] = "<span style='display: none;'>".utf8_encode($nombre)."</span>".$deudor ;
                 
 
                 $datosDelarray[$i]['SAP'] = $key->SAP ;
@@ -86,13 +86,13 @@ class Cartera_fng extends CI_Controller {
                 if(!is_null($key->Fecha_Factura)){
                     $fecha = explode(" ",$key->Fecha_Factura)[0];
                     $fecha = explode("-", $fecha);
-                    $fecha = $fecha[2]."/".$fecha[1]."/".$fecha[0];
+                    $fecha = "<span style='display: none;'>".$fecha[0]."/".$fecha[1]."/".$fecha[2]."</span>".$fecha[2]."/".$fecha[1]."/".$fecha[0];
                 }
                 
 
                 $deudor = trim(utf8_encode($key->cliente));
                 $nombre = substr($deudor, 0, 3);
-                $datosDelarray[$i]['cliente'] = $deudor ;
+                $datosDelarray[$i]['cliente'] = "<span style='display: none;'>".utf8_encode($nombre)."</span>".$deudor ;
                 
 
                 
@@ -131,7 +131,7 @@ class Cartera_fng extends CI_Controller {
                 $fecha = explode("-", $fecha);
                 $deudor = trim(utf8_encode($key->cliente));
                 $nombre = substr($deudor, 0, 3);
-                $datosDelarray[$i]['cliente'] = $deudor ;
+                $datosDelarray[$i]['cliente'] = "<span style='display: none;'>".utf8_encode($nombre)."</span>".$deudor ;
                 
                 $datosDelarray[$i]['identificacion'] = $key->identificacion ;
                 $datosDelarray[$i]['tipo_identificacion'] = $key->tipo_identificacion ;
@@ -224,7 +224,7 @@ class Cartera_fng extends CI_Controller {
             foreach($clientes as $key){
                 $deudor = trim(utf8_encode($key->DEUDOR));
                 $nombre = substr($deudor, 0, 3);
-                $data[$i]['DEUDOR'] = $deudor ;
+                $data[$i]['DEUDOR'] = "<span style='display: none;'>".utf8_encode($nombre)."</span>".$deudor ;
                 
                 
                 $data[$i]['IDENTIFICACION'] = $key->IDENTIFICACION ;
@@ -340,7 +340,7 @@ class Cartera_fng extends CI_Controller {
                 foreach($clientes as $key){
                     $deudor = trim(utf8_encode($key->DEUDOR));
                     $nombre = substr($deudor, 0, 3);
-                    $data[$i]['DEUDOR'] = $deudor ;
+                    $data[$i]['DEUDOR'] = "<span style='display: none;'>".utf8_encode($nombre)."</span>".$deudor ;
                 
 
                     $data[$i]['IDENTIFICACION'] = $key->IDENTIFICACION ;
@@ -367,7 +367,7 @@ class Cartera_fng extends CI_Controller {
                     
                     $deudor = trim(utf8_encode($key->DEUDOR));
                     $nombre = substr($deudor, 0, 3);
-                    $data[$i]['DEUDOR'] = $deudor ;
+                    $data[$i]['DEUDOR'] = "<span style='display: none;'>".utf8_encode($nombre)."</span>".$deudor ;
                 
                     $data[$i]['IDENTIFICACION'] = $key->IDENTIFICACION ;
                     $data[$i]['tipo_identificacion'] = $key->tipo_identificacion ;
@@ -402,7 +402,7 @@ class Cartera_fng extends CI_Controller {
             foreach($clientes as $key){
                 $deudor = trim(utf8_encode($key->DEUDOR));
                 $nombre = substr($deudor, 0, 3);
-                $data[$i]['DEUDOR'] = $deudor ;
+                $data[$i]['DEUDOR'] = "<span style='display: none;'>".utf8_encode($nombre)."</span>".$deudor ;
                 
                 $data[$i]['IDENTIFICACION'] = $key->IDENTIFICACION ;
                 $data[$i]['tipo_identificacion'] = $key->tipo_identificacion ;
@@ -951,7 +951,7 @@ class Cartera_fng extends CI_Controller {
                         $array[$i]['subgestion'] = utf8_encode($key->subgestion);
                         $array[$i]['observaciones'] = utf8_encode($key->observaciones);
                         $array[$i]['users'] = utf8_encode($key->users).$key->tarea;
-                        $array[$i]['fecha'] = $fecha2;
+                        $array[$i]['fecha'] = "<span style='display: none;'>".$fecha3.$otroNidea."</span>".$fecha2;
                         $array[$i]['Niidea'] = $niidea;
                         $array[$i]['codigo'] = $key->id;
                         $i++;
@@ -990,7 +990,7 @@ class Cartera_fng extends CI_Controller {
                     $array[$i]['subgestion'] = utf8_encode($key->subgestion);
                     $array[$i]['observaciones'] = utf8_encode($key->observaciones);
                     $array[$i]['users'] = utf8_encode($key->users).$key->tarea;
-                    $array[$i]['fecha'] = $fecha2;
+                    $array[$i]['fecha'] = "<span style='display: none;'>".$fecha3.$otroNidea."</span>".$fecha2;
                     $array[$i]['Niidea'] = $niidea;
                     $array[$i]['codigo'] = $key->id;
                     $i++;
@@ -1116,7 +1116,7 @@ class Cartera_fng extends CI_Controller {
                     
 
                         $datosarray[$i]['TipoProceso'] = utf8_encode($key->TipoProceso);
-                        $datosarray[$i]['txtFechaIngreso'] = $fecha1[2]."/". $fecha1[1]."/". $fecha1[0];
+                        $datosarray[$i]['txtFechaIngreso'] = "<span style='display: none;'>".$fecha1[0].$fecha1[1].$fecha1[2].$otroNidea."</span>".$fecha1[2]."/". $fecha1[1]."/". $fecha1[0];
                         $datosarray[$i]['Etapa'] = utf8_encode($key->Etapa);
                         $datosarray[$i]['actuacion'] = utf8_encode($key->actuacion) ;
                         $datosarray[$i]['fecha'] = $fecha[2]."/". $fecha[1]."/". $fecha[0];
@@ -1146,7 +1146,7 @@ class Cartera_fng extends CI_Controller {
                     $datosarray[$i]['txtFechaIngreso'] = $fecha1[2]."/". $fecha1[1]."/". $fecha1[0];
                     $datosarray[$i]['Etapa'] = utf8_encode($key->Etapa);
                     $datosarray[$i]['actuacion'] = utf8_encode($key->actuacion) ;
-                    $datosarray[$i]['fecha'] = $fecha[2]."/". $fecha[1]."/". $fecha[0];
+                    $datosarray[$i]['fecha'] = "<span style='display: none;'>".$fecha[0].$fecha[1].$fecha[2].$otroNidea."</span>".$fecha[2]."/". $fecha[1]."/". $fecha[0];
                     $datosarray[$i]['txtObservaciones'] = utf8_encode($key->txtObservaciones) ;
                     $datosarray[$i]['users'] = utf8_encode($key->users);
                     $datosarray[$i]['codigo'] =$key->id;
@@ -1863,7 +1863,7 @@ class Cartera_fng extends CI_Controller {
                         $var3 = explode(' ', $key->FechaPractica)[0];
                         $var3 = explode('-', $var3);
 
-                        $array[$i]['fecha'] = $fache[2]."/".$fache[1]."/".$fache[0];
+                        $array[$i]['fecha'] = "<span style='display: none;'>".$fache[0].$fache[1].$fache[2]."</span>".$fache[2]."/".$fache[1]."/".$fache[0];
                         $array[$i]['Medida'] = utf8_encode($key->Medida);
                         $array[$i]['var1'] = $var1[2]."/".$var1[1]."/".$var1[0];
                         $array[$i]['var2'] = $var2[2]."/".$var2[1]."/".$var2[0];
@@ -1894,7 +1894,7 @@ class Cartera_fng extends CI_Controller {
                     $var3 = explode(' ', $key->FechaPractica)[0];
                     $var3 = explode('-', $var3);
 
-                    $array[$i]['fecha'] = $fache[2]."/".$fache[1]."/".$fache[0];
+                    $array[$i]['fecha'] = "<span style='display: none;'>".$fache[0].$fache[1].$fache[2]."</span>".$fache[2]."/".$fache[1]."/".$fache[0];
                     $array[$i]['Medida'] = utf8_encode($key->Medida);
                     $array[$i]['var1'] = $var1[2]."/".$var1[1]."/".$var1[0];
                     $array[$i]['var2'] = $var2[2]."/".$var2[1]."/".$var2[0];
@@ -2552,6 +2552,34 @@ class Cartera_fng extends CI_Controller {
 
             if($this->Wizard_Model->guardardatos('G742', $datos)){
                 
+                /*$this->db->select('G719_ConsInte__b, G719_C17039, G719_C17423');
+                $this->db->from('G719');
+                $this->db->where('G719_ConsInte__b', $_POST['contrato']);
+                $query = $this->db->get();
+
+                $this->db->select('G719_ConsInte__b');
+                $this->db->from('G719');
+                $this->db->where('G719_C17039', $query->G719_C17039);
+                $this->db->where("G719_C17423 !=  ".$query->G719_C17423);
+                $query2 = $this->db->get();
+
+                if($query2->num_rows() > 0){
+                    $result = $query2->result();
+                    foreach ($result as $key) {
+                        $datos = array( 'G742_C17242' => $fechaIngreso,
+                            'G742_C17243' => $fechaIngreso,
+                            'G742_C17244' => $key->G719_ConsInte__b,
+                            'G742_C17425' => $_POST['cliente'],
+                            'G742_C17245' => $user,
+                            'G742_C17246' => utf8_decode($_POST['txtObservaciones']),
+                            'G742_C17249' => $_POST['mediocomunicacion'],
+                            'G742_C17250' => $_POST['resultadocomunicacion'],
+                            'G742_C17251' => $_POST['gestion'],
+                            'G742_C17252' => $_POST['subgestion'],
+                            'G742_Usuario' => $this->session->userdata('identificacion'));
+                        $this->Wizard_Model->guardardatos('G742', $datos);
+                    }
+                }*/
                 echo '1';
             }else{
                 echo 'Un error a ocurrido';
@@ -2566,11 +2594,6 @@ class Cartera_fng extends CI_Controller {
             $user  = $this->session->userdata('nombres');
             date_default_timezone_set('America/Bogota');
             $fechaIngreso =  date("Y-m-d H:i:s");
-            $subgestion = '';
-            if(isset($_POST['subgestion'])){
-                    $subgestion = $_POST['subgestion'];
-            }
-
 
             $datos = array( 'G742_C17242' => $fechaIngreso,
                             'G742_C17243' => $fechaIngreso,
@@ -2581,7 +2604,7 @@ class Cartera_fng extends CI_Controller {
                             'G742_C17249' => $_POST['mediocomunicacion'],
                             'G742_C17250' => $_POST['resultadocomunicacion'],
                             'G742_C17251' => $_POST['gestion'],
-                            'G742_C17252' => $subgestion,
+                            'G742_C17252' => $_POST['subgestion'],
                             'G742_Usuario' => $this->session->userdata('identificacion'),
                             'G742_C17426' => ' - Tarea');
 
@@ -2879,7 +2902,7 @@ class Cartera_fng extends CI_Controller {
                     }
                 }
                 
-                $data[$i]['nombre'] = $deudor ;
+                $data[$i]['nombre'] = "<span style='display: none;'>".utf8_encode($nombre)."</span>".$deudor ;
                 $data[$i]['identificacion'] =  $key->identificacion ;
                 $data[$i]['tipo_identificacion'] =  $key->tipo_identificacion ;
                 if($key->liquidacion != '' && !is_null($key->liquidacion)){
@@ -2928,7 +2951,7 @@ class Cartera_fng extends CI_Controller {
             foreach($clientes as $key){
                 $deudor = trim(utf8_encode($key->deudor));
                 $nombre = substr($deudor, 0, 3);
-                $data[$i]['DEUDOR'] = $deudor ;
+                $data[$i]['DEUDOR'] = "<span style='display: none;'>".utf8_encode($nombre)."</span>".$deudor ;
                 
                 $data[$i]['IDENTIFICACION'] = $key->identificacion ;
                 $data[$i]['tipo_identificacion'] = $key->tipo_identificacion ;
@@ -3066,7 +3089,7 @@ class Cartera_fng extends CI_Controller {
             foreach($fechaventa as $key){
                 $DEUDOR = trim(utf8_encode($key->DEUDOR));
                 $nombre = substr($DEUDOR, 0, 3);
-                $data[$i]['DEUDOR'] = $DEUDOR ;
+                $data[$i]['DEUDOR'] = "<span style='display: none;'>".utf8_encode($nombre)."</span>".$DEUDOR ;
                 
                 $data[$i]['Identificacion'] = $key->Identificacion ;
                 $data[$i]['TipoIdentificacion'] = $key->TipoIdentificacion ;
@@ -3378,7 +3401,7 @@ class Cartera_fng extends CI_Controller {
                         $array[$i]['subgestion'] = utf8_encode($key->subgestion);
                         $array[$i]['observaciones'] = utf8_encode($key->observaciones);
                         $array[$i]['users'] = utf8_encode($key->users).$key->tarea;
-                        $array[$i]['fecha'] = $fecha2;
+                        $array[$i]['fecha'] = "<span style='display: none;'>".$fecha3.$otroNidea."</span>".$fecha2;
                         $array[$i]['Niidea'] = $niidea;
                         $array[$i]['codigo'] = $key->id;
                         $i++;
@@ -3417,7 +3440,7 @@ class Cartera_fng extends CI_Controller {
                     $array[$i]['subgestion'] = utf8_encode($key->subgestion);
                     $array[$i]['observaciones'] = utf8_encode($key->observaciones);
                     $array[$i]['users'] = utf8_encode($key->users).$key->tarea;
-                    $array[$i]['fecha'] = $fecha2;
+                    $array[$i]['fecha'] = "<span style='display: none;'>".$fecha3.$otroNidea."</span>".$fecha2;
                     $array[$i]['Niidea'] = $niidea;
                     $array[$i]['codigo'] = $key->id;
                     $i++;
@@ -3466,7 +3489,7 @@ class Cartera_fng extends CI_Controller {
                     
 
                         $datosarray[$i]['TipoProceso'] = utf8_encode($key->TipoProceso);
-                        $datosarray[$i]['txtFechaIngreso'] = $fecha1[2]."/". $fecha1[1]."/". $fecha1[0];
+                        $datosarray[$i]['txtFechaIngreso'] = "<span style='display: none;'>".$fecha1[0].$fecha1[1].$fecha1[2].$otroNidea."</span>".$fecha1[2]."/". $fecha1[1]."/". $fecha1[0];
                         $datosarray[$i]['Etapa'] = utf8_encode($key->Etapa);
                         $datosarray[$i]['actuacion'] = utf8_encode($key->actuacion) ;
                         $datosarray[$i]['fecha'] = $fecha[2]."/". $fecha[1]."/". $fecha[0];
@@ -3496,7 +3519,7 @@ class Cartera_fng extends CI_Controller {
                     $datosarray[$i]['txtFechaIngreso'] = $fecha1[2]."/". $fecha1[1]."/". $fecha1[0];
                     $datosarray[$i]['Etapa'] = utf8_encode($key->Etapa);
                     $datosarray[$i]['actuacion'] = utf8_encode($key->actuacion) ;
-                    $datosarray[$i]['fecha'] = $fecha[2]."/". $fecha[1]."/". $fecha[0];
+                    $datosarray[$i]['fecha'] = "<span style='display: none;'>".$fecha[0].$fecha[1].$fecha[2].$otroNidea."</span>".$fecha[2]."/". $fecha[1]."/". $fecha[0];
                     $datosarray[$i]['txtObservaciones'] = utf8_encode($key->txtObservaciones) ;
                     $datosarray[$i]['users'] = utf8_encode($key->users);
                     $datosarray[$i]['codigo'] =$key->id;
@@ -3546,7 +3569,7 @@ class Cartera_fng extends CI_Controller {
                         $var3 = explode(' ', $key->FechaPractica)[0];
                         $var3 = explode('-', $var3);
 
-                        $array[$i]['fecha'] = $fache[2]."/".$fache[1]."/".$fache[0];
+                        $array[$i]['fecha'] = "<span style='display: none;'>".$fache[0].$fache[1].$fache[2]."</span>".$fache[2]."/".$fache[1]."/".$fache[0];
                         $array[$i]['Medida'] = utf8_encode($key->Medida);
                         $array[$i]['var1'] = $var1[2]."/".$var1[1]."/".$var1[0];
                         $array[$i]['var2'] = $var2[2]."/".$var2[1]."/".$var2[0];
@@ -3577,7 +3600,7 @@ class Cartera_fng extends CI_Controller {
                     $var3 = explode(' ', $key->FechaPractica)[0];
                     $var3 = explode('-', $var3);
 
-                    $array[$i]['fecha'] = $fache[2]."/".$fache[1]."/".$fache[0];
+                    $array[$i]['fecha'] = "<span style='display: none;'>".$fache[0].$fache[1].$fache[2]."</span>".$fache[2]."/".$fache[1]."/".$fache[0];
                     $array[$i]['Medida'] = utf8_encode($key->Medida);
                     $array[$i]['var1'] = $var1[2]."/".$var1[1]."/".$var1[0];
                     $array[$i]['var2'] = $var2[2]."/".$var2[1]."/".$var2[0];

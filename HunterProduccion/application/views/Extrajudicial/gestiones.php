@@ -1,5 +1,4 @@
 	<section class="content-header">
-
 	    <h1>
 	    	<?php 
 
@@ -72,12 +71,12 @@
 
 					case '17':
 					//viene de PBusqueda <=12.5SMLLV
-						echo 'CARTERA FNG - BÚSQUEDA TIPO GESTIÓN';
+						echo 'CARTERA FNG - Busqueda Tipo Gestión ';
 						break;	
 				}
 			}else{
 				//viene de Clientes nuevos
-				echo 'CARTERA FNG - DATOS OBLIGACIÓNES';
+				echo 'CARTERA FNG - DATOS OBLIGACIONES';
 			}
 			
 		?>
@@ -131,7 +130,7 @@
 	                <div class="row">
 	                    <div class="col-md-12" >
 	                        <div class="form-group">
-	                            <label>Qué quieres hacer?</label>
+	                            <label>Que quieres hacer?</label>
 	                            <select class="form-control" id="gestionCombo">
 	                            	<option value="1792">Llamar</option>
 	                            	<option value="1793">Reunión</option>
@@ -155,8 +154,8 @@
 	                <div class="row">
 	                    <div class="col-md-12" >
 	                        <div class="form-group">
-	                            <label>Descripción</label>
-	                            <textarea class="form-control" rows="3" id="txtDescripcion" placeholder="Descripción"></textarea>
+	                            <label>Descripcion</label>
+	                            <textarea class="form-control" rows="3" id="txtDescripcion" placeholder="Descripcion"></textarea>
 	                        </div>
 	                    </div>
 	                </div>
@@ -172,9 +171,9 @@
 
 	                 <div class="bootstrap-timepicker">
 	                	<div class="form-group">
-	                  		<label>Hora Programada:</label>
+	                  		<label>Time picker:</label>
 		                  	<div class="input-group">
-			                    <input type="text" class="form-control timepicker" id="timepikerettx" placeholder="Hora Tramite">
+			                    <input type="text" class="form-control timepicker" id="timepikerettx">
 			                    <div class="input-group-addon">
 			                      	<i class="fa fa-clock-o"></i>
 			                    </div>
@@ -983,24 +982,7 @@
 							</a>
 						</h4>
 					</div>
-					
 					<div id="collapseOne" class="panel-collapse collapse">
-						<table >
-						<tbody style="background-color: #ef7f1a">
-							<ul>
-								<td style=""><i class="fa fa-circle" style="color: #f00"></i>&nbsp; Saldo</td>
-
-								<td><i class="fa fa-circle" style="color: #feff0d"></i>&nbsp; Acuerdos de pago</td>
-
-								<td><i class="fa fa-circle" style="color: #769462"></i>&nbsp; Saldo Cero</td>
-
-								<td><i class="fa fa-circle" style="color: #5ace10"></i>&nbsp; Paz y Salvo</td>
-
-								<td><i class="fa fa-circle" style="color: #adabab"></i>&nbsp; Vendida</td>
-							</ul>	
-						</tbody>
-					</table>
-					
 						<div class="box-body">
 							<div row="row-fluid">
 								<div class="col-md-2">
@@ -1030,11 +1012,10 @@
 															    $query = $this->db->get();
 
 															 	$color = $this->Obligaciones_Model->getColoresLiquidacicones($contratos[$i]['contrato']);
-																json_encode($color);
+														json_decode($color);
 
-															 	
 													
-														 	echo "<tr><td style='cursor:pointer;background-color:".$color[0]->Color."; color:".$color[0]->ColorFunte."' contrato ='".$query->row()->G719_ConsInte__b."'>".$contratos[$i]['contrato']." ".$query->row()->G730_C17126 ."</td></tr>";
+														 	echo "<tr><td style='cursor:pointer;background-color:".$color.";' contrato ='".$query->row()->G719_ConsInte__b."'>".$contratos[$i]['contrato']." ".$query->row()->G730_C17126 ."</td></tr>";
 
 															}
 														 	
@@ -1044,7 +1025,8 @@
 												}else{
 													for($i=0;$i < count($contratos); $i++){
 														if(!is_null($contratos[$i])){
-														 	echo "<tr><td style='cursor:pointer;background-color:".$color[$i]->Color."; color:".$color[$i]->ColorFunte."' contrato ='".$contratos[$i]['No_CONTRATO']."'>".$contratos[$i]['contrato']." ".$contratos[$i]['if'] ."</td></tr>";
+
+														 	echo "<tr><td style='cursor:pointer;background-color:".$color."' contrato ='".$contratos[$i]['No_CONTRATO']."'>".$contratos[$i]['contrato']." ".$contratos[$i]['if'] ."</td></tr>";
 
 
 														}
@@ -1054,6 +1036,36 @@
 											?>
 										</tbody>
 									</table>
+									<table class="table table-hover table-bordered">
+									<thead>
+										<th>
+											Especificaciones Color
+										</th>
+									</thead>
+									<tbody>
+										<tr>
+											<td style="background-color:#ef251a75">Vendidos</td>
+										</tr>	
+										<tr>
+											<td style="background-color:#ef7f1a94">Acuerdos de pago</td>
+										</tr>
+										<tr>
+											<td style="background-color:#f7ec016b">Saldo Cero</td>
+										</tr>
+											<td style="background-color:#97b0f3">Otros</td>
+										<tr>
+											<td style="background-color:#5ace77">Paz y Salvo</td>
+										</tr>
+										<tr>
+											<td style="background-color:#ad6d6d">Sentencia Irrecuperable</td>
+										</tr>
+										<tr>
+											<td style="background-color:#fff">Saldo Favor</td>
+
+										</tr>
+									</tbody>
+								</table>
+									
 								</div>
 								<div class="col-md-10">
 									<div class="panel box box-primary">
@@ -1068,7 +1080,16 @@
 											<div class="box-body">
 												<div class="row-fluid">
 													<div class="col-md-12">
-														
+														<div class="row">
+															<div class="col-md-3">
+																<div class="form-group">
+																	<label for="TxtCelulara">Estado de Asignación</label>
+											                 	</div>
+															</div>
+															<div class="col-md-3" id="AsigancionAbogado" >
+																
+															</div>
+														</div>
 														<div class="row">
 															<div class="col-md-3">
 																<div class="form-group">
@@ -1187,16 +1208,7 @@
 															</div>
 															
 														</div>
-														<div class="row">
-															<div class="col-md-3">
-																<div class="form-group">
-																	<label for="TxtCelulara">Estado de Asignación</label>
-											                 	</div>
-															</div>
-															<div class="col-md-3" id="AsigancionAbogado" >
-																
-															</div>
-														</div>
+
 
 
 													</div>
@@ -1247,7 +1259,7 @@
 										</div>
 										<div id="collapsetwo" class="panel-collapse collapse ">
 											<div class="box-body table-responsive no-padding">
-												<br><br>
+												<a id="exportarExtrajudicial" class="btn btn-primary">Exportar a Excel</a><br><br>
 												<table class="table table-hover table-bordered" id="tblHistoricoExtrajudicial">
 													<thead>
 														<tr>
@@ -1280,7 +1292,7 @@
 										</div>
 										<div id="collapsethree" class="panel-collapse collapse ">
 											<div class="box-body table-responsive no-padding">
-												<br><br>
+												<a id="exportarJudicial" class="btn btn-primary">Exportar a Excel</a><br><br>
 												<table class="table table-hover table-bordered" id="tblHistoricoJudicial">
 													<thead>
 														<tr>
@@ -1312,7 +1324,8 @@
 										</div>
 										<div id="collapsefour" class="panel-collapse collapse ">
 											<div class="box-body table-responsive no-padding">
-												<br>
+												<a id="exportarMedidas" class="btn btn-primary">Exportar a Excel</a>
+												<br><br>
 											  	<table class="table table-hover table-bordered" id="tblHistoricoMedidas">
 													<thead>
 														<tr>
@@ -1550,7 +1563,7 @@
 											  		<div class="col-md-3" id="AbogadoPromotor"> </div>
 											  	</div>
 											  	<div class="row">
-											  		<div class="col-md-3"><label>Fecha fijación del aviso</label> </div>
+											  		<div class="col-md-3"><label>Fecha fijacion del aviso</label> </div>
 											  		<div class="col-md-3"  id="AbogadoFechaFijacion"> </div>
 											  		<div class="col-md-3"><label>Celular</label> </div>
 											  		<div class="col-md-3" id="AbogadoCelular"> </div>
@@ -1666,7 +1679,7 @@
 	            	<div class="nav-tabs-custom">
 		                <!-- Tabs within a box -->
 		                <ul class="nav nav-tabs pull-left">
-		              		<li class="active"><a id="tab1" href="#revenue-chart" data-toggle="tab">Qué quieres hacer</a></li>
+		              		<li class="active"><a id="tab1" href="#revenue-chart" data-toggle="tab">Que quieres hacer</a></li>
 	                  		<li><a id="tab2" href="#revenue-chart2" data-toggle="">Localizado o Ilocalizado</a></li>
 	           			    <li><a id="tab3" href="#revenue-chart3" data-toggle="">Gestiones</a></li>
 	           			    <li><a id="tab4" href="#revenue-chart4" data-toggle="">subgestiones</a></li>
@@ -1869,7 +1882,7 @@
 	            	<div class="nav-tabs-custom">
 		                <!-- Tabs within a box -->
 		                <ul class="nav nav-tabs pull-left">
-		              		<li class="active"><a id="tabtotal1" href="#revenue-chart-tabtotal" data-toggle="tab">Qué quieres hacer</a></li>
+		              		<li class="active"><a id="tabtotal1" href="#revenue-chart-tabtotal" data-toggle="tab">Que quieres hacer</a></li>
 	                  		<li><a id="tabtotal2" href="#revenue-chart-tabtotal2" data-toggle="">Localizado o Ilocalizado</a></li>
 	           			    <li><a id="tabtotal3" href="#revenue-chart-tabtotal3" data-toggle="">Gestiones</a></li>
 	           			    <li><a id="tabtotal4" href="#revenue-chart-tabtotal4" data-toggle="">subgestiones</a></li>
@@ -2059,7 +2072,7 @@
 	                <div class="box-header with-border">
 						<h4 class="box-title">
 							<a data-toggle="collapse" data-parent="#accordion" href="#collapseObligacciob">
-								DATOS DE LA OBLIGACIÓN
+								DATOS DE LA OBLIGACION
 							</a>
 						</h4>
 					</div>
@@ -2069,7 +2082,7 @@
 								echo '<div class="row">
 							  		<div class="col-md-3"><label>Nombre del Deudor</label></div>
 							  		<div class="col-md-3">'.utf8_encode($key->Deudor).'</div>
-							  		<div class="col-md-3"><label>Número de Identificación</label></div>
+							  		<div class="col-md-3"><label>Numero de Identificación</label></div>
 							  		<div class="col-md-3">'.$key->identificacion.'</div>
 							  	</div>
 							  	<div class="row">
@@ -2080,7 +2093,7 @@
 							  	
 							}?>
 						  	<div class="row">
-						  		<div class="col-md-3"><label>Número de Contrato</label></div>
+						  		<div class="col-md-3"><label>Numero de Contrato</label></div>
 						  		<div class="col-md-3" id='simularContrato'></div>
 						  		<div class="col-md-3"><label>Intermediario Financiero</label></div>
 						  		<div class="col-md-3" id="simuladorIntemediario"></div>
@@ -2198,7 +2211,7 @@
 						  		<div class="col-md-6">
 						  			<form class="form-horizontal">
 										<div class="form-group">
-											<label for="inputEmail3" class="col-sm-4 control-label">Número de Cuotas</label>
+											<label for="inputEmail3" class="col-sm-4 control-label">Numero de Cuotas</label>
 											<div class="col-sm-8">
 												<input type="text" class="form-control" value="10" id="txtNumeroCuotas">
 											</div>
@@ -2259,7 +2272,7 @@
 						  	<div class="row">
 						  		<div class="col-md-3"><label>TITULAR DE LA CUENTA</label></div>
 						  		<div class="col-md-3"><label>Fondo Nacional de Garantías S.A.</label></div>
-						  		<div class="col-md-3"><label>NÚMERO DE REFERENCIA</label></div>
+						  		<div class="col-md-3"><label>NUMERO DE REFERENCIA</label></div>
 						  		<div class="col-md-3" id="referenciaCOntratop"></div>
 						  	</div>
 						</div>
@@ -2772,38 +2785,20 @@
 									{ mData: "users" }
 									
 								],
-								"dom": 'Blfrtip',
-							"bJQueryUI": true,
-							"bProcessing": true,
-							"bSort": true,
-							"bSortClasses": false,
-							"bDeferRender": true,
-							"sPaginationType": "simple",
-				            "iDisplayLength": 20,
-				            "aaSorting":[[0,"asc"]],
-						    "buttons": [{
-			                  extend: 'csv',
-			                  text: 'Excel',
-			                  fieldSeparator : ';',
-			                  charset: 'utf-8',
-			                  extension: '.csv',
-										filename: 'HISTÓRICO GESTIÓN JUDICIAL'}],
-				            "aLengthMenu": [[20, 40, 60, 100], [20, 40, 60, 100]],
-							"oLanguage": {
-				                "sLengthMenu": "_MENU_ registros por página",
-				                "sZeroRecords": "0 resultados en el criterio de busqueda",
-				                "sInfo": "Mostrando de _START_ a _END_ de _TOTAL_ registros",
-				                "sInfoEmpty": "Mostrando de 0 a 0 de 0 registros",
-				                "sInfoFiltered": "(Filtrado de _MAX_ total registros)",
-				                "sSearch": "Buscar:",
-				                "oPaginate": {
-							        "sNext": ">>",
-							        "sPrevious": "<<"
-						      	} 
-				            },
-							
-							"processing": true,
 								
+								"oLanguage": {
+					                "sLengthMenu": "_MENU_ Registros por página",
+					                "sZeroRecords": "0 resultados en el criterio de busqueda",
+					                "sInfo": "Mostrando de _START_ a _END_ de _TOTAL_ registros",
+					                "sInfoEmpty": "Mostrando de 0 a 0 de 0 registros",
+					                "sInfoFiltered": "(Filtrado de _MAX_ total registros)",
+					                "sSearch": "Buscar:",
+					                "oPaginate": {
+								        "sNext": ">>",
+								        "sPrevious": "<<"
+							      	}
+					            },
+					            "processing": true,
 					           //	"ajax": "<?php echo base_url();?>Cartera_fng/getDatosProcesosVigentes",
 					            "fnRowCallback": function( nRow, aData, iDisplayIndex ) {
 									var id = aData.codigo;
@@ -2826,7 +2821,16 @@
 								    		}
 								    	});
 								   });
-								}
+								},
+								"bJQueryUI": true,
+								"bProcessing": true,
+								"bSort": true,
+								"aaSorting":[[1,"desc"]],
+								"bSortClasses": false,
+								"bDeferRender": true,
+								"sPaginationType": "simple",
+					           "iDisplayLength": 20,
+					           "aLengthMenu": [[20, 40, 60, 100], [20, 40, 60, 100]]
 					    });
 						
 						
@@ -2865,38 +2869,20 @@
 									{ mData: "fecha"},
 									{ mData: "Niidea"}
 								],
-								"dom": 'Blfrtip',
-							"bJQueryUI": true,
-							"bProcessing": true,
-							"bSort": true,
-							"bSortClasses": false,
-							"bDeferRender": true,
-							"sPaginationType": "simple",
-				            "iDisplayLength": 20,
-				            "aaSorting":[[0,"asc"]],
-						    "buttons": [{
-			                  extend: 'csv',
-			                  text: 'Excel',
-			                  fieldSeparator : ';',
-			                  charset: 'utf-8',
-			                  extension: '.csv',
-										filename: 'HISTÓRICO GESTIÓN EXTRAJUDICIAL'}],
-				            "aLengthMenu": [[20, 40, 60, 100], [20, 40, 60, 100]],
-							"oLanguage": {
-				                "sLengthMenu": "_MENU_ registros por página",
-				                "sZeroRecords": "0 resultados en el criterio de busqueda",
-				                "sInfo": "Mostrando de _START_ a _END_ de _TOTAL_ registros",
-				                "sInfoEmpty": "Mostrando de 0 a 0 de 0 registros",
-				                "sInfoFiltered": "(Filtrado de _MAX_ total registros)",
-				                "sSearch": "Buscar:",
-				                "oPaginate": {
-							        "sNext": ">>",
-							        "sPrevious": "<<"
-						      	} 
-				            },
-							
-							"processing": true,
 								
+								"oLanguage": {
+					                "sLengthMenu": "_MENU_ Registros por página",
+					                "sZeroRecords": "0 resultados en el criterio de busqueda",
+					                "sInfo": "Mostrando de _START_ a _END_ de _TOTAL_ registros",
+					                "sInfoEmpty": "Mostrando de 0 a 0 de 0 registros",
+					                "sInfoFiltered": "(Filtrado de _MAX_ total registros)",
+					                "sSearch": "Buscar:",
+					                "oPaginate": {
+								        "sNext": ">>",
+								        "sPrevious": "<<"
+							      	}
+					            },
+					            "processing": true,
 					           //	"ajax": "<?php echo base_url();?>Cartera_fng/getDatosProcesosVigentes",
 					            "fnRowCallback": function( nRow, aData, iDisplayIndex ) {
 									var id = aData.codigo;
@@ -2918,8 +2904,16 @@
 								    		}
 								    	});
 								   });
-								}
-					          
+								},
+								"bJQueryUI": true,
+								"bProcessing": true,
+								"bSort": true,
+								"aaSorting":[[7,"desc"]],
+								"bSortClasses": false,
+								"bDeferRender": true,
+								"sPaginationType": "simple",
+					           "iDisplayLength": 20,
+					           "aLengthMenu": [[20, 40, 60, 100], [20, 40, 60, 100]]
 					    });
 					
 		    		}
@@ -2951,37 +2945,19 @@
 									
 								],
 								
-								"dom": 'Blfrtip',
-							"bJQueryUI": true,
-							"bProcessing": true,
-							"bSort": true,
-							"bSortClasses": false,
-							"bDeferRender": true,
-							"sPaginationType": "simple",
-				            "iDisplayLength": 20,
-				            "aaSorting":[[0,"asc"]],
-						    "buttons": [{
-			                  extend: 'csv',
-			                  text: 'Excel',
-			                  fieldSeparator : ';',
-			                  charset: 'utf-8',
-			                  extension: '.csv',
-										filename: 'HISTÓRICO GESTIÓN MEDIDAS'}],
-				            "aLengthMenu": [[20, 40, 60, 100], [20, 40, 60, 100]],
-							"oLanguage": {
-				                "sLengthMenu": "_MENU_ registros por página",
-				                "sZeroRecords": "0 resultados en el criterio de busqueda",
-				                "sInfo": "Mostrando de _START_ a _END_ de _TOTAL_ registros",
-				                "sInfoEmpty": "Mostrando de 0 a 0 de 0 registros",
-				                "sInfoFiltered": "(Filtrado de _MAX_ total registros)",
-				                "sSearch": "Buscar:",
-				                "oPaginate": {
-							        "sNext": ">>",
-							        "sPrevious": "<<"
-						      	} 
-				            },
-							
-							"processing": true,
+								"oLanguage": {
+					                "sLengthMenu": "_MENU_ Registros por página",
+					                "sZeroRecords": "0 resultados en el criterio de busqueda",
+					                "sInfo": "Mostrando de _START_ a _END_ de _TOTAL_ registros",
+					                "sInfoEmpty": "Mostrando de 0 a 0 de 0 registros",
+					                "sInfoFiltered": "(Filtrado de _MAX_ total registros)",
+					                "sSearch": "Buscar:",
+					                "oPaginate": {
+								        "sNext": ">>",
+								        "sPrevious": "<<"
+							      	}
+					            },
+					            "processing": true,
 					           //	"ajax": "<?php echo base_url();?>Cartera_fng/getDatosProcesosVigentes",
 					            "fnRowCallback": function( nRow, aData, iDisplayIndex ) {
 									var id = aData.G736_ConsInte__b;
@@ -3003,8 +2979,16 @@
 								    		}
 								    	});
 								   });
-								}
-								
+								},
+								"bJQueryUI": true,
+								"bProcessing": true,
+								"bSort": true,
+								"aaSorting":[[0,"asc"]],
+								"bSortClasses": false,
+								"bDeferRender": true,
+								"sPaginationType": "simple",
+					           "iDisplayLength": 20,
+					           "aLengthMenu": [[20, 40, 60, 100], [20, 40, 60, 100]]
 					    });
 		    		}
 		    	});
@@ -3721,14 +3705,10 @@
 							"sPaginationType": "simple",
 				           	"iDisplayLength": 20,
 				           	"aLengthMenu": [[20, 40, 60, 100], [20, 40, 60, 100]],
-				            "dom": 'Blfrtip',
-		        			"buttons": [{
-			                  extend: 'csv',
-			                  text: 'Excel',
-			                  fieldSeparator : ';',
-			                  charset: 'utf-8',
-			                  extension: '.csv',
-			                  extension: '.csv'}]
+				            "dom": 'Bfrtip',
+					        "buttons": [
+					             'excel'
+					        ]
 				    	});
 		    		}
 		    	});
@@ -3819,13 +3799,10 @@
 							"sPaginationType": "simple",
 				           	"iDisplayLength": 20,
 				           	"aLengthMenu": [[20, 40, 60, 100], [20, 40, 60, 100]],
-				            "dom": 'Blfrtip',
-		        			"buttons": [{
-			                  extend: 'csv',
-			                  text: 'Excel',
-			                  charset: 'utf-8',
-			                  fieldSeparator : ';',
-			                  extension: '.csv'}]
+				            "dom": 'Bfrtip',
+					        "buttons": [
+					             'excel'
+					        ]
 				       	});
 
 				       	fng.asignarDatos(tablaExtraJudicial);
@@ -4116,13 +4093,10 @@
 						"sPaginationType": "simple",
 			           	"iDisplayLength": 20,
 			           	"aLengthMenu": [[20, 40, 60, 100], [20, 40, 60, 100]],
-			            "dom": 'Blfrtip',
-		        			"buttons": [{
-			                  extend: 'csv',
-			                  text: 'Excel',
-			                  charset: 'utf-8',
-			                  fieldSeparator : ';',
-			                  extension: '.csv'}]
+			            "dom": 'Bfrtip',
+				        "buttons": [
+				             'excel'
+				        ]
 			    });
 			<?php } ?>
 			
@@ -4202,13 +4176,10 @@
 				"sPaginationType": "simple",
 	           	"iDisplayLength": 20,
 	           	"aLengthMenu": [[20, 40, 60, 100], [20, 40, 60, 100]],
-	            "dom": 'Blfrtip',
-		        			"buttons": [{
-			                  extend: 'csv',
-			                  text: 'Excel',
-			                  charset: 'utf-8',
-			                  fieldSeparator : ';',
-			                  extension: '.csv'}]
+	            "dom": 'Bfrtip',
+		        "buttons": [
+		             'excel'
+		        ]
 	       	});
 
 

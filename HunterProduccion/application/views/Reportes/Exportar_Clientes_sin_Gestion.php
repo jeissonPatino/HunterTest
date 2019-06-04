@@ -3,7 +3,7 @@
     header("Content-Disposition: attachment; filename=GestionExtrajudicial.xls"); 
 ?>
 
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />    
+        
 <table>
     <thead>
         <tr>

@@ -629,7 +629,7 @@ var _exportData = function ( dt, config )
 	var header = config.header ? join( data.header )+newLine : '';
 	var footer = config.footer && data.footer ? newLine+join( data.footer ) : '';
 	var body = [];
-	debugger;
+
 	for ( var i=0, ien=data.body.length ; i<ien ; i++ ) {
 		body.push( join( data.body[i] ) );
 	}

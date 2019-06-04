@@ -466,9 +466,10 @@ class Configuraciones_Model extends CI_Model {
     /////// Funciones modulos depuracion  Datos no Efectivos, Creado por Jeisson Patiño 17/12/2018
 
     function getDatosinicialesNoEfectivos(){
-        $this->db->select(" distinct id_log_datos
+        $this->db->select("id_log_datos
                             ,G717_C17005 as identificacion
                             ,tipo_identificacion as tipo_identifiacion
+                            ,G719_C17026 as liquidacion 
                           ,x.G718_C17015 as ciudadDomicilio
                           ,y.G718_C17015 as ciudadOficina
                           ,DATOS.tefonoOficina
@@ -514,39 +515,10 @@ class Configuraciones_Model extends CI_Model {
         $this->db->join('LISOPC l', 'l.LISOPC_ConsInte__b = cal_ciudad_adicional ', 'LEFT');
         $this->db->join('G717 cliente', 'cliente.G717_ConsInte__b = iddeusuario', 'LEFT');
         $this->db->join('G737', 'cliente.G717_ConsInte__b = G737_C17181', 'LEFT');
+        $this->db->join('G719', 'G719_ConsInte__b = G737_C17182', 'LEFT');
         $this->db->where("cal_celular = 1802 or cal_celularAdicional = 1802 or cal_ciudad_adicional = 1802 or cal_ciudadDomicilio = 1802 or cal_ciudadOficina = 1802 or cal_dir_Adicional = 1802 or cal_direccionDomicilio = 1802 or  cal_direccionOficina = 1802 or  cal_mail = 1802 or cal_tefonoOficina = 1802 or cal_tele_adicional = 1802 or cal_telefonoDomicilio = 1802");
-        $this->db->where("G717_C17005 is not null");
-        $this->db->group_by("id_log_datos
-                            ,G717_C17005
-                            ,tipo_identificacion
-                          ,x.G718_C17015
-                          ,y.G718_C17015
-                          ,DATOS.tefonoOficina
-                          ,DATOS.telefonoDomicilio
-                          ,DATOS.celular
-                          ,DATOS.celularAdicional
-                          ,DATOS.mail
-                          ,DATOS.direccionDomicilio
-                          ,DATOS.direccionOficina
-                          ,DATOS.iddeusuario
-                          ,DATOS.dir_Adicional
-                          ,DATOS.tele_adicional
-                          ,z.G718_C17015 
-                          ,a.LISOPC_Nombre____b 
-                          ,b.LISOPC_Nombre____b 
-                          ,c.LISOPC_Nombre____b 
-                          ,d.LISOPC_Nombre____b 
-                          ,e.LISOPC_Nombre____b 
-                          ,f.LISOPC_Nombre____b 
-                          ,g.LISOPC_Nombre____b 
-                          ,h.LISOPC_Nombre____b 
-                          ,i.LISOPC_Nombre____b 
-                          ,j.LISOPC_Nombre____b 
-                          ,k.LISOPC_Nombre____b 
-                          ,l.LISOPC_Nombre____b
-                          ,fecha_modificacion");
-        $this->db->order_by("G717_C17005","DESC");
-        
+        $this->db->where("G719_C17026 is not null");
+        $this->db->order_by("G719_C17026","DESC");
         $query = $this->db->get();
         return $query->result();
 
@@ -555,28 +527,25 @@ class Configuraciones_Model extends CI_Model {
 
 function DepurarDatosNoEfectivos(){
          
-        $this->db->query("DELETE 
-                            Log_datos_iniciales 
-                          WHERE 
-                            cal_celular = '1802' OR 
-                            cal_celularAdicional = '1802' OR 
-                            cal_ciudad_adicional = '1802' OR 
-                            cal_direccionDomicilio = '1802' OR  
-                            cal_direccionOficina = '1802' OR  
-                            cal_telefonoDomicilio = '1802' OR
-                            cal_mail = '1802' OR
-                            cal_tefonoOficina = '1802'  OR 
-                            cal_tele_adicional = '1802'  OR 
-                            cal_dir_Adicional = '1802'  OR 
-                            cal_ciudadDomicilio = '1802'  OR
-                            cal_ciudadOficina = '1802';
-                             ");
+        $this->db->query("UPDATE Log_datos_iniciales SET celular = NULL, cal_celular = 0 where cal_celular = '1802' ");
+        $this->db->query("UPDATE Log_datos_iniciales SET celularAdicional = null, cal_celularAdicional = 0 where cal_celularAdicional = '1802' ");
+        $this->db->query("UPDATE Log_datos_iniciales SET ciudad_adicional = null,    cal_ciudad_adicional = 0 where cal_ciudad_adicional = '1802'");
+        $this->db->query("UPDATE Log_datos_iniciales SET direccionDomicilio = null,  cal_direccionDomicilio= 0 where cal_direccionDomicilio = '1802' ");
+        $this->db->query("UPDATE Log_datos_iniciales SET direccionOficina = null, cal_direccionOficina = 0 WHERe cal_direccionOficina = '1802'");
+        $this->db->query("UPDATE Log_datos_iniciales SET telefonoDomicilio = null, cal_telefonoDomicilio = 0 where cal_telefonoDomicilio = '1802' ");
+        $this->db->query("UPDATE Log_datos_iniciales SET mail = null, cal_mail= 0  where cal_mail = '1802'  ");
+        $this->db->query("UPDATE Log_datos_iniciales SET tefonoOficina = null, cal_tefonoOficina = 0  where cal_tefonoOficina = '1802' ");
+        $this->db->query("UPDATE Log_datos_iniciales SET tele_adicional = null, cal_tele_adicional = 0  where cal_tele_adicional = '1802' ");
+        $this->db->query("UPDATE Log_datos_iniciales SET dir_Adicional = null, cal_dir_Adicional = 0 WHERE  cal_dir_Adicional = '1802' ");
+        $this->db->query("UPDATE Log_datos_iniciales SET ciudadDomicilio = null, cal_ciudadDomicilio = 0 where cal_ciudadDomicilio = '1802' ");
+        $this->db->query("UPDATE Log_datos_iniciales SET ciudadOficina = null , cal_ciudadOficina = 0 where cal_ciudadOficina = '1802'");
         
     } 
 
     function DatosNoEfectivosInforme(){
-        $this->db->select("distinct
-                            G717_C17005 as Identificacion,
+        $this->db->select("liquidacion,
+                            TipoIdentificacion,
+                            Identificacion,
                             Direccion_domicilio,
                             Calificacion_Dir_Domicilio,
                             Ciudad_domicilio,
@@ -597,13 +566,12 @@ function DepurarDatosNoEfectivos(){
                             Calificacion_Correo_electronico,
                             Direccion_adicional,
                             Calificacion_Direccion_adicional,
-                            GestionDatosCliente.Ciudad_adicional,
+                            Ciudad_adicional,
                             Calificacion_Ciudad_adicional,
                             Telefono_adicional,
                             Calificacion_Telefono_adicional,
                             Fecha_modificacion");
         $this->db->from("GestionDatosCliente");
-        $this->db->join('G717','G717_ConsInte__b = Identificacion','LEFT');
         $this->db->where("Calificacion_Celular  = 'No Efectivo' or 
                         Calificacion_Celular_adicional = 'No Efectivo' or 
                         Calificacion_Ciudad_adicional = 'No Efectivo' or 
@@ -616,7 +584,7 @@ function DepurarDatosNoEfectivos(){
                         Calificacion_Telefono_adicional = 'No Efectivo' or 
                         Calificacion_Telefono_domicilio = 'No Efectivo' or 
                         Calificacion_Telefono_oficina = 'No Efectivo'");
-        $this->db->order_by("Identificacion","DESC");
+        $this->db->order_by("liquidacion","DESC");
         $query = $this->db->get();
         return $query->result();
 
@@ -624,8 +592,9 @@ function DepurarDatosNoEfectivos(){
 
 
      function DatosEfectivosInforme(){
-        $this->db->select("distinct
-                            G717_C17005 as Identificacion,
+        $this->db->select("liquidacion,
+                            TipoIdentificacion,
+                            Identificacion,
                             Direccion_domicilio,
                             Calificacion_Dir_Domicilio,
                             Ciudad_domicilio,
@@ -640,19 +609,18 @@ function DepurarDatosNoEfectivos(){
                             Calificacion_Telefono_oficina,
                             Celular,
                             Calificacion_Celular,
-                            GestionDatosCliente.Celular_adicional,
+                            Celular_adicional,
                             Calificacion_Celular_adicional,
                             Correo_electronico,
                             Calificacion_Correo_electronico,
                             Direccion_adicional,
                             Calificacion_Direccion_adicional,
-                            GestionDatosCliente.Ciudad_adicional,
+                            Ciudad_adicional,
                             Calificacion_Ciudad_adicional,
                             Telefono_adicional,
                             Calificacion_Telefono_adicional,
                             Fecha_modificacion");
         $this->db->from("GestionDatosCliente");
-        $this->db->join('G717','G717_ConsInte__b = Identificacion','LEFT');
         $this->db->where("Calificacion_Celular  = 'Efectivo' AND 
                         Calificacion_Celular_adicional = 'Efectivo' AND 
                         Calificacion_Ciudad_adicional = 'Efectivo' AND 
@@ -665,7 +633,7 @@ function DepurarDatosNoEfectivos(){
                         Calificacion_Telefono_adicional = 'Efectivo' AND 
                         Calificacion_Telefono_domicilio = 'Efectivo' AND 
                         Calificacion_Telefono_oficina = 'Efectivo'");
-        $this->db->order_by("Identificacion","DESC");
+        $this->db->order_by("liquidacion","DESC");
         $query = $this->db->get();
         return $query->result();
 
@@ -673,8 +641,9 @@ function DepurarDatosNoEfectivos(){
 
 
     function DatosSinGestionarInforme(){
-         $this->db->select("
-                            distinct G717_C17005 as Identificacion,
+         $this->db->select("liquidacion,
+                            TipoIdentificacion,
+                            Identificacion,
                             Direccion_domicilio,
                             Calificacion_Dir_Domicilio,
                             Ciudad_domicilio,
@@ -689,19 +658,18 @@ function DepurarDatosNoEfectivos(){
                             Calificacion_Telefono_oficina,
                             Celular,
                             Calificacion_Celular,
-                            GestionDatosCliente.Celular_adicional,
+                            Celular_adicional,
                             Calificacion_Celular_adicional,
                             Correo_electronico,
                             Calificacion_Correo_electronico,
                             Direccion_adicional,
                             Calificacion_Direccion_adicional,
-                            GestionDatosCliente.Ciudad_adicional,
+                            Ciudad_adicional,
                             Calificacion_Ciudad_adicional,
                             Telefono_adicional,
                             Calificacion_Telefono_adicional,
                             Fecha_modificacion");
         $this->db->from("GestionDatosCliente");
-        $this->db->join('G717','G717_ConsInte__b = Identificacion','LEFT');
         $this->db->where("Calificacion_Celular  is null or 
                         Calificacion_Celular_adicional is null or 
                         Calificacion_Ciudad_adicional is null or 
@@ -714,7 +682,7 @@ function DepurarDatosNoEfectivos(){
                         Calificacion_Telefono_adicional is null or 
                         Calificacion_Telefono_domicilio is null or 
                         Calificacion_Telefono_oficina is null");
-        $this->db->order_by("G717_C17005","DESC");
+        $this->db->order_by("liquidacion","DESC");
         $query = $this->db->get();
         return $query->result();
 
@@ -725,12 +693,12 @@ function DepurarDatosNoEfectivos(){
     }
 
     function IngresarDatosLog_Datos_Inciales(){
-        $this->db->query("insert into Log_datos_iniciales  (ciudadDomicilio,  ciudadOficina,tefonoOficina, telefonoDomicilio, celular, celularAdicional, mail, direccionDomicilio, direccionOficina,  iddeusuario,dir_Adicional,  tele_adicional,  ciudad_adicional,  cal_ciudadDomicilio,  cal_ciudadOficina,  cal_tefonoOficina,  cal_telefonoDomicilio,  cal_celular,  cal_celularAdicional, cal_mail, cal_direccionDomicilio, cal_direccionOficina, cal_dir_Adicional, cal_tele_adicional, cal_ciudad_adicional, fecha_modificacion)
-            Select X.G718_ConsInte__b,  Y.G718_ConsInte__b, Telefono_oficina, Telefono_domicilio, Celular, Celular_adicional, Correo_electronico, Direccion_domicilio, Direccion_oficina, G717.G717_ConsInte__b, Direccion_adicional, Telefono_adicional, Z.G718_ConsInte__b,A.LISOPC_ConsInte__b,B.LISOPC_ConsInte__b,C.LISOPC_ConsInte__b, D.LISOPC_ConsInte__b, E.LISOPC_ConsInte__b, F.LISOPC_ConsInte__b, G.LISOPC_ConsInte__b,H.LISOPC_ConsInte__b,I.LISOPC_ConsInte__b,J.LISOPC_ConsInte__b,K.LISOPC_ConsInte__b,M.LISOPC_ConsInte__b,Fecha_modificacion From GestionDatosCliente  as TablaCarga1
+        $this->db->query("insert into Log_datos_iniciales (ciudadDomicilio,  ciudadOficina,tefonoOficina, telefonoDomicilio, celular, celularAdicional, mail, direccionDomicilio, direccionOficina,  iddeusuario,dir_Adicional,  tele_adicional,  ciudad_adicional,  cal_ciudadDomicilio,  cal_ciudadOficina,  cal_tefonoOficina,  cal_telefonoDomicilio,  cal_celular,  cal_celularAdicional, cal_mail, cal_direccionDomicilio, cal_direccionOficina, cal_dir_Adicional, cal_tele_adicional, cal_ciudad_adicional, fecha_modificacion)
+            Select X.G718_ConsInte__b,  Y.G718_ConsInte__b, Telefono_oficina, Telefono_domicilio, Celular, Celular_adicional, Correo_electronico, Direccion_domicilio, Direccion_oficina, G717.G717_ConsInte__b, Direccion_adicional, Telefono_adicional, Z.G718_ConsInte__b,A.LISOPC_ConsInte__b,B.LISOPC_ConsInte__b,C.LISOPC_ConsInte__b, D.LISOPC_ConsInte__b, E.LISOPC_ConsInte__b, F.LISOPC_ConsInte__b, G.LISOPC_ConsInte__b,H.LISOPC_ConsInte__b,I.LISOPC_ConsInte__b,J.LISOPC_ConsInte__b,K.LISOPC_ConsInte__b,M.LISOPC_ConsInte__b,Fecha_modificacion From GestionDatosCliente 
             LEFT JOIN G718 AS X ON X.G718_C17015 = Ciudad_domicilio
             LEFT JOIN G718 AS Y ON Y.G718_C17015 = Ciudad_oficina
             LEFT JOIN G718 AS Z ON Z.G718_C17015 = Ciudad_adicional
-            LEFT JOIN G717 ON G717.G717_ConsInte__b = Identificacion
+            LEFT JOIN G717 ON G717.G717_C17005 = Identificacion
             LEFT JOIN LISOPC AS A ON A.LISOPC_Nombre____b = Calificacion_Ciudad_domicilio
             LEFT JOIN LISOPC AS B ON B.LISOPC_Nombre____b = Calificacion_Ciudad_oficina
             LEFT JOIN LISOPC AS C ON C.LISOPC_Nombre____b = Calificacion_Telefono_oficina
@@ -742,26 +710,7 @@ function DepurarDatosNoEfectivos(){
             LEFT JOIN LISOPC AS I ON I.LISOPC_Nombre____b = Calificacion_Direccion_oficina
             LEFT JOIN LISOPC AS J ON J.LISOPC_Nombre____b = Calificacion_Direccion_adicional
             LEFT JOIN LISOPC AS K ON K.LISOPC_Nombre____b = Calificacion_Telefono_adicional
-            LEFT JOIN LISOPC AS M ON M.LISOPC_Nombre____b = Calificacion_Ciudad_adicional
-            where not exists (
-                select 
-                    * 
-                from 
-                    GestionDatosCliente as TablaCarga2
-                where 
-                    TablaCarga1.Identificacion = TablaCarga2.Identificacion and 
-                    TablaCarga1.Direccion_domicilio = TablaCarga2.Direccion_domicilio and 
-                    TablaCarga1.Ciudad_domicilio = TablaCarga2.Ciudad_domicilio and 
-                    TablaCarga1.Direccion_oficina = TablaCarga2.Direccion_oficina and
-                    TablaCarga1.Ciudad_oficina = TablaCarga2.Ciudad_oficina and 
-                    TablaCarga1.Telefono_oficina = TablaCarga2.Telefono_oficina and 
-                    TablaCarga1.Telefono_domicilio = TablaCarga2.Telefono_domicilio and
-                    TablaCarga1.Celular = TablaCarga2.Celular and 
-                    TablaCarga1.Celular_adicional = TablaCarga2.Celular_adicional and 
-                    TablaCarga1.Correo_electronico = TablaCarga2.Correo_electronico and
-                    TablaCarga1.Direccion_adicional = TablaCarga2.Direccion_adicional and 
-                    TablaCarga1.Telefono_adicional = TablaCarga2.Telefono_adicional and 
-                    TablaCarga1.Direccion_oficina = TablaCarga2.Direccion_oficina )");
+            LEFT JOIN LISOPC AS M ON M.LISOPC_Nombre____b = Calificacion_Ciudad_adicional");
     } 
 
 // Funciones eliminar datos Gestores y Abogados Jeisson Patiño 
@@ -770,18 +719,17 @@ function DepurarDatosNoEfectivos(){
 
         $abogado = 'ABOGADO';
          
-        $this->db->select("USUARI_ConsInte__b as id,
+        $this->db->select('USUARI_ConsInte__b as id,
                         USUARI_Codigo____b as codigo,
                         USUARI_Nombre____b as nombres,
                         USUARI_Cargo_____b as cargo,
-                        USUARI_Identific_b as identificacion");
+                        USUARI_Identific_b as identificacion');
         $this->db->from('USUARI');
-        $this->db->where("USUARI_Bloqueado_b = '0'");
         $this->db->where('USUARI_Cargo_____b = ', $abogado);
         
         $query = $this->db->get();
          return $query->result();
-        #var_dump($query);
+        var_dump($query);
     } 
 
     function DatosGestoresEliminar(){
@@ -795,7 +743,6 @@ function DepurarDatosNoEfectivos(){
                         USUARI_Cargo_____b as cargo,
                         USUARI_Identific_b as identificacion');
         $this->db->from('USUARI');
-        $this->db->where("USUARI_Bloqueado_b = '0'");
         $this->db->where('USUARI_Cargo_____b =',$gestor);
         $query = $this->db->get();
 

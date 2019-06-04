@@ -1,10 +1,10 @@
 <section class="content-header">
     <h1>
-        ASIGNACIÓN - ABOGADOS AUX
+        Asignación - Abogados AUX
     </h1>
     <ol class="breadcrumb">
     	<li><a href="<?php echo base_url();?>home">Inicio</a></li>
-        <li class="active">Asignación - Abogados Aux.</li>
+        <li class="active">Asignacion - Abogados Aux.</li>
     </ol>
 </section>
 

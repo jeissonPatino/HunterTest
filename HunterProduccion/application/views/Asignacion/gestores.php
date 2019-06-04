@@ -1,10 +1,10 @@
 <section class="content-header">
     <h1>
-        FRG - ASIGNACIÓN GESTORES
+        FRG - Asignación gestores
     </h1>
     <ol class="breadcrumb">
     	<li><a href="<?php echo base_url();?>home">Inicio</a></li>
-        <li class="active">Asignación - FRG gestores.</li>
+        <li class="active">Asignacion - FRG gestores.</li>
     </ol>
 </section>
 
@@ -176,7 +176,7 @@
   	</div><!-- /.box -->
 
 </section>
-<script src="<?php echo base_url();?>assets/plugins/validate/jquery.validate.min.js"></script>
+<<script src="<?php echo base_url();?>assets/plugins/validate/jquery.validate.min.js"></script>
 <script src="<?php echo base_url();?>assets/dist/js/alertify.js"></script>
 <script type="text/javascript">
 
