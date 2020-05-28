@@ -1,14 +1,14 @@
 <?php $tipo = 0;?>
 <section class="content-header">
     <h1>
-        Detalle - Tarea
+        DETALLE - TAREA
     </h1>
     <ol class="breadcrumb">
     	<li><a href="<?php echo base_url();?>home">Inicio</a></li>
         <li class="active">GESTIONAR - TAREAS</li>
     </ol>
 </section>
-
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <section class="content">
 
 	<div class="box">
@@ -16,7 +16,7 @@
         	<div class="nav-tabs-custom">
                 <!-- Tabs within a box -->
                 <ul class="nav nav-tabs pull-left">
-              		  <li class="active"><a id="tab1" href="#revenue-chart" data-toggle="tab">Que quieres hacer</a></li>
+              		  <li class="active"><a id="tab1" href="#revenue-chart" data-toggle="tab">Qué quieres hacer</a></li>
                   	<li><a id="tab2" href="#revenue-chart2" data-toggle="">Localizado o Ilocalizado</a></li>
            			    <li><a id="tab3" href="#revenue-chart3" data-toggle="">Gestiones</a></li>
            			    <li><a id="tab4" href="#revenue-chart4" data-toggle="">subgestiones</a></li>
@@ -40,12 +40,7 @@
 
                   			</div>
                   		</div>
-                  		<div class="row" >
-                  			<div class="col-md-12">
-                  				&nbsp;
-                  			</div>
-              
-                  		</div>
+                  		
                   		<div class="row" id="opcionesDeudor" style="display:none;">
                   			  <div class="col-md-3">
                             <a  onclick="javascript: getdatosTab1(1792);"><img src="<?php echo base_url();?>assets/botones/extrajudicial/botones-55.png" style=" width: 100%; height: auto;" id="logoHunter"></a>
@@ -61,64 +56,29 @@
                             <a  onclick="javascript: getdatosTab1(1794);"><img src="<?php echo base_url();?>assets/botones/extrajudicial/botones-58.png" style=" width: 100%; height: auto;" id="logoHunter"></a>
                           </div>
                   		</div>
-                  		<div class="row" >
-                  			<div class="col-md-12">
-                  				&nbsp;
-                  			</div>
-              
-                  		</div>
-                  		<div class="row" >
-                  			<div class="col-md-12">
-                  				&nbsp;
-                  			</div>
-              
-                  		</div>
+                  		
             		</div>
 
             		<div class="chart tab-pane" id="revenue-chart2" style="position: relative; height: auto;">
-            			<div class="row" >
-                  			<div class="col-md-12">
-                  				&nbsp;
-                  			</div>
-              
-                  		</div>
-            			<div class="row" >
-                  			<div class="col-md-3">
-                  				&nbsp;
-                  			</div>
+            			
+                  <div class="row" >
+                        <div class="col-md-3">
+                          &nbsp;
+                        </div>
                   			<div class="col-md-3">
                   				<a  onclick="javascript: getdatosTab2(1780);"><img src="<?php echo base_url();?>assets/botones/extrajudicial/botones-59.png" style=" width: 100%; height: auto;" id="logoHunter"></a>
                   			</div>
                   			<div class="col-md-3">
                   				<a  onclick="javascript: getdatosTab2(1781);"><img src="<?php echo base_url();?>assets/botones/extrajudicial/botones-60.png" style=" width: 100%; height: auto;" id="logoHunter"></a>
                   			</div>
-                  			<div class="col-md-3">
-                  				&nbsp;
-                  			</div>
+                  			
                   		</div>
 
-                  		<div class="row" >
-                  			<div class="col-md-12">
-                  				&nbsp;
-                  			</div>
-              
-                  		</div>
-
-                  		<div class="row" >
-                  			<div class="col-md-12">
-                  				&nbsp;
-                  			</div>
-              
-                  		</div>
+                  		
             		</div>
 
             		<div class="chart tab-pane" id="revenue-chart3" style="position: relative; height: auto;">
-            			<div class="row" >
-                  			<div class="col-md-12">
-                  				&nbsp;
-                  			</div>
-              
-                  		</div>
+            		
             			<div class="row" id="localizado" style="display:none;">
                   			<div class="col-md-3">
                   				<a  onclick="javascript: getdatosTab3(1782);"><img src="<?php echo base_url();?>assets/botones/extrajudicial/botones-61.png" style=" width: 100%; height: auto;" id="logoHunter"></a>
@@ -154,28 +114,11 @@
                   				
                   			</div>
                   		</div>
-                  		<div class="row" >
-                  			<div class="col-md-12">
-                  				&nbsp;
-                  			</div>
-              
-                  		</div>
-
-                  		<div class="row" >
-                  			<div class="col-md-12">
-                  				&nbsp;
-                  			</div>
-              
-                  		</div>
+                  		
             		</div>
 
             		<div class="chart tab-pane" id="revenue-chart4" style="position: relative; height: auto;">
-            			<div class="row" >
-                  			<div class="col-md-12">
-                  				&nbsp;
-                  			</div>
-              
-                  		</div>
+            			
             			<div class="row" >
                   			<div class="col-md-7" id="subgestionesFinales">
                   				Subgestiones :*
@@ -294,7 +237,7 @@ tar = {
     $("#btnGuardarExtrajudicial").click(function(){
       alertify.confirm("¿Esta seguro que desea guardar el registro?", function (e) {
           if (e) {
-            debugger;
+            
               $.ajax({
                       url       : '<?php echo base_url();?>cartera_fng/guardarExtrajudicialTarea',
                       type      : 'POST',

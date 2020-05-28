@@ -1,9 +1,9 @@
 <!-- ACB2 -->
 <section class="content-header">
-    <h1><?php echo utf8_encode($title); ?></h1>
+    <h1>CARGA MASIVA LIQUIDACIONES CON ACUERDO DE PAGO</h1>
     <ol class="breadcrumb">
         <li><a href="<?php echo base_url();?>home">Inicio</a></li>
-        <li class="active">Asignacion - Abogados</li>
+        <li class="active">Asignación - Abogados</li>
     </ol>
 </section>
 

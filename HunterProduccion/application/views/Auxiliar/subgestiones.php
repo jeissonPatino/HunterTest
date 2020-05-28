@@ -1,6 +1,6 @@
 <section class="content-header">
     <h1>
-        Subgestiones
+       SUBGESTIONES
     </h1>
     <ol class="breadcrumb">
     	<li><a href="<?php echo base_url();?>home">Inicio</a></li>
@@ -56,7 +56,7 @@
 								<option value="0">Rol</option>
 								<?php 
 									foreach ($gestiones as $key) {
-										echo "<option value='".$key->LISOPC_ConsInte__b."'>".utf8_encode($key->LISOPC_Nombre____b)."</option>";
+										echo "<option value='".$key->Id."'>".utf8_encode($key->Nombre_b)."</option>";
 									}
 								?>
 							</select>

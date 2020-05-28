@@ -1,6 +1,6 @@
 <section class="content-header">
     <h1>
-        Usuarios
+       USUARIOS
     </h1>
     <ol class="breadcrumb">
     	<li><a href="<?php echo base_url();?>home">Inicio</a></li>
@@ -65,7 +65,7 @@
 								<option value="0">Seleccione</option>
 								<?php 
 									foreach ($frgs as $key) {
-										echo '<option value="'.$key->G729_ConsInte__b.'">'.utf8_encode($key->Frg).'</option>';
+										echo '<option value="'.$key->Id.'">'.utf8_encode($key->Frg).'</option>';
 									}
 								?>
 							</select>
@@ -486,7 +486,7 @@
 												<div class="checkbox">
 													<label>
 														<input type="checkbox" name="reporte_7" disabled value="1">
-														Reporte de medidas cautelares prácticadas
+														Reporte de medidas cautelares practicadas
 													</label>
 												</div>
 												

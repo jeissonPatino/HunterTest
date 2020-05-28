@@ -569,7 +569,6 @@
 .fa-gears:before,
 .fa-cogs:before {
   content: "\f085";
-  padding-right: 6px;
 }
 .fa-comments:before {
   content: "\f086";

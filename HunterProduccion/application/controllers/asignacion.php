@@ -80,27 +80,27 @@ class Asignacion extends CI_Controller {
                                 'G719_C17051' => $fechaIngreso
                               );
                             $resultado = false;
-                            $resultado = $this->Wizard_Model->editarDatos('G719', $datos, $value['A'], $filtro);
+                            $resultado = $this->Wizard_Model->editarDatos('InformacionCredito', $datos, $value['A'], $filtro);
 
                             if($resultado){
                                 $acertados += 1;
-                                $this->db->select(' TOP 1 G717_C17240 as Deudor, G717_C17005 as identificacion,
-                                                    G717_C17006 as TelefonoD, G717_C17008 as TelefonoO,
-                                                    G737_C17182 As No_CONTRATO,  
-                                                    G737_C17183 AS ROL ,
+                                $this->db->select(' TOP 1 NombreDeudor as Deudor, NroIdentificacion as identificacion,
+                                                    TelefonoDomicilio as TelefonoD, TelefonoOficina as TelefonoO,
+                                                    NumeroContratoId As No_CONTRATO,  
+                                                    Rol AS ROL ,
                                                     G719_C17423 as OBLIGACION,
                                                     G719_C17039 as SAP,  
-                                                    G733_C17132 as Despacho,
-                                                    G718_C17015 as ciudaddespacho,
+                                                    Despacho as Despacho,
+                                                    Ciudad as ciudaddespacho,
                                                     G719_C17043 as radicado,
-                                                    G729_C17121 as frg');
-                                $this->db->from('G717');
+                                                    FRG as frg');
+                                $this->db->from('InformacionCliente');
                             
-                                $this->db->join('G737', 'G717_ConsInte__b = G737_C17181');
-                                $this->db->join('G719', 'G719_ConsInte__b = G737_C17182');
-                                $this->db->join('G718', 'G718_ConsInte__b = G719_C17041', 'LEFT');
-                                $this->db->join('G733', 'G733_ConsInte__b = G719_C17040', 'LEFT');
-                                $this->db->join('G729', 'G729_ConsInte__b = G719_C17029', 'LEFT');
+                                $this->db->join('ClienteObligacion', 'Id = InformacionClientesId');
+                                $this->db->join('InformacionCredito', 'Id = NumeroContratoId');
+                                $this->db->join('Ciudad', 'Id = G719_C17041', 'LEFT');
+                                $this->db->join('Despacho', 'Id = G719_C17040', 'LEFT');
+                                $this->db->join('FRG', 'Id = G719_C17029', 'LEFT');
                                 $this->db->where('G719_C17039', $value['A']);
                                 $query  = $this->db->get();
                                 $resultados = $query->result();
@@ -175,7 +175,7 @@ class Asignacion extends CI_Controller {
                                     'G719_C17051' => $fechaIngreso
                                   );
                 $resultado = false;
-                $resultado = $this->Wizard_Model->editarDatos('G719', $datos, $proceso, $filtro);
+                $resultado = $this->Wizard_Model->editarDatos('InformacionCredito', $datos, $proceso, $filtro);
 
                 if($resultado){  
                     //$this->mandarCorreo($sap, $abogado); 
@@ -260,7 +260,7 @@ class Asignacion extends CI_Controller {
                                     }else{
                                         $contratos = $this->Obligaciones_Model->getContratos($idUseuraruio);
                                         foreach($contratos as $key){
-                                            $resultado = $this->Wizard_Model->editarDatos('G719', $datos, $key->No_CONTRATO, 'G719_ConsInte__b');
+                                            $resultado = $this->Wizard_Model->editarDatos('InformacionCredito', $datos, $key->No_CONTRATO, 'Id');
                                         
                                         } 
                                     }
@@ -270,7 +270,7 @@ class Asignacion extends CI_Controller {
                                     $contrato = $this->Obligaciones_Model->getIdObligacionByLiquidacion($value['A']);
 
                                     if($contrato != 0){
-                                        $resultado = $this->Wizard_Model->editarDatos('G719', $datos, $value['A'], $filtro);
+                                        $resultado = $this->Wizard_Model->editarDatos('InformacionCredito', $datos, $value['A'], $filtro);
                                     }else{
                                         $fallosExistenciales +=1;
                                     }
@@ -281,7 +281,7 @@ class Asignacion extends CI_Controller {
                                 $contrato = $this->Obligaciones_Model->getIdObligacion($value['A']);
 
                                 if($contrato != 0){
-                                    $resultado = $this->Wizard_Model->editarDatos('G719', $datos, $value['A'], $filtro);
+                                    $resultado = $this->Wizard_Model->editarDatos('InformacionCredito', $datos, $value['A'], $filtro);
                                 }else{
                                     $fallosExistenciales +=1;
                                 }
@@ -340,21 +340,21 @@ class Asignacion extends CI_Controller {
 					$contratos = $this->Obligaciones_Model->getContratos($idUseuraruio);
 					foreach($contratos as $key){
 						
-					$resultado = $this->Wizard_Model->editarDatos('G719', $datos, $key->No_CONTRATO, 'G719_ConsInte__b');
+					$resultado = $this->Wizard_Model->editarDatos('InformacionCredito', $datos, $key->No_CONTRATO, 'Id');
 					}
 				}else if($filtro == 'G719_C17423'){
                     $contrato = 0;
                     $contrato = $this->Obligaciones_Model->getIdObligacionByLiquidacion($sap);
 
                     if($contrato != 0){
-                        $resultado = $this->Wizard_Model->editarDatos('G719', $datos, $sap , $filtro);
+                        $resultado = $this->Wizard_Model->editarDatos('InformacionCredito', $datos, $sap , $filtro);
                     }else{
                         $fallosExistenciales +=1;
                     }
                 }
 				
 			}else{
-				$resultado = $this->Wizard_Model->editarDatos('G719', $datos, $sap, $filtro);
+				$resultado = $this->Wizard_Model->editarDatos('InformacionCredito', $datos, $sap, $filtro);
 			}
 
             if($resultado){
@@ -473,8 +473,8 @@ public function gestoresAux() {
                             );
                             $resultado = false;
                             $this->db->where('G719_C17039',  $value['A'] );
-                            $resultado = $this->db->update('G719', $datos);
-                            //$resultado = $this->Wizard_Model->editarDatos('G719', $datos, $value['A'], $filtro);
+                            $resultado = $this->db->update('InformacionCredito', $datos);
+                            //$resultado = $this->Wizard_Model->editarDatos('InformacionCredito', $datos, $value['A'], $filtro);
 
                             if($resultado){
                                 $acertados += 1;
@@ -678,7 +678,7 @@ $NewCorreo = '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "ht
 
 
                                 $resultado = false;
-                                $resultado = $this->Wizard_Model->editarDatos('G719', $datos, $value['A'], $filtro);
+                                $resultado = $this->Wizard_Model->editarDatos('InformacionCredito', $datos, $value['A'], $filtro);
 
                                 if($resultado){
                                     $acertados += 1;
@@ -733,7 +733,7 @@ $NewCorreo = '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "ht
                                     'G719_C17051' => $fecha
                                   );
                 $resultado = false;
-                $resultado = $this->Wizard_Model->editarDatos('G719', $datos, $proceso, $filtro);
+                $resultado = $this->Wizard_Model->editarDatos('InformacionCredito', $datos, $proceso, $filtro);
 
                 if($resultado){  
                     //$this->mandarCorreo($sap, $abogado); 

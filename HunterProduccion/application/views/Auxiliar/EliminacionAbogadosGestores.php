@@ -1,10 +1,10 @@
 <section class="content-header">
     <h1>
-        configuracion - Gestionar Datos Clientes
+        CONFIGURACIÓN - GESTIONAR DATOS 
     </h1>
     <ol class="breadcrumb">
     	<li><a href="<?php echo base_url();?>home">Inicio</a></li>
-        <li class="active">Gestionar Datos Clientes</li>
+        <li class="active">Gestionar Datos </li>
     </ol>
 </section>
 
@@ -71,7 +71,7 @@
 																	<option value="0">Seleccione</option>
 																	<?php 
 																		foreach ($frgs as $key) {
-																			echo '<option value="'.$key->G729_ConsInte__b.'">'.utf8_encode($key->Frg).'</option>';
+																			echo '<option value="'.$key->Id.'">'.utf8_encode($key->Frg).'</option>';
 																		}
 																	?>
 																	</select>
@@ -157,7 +157,7 @@
 																	<option value="0">Seleccione</option>
 																	<?php 
 																		foreach ($frgs as $key) {
-																			echo '<option value="'.$key->G729_ConsInte__b.'">'.utf8_encode($key->Frg).'</option>';
+																			echo '<option value="'.$key->Id.'">'.utf8_encode($key->Frg).'</option>';
 																		}
 																	?>
 																	</select>
@@ -340,6 +340,7 @@
 		});
 
 		$("#delete1").click(function(){
+
 			alertify.confirm("¿Ésta seguro que desea eliminar el registro?", function (e) {
 			    if (e) {
 		         	$.ajax({
@@ -348,6 +349,7 @@
 				            data: { id : $("#const_int_").val() },
 				            //una vez finalizado correctamente
 				            success: function(data){
+				            	console.log(data);
 				            	if(data == '1'){
 				            		alertify.success('Datos eliminados correctamente');
 				            		window.location.reload(true);

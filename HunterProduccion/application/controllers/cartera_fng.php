@@ -41,7 +41,7 @@ class Cartera_fng extends CI_Controller {
             foreach($clientes as $key){
                 $deudor = trim(utf8_encode($key->cliente));
                 $nombre = substr($deudor, 0, 3);
-                $datosDelarray[$i]['cliente'] = "<span style='display: none;'>".utf8_encode($nombre)."</span>".$deudor ;
+                $datosDelarray[$i]['cliente'] = $deudor ;
                 
 
                 $datosDelarray[$i]['SAP'] = $key->SAP ;
@@ -86,13 +86,13 @@ class Cartera_fng extends CI_Controller {
                 if(!is_null($key->Fecha_Factura)){
                     $fecha = explode(" ",$key->Fecha_Factura)[0];
                     $fecha = explode("-", $fecha);
-                    $fecha = "<span style='display: none;'>".$fecha[0]."/".$fecha[1]."/".$fecha[2]."</span>".$fecha[2]."/".$fecha[1]."/".$fecha[0];
+                    $fecha = $fecha[2]."/".$fecha[1]."/".$fecha[0];
                 }
                 
 
                 $deudor = trim(utf8_encode($key->cliente));
                 $nombre = substr($deudor, 0, 3);
-                $datosDelarray[$i]['cliente'] = "<span style='display: none;'>".utf8_encode($nombre)."</span>".$deudor ;
+                $datosDelarray[$i]['cliente'] = $deudor ;
                 
 
                 
@@ -131,7 +131,7 @@ class Cartera_fng extends CI_Controller {
                 $fecha = explode("-", $fecha);
                 $deudor = trim(utf8_encode($key->cliente));
                 $nombre = substr($deudor, 0, 3);
-                $datosDelarray[$i]['cliente'] = "<span style='display: none;'>".utf8_encode($nombre)."</span>".$deudor ;
+                $datosDelarray[$i]['cliente'] = $deudor ;
                 
                 $datosDelarray[$i]['identificacion'] = $key->identificacion ;
                 $datosDelarray[$i]['tipo_identificacion'] = $key->tipo_identificacion ;
@@ -185,7 +185,7 @@ class Cartera_fng extends CI_Controller {
             $filtroSelect->esLisop = '';
               $filtroSelect->eslista='';
               $filtroSelect->campoLista='';
-              $filtroSelect->tabla='G719';
+              $filtroSelect->tabla='InformacionCredito';
             array_push($filtroBusquedaAvanzada, $filtroSelect);
 
             $filtroSelect = new stdClass();
@@ -194,7 +194,7 @@ class Cartera_fng extends CI_Controller {
             $filtroSelect->esLisop = '';
               $filtroSelect->eslista='';
               $filtroSelect->campoLista='';
-              $filtroSelect->tabla='G719';
+              $filtroSelect->tabla='InformacionCredito';
             array_push($filtroBusquedaAvanzada, $filtroSelect);
 
             
@@ -224,7 +224,7 @@ class Cartera_fng extends CI_Controller {
             foreach($clientes as $key){
                 $deudor = trim(utf8_encode($key->DEUDOR));
                 $nombre = substr($deudor, 0, 3);
-                $data[$i]['DEUDOR'] = "<span style='display: none;'>".utf8_encode($nombre)."</span>".$deudor ;
+                $data[$i]['DEUDOR'] = $deudor ;
                 
                 
                 $data[$i]['IDENTIFICACION'] = $key->IDENTIFICACION ;
@@ -281,7 +281,7 @@ class Cartera_fng extends CI_Controller {
                                 }else{
                                     $array = explode('-', $key);
                                     if(!empty($array)){
-                                        if ($array[0] == 'G719.G719_C17423') $array[1] = $this->completarZerosLiquidacion($array[1]);
+                                        if ($array[0] == 'InformacionCredito.G719_C17423') $array[1] = $this->completarZerosLiquidacion($array[1]);
                                         $jose[$array[0]] = $array[1];
                                     }
 
@@ -340,7 +340,7 @@ class Cartera_fng extends CI_Controller {
                 foreach($clientes as $key){
                     $deudor = trim(utf8_encode($key->DEUDOR));
                     $nombre = substr($deudor, 0, 3);
-                    $data[$i]['DEUDOR'] = "<span style='display: none;'>".utf8_encode($nombre)."</span>".$deudor ;
+                    $data[$i]['DEUDOR'] = $deudor ;
                 
 
                     $data[$i]['IDENTIFICACION'] = $key->IDENTIFICACION ;
@@ -367,7 +367,7 @@ class Cartera_fng extends CI_Controller {
                     
                     $deudor = trim(utf8_encode($key->DEUDOR));
                     $nombre = substr($deudor, 0, 3);
-                    $data[$i]['DEUDOR'] = "<span style='display: none;'>".utf8_encode($nombre)."</span>".$deudor ;
+                    $data[$i]['DEUDOR'] = $deudor ;
                 
                     $data[$i]['IDENTIFICACION'] = $key->IDENTIFICACION ;
                     $data[$i]['tipo_identificacion'] = $key->tipo_identificacion ;
@@ -402,7 +402,7 @@ class Cartera_fng extends CI_Controller {
             foreach($clientes as $key){
                 $deudor = trim(utf8_encode($key->DEUDOR));
                 $nombre = substr($deudor, 0, 3);
-                $data[$i]['DEUDOR'] = "<span style='display: none;'>".utf8_encode($nombre)."</span>".$deudor ;
+                $data[$i]['DEUDOR'] = $deudor ;
                 
                 $data[$i]['IDENTIFICACION'] = $key->IDENTIFICACION ;
                 $data[$i]['tipo_identificacion'] = $key->tipo_identificacion ;
@@ -671,11 +671,11 @@ class Cartera_fng extends CI_Controller {
         }
     }
 
-    public function  gestionJudicialmenu($identificacion, $numeroContrato){
+    public function  gestionJudicialmenu($identificacion, $G735_C17139){
         if($this->session->userdata('login_ok')){
 
             $clientes = $this->Obligaciones_Model->getDatosersonales($identificacion);
-            $datos = array('cliente' => $clientes,  'identificacion' => $identificacion, 'numeroContrato' => $numeroContrato);
+            $datos = array('cliente' => $clientes,  'identificacion' => $identificacion, 'G735_C17139' => $G735_C17139);
             $this->load->view('Includes/head');
             $this->load->view('Includes/header');
             $this->load->view('Includes/sidebar');
@@ -909,13 +909,13 @@ class Cartera_fng extends CI_Controller {
 
 
             $this->db->select('G719_C17423 as liquidacion');
-            $this->db->from('G719');
-            $this->db->where('G719_ConsInte__b', $Contrato);
+            $this->db->from('InformacionCredito');
+            $this->db->where('Id', $Contrato);
             $query = $this->db->get();
 
             if(!is_null($query->row()->liquidacion)){
-                $this->db->select('G719_ConsInte__b as id');
-                $this->db->from('G719');
+                $this->db->select('Id as id');
+                $this->db->from('InformacionCredito');
                 $this->db->where('G719_C17423', $query->row()->liquidacion);
                 $query2 = $this->db->get();
                 $resultado = $query2->result();
@@ -951,7 +951,7 @@ class Cartera_fng extends CI_Controller {
                         $array[$i]['subgestion'] = utf8_encode($key->subgestion);
                         $array[$i]['observaciones'] = utf8_encode($key->observaciones);
                         $array[$i]['users'] = utf8_encode($key->users).$key->tarea;
-                        $array[$i]['fecha'] = "<span style='display: none;'>".$fecha3.$otroNidea."</span>".$fecha2;
+                        $array[$i]['fecha'] = $fecha2;
                         $array[$i]['Niidea'] = $niidea;
                         $array[$i]['codigo'] = $key->id;
                         $i++;
@@ -990,7 +990,7 @@ class Cartera_fng extends CI_Controller {
                     $array[$i]['subgestion'] = utf8_encode($key->subgestion);
                     $array[$i]['observaciones'] = utf8_encode($key->observaciones);
                     $array[$i]['users'] = utf8_encode($key->users).$key->tarea;
-                    $array[$i]['fecha'] = "<span style='display: none;'>".$fecha3.$otroNidea."</span>".$fecha2;
+                    $array[$i]['fecha'] = $fecha2;
                     $array[$i]['Niidea'] = $niidea;
                     $array[$i]['codigo'] = $key->id;
                     $i++;
@@ -1006,8 +1006,8 @@ class Cartera_fng extends CI_Controller {
     function exportarExtrajudicial($contrato){
         if($this->session->userdata('login_ok')){
             $datosObligacion = $this->Wizard_Model->getgestionExtrajudicial($contrato);
-            $obligacion = $this->db->get_where('G719',array('G719_ConsInte__b' => $contrato));
-            $datos = array("datosObligacion" => $datosObligacion,  "Contrato" => $obligacion->row()->G719_C17026);
+            $obligacion = $this->db->get_where('InformacionCredito',array('Id' => $contrato));
+            $datos = array("datosObligacion" => $datosObligacion,  "Contrato" => $obligacion->row()->NoContrato);
             $this->load->view("Exportar/Extrajudicial", $datos);
         }else{
             echo "No tienes Permiso para ver este contenido!";
@@ -1018,8 +1018,8 @@ class Cartera_fng extends CI_Controller {
     function exportarJudicial($contrato){
         if($this->session->userdata('login_ok')){
             $datosObligacion = $this->Wizard_Model->getgestioJudicial($contrato);
-             $obligacion = $this->db->get_where('G719',array('G719_ConsInte__b' => $contrato));
-            $datos = array("datosObligacion" => $datosObligacion,  "Contrato" => $obligacion->row()->G719_C17026);
+             $obligacion = $this->db->get_where('InformacionCredito',array('Id' => $contrato));
+            $datos = array("datosObligacion" => $datosObligacion,  "Contrato" => $obligacion->row()->NoContrato);
             $this->load->view("Exportar/Judicial", $datos);
         }else{
             echo "No tienes Permiso para ver este contenido!";
@@ -1029,8 +1029,8 @@ class Cartera_fng extends CI_Controller {
     function exportarMedidas($contrato){
         if($this->session->userdata('login_ok')){
             $datosObligacion = $this->Wizard_Model->getMedidasCautelares($contrato);
-            $obligacion = $this->db->get_where('G719',array('G719_ConsInte__b' => $contrato));
-            $datos = array("datosObligacion" => $datosObligacion,  "Contrato" => $obligacion->row()->G719_C17026);
+            $obligacion = $this->db->get_where('InformacionCredito',array('Id' => $contrato));
+            $datos = array("datosObligacion" => $datosObligacion,  "Contrato" => $obligacion->row()->NoContrato);
             $this->load->view("Exportar/Medidas", $datos);
         }else{
             echo "No tienes Permiso para ver este contenido!";
@@ -1089,13 +1089,13 @@ class Cartera_fng extends CI_Controller {
 
 
             $this->db->select('G719_C17423 as liquidacion');
-            $this->db->from('G719');
-            $this->db->where('G719_ConsInte__b', $Contrato);
+            $this->db->from('InformacionCredito');
+            $this->db->where('Id', $Contrato);
             $query = $this->db->get();
 
             if(!is_null($query->row()->liquidacion)){
-                $this->db->select('G719_ConsInte__b as id');
-                $this->db->from('G719');
+                $this->db->select('Id as id');
+                $this->db->from('InformacionCredito');
                 $this->db->where('G719_C17423', $query->row()->liquidacion);
                 $query2 = $this->db->get();
                 $resultado = $query2->result();
@@ -1116,7 +1116,7 @@ class Cartera_fng extends CI_Controller {
                     
 
                         $datosarray[$i]['TipoProceso'] = utf8_encode($key->TipoProceso);
-                        $datosarray[$i]['txtFechaIngreso'] = "<span style='display: none;'>".$fecha1[0].$fecha1[1].$fecha1[2].$otroNidea."</span>".$fecha1[2]."/". $fecha1[1]."/". $fecha1[0];
+                        $datosarray[$i]['txtFechaIngreso'] = $fecha1[2]."/". $fecha1[1]."/". $fecha1[0];
                         $datosarray[$i]['Etapa'] = utf8_encode($key->Etapa);
                         $datosarray[$i]['actuacion'] = utf8_encode($key->actuacion) ;
                         $datosarray[$i]['fecha'] = $fecha[2]."/". $fecha[1]."/". $fecha[0];
@@ -1146,7 +1146,7 @@ class Cartera_fng extends CI_Controller {
                     $datosarray[$i]['txtFechaIngreso'] = $fecha1[2]."/". $fecha1[1]."/". $fecha1[0];
                     $datosarray[$i]['Etapa'] = utf8_encode($key->Etapa);
                     $datosarray[$i]['actuacion'] = utf8_encode($key->actuacion) ;
-                    $datosarray[$i]['fecha'] = "<span style='display: none;'>".$fecha[0].$fecha[1].$fecha[2].$otroNidea."</span>".$fecha[2]."/". $fecha[1]."/". $fecha[0];
+                    $datosarray[$i]['fecha'] = $fecha[2]."/". $fecha[1]."/". $fecha[0];
                     $datosarray[$i]['txtObservaciones'] = utf8_encode($key->txtObservaciones) ;
                     $datosarray[$i]['users'] = utf8_encode($key->users);
                     $datosarray[$i]['codigo'] =$key->id;
@@ -1279,7 +1279,7 @@ class Cartera_fng extends CI_Controller {
                 $datosarray[$i]['FECHA'] = $fecha;
                 $datosarray[$i]['FECHA_AUTO_DE_SUBROGACION'] = $FECHA_AUTO_DE_SUBROGACION;
                 $datosarray[$i]['VALOR_FACTURADO_AUTO_DE_SUBROGACION'] = '$'.number_format($key->VALOR_FACTURADO_AUTO_DE_SUBROGACION, 0, '.',',') ;
-                $datosarray[$i]['codigo'] =$key->G744_ConsInte__b;
+                $datosarray[$i]['codigo'] =$key->Id;
 
                 $i++;
                 
@@ -1322,7 +1322,7 @@ class Cartera_fng extends CI_Controller {
                 $datosarray[$i]['FECHA_DE_FACTURA_SENTENCIA_IRRECUPERABLE'] = $FECHA_DE_FACTURA_SENTENCIA_IRRECUPERABLE;
                 $datosarray[$i]['FECHA_SENTENCIA_IRRECUPERABLE'] = $FECHA_SENTENCIA_IRRECUPERABLE;
                 $datosarray[$i]['VALOR_FACTURADO_SENTENCIA_IRRECUPERABLE'] = '$'.number_format($key->VALOR_FACTURADO_SENTENCIA_IRRECUPERABLE, 0, '.',',') ;
-                $datosarray[$i]['codigo'] =$key->G744_ConsInte__b;
+                $datosarray[$i]['codigo'] =$key->Id;
 
                 $i++;
                 
@@ -1364,7 +1364,7 @@ class Cartera_fng extends CI_Controller {
                 $datosarray[$i]['fechaaprovacion'] = $FECHA_DE_FACTURA_SENTENCIA_IRRECUPERABLE;
                 $datosarray[$i]['fecharecepcion'] = $FECHA_SENTENCIA_IRRECUPERABLE;
                 $datosarray[$i]['valor'] = '$'.number_format($key->VALOR_FACTURADO_SOPORTES_CISA, 0, '.',',') ;
-                $datosarray[$i]['codigo'] =$key->G744_ConsInte__b;
+                $datosarray[$i]['codigo'] =$key->Id;
 
                 $i++;
                 
@@ -1398,7 +1398,7 @@ class Cartera_fng extends CI_Controller {
                 $datosarray[$i]['NumeroFactura'] = $key->N_Factura_honorarios_venta_CISA;
                 $datosarray[$i]['fecha'] = $FECHA_SENTENCIA_IRRECUPERABLE;
                 $datosarray[$i]['valor'] = '$'.number_format($key->HONORARIOS_VENTA_CISA, 0, '.',',') ;
-                $datosarray[$i]['codigo'] =$key->G744_ConsInte__b;
+                $datosarray[$i]['codigo'] =$key->Id;
 
                 $i++;
                 
@@ -1610,7 +1610,7 @@ class Cartera_fng extends CI_Controller {
                 $this->db->select('G735_C17139 as txtFechaTramite');
                 $this->db->from('G735');
                 $this->db->where('G735_C17138', $Contrato);
-                $this->db->where('G735.G735_C17137 = 153');
+                $this->db->where('G735.Actuacion = 153');
                 $query = $this->db->get();
                 $fechT = NULL;
                 
@@ -1624,7 +1624,7 @@ class Cartera_fng extends CI_Controller {
                     $this->db->select('G735_C17139 as txtFechaTramite');
                     $this->db->from('G735');
                     $this->db->where('G735_C17138', $key->id);
-                    $this->db->where('G735.G735_C17137 = 157');
+                    $this->db->where('G735.Actuacion = 157');
                     $query = $this->db->get();
                     if($query->num_rows() > 0){
                         if(!is_null($query->row()->txtFechaTramite)){
@@ -1803,8 +1803,8 @@ class Cartera_fng extends CI_Controller {
                     $fecha6 = $fecha6[2]."/".$fecha6[1]."/".$fecha6[0];
                 }
 
-                if(!is_null($key->Fecha_decision_final)){
-                    $fecha7 = explode(" ", $key->Fecha_decision_final)[0];
+                if(!is_null($key->FechaDecisionFinal)){
+                    $fecha7 = explode(" ", $key->FechaDecisionFinal)[0];
                     $fecha7 = explode("-", $fecha7);
                     $fecha7 = $fecha7[2]."/".$fecha7[1]."/".$fecha7[0];
                 }
@@ -1820,7 +1820,7 @@ class Cartera_fng extends CI_Controller {
                 $datos[$i]['Nombre_clase_de_impugnacion'] = utf8_encode($key->Nombre_clase_de_impugnacion) ;
                 $datos[$i]['Fecha_pronunciamiento'] =  $fecha6  ;
                 $datos[$i]['decicion_Final'] =  utf8_encode($key->decicion_Final) ; 
-                $datos[$i]['Fecha_decision_final'] =   $fecha7; 
+                $datos[$i]['FechaDecisionFinal'] =   $fecha7; 
                 
                 $i++;
             }
@@ -1839,13 +1839,13 @@ class Cartera_fng extends CI_Controller {
 
 
             $this->db->select('G719_C17423 as liquidacion');
-            $this->db->from('G719');
-            $this->db->where('G719_ConsInte__b', $Contrato);
+            $this->db->from('InformacionCredito');
+            $this->db->where('Id', $Contrato);
             $query = $this->db->get();
 
             if(!is_null($query->row()->liquidacion)){
-                $this->db->select('G719_ConsInte__b as id');
-                $this->db->from('G719');
+                $this->db->select('Id as id');
+                $this->db->from('InformacionCredito');
                 $this->db->where('G719_C17423', $query->row()->liquidacion);
                 $query2 = $this->db->get();
                 $resultado = $query2->result();
@@ -1863,7 +1863,7 @@ class Cartera_fng extends CI_Controller {
                         $var3 = explode(' ', $key->FechaPractica)[0];
                         $var3 = explode('-', $var3);
 
-                        $array[$i]['fecha'] = "<span style='display: none;'>".$fache[0].$fache[1].$fache[2]."</span>".$fache[2]."/".$fache[1]."/".$fache[0];
+                        $array[$i]['fecha'] = $fache[2]."/".$fache[1]."/".$fache[0];
                         $array[$i]['Medida'] = utf8_encode($key->Medida);
                         $array[$i]['var1'] = $var1[2]."/".$var1[1]."/".$var1[0];
                         $array[$i]['var2'] = $var2[2]."/".$var2[1]."/".$var2[0];
@@ -1894,7 +1894,7 @@ class Cartera_fng extends CI_Controller {
                     $var3 = explode(' ', $key->FechaPractica)[0];
                     $var3 = explode('-', $var3);
 
-                    $array[$i]['fecha'] = "<span style='display: none;'>".$fache[0].$fache[1].$fache[2]."</span>".$fache[2]."/".$fache[1]."/".$fache[0];
+                    $array[$i]['fecha'] = $fache[2]."/".$fache[1]."/".$fache[0];
                     $array[$i]['Medida'] = utf8_encode($key->Medida);
                     $array[$i]['var1'] = $var1[2]."/".$var1[1]."/".$var1[0];
                     $array[$i]['var2'] = $var2[2]."/".$var2[1]."/".$var2[0];
@@ -2020,7 +2020,7 @@ class Cartera_fng extends CI_Controller {
                             <td>'.$key->identificacion.'</td>
                             <td>'.$key->Deudor.'</td>
                             <td>'.$key->OBLIGACION.'</td>
-                            <td>'.$key->LISOPC_Nombre____b.'</td>
+                            <td>'.$key->Nombre_b.'</td>
                         </tr>';
             }
 
@@ -2071,7 +2071,7 @@ class Cartera_fng extends CI_Controller {
 
                 $contratos = $this->Wizard_Model->getcontratosXLiquidacion($liquidacion);
                 foreach ($contratos as $contrato) {
-                    $datosObligacion = $this->Wizard_Model->getGarantias($contrato->G719_ConsInte__b);
+                    $datosObligacion = $this->Wizard_Model->getGarantias($contrato->Id);
                     foreach ($datosObligacion as $key) {
                         $nuevo = $key->contrato;
                         if($nuevo != $viejo){
@@ -2177,7 +2177,7 @@ class Cartera_fng extends CI_Controller {
           
             $datosObligacion = $this->CarteraFng_Model->getListasLisop($tabla);
             foreach ($datosObligacion as $key) {
-                echo '<option value="'.$key->LISOPC_ConsInte__b .'">'. utf8_encode($key->LISOPC_Nombre____b) .'</option>';
+                echo '<option value="'.$key->Id .'">'. utf8_encode($key->Nombre_b) .'</option>';
             }
         }else{
             echo "No tienes Permiso para ver este contenido!";
@@ -2369,18 +2369,18 @@ class Cartera_fng extends CI_Controller {
             foreach ($contratos as $contrato) {
                 $nuevo = $contrato->liquidacion;
                 if($nuevo != $viejo){
-                    $datos = array( 'G742_C17242' => $fechaIngreso,
-                            'G742_C17243' => $fechaIngreso,
-                            'G742_C17244' => $contrato->No_CONTRATO,
-                            'G742_C17245' => $user,
-                            'G742_C17425' => $idUduario,
-                            'G742_C17246' => utf8_decode($_POST['txtObservaciones']),
-                            'G742_C17249' => $_POST['mediocomunicacion'],
-                            'G742_C17250' => $_POST['resultadocomunicacion'],
-                            'G742_C17251' => $_POST['gestion'],
-                            'G742_C17252' => $_POST['subgestion'],
-                            'G742_Usuario' => $this->session->userdata('identificacion'));
-                    $resul = $this->Wizard_Model->guardardatos('G742', $datos);
+                    $datos = array( 'FechaEjecucion' => $fechaIngreso,
+                            'HoraEjecucion' => $fechaIngreso,
+                            'G735_C17139' => $contrato->No_CONTRATO,
+                            'Ejecutor' => $user,
+                            'IdCliente' => $idUduario,
+                            'Observaciones' => utf8_decode($_POST['txtObservaciones']),
+                            'MedioComunicacion' => $_POST['mediocomunicacion'],
+                            'ResultadoComunicacion' => $_POST['resultadocomunicacion'],
+                            'Gestion' => $_POST['gestion'],
+                            'SubGesstion' => $_POST['subgestion'],
+                            'Usuario' => $this->session->userdata('identificacion'));
+                    $resul = $this->Wizard_Model->guardardatos('GestionExtrajudicial', $datos);
                 }
                 $viejo = $nuevo;
             }
@@ -2414,19 +2414,19 @@ class Cartera_fng extends CI_Controller {
             foreach ($contratos as $contrato) {
                 $nuevo = $contrato->liquidacion;
                 if($nuevo != $viejo){
-                    $datos = array( 'G742_C17242' => $fechaIngreso,
-                                'G742_C17243' => $fechaIngreso,
-                                'G742_C17244' => $contrato->No_CONTRATO,
-                                'G742_C17425' => $idUduario,
-                                'G742_C17245' => $user,
-                                'G742_C17246' => utf8_decode($_POST['txtObservaciones']),
-                                'G742_C17249' => $_POST['mediocomunicacion'],
-                                'G742_C17250' => $_POST['resultadocomunicacion'],
-                                'G742_C17251' => $_POST['gestion'],
-                                'G742_C17252' => $_POST['subgestion'],
-                                'G742_Usuario' => $this->session->userdata('identificacion'));
+                    $datos = array( 'FechaEjecucion' => $fechaIngreso,
+                                'HoraEjecucion' => $fechaIngreso,
+                                'G735_C17139' => $contrato->No_CONTRATO,
+                                'IdCliente' => $idUduario,
+                                'Ejecutor' => $user,
+                                'Observaciones' => utf8_decode($_POST['txtObservaciones']),
+                                'MedioComunicacion' => $_POST['mediocomunicacion'],
+                                'ResultadoComunicacion' => $_POST['resultadocomunicacion'],
+                                'Gestion' => $_POST['gestion'],
+                                'SubGesstion' => $_POST['subgestion'],
+                                'Usuario' => $this->session->userdata('identificacion'));
 
-                    $resul = $this->Wizard_Model->guardardatos('G742', $datos);
+                    $resul = $this->Wizard_Model->guardardatos('GestionExtrajudicial', $datos);
                 }
                 $viejo = $nuevo;
             }
@@ -2448,47 +2448,47 @@ class Cartera_fng extends CI_Controller {
             date_default_timezone_set('America/Bogota');
             $fechaIngreso =  date("Y-m-d H:i:s");
 
-            $datos = array( 'G742_C17242' => $fechaIngreso,
-                            'G742_C17243' => $fechaIngreso,
-                            'G742_C17244' => $_POST['contrato'],
-                            'G742_C17425' => $_POST['cliente'],
-                            'G742_C17245' => $user,
-                            'G742_C17246' => utf8_decode($_POST['txtObservaciones']),
-                            'G742_C17249' => $_POST['mediocomunicacion'],
-                            'G742_C17250' => $_POST['resultadocomunicacion'],
-                            'G742_C17251' => $_POST['gestion'],
-                            'G742_C17252' => $_POST['subgestion'],
-                            'G742_Usuario' => $this->session->userdata('identificacion'));
+            $datos = array( 'FechaEjecucion' => $fechaIngreso,
+                            'HoraEjecucion' => $fechaIngreso,
+                            'G735_C17139' => $_POST['contrato'],
+                            'IdCliente' => $_POST['cliente'],
+                            'Ejecutor' => $user,
+                            'Observaciones' => utf8_decode($_POST['txtObservaciones']),
+                            'MedioComunicacion' => $_POST['mediocomunicacion'],
+                            'ResultadoComunicacion' => $_POST['resultadocomunicacion'],
+                            'Gestion' => $_POST['gestion'],
+                            'SubGesstion' => $_POST['subgestion'],
+                            'Usuario' => $this->session->userdata('identificacion'));
 
-            if($this->Wizard_Model->guardardatos('G742', $datos)){
+            if($this->Wizard_Model->guardardatos('GestionExtrajudicial', $datos)){
                 
 
-               /* $this->db->select('G719_ConsInte__b, G719_C17039, G719_C17423');
-                $this->db->from('G719');
-                $this->db->where('G719_ConsInte__b', $_POST['contrato']);
+               /* $this->db->select('Id, NroProcesoJudicialSAP, G719_C17423');
+                $this->db->from('InformacionCredito');
+                $this->db->where('Id', $_POST['contrato']);
                 $query = $this->db->get();
 
-                $this->db->select('G719_ConsInte__b');
-                $this->db->from('G719');
-                $this->db->where('G719_C17039', $query->G719_C17039);
+                $this->db->select('Id');
+                $this->db->from('InformacionCredito');
+                $this->db->where('NroProcesoJudicialSAP', $query->NroProcesoJudicialSAP);
                 $this->db->where("G719_C17423 !=  ".$query->G719_C17423);
                 $query2 = $this->db->get();
 
                 if($query2->num_rows() > 0){
                     $result = $query2->result();
                     foreach ($result as $key) {
-                        $datos = array( 'G742_C17242' => $fechaIngreso,
-                            'G742_C17243' => $fechaIngreso,
-                            'G742_C17244' => $key->G719_ConsInte__b,
-                            'G742_C17425' => $_POST['cliente'],
-                            'G742_C17245' => $user,
-                            'G742_C17246' => utf8_decode($_POST['txtObservaciones']),
-                            'G742_C17249' => $_POST['mediocomunicacion'],
-                            'G742_C17250' => $_POST['resultadocomunicacion'],
-                            'G742_C17251' => $_POST['gestion'],
-                            'G742_C17252' => $_POST['subgestion'],
-                            'G742_Usuario' => $this->session->userdata('identificacion'));
-                        $this->Wizard_Model->guardardatos('G742', $datos);
+                        $datos = array( 'FechaEjecucion' => $fechaIngreso,
+                            'HoraEjecucion' => $fechaIngreso,
+                            'G735_C17139' => $key->Id,
+                            'IdCliente' => $_POST['cliente'],
+                            'Ejecutor' => $user,
+                            'Observaciones' => utf8_decode($_POST['txtObservaciones']),
+                            'MedioComunicacion' => $_POST['mediocomunicacion'],
+                            'ResultadoComunicacion' => $_POST['resultadocomunicacion'],
+                            'Gestion' => $_POST['gestion'],
+                            'SubGesstion' => $_POST['subgestion'],
+                            'Usuario' => $this->session->userdata('identificacion'));
+                        $this->Wizard_Model->guardardatos('GestionExtrajudicial', $datos);
                     }
                 }*/
 
@@ -2507,20 +2507,20 @@ class Cartera_fng extends CI_Controller {
             date_default_timezone_set('America/Bogota');
             $fechaIngreso =  date("Y-m-d H:i:s");
 
-            $datos = array( 'G742_C17242' => $fechaIngreso,
-                            'G742_C17243' => $fechaIngreso,
-                            'G742_C17244' => $_POST['contrato'],
-                            'G742_C17425' => $_POST['cliente'],
-                            'G742_C17245' => $user,
-                            'G742_C17246' => utf8_decode($_POST['txtObservaciones']),
-                            'G742_C17249' => $_POST['mediocomunicacion'],
-                            'G742_C17250' => $_POST['resultadocomunicacion'],
-                            'G742_C17251' => $_POST['gestion'],
-                            'G742_C17252' => $_POST['subgestion'],
-                            'G742_Usuario' => $this->session->userdata('identificacion'),
+            $datos = array( 'FechaEjecucion' => $fechaIngreso,
+                            'HoraEjecucion' => $fechaIngreso,
+                            'G735_C17139' => $_POST['contrato'],
+                            'IdCliente' => $_POST['cliente'],
+                            'Ejecutor' => $user,
+                            'Observaciones' => utf8_decode($_POST['txtObservaciones']),
+                            'MedioComunicacion' => $_POST['mediocomunicacion'],
+                            'ResultadoComunicacion' => $_POST['resultadocomunicacion'],
+                            'Gestion' => $_POST['gestion'],
+                            'SubGesstion' => $_POST['subgestion'],
+                            'Usuario' => $this->session->userdata('identificacion'),
                             'G742_C17426' => ' - Tarea');
 
-            if($this->Wizard_Model->guardardatos('G742', $datos)){
+            if($this->Wizard_Model->guardardatos('GestionExtrajudicial', $datos)){
 
                 echo '1';
             }else{
@@ -2538,48 +2538,20 @@ class Cartera_fng extends CI_Controller {
             date_default_timezone_set('America/Bogota');
             $fechaIngreso =  date("Y-m-d H:i:s");
 
-            $datos = array( 'G742_C17242' => $fechaIngreso,
-                            'G742_C17243' => $fechaIngreso,
-                            'G742_C17244' => $_POST['contrato'],
-                            'G742_C17425' => $_POST['cliente'],
-                            'G742_C17245' => $user,
-                            'G742_C17246' => utf8_decode($_POST['txtObservaciones']),
-                            'G742_C17249' => $_POST['mediocomunicacion'],
-                            'G742_C17250' => $_POST['resultadocomunicacion'],
-                            'G742_C17251' => $_POST['gestion'],
-                            'G742_C17252' => $_POST['subgestion'],
-                            'G742_Usuario' => $this->session->userdata('identificacion'));
+            $datos = array( 'FechaEjecucion' => $fechaIngreso,
+                            'HoraEjecucion' => $fechaIngreso,
+                            'G735_C17139' => $_POST['contrato'],
+                            'IdCliente' => $_POST['cliente'],
+                            'Ejecutor' => $user,
+                            'Observaciones' => utf8_decode($_POST['txtObservaciones']),
+                            'MedioComunicacion' => $_POST['mediocomunicacion'],
+                            'ResultadoComunicacion' => $_POST['resultadocomunicacion'],
+                            'Gestion' => $_POST['gestion'],
+                            'SubGesstion' => $_POST['subgestion'],
+                            'Usuario' => $this->session->userdata('identificacion'));
 
-            if($this->Wizard_Model->guardardatos('G742', $datos)){
+            if($this->Wizard_Model->guardardatos('GestionExtrajudicial', $datos)){
                 
-                /*$this->db->select('G719_ConsInte__b, G719_C17039, G719_C17423');
-                $this->db->from('G719');
-                $this->db->where('G719_ConsInte__b', $_POST['contrato']);
-                $query = $this->db->get();
-
-                $this->db->select('G719_ConsInte__b');
-                $this->db->from('G719');
-                $this->db->where('G719_C17039', $query->G719_C17039);
-                $this->db->where("G719_C17423 !=  ".$query->G719_C17423);
-                $query2 = $this->db->get();
-
-                if($query2->num_rows() > 0){
-                    $result = $query2->result();
-                    foreach ($result as $key) {
-                        $datos = array( 'G742_C17242' => $fechaIngreso,
-                            'G742_C17243' => $fechaIngreso,
-                            'G742_C17244' => $key->G719_ConsInte__b,
-                            'G742_C17425' => $_POST['cliente'],
-                            'G742_C17245' => $user,
-                            'G742_C17246' => utf8_decode($_POST['txtObservaciones']),
-                            'G742_C17249' => $_POST['mediocomunicacion'],
-                            'G742_C17250' => $_POST['resultadocomunicacion'],
-                            'G742_C17251' => $_POST['gestion'],
-                            'G742_C17252' => $_POST['subgestion'],
-                            'G742_Usuario' => $this->session->userdata('identificacion'));
-                        $this->Wizard_Model->guardardatos('G742', $datos);
-                    }
-                }*/
                 echo '1';
             }else{
                 echo 'Un error a ocurrido';
@@ -2594,21 +2566,26 @@ class Cartera_fng extends CI_Controller {
             $user  = $this->session->userdata('nombres');
             date_default_timezone_set('America/Bogota');
             $fechaIngreso =  date("Y-m-d H:i:s");
+            $subgestion = '';
+            if(isset($_POST['subgestion'])){
+                    $subgestion = $_POST['subgestion'];
+            }
 
-            $datos = array( 'G742_C17242' => $fechaIngreso,
-                            'G742_C17243' => $fechaIngreso,
-                            'G742_C17244' => $_POST['contrato'],
-                            'G742_C17425' => $_POST['cliente'],
-                            'G742_C17245' => $user,
-                            'G742_C17246' => utf8_decode($_POST['txtObservaciones']),
-                            'G742_C17249' => $_POST['mediocomunicacion'],
-                            'G742_C17250' => $_POST['resultadocomunicacion'],
-                            'G742_C17251' => $_POST['gestion'],
-                            'G742_C17252' => $_POST['subgestion'],
-                            'G742_Usuario' => $this->session->userdata('identificacion'),
+
+            $datos = array( 'FechaEjecucion' => $fechaIngreso,
+                            'HoraEjecucion' => $fechaIngreso,
+                            'G735_C17139' => $_POST['contrato'],
+                            'IdCliente' => $_POST['cliente'],
+                            'Ejecutor' => $user,
+                            'Observaciones' => utf8_decode($_POST['txtObservaciones']),
+                            'MedioComunicacion' => $_POST['mediocomunicacion'],
+                            'ResultadoComunicacion' => $_POST['resultadocomunicacion'],
+                            'Gestion' => $_POST['gestion'],
+                            'SubGesstion' => $subgestion,
+                            'Usuario' => $this->session->userdata('identificacion'),
                             'G742_C17426' => ' - Tarea');
 
-            if($this->Wizard_Model->guardardatos('G742', $datos)){
+            if($this->Wizard_Model->guardardatos('GestionExtrajudicial', $datos)){
                 echo '1';
             }else{
                 echo 'Un error a ocurrido';
@@ -2625,15 +2602,15 @@ class Cartera_fng extends CI_Controller {
             date_default_timezone_set('America/Bogota');
             $fechaIngreso =  date("Y-m-d H:i:s");
 
-            $datos = array( 'G735_C17137' => $_POST['actuacion'],
+            $datos = array( 'Actuacion' => $_POST['actuacion'],
                             'G735_C17138' => $_POST['contrato'],
                             'G735_C17139' => $_POST['txtFechaTramite'],
-                            'G735_C17140' => $user,
+                            'FechaTramite' => $user,
                             'G735_C17142' => $_POST['etapa'],
                             'G735_C17143' => $_POST['TipoProceso'],
                             'G735_C17219' => utf8_decode($_POST['txtObservaciones']),
                             'G735_C17141' => $fechaIngreso,
-                            'G735_Usuario' =>  $this->session->userdata('identificacion'));
+                            'Usuario' =>  $this->session->userdata('identificacion'));
 
             //aqui va peimero la validacion del regisro de subrogacion
             if($_POST['etapa'] == '4'){ //es subrogacion
@@ -2642,20 +2619,20 @@ class Cartera_fng extends CI_Controller {
                 if( $_POST['actuacion'] == '26'){
                    // echo "aqui";
                     $subrogacion = array('G719_C17212' => $_POST['txtFechaTramite']);
-                    $this->Wizard_Model->editarDatos('G719', $subrogacion, $_POST['contrato'], 'G719_ConsInte__b');
+                    $this->Wizard_Model->editarDatos('InformacionCredito', $subrogacion, $_POST['contrato'], 'Id');
                 }else{
                     //si ya habia un registro de subrogacion
                     //echo  $_POST['actuacion'];
                     $this->db->select('G719_C17218');
-                    $this->db->from('G719');
-                    $this->db->where('G719_ConsInte__b', $_POST['contrato']);
+                    $this->db->from('InformacionCredito');
+                    $this->db->where('Id', $_POST['contrato']);
                     $query = $this->db->get();
                     //Si existe fecha de impugnacion
                     if($query->row()->G719_C17218 != '' && $query->row()->G719_C17218 != NULL ){ 
                         //Si la actuacion es reconoce al FNG como subrogatario es decicion final
                         if($_POST['actuacion'] == '27'){
-                            $subrogacion = array('Fecha_decision_final' => $_POST['txtFechaTramite'], 'G719_C17216' => $_POST['actuacion'] );
-                                $this->Wizard_Model->editarDatos('G719', $subrogacion, $_POST['contrato'], 'G719_ConsInte__b');
+                            $subrogacion = array('FechaDecisionFinal' => $_POST['txtFechaTramite'], 'G719_C17216' => $_POST['actuacion'] );
+                                $this->Wizard_Model->editarDatos('InformacionCredito', $subrogacion, $_POST['contrato'], 'Id');
                         }
 
                         
@@ -2666,16 +2643,16 @@ class Cartera_fng extends CI_Controller {
                             if($_POST['actuacion'] == '29'){
 
                                 $subrogacion = array('G719_C17213' => $_POST['txtFechaTramite'], 'G719_C17214' => $_POST['actuacion'] );
-                                $this->Wizard_Model->editarDatos('G719', $subrogacion, $_POST['contrato'], 'G719_ConsInte__b');
+                                $this->Wizard_Model->editarDatos('InformacionCredito', $subrogacion, $_POST['contrato'], 'Id');
                             }else{                                //echo 'aqui';
                                 $subrogacion = array('G719_C17213' => $_POST['txtFechaTramite'], 'G719_C17214' => $_POST['actuacion'] );
-                                $this->Wizard_Model->editarDatos('G719', $subrogacion, $_POST['contrato'], 'G719_ConsInte__b');    
+                                $this->Wizard_Model->editarDatos('InformacionCredito', $subrogacion, $_POST['contrato'], 'Id');    
                             }
 
                         }else{
                             if($_POST['actuacion'] == '198' || $_POST['actuacion'] == '199' ){
                                 $subrogacion = array('G719_C17218' => $_POST['txtFechaTramite'], 'G719_C17215' => $_POST['actuacion'] );
-                                $this->Wizard_Model->editarDatos('G719', $subrogacion, $_POST['contrato'], 'G719_ConsInte__b');
+                                $this->Wizard_Model->editarDatos('InformacionCredito', $subrogacion, $_POST['contrato'], 'Id');
                             }
                         }
                     }
@@ -2686,24 +2663,24 @@ class Cartera_fng extends CI_Controller {
                 if($_POST['actuacion'] == '179'){
                     // echo "aqui";
                     $subrogacion = array('G719_C17212' => $_POST['txtFechaTramite']);
-                    $this->Wizard_Model->editarDatos('G719', $subrogacion, $_POST['contrato'], 'G719_ConsInte__b');
+                    $this->Wizard_Model->editarDatos('InformacionCredito', $subrogacion, $_POST['contrato'], 'Id');
 
                 }else if($_POST['actuacion'] == '180' || $_POST['actuacion'] == '181' || $_POST['actuacion'] == '182' ){
-                    $subrogacion = array('Fecha_decision_final' => $_POST['txtFechaTramite'], 'G719_C17214' => $_POST['actuacion'] );
-                    $this->Wizard_Model->editarDatos('G719', $subrogacion, $_POST['contrato'], 'G719_ConsInte__b');
+                    $subrogacion = array('FechaDecisionFinal' => $_POST['txtFechaTramite'], 'G719_C17214' => $_POST['actuacion'] );
+                    $this->Wizard_Model->editarDatos('InformacionCredito', $subrogacion, $_POST['contrato'], 'Id');
                 } 
             }
             
 
            if($this->Wizard_Model->guardardatos('G735', $datos)){
-                $this->db->select('G719_ConsInte__b, G719_C17039, G719_C17423');
-                $this->db->from('G719');
-                $this->db->where('G719_ConsInte__b', $_POST['contrato']);
+                $this->db->select('Id, NroProcesoJudicialSAP, G719_C17423');
+                $this->db->from('InformacionCredito');
+                $this->db->where('Id', $_POST['contrato']);
                 $query = $this->db->get();
 
                 $this->db->select('G719_C17423');
-                $this->db->from('G719');
-                $this->db->where('G719_C17039', $query->row()->G719_C17039);
+                $this->db->from('InformacionCredito');
+                $this->db->where('NroProcesoJudicialSAP', $query->row()->NroProcesoJudicialSAP);
                 $this->db->where("G719_C17423 !=  ".$query->row()->G719_C17423);
                 $this->db->group_by('G719_C17423');
                 $query2 = $this->db->get();
@@ -2712,41 +2689,41 @@ class Cartera_fng extends CI_Controller {
                     $result = $query2->result();
                     foreach ($result as $key) {
                         $id = 0;
-                        $this->db->select('TOP 1 G719_ConsInte__b');
-                        $this->db->from('G719');
+                        $this->db->select('TOP 1 Id');
+                        $this->db->from('InformacionCredito');
                         $this->db->where("G719_C17423 = ".$key->G719_C17423);
                         $query3 = $this->db->get(); 
-                        $id = $query3->row()->G719_ConsInte__b;
+                        $id = $query3->row()->Id;
 
-                       $datos = array( 'G735_C17137' => $_POST['actuacion'],
+                       $datos = array( 'Actuacion' => $_POST['actuacion'],
                             'G735_C17138' => $id ,
                             'G735_C17139' => $_POST['txtFechaTramite'],
-                            'G735_C17140' => $user,
+                            'FechaTramite' => $user,
                             'G735_C17142' => $_POST['etapa'],
                             'G735_C17143' => $_POST['TipoProceso'],
                             'G735_C17219' => utf8_decode($_POST['txtObservaciones']),
                             'G735_C17141' => $fechaIngreso,
-                            'G735_Usuario' =>  $this->session->userdata('identificacion'));
+                            'Usuario' =>  $this->session->userdata('identificacion'));
                         $this->Wizard_Model->guardardatos('G735', $datos);
 
                         if($_POST['etapa'] == '4'){ //es subrogacion
                             if( $_POST['actuacion'] == '26'){
                                // echo "aqui";
                                 $subrogacion = array('G719_C17212' => $_POST['txtFechaTramite']);
-                                $this->Wizard_Model->editarDatos('G719', $subrogacion,  $id , 'G719_ConsInte__b');
+                                $this->Wizard_Model->editarDatos('InformacionCredito', $subrogacion,  $id , 'Id');
                             }else{
                                 //si ya habia un registro de subrogacion
                                 //echo  $_POST['actuacion'];
                                 $this->db->select('G719_C17218');
-                                $this->db->from('G719');
-                                $this->db->where('G719_ConsInte__b',  $id );
+                                $this->db->from('InformacionCredito');
+                                $this->db->where('Id',  $id );
                                 $query = $this->db->get();
                                 //Si existe fecha de impugnacion
                                 if($query->row()->G719_C17218 != '' && $query->row()->G719_C17218 != NULL ){ 
                                     //Si la actuacion es reconoce al FNG como subrogatario es decicion final
                                     if($_POST['actuacion'] == '27'){
-                                        $subrogacion = array('Fecha_decision_final' => $_POST['txtFechaTramite'], 'G719_C17216' => $_POST['actuacion'] );
-                                            $this->Wizard_Model->editarDatos('G719', $subrogacion,  $id , 'G719_ConsInte__b');
+                                        $subrogacion = array('FechaDecisionFinal' => $_POST['txtFechaTramite'], 'G719_C17216' => $_POST['actuacion'] );
+                                            $this->Wizard_Model->editarDatos('InformacionCredito', $subrogacion,  $id , 'Id');
                                     }
 
                                     
@@ -2757,16 +2734,16 @@ class Cartera_fng extends CI_Controller {
                                         if($_POST['actuacion'] == '29'){
 
                                             $subrogacion = array('G719_C17213' => $_POST['txtFechaTramite'], 'G719_C17214' => $_POST['actuacion'] );
-                                            $this->Wizard_Model->editarDatos('G719', $subrogacion, $id , 'G719_ConsInte__b');
+                                            $this->Wizard_Model->editarDatos('InformacionCredito', $subrogacion, $id , 'Id');
                                         }else{                                //echo 'aqui';
                                             $subrogacion = array('G719_C17213' => $_POST['txtFechaTramite'], 'G719_C17214' => $_POST['actuacion'] );
-                                            $this->Wizard_Model->editarDatos('G719', $subrogacion,  $id , 'G719_ConsInte__b');    
+                                            $this->Wizard_Model->editarDatos('InformacionCredito', $subrogacion,  $id , 'Id');    
                                         }
 
                                     }else{
                                         if($_POST['actuacion'] == '198' || $_POST['actuacion'] == '199' ){
                                             $subrogacion = array('G719_C17218' => $_POST['txtFechaTramite'], 'G719_C17215' => $_POST['actuacion'] );
-                                            $this->Wizard_Model->editarDatos('G719', $subrogacion, $id , 'G719_ConsInte__b');
+                                            $this->Wizard_Model->editarDatos('InformacionCredito', $subrogacion, $id , 'Id');
                                         }
                                     }
                                 }
@@ -2777,11 +2754,11 @@ class Cartera_fng extends CI_Controller {
                             if($_POST['actuacion'] == '179'){
                                 // echo "aqui";
                                 $subrogacion = array('G719_C17212' => $_POST['txtFechaTramite']);
-                                $this->Wizard_Model->editarDatos('G719', $subrogacion,  $id , 'G719_ConsInte__b');
+                                $this->Wizard_Model->editarDatos('InformacionCredito', $subrogacion,  $id , 'Id');
 
                             }else if($_POST['actuacion'] == '180' || $_POST['actuacion'] == '181' || $_POST['actuacion'] == '182' ){
-                                $subrogacion = array('Fecha_decision_final' => $_POST['txtFechaTramite'], 'G719_C17214' => $_POST['actuacion'] );
-                                $this->Wizard_Model->editarDatos('G719', $subrogacion,  $id , 'G719_ConsInte__b');
+                                $subrogacion = array('FechaDecisionFinal' => $_POST['txtFechaTramite'], 'G719_C17214' => $_POST['actuacion'] );
+                                $this->Wizard_Model->editarDatos('InformacionCredito', $subrogacion,  $id , 'Id');
                             } 
                         }
             
@@ -2820,14 +2797,14 @@ class Cartera_fng extends CI_Controller {
                             'resultadoMedida' => $calificacion);
 
             if($this->Wizard_Model->guardardatos('G736', $datos)){
-               /* $this->db->select('G719_ConsInte__b, G719_C17039, G719_C17423');
-                $this->db->from('G719');
-                $this->db->where('G719_ConsInte__b', $_POST['contrato']);
+               /* $this->db->select('Id, NroProcesoJudicialSAP, G719_C17423');
+                $this->db->from('InformacionCredito');
+                $this->db->where('Id', $_POST['contrato']);
                 $query = $this->db->get();
 
-                $this->db->select('G719_ConsInte__b');
-                $this->db->from('G719');
-                $this->db->where('G719_C17039', $query->G719_C17039);
+                $this->db->select('Id');
+                $this->db->from('InformacionCredito');
+                $this->db->where('NroProcesoJudicialSAP', $query->NroProcesoJudicialSAP);
                 $this->db->where("G719_C17423 !=  ".$query->G719_C17423);
                 $query2 = $this->db->get();
 
@@ -2844,7 +2821,7 @@ class Cartera_fng extends CI_Controller {
                             'G736_C17148' => utf8_decode($_POST['OtroBien']),
                             'G736_C17149' => utf8_decode($_POST['Observaciones']),
                             'G736_C17150' => $_POST['medidaCautelar'],
-                            'G736_C17151' => $$key->G719_ConsInte__b,
+                            'G736_C17151' => $$key->Id,
                             'G736_Usuario' => $this->session->userdata('identificacion'),
                             'resultadoMedida' => $calificacion);
 
@@ -2878,7 +2855,7 @@ class Cartera_fng extends CI_Controller {
                 $this->db->select('G735_C17139 as txtFechaTramite');
                 $this->db->from('G735');
                 $this->db->where('G735_C17138', $key->id);
-                $this->db->where('G735.G735_C17137 = 153');
+                $this->db->where('G735.Actuacion = 153');
                 $query = $this->db->get();
                 $fechT = NULL;
                 if($query->num_rows() > 0){
@@ -2891,7 +2868,7 @@ class Cartera_fng extends CI_Controller {
                     $this->db->select('G735_C17139 as txtFechaTramite');
                     $this->db->from('G735');
                     $this->db->where('G735_C17138', $key->id);
-                    $this->db->where('G735.G735_C17137 = 157');
+                    $this->db->where('G735.Actuacion = 157');
                     $query = $this->db->get();
                     if($query->num_rows() > 0){
                         if(!is_null($query->row()->txtFechaTramite)){
@@ -2902,7 +2879,7 @@ class Cartera_fng extends CI_Controller {
                     }
                 }
                 
-                $data[$i]['nombre'] = "<span style='display: none;'>".utf8_encode($nombre)."</span>".$deudor ;
+                $data[$i]['nombre'] = $deudor ;
                 $data[$i]['identificacion'] =  $key->identificacion ;
                 $data[$i]['tipo_identificacion'] =  $key->tipo_identificacion ;
                 if($key->liquidacion != '' && !is_null($key->liquidacion)){
@@ -2951,7 +2928,7 @@ class Cartera_fng extends CI_Controller {
             foreach($clientes as $key){
                 $deudor = trim(utf8_encode($key->deudor));
                 $nombre = substr($deudor, 0, 3);
-                $data[$i]['DEUDOR'] = "<span style='display: none;'>".utf8_encode($nombre)."</span>".$deudor ;
+                $data[$i]['DEUDOR'] = $deudor ;
                 
                 $data[$i]['IDENTIFICACION'] = $key->identificacion ;
                 $data[$i]['tipo_identificacion'] = $key->tipo_identificacion ;
@@ -3021,7 +2998,7 @@ class Cartera_fng extends CI_Controller {
             $numliquidacion =  $_POST['NumLiquidacion'];
             
             $LiquidacionJucial = $this->Reportes_Model->LlenarTablaLogeliminacionLiquidacionJudicial($usuario,$id,$numLiquidacion);
-            $this->db->where('G735_ConsInte__b', $_POST['IdEliminar']);
+            $this->db->where('Id', $_POST['IdEliminar']);
             if($this->db->delete('G735')){
                 echo '1';
             }else{
@@ -3089,7 +3066,7 @@ class Cartera_fng extends CI_Controller {
             foreach($fechaventa as $key){
                 $DEUDOR = trim(utf8_encode($key->DEUDOR));
                 $nombre = substr($DEUDOR, 0, 3);
-                $data[$i]['DEUDOR'] = "<span style='display: none;'>".utf8_encode($nombre)."</span>".$DEUDOR ;
+                $data[$i]['DEUDOR'] = $DEUDOR ;
                 
                 $data[$i]['Identificacion'] = $key->Identificacion ;
                 $data[$i]['TipoIdentificacion'] = $key->TipoIdentificacion ;
@@ -3401,7 +3378,7 @@ class Cartera_fng extends CI_Controller {
                         $array[$i]['subgestion'] = utf8_encode($key->subgestion);
                         $array[$i]['observaciones'] = utf8_encode($key->observaciones);
                         $array[$i]['users'] = utf8_encode($key->users).$key->tarea;
-                        $array[$i]['fecha'] = "<span style='display: none;'>".$fecha3.$otroNidea."</span>".$fecha2;
+                        $array[$i]['fecha'] = $fecha2;
                         $array[$i]['Niidea'] = $niidea;
                         $array[$i]['codigo'] = $key->id;
                         $i++;
@@ -3440,7 +3417,7 @@ class Cartera_fng extends CI_Controller {
                     $array[$i]['subgestion'] = utf8_encode($key->subgestion);
                     $array[$i]['observaciones'] = utf8_encode($key->observaciones);
                     $array[$i]['users'] = utf8_encode($key->users).$key->tarea;
-                    $array[$i]['fecha'] = "<span style='display: none;'>".$fecha3.$otroNidea."</span>".$fecha2;
+                    $array[$i]['fecha'] = $fecha2;
                     $array[$i]['Niidea'] = $niidea;
                     $array[$i]['codigo'] = $key->id;
                     $i++;
@@ -3489,7 +3466,7 @@ class Cartera_fng extends CI_Controller {
                     
 
                         $datosarray[$i]['TipoProceso'] = utf8_encode($key->TipoProceso);
-                        $datosarray[$i]['txtFechaIngreso'] = "<span style='display: none;'>".$fecha1[0].$fecha1[1].$fecha1[2].$otroNidea."</span>".$fecha1[2]."/". $fecha1[1]."/". $fecha1[0];
+                        $datosarray[$i]['txtFechaIngreso'] = $fecha1[2]."/". $fecha1[1]."/". $fecha1[0];
                         $datosarray[$i]['Etapa'] = utf8_encode($key->Etapa);
                         $datosarray[$i]['actuacion'] = utf8_encode($key->actuacion) ;
                         $datosarray[$i]['fecha'] = $fecha[2]."/". $fecha[1]."/". $fecha[0];
@@ -3519,7 +3496,7 @@ class Cartera_fng extends CI_Controller {
                     $datosarray[$i]['txtFechaIngreso'] = $fecha1[2]."/". $fecha1[1]."/". $fecha1[0];
                     $datosarray[$i]['Etapa'] = utf8_encode($key->Etapa);
                     $datosarray[$i]['actuacion'] = utf8_encode($key->actuacion) ;
-                    $datosarray[$i]['fecha'] = "<span style='display: none;'>".$fecha[0].$fecha[1].$fecha[2].$otroNidea."</span>".$fecha[2]."/". $fecha[1]."/". $fecha[0];
+                    $datosarray[$i]['fecha'] = $fecha[2]."/". $fecha[1]."/". $fecha[0];
                     $datosarray[$i]['txtObservaciones'] = utf8_encode($key->txtObservaciones) ;
                     $datosarray[$i]['users'] = utf8_encode($key->users);
                     $datosarray[$i]['codigo'] =$key->id;
@@ -3569,7 +3546,7 @@ class Cartera_fng extends CI_Controller {
                         $var3 = explode(' ', $key->FechaPractica)[0];
                         $var3 = explode('-', $var3);
 
-                        $array[$i]['fecha'] = "<span style='display: none;'>".$fache[0].$fache[1].$fache[2]."</span>".$fache[2]."/".$fache[1]."/".$fache[0];
+                        $array[$i]['fecha'] = $fache[2]."/".$fache[1]."/".$fache[0];
                         $array[$i]['Medida'] = utf8_encode($key->Medida);
                         $array[$i]['var1'] = $var1[2]."/".$var1[1]."/".$var1[0];
                         $array[$i]['var2'] = $var2[2]."/".$var2[1]."/".$var2[0];
@@ -3600,7 +3577,7 @@ class Cartera_fng extends CI_Controller {
                     $var3 = explode(' ', $key->FechaPractica)[0];
                     $var3 = explode('-', $var3);
 
-                    $array[$i]['fecha'] = "<span style='display: none;'>".$fache[0].$fache[1].$fache[2]."</span>".$fache[2]."/".$fache[1]."/".$fache[0];
+                    $array[$i]['fecha'] = $fache[2]."/".$fache[1]."/".$fache[0];
                     $array[$i]['Medida'] = utf8_encode($key->Medida);
                     $array[$i]['var1'] = $var1[2]."/".$var1[1]."/".$var1[0];
                     $array[$i]['var2'] = $var2[2]."/".$var2[1]."/".$var2[0];
@@ -3863,7 +3840,7 @@ class Cartera_fng extends CI_Controller {
                 $datosarray[$i]['FECHA'] = $fecha;
                 $datosarray[$i]['FECHA_AUTO_DE_SUBROGACION'] = $FECHA_AUTO_DE_SUBROGACION;
                 $datosarray[$i]['VALOR_FACTURADO_AUTO_DE_SUBROGACION'] = '$'.number_format($key->VALOR_FACTURADO_AUTO_DE_SUBROGACION, 0, '.',',') ;
-                $datosarray[$i]['codigo'] =$key->G744_ConsInte__b;
+                $datosarray[$i]['codigo'] =$key->Id;
 
                 $i++;
                 
@@ -3904,7 +3881,7 @@ class Cartera_fng extends CI_Controller {
                 $datosarray[$i]['FECHA_DE_FACTURA_SENTENCIA_IRRECUPERABLE'] = $FECHA_DE_FACTURA_SENTENCIA_IRRECUPERABLE;
                 $datosarray[$i]['FECHA_SENTENCIA_IRRECUPERABLE'] = $FECHA_SENTENCIA_IRRECUPERABLE;
                 $datosarray[$i]['VALOR_FACTURADO_SENTENCIA_IRRECUPERABLE'] = '$'.number_format($key->VALOR_FACTURADO_SENTENCIA_IRRECUPERABLE, 0, '.',',') ;
-                $datosarray[$i]['codigo'] =$key->G744_ConsInte__b;
+                $datosarray[$i]['codigo'] =$key->Id;
 
                 $i++;
                 
@@ -3929,7 +3906,7 @@ class Cartera_fng extends CI_Controller {
                 $this->db->select('G735_C17139 as txtFechaTramite');
                 $this->db->from('G735');
                 $this->db->where('G735_C17138', $Contrato);
-                $this->db->where('G735.G735_C17137 = 153');
+                $this->db->where('G735.Actuacion = 153');
                 $query = $this->db->get();
                 $fechT = NULL;
                 
@@ -3943,7 +3920,7 @@ class Cartera_fng extends CI_Controller {
                     $this->db->select('G735_C17139 as txtFechaTramite');
                     $this->db->from('G735');
                     $this->db->where('G735_C17138', $key->id);
-                    $this->db->where('G735.G735_C17137 = 157');
+                    $this->db->where('G735.Actuacion = 157');
                     $query = $this->db->get();
                     if($query->num_rows() > 0){
                         if(!is_null($query->row()->txtFechaTramite)){
@@ -4117,8 +4094,8 @@ class Cartera_fng extends CI_Controller {
                     $fecha6 = $fecha6[2]."/".$fecha6[1]."/".$fecha6[0];
                 }
 
-                if(!is_null($key->Fecha_decision_final)){
-                    $fecha7 = explode(" ", $key->Fecha_decision_final)[0];
+                if(!is_null($key->FechaDecisionFinal)){
+                    $fecha7 = explode(" ", $key->FechaDecisionFinal)[0];
                     $fecha7 = explode("-", $fecha7);
                     $fecha7 = $fecha7[2]."/".$fecha7[1]."/".$fecha7[0];
                 }
@@ -4132,7 +4109,7 @@ class Cartera_fng extends CI_Controller {
                 $datos[$i]['Nombre_clase_de_impugnacion'] = utf8_encode($key->Nombre_clase_de_impugnacion) ;
                 $datos[$i]['Fecha_pronunciamiento'] =  $fecha6  ;
                 $datos[$i]['decicion_Final'] =  utf8_encode($key->decicion_Final) ; 
-                $datos[$i]['Fecha_decision_final'] =   $fecha7; 
+                $datos[$i]['FechaDecisionFinal'] =   $fecha7; 
                 
                 $i++;
             }

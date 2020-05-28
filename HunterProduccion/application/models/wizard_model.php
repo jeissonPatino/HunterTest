@@ -28,38 +28,38 @@ class Wizard_Model extends CI_Model {
     }
 
     function getDeudores($contrato){
-        $this->db->select(' G717_ConsInte__b as id,  G717_C17240 as deudor');
-        $this->db->join('G737', 'G737_C17182 = G719_ConsInte__b ');
-        $this->db->join('LISOPC', 'LISOPC_ConsInte__b = G737_C17183');
-        $this->db->join('G717', 'G717_ConsInte__b = G737_C17181'); 
-        $this->db->where('G719_ConsInte__b', $contrato); 
-        $query = $this->db->get('G719');
+        $this->db->select(' Id as id,  NombreDeudor as deudor');
+        $this->db->join('ClienteObligacion', 'NumeroContratoId = Id ','LEFT');
+        //$this->db->join('ParametroGeneral', 'Id = Rol','LEFT');
+        $this->db->join('InformacionCliente', 'Id = InformacionClientesId','LEFT'); 
+        $this->db->where('Id', $contrato); 
+        $query = $this->db->get('InformacionCredito');
 
         return $query->result();
     }
 
     function getco_Deudores($contrato){
-        $this->db->select(' G717_ConsInte__b as id,  G717_C17240 as deudor');
-        $this->db->join('G737', 'G737_C17182 = G719_ConsInte__b ');
-        $this->db->join('LISOPC', 'LISOPC_ConsInte__b = G737_C17183');
-        $this->db->join('G717', 'G717_ConsInte__b = G737_C17181'); 
-        $this->db->where('G719_ConsInte__b', $contrato); 
-        $this->db->where('G737_C17183 != 1786'); 
-        $query = $this->db->get('G719');
+        $this->db->select(' Id as id,  NombreDeudor as deudor');
+        $this->db->join('ClienteObligacion', 'NumeroContratoId = Id ');
+        $this->db->join('ParametroGeneral', 'Id = Rol');
+        $this->db->join('InformacionCliente', 'Id = InformacionClientesId'); 
+        $this->db->where('Id', $contrato); 
+        $this->db->where('Rol != 1786'); 
+        $query = $this->db->get('InformacionCredito');
 
         return $query->result();
     }
 
     function getRolDeudor($contrato, $usuario){
-        $this->db->select('LISOPC_Nombre____b');
-        $this->db->join('G737', 'G737_C17182 = G719_ConsInte__b ');
-        $this->db->join('LISOPC', 'LISOPC_ConsInte__b = G737_C17183');
-        $this->db->join('G717', 'G717_ConsInte__b = G737_C17181'); 
-        $this->db->where('G719_ConsInte__b', $contrato); 
-        $this->db->where('G717_ConsInte__b', $usuario); 
-        $query = $this->db->get('G719');
+        $this->db->select('Nombre_b');
+        $this->db->join('ClienteObligacion', 'NumeroContratoId = Id ');
+        $this->db->join('ParametroGeneral', 'Id = Rol');
+        $this->db->join('InformacionCliente', 'Id = InformacionClientesId'); 
+        $this->db->where('Id', $contrato); 
+        $this->db->where('Id', $usuario); 
+        $query = $this->db->get('InformacionCredito');
 
-        return $query->row()->LISOPC_Nombre____b;
+        return $query->row()->Nombre_b;
     }
 
    
@@ -80,9 +80,9 @@ class Wizard_Model extends CI_Model {
     }
 
     function getSubgestionestabla(){
-        $this->db->select('G732_ConsInte__b as id, G732_C17131 as enunciado, a.LISOPC_Nombre____b as gestion, b.LISOPC_Nombre____b as comunicacion ');
-        $this->db->join('LISOPC a', 'a.LISOPC_ConsInte__b = G732_C17130'); 
-        $this->db->join('LISOPC b', 'b.LISOPC_ConsInte__b = G732_C17129'); 
+        $this->db->select('G732_ConsInte__b as id, G732_C17131 as enunciado, a.Nombre_b as gestion, b.Nombre_b as comunicacion ');
+        $this->db->join('ParametroGeneral a', 'a.Id = G732_C17130'); 
+        $this->db->join('ParametroGeneral b', 'b.Id = G732_C17129'); 
         $query = $this->db->get('G732');
         return $query->result();
     }
@@ -96,222 +96,222 @@ class Wizard_Model extends CI_Model {
 
 
     function getgestionExtrajudicial($contrato){
-        $this->db->select(' G742_ConsInte__b as id, 
-                            G717_C17240 as nombres,
-                            G742_C17242 as fechaIngreso ,
-                            G742_C17243 as Niidea,
-                            G742_C17244 as contrato,
-                            G742_C17245 as users,
+        $this->db->select(' Id as id, 
+                            NombreDeudor as nombres,
+                            FechaEjecucion as fechaIngreso ,
+                            HoraEjecucion as Niidea,
+                            NumeroContrato as contrato,
+                            Ejecutor as users,
                             G742_C17426 as tarea,
-                            G742_C17246 as observaciones,
-                            a.LISOPC_Nombre____b as mediocomunicacion,
-                            b.LISOPC_Nombre____b as resultadocomunicacion,
-                            c.LISOPC_Nombre____b as gestion,
+                            Observaciones as observaciones,
+                            a.Nombre_b as mediocomunicacion,
+                            b.Nombre_b as resultadocomunicacion,
+                            c.Nombre_b as gestion,
                             G732_C17131 as subgestion');
        
-        $this->db->join('LISOPC a', 'a.LISOPC_ConsInte__b = G742_C17249', 'left');
-        $this->db->join('LISOPC b', 'b.LISOPC_ConsInte__b = G742_C17250', 'left');
-        $this->db->join('LISOPC c', 'c.LISOPC_ConsInte__b = G742_C17251', 'left');
-        $this->db->join('G732', 'G732_ConsInte__b = G742_C17252', 'left');
-        $this->db->join('G717', 'G717_ConsInte__b = G742_C17425', 'left');
-        $this->db->where('G742_C17244', $contrato); 
-        $query = $this->db->get('G742');
+        $this->db->join('ParametroGeneral a', 'a.Id = MedioComunicacion', 'left');
+        $this->db->join('ParametroGeneral b', 'b.Id = ResultadoComunicacion', 'left');
+        $this->db->join('ParametroGeneral c', 'c.Id = Gestion', 'left');
+        $this->db->join('G732', 'G732_ConsInte__b = SubGesstion', 'left');
+        $this->db->join('InformacionCliente', 'Id = IdCliente', 'left');
+        $this->db->where('NumeroContrato', $contrato); 
+        $query = $this->db->get('GestionExtrajudicial');
         return $query->result();
     }
 
     function getgestionExtrajudicialFecha($fechaInicial = NULL, $fechaFinal = NULL){
-        $this->db->select  ('G742_ConsInte__b as id, 
-                            G717_C17240 as nombres,
-                            G717_C17005 as identificacion,
+        $this->db->select  ('Id as id, 
+                            NombreDeudor as nombres,
+                            NroIdentificacion as identificacion,
                             tipo_identificacion as tipo_identificacion,
-                            G719_C17039 as SAP,  
+                            NroProcesoJudicialSAP as SAP,  
                             G719_C17424 as Vlorpagado,
-                            G742_C17242 as fechaIngreso,
-                            G742_C17243 as Niidea,
-                            G719_C17026 as contrato,
+                            FechaEjecucion as fechaIngreso,
+                            HoraEjecucion as Niidea,
+                            NoContrato as contrato,
                             G719_C17423 as liquidacion,
-                            G742_C17245 as users,
-                            G742_C17246 as observaciones,
-                            a.LISOPC_Nombre____b as mediocomunicacion,
-                            b.LISOPC_Nombre____b as resultadocomunicacion,
-                            c.LISOPC_Nombre____b as gestion,
-                            G730_C17126 as financiero,
+                            Ejecutor as users,
+                            Observaciones as observaciones,
+                            a.Nombre_b as mediocomunicacion,
+                            b.Nombre_b as resultadocomunicacion,
+                            c.Nombre_b as gestion,
+                            NombreIF as financiero,
                             G732_C17131 as subgestion,
-                            G729_C17121 as FRG');
+                            FRG as FRG');
 							
        
-        $this->db->join('LISOPC a', 'a.LISOPC_ConsInte__b = G742_C17249');
-        $this->db->join('LISOPC b', 'b.LISOPC_ConsInte__b = G742_C17250');
-        $this->db->join('LISOPC c', 'c.LISOPC_ConsInte__b = G742_C17251');
-        $this->db->join('G732', 'G732_ConsInte__b = G742_C17252', 'left');
-        $this->db->join('G717', 'G717_ConsInte__b = G742_C17425');
-        $this->db->join('G719', 'G719_ConsInte__b = G742_C17244');
-        $this->db->join('G730', 'G730_ConsInte__b = G719_C17030','LEFT');
-        $this->db->join('G729', 'G729_ConsInte__b = G719_C17029','LEFT');
-        $this->db->join('USUARI', 'USUARI_ConsInte__b = G742_Usuario');
+        $this->db->join('ParametroGeneral a', 'a.Id = MedioComunicacion');
+        $this->db->join('ParametroGeneral b', 'b.Id = ResultadoComunicacion');
+        $this->db->join('ParametroGeneral c', 'c.Id = Gestion');
+        $this->db->join('G732', 'G732_ConsInte__b = SubGesstion', 'left');
+        $this->db->join('InformacionCliente', 'Id = IdCliente');
+        $this->db->join('InformacionCredito', 'Id = NumeroContrato');
+        $this->db->join('IntermediarioFinanciero', 'Id = IntermediarioFinanciero','LEFT');
+        $this->db->join('FRG', 'Id = FRG','LEFT');
+        $this->db->join('USUARI', 'USUARI_ConsInte__b = Usuario');
 
 
         if ($this->session->userdata('tpo_usuario') == 'ABOGADO') {
           if( $this->session->userdata('codigo_abogado') != NULL){
-              $this->db->where('G719.G719_C17153', $this->session->userdata('codigo_abogado'));
+              $this->db->where('InformacionCredito.Abogado', $this->session->userdata('codigo_abogado'));
           }else{
-              $this->db->where('G719.G719_C17153 IS NOT NULL');
-              $this->db->where('G719.G719_C17153', $this->session->userdata('codigo_abogado'));
+              $this->db->where('InformacionCredito.Abogado IS NOT NULL');
+              $this->db->where('InformacionCredito.Abogado', $this->session->userdata('codigo_abogado'));
           }
         }elseif ($this->session->userdata('tpo_usuario') == 'GESTOR') {
             if($this->session->userdata('identificacion') != NULL){
-                $this->db->where('G719.G719_C17347', $this->session->userdata('identificacion'));
+                $this->db->where('InformacionCredito.G719_C17347', $this->session->userdata('identificacion'));
             }else{
-                $this->db->where('G719.G719_C17347 IS NOT NULL');
-                $this->db->where('G719.G719_C17347', $this->session->userdata('identificacion'));
+                $this->db->where('InformacionCredito.G719_C17347 IS NOT NULL');
+                $this->db->where('InformacionCredito.G719_C17347', $this->session->userdata('identificacion'));
             }
         }elseif ($this->session->userdata('tpo_usuario') == 'FRG') {
             if($this->session->userdata('frg') != NULL){
-                 $this->db->where('G719.G719_C17029', $this->session->userdata('frg'));
+                 $this->db->where('InformacionCredito.FRG', $this->session->userdata('frg'));
             }else{
-                $this->db->where('G719.G719_C17029 IS NOT NULL');
-                $this->db->where('G719.G719_C17029', $this->session->userdata('frg'));
+                $this->db->where('InformacionCredito.FRG IS NOT NULL');
+                $this->db->where('InformacionCredito.FRG', $this->session->userdata('frg'));
             }
         }
-        $this->db->where(" G742_C17242 BETWEEN '".$fechaInicial."' AND '".$fechaFinal."'");        
-        $query = $this->db->get('G742');
+        $this->db->where(" FechaEjecucion BETWEEN '".$fechaInicial."' AND '".$fechaFinal."'");        
+        $query = $this->db->get('GestionExtrajudicial');
         return $query->result();
     }
 
 function getGestionExtrajudicialTotalEliminar($numeroLiquidacion){
         
-        $this->db->select('top 3000 G742_ConsInte__b as id, 
-                            G717_C17240 as nombres,
-                            G717_C17005 as identificacion,
+        $this->db->select('top 3000 Id as id, 
+                            NombreDeudor as nombres,
+                            NroIdentificacion as identificacion,
                             tipo_identificacion as tipo_identificacion,
-                            G719_C17039 as SAP,  
+                            NroProcesoJudicialSAP as SAP,  
                             G719_C17424 as Vlorpagado,
-                            G742_C17242 as fechaIngreso ,
-                            G742_C17243 as Niidea,
-                            G719_C17026 as contrato,
+                            FechaEjecucion as fechaIngreso ,
+                            HoraEjecucion as Niidea,
+                            NoContrato as contrato,
                             G719_C17423 as liquidacion,
-                            G742_C17245 as users,
-                            G742_C17246 as observaciones,
-                            a.LISOPC_Nombre____b as mediocomunicacion,
-                            b.LISOPC_Nombre____b as resultadocomunicacion,
-                            c.LISOPC_Nombre____b as gestion,
-                            G730_C17126 as financiero,
+                            Ejecutor as users,
+                            Observaciones as observaciones,
+                            a.Nombre_b as mediocomunicacion,
+                            b.Nombre_b as resultadocomunicacion,
+                            c.Nombre_b as gestion,
+                            NombreIF as financiero,
                             G732_C17131 as subgestion,
-                            G729_C17121 as FRG');
+                            FRG as FRG');
        
-        $this->db->join('LISOPC a', 'a.LISOPC_ConsInte__b = G742_C17249');
-        $this->db->join('LISOPC b', 'b.LISOPC_ConsInte__b = G742_C17250');
-        $this->db->join('LISOPC c', 'c.LISOPC_ConsInte__b = G742_C17251');
-        $this->db->join('G732', 'G732_ConsInte__b = G742_C17252', 'left');
-        $this->db->join('G717', 'G717_ConsInte__b = G742_C17425');
-        $this->db->join('G719', 'G719_ConsInte__b = G742_C17244');
-        $this->db->join('G730', 'G730_ConsInte__b = G719_C17030','LEFT');
-        $this->db->join('G729', 'G729_ConsInte__b = G719_C17029','LEFT');
-        $this->db->join('USUARI', 'USUARI_ConsInte__b = G742_Usuario');
+        $this->db->join('ParametroGeneral a', 'a.Id = MedioComunicacion');
+        $this->db->join('ParametroGeneral b', 'b.Id = ResultadoComunicacion');
+        $this->db->join('ParametroGeneral c', 'c.Id = Gestion');
+        $this->db->join('G732', 'G732_ConsInte__b = SubGesstion', 'left');
+        $this->db->join('InformacionCliente', 'Id = IdCliente');
+        $this->db->join('InformacionCredito', 'Id = NumeroContrato');
+        $this->db->join('IntermediarioFinanciero', 'Id = IntermediarioFinanciero','LEFT');
+        $this->db->join('FRG', 'Id = FRG','LEFT');
+        $this->db->join('USUARI', 'USUARI_ConsInte__b = Usuario');
         
         if ($this->session->userdata('tpo_usuario') == 'ABOGADO') {
           if( $this->session->userdata('codigo_abogado') != NULL){
-              $this->db->where('G719.G719_C17153', $this->session->userdata('codigo_abogado'));
+              $this->db->where('InformacionCredito.Abogado', $this->session->userdata('codigo_abogado'));
           }else{
-              $this->db->where('G719.G719_C17153 IS NOT NULL');
-              $this->db->where('G719.G719_C17153', $this->session->userdata('codigo_abogado'));
+              $this->db->where('InformacionCredito.Abogado IS NOT NULL');
+              $this->db->where('InformacionCredito.Abogado', $this->session->userdata('codigo_abogado'));
           }
         }elseif ($this->session->userdata('tpo_usuario') == 'GESTOR') {
             if($this->session->userdata('identificacion') != NULL){
-                $this->db->where('G719.G719_C17347', $this->session->userdata('identificacion'));
+                $this->db->where('InformacionCredito.G719_C17347', $this->session->userdata('identificacion'));
             }else{
-                $this->db->where('G719.G719_C17347 IS NOT NULL');
-                $this->db->where('G719.G719_C17347', $this->session->userdata('identificacion'));
+                $this->db->where('InformacionCredito.G719_C17347 IS NOT NULL');
+                $this->db->where('InformacionCredito.G719_C17347', $this->session->userdata('identificacion'));
             }
         }elseif ($this->session->userdata('tpo_usuario') == 'FRG') {
             if($this->session->userdata('frg') != NULL){
-                 $this->db->where('G719.G719_C17029', $this->session->userdata('frg'));
+                 $this->db->where('InformacionCredito.FRG', $this->session->userdata('frg'));
             }else{
-                $this->db->where('G719.G719_C17029 IS NOT NULL');
-                $this->db->where('G719.G719_C17029', $this->session->userdata('frg'));
+                $this->db->where('InformacionCredito.FRG IS NOT NULL');
+                $this->db->where('InformacionCredito.FRG', $this->session->userdata('frg'));
             }
         }
         $this->db->where('G719_C17423',  $numeroLiquidacion);     
-        $this->db->order_by('G742_C17242','DESC');
-        $query = $this->db->get('G742');
+        $this->db->order_by('FechaEjecucion','DESC');
+        $query = $this->db->get('GestionExtrajudicial');
         
         return $query->result();
     }
 
     function getgestionExtrajudicialtotal_SAP($resultadocomunicacion = NULL, $gestion = NULL, $subgestion = NULL, $fechaInicial = NULL, $fechaFinal = NULL){
 
-        $this->db->select(' top 10000 G742_ConsInte__b as id, 
-                            G717_C17240 as nombres,
-                            G717_C17005 as identificacion,
+        $this->db->select(' top 10000 Id as id, 
+                            NombreDeudor as nombres,
+                            NroIdentificacion as identificacion,
                             tipo_identificacion as tipo_identificacion,
-                            G719_C17039 as SAP,  
+                            NroProcesoJudicialSAP as SAP,  
                             G719_C17424 as Vlorpagado,
-                            G742_C17242 as fechaIngreso ,
-                            G742_C17243 as Niidea,
-                            G719_C17026 as contrato,
+                            FechaEjecucion as fechaIngreso ,
+                            HoraEjecucion as Niidea,
+                            NoContrato as contrato,
                             G719_C17423 as liquidacion,
                             USUARI_Nombre____b  as users,
-                            G742_C17246 as observaciones,
-                            G742_C17249 as mediocomunicacion,
-                            G742_C17250 as resultadocomunicacion,
-                            G742_C17251 as gestion,
-                            G719_C17030 as financiero,
-                            G742_C17252 as subgestion');
+                            Observaciones as observaciones,
+                            MedioComunicacion as mediocomunicacion,
+                            ResultadoComunicacion as resultadocomunicacion,
+                            Gestion as gestion,
+                            IntermediarioFinanciero as financiero,
+                            SubGesstion as subgestion');
        
 
-        $this->db->join('G717', 'G717_ConsInte__b = G742_C17425');
-        $this->db->join('G719', 'G719_ConsInte__b = G742_C17244');
-        $this->db->join('USUARI', 'USUARI_ConsInte__b = G742_Usuario');
+        $this->db->join('InformacionCliente', 'Id = IdCliente');
+        $this->db->join('InformacionCredito', 'Id = NumeroContrato');
+        $this->db->join('USUARI', 'USUARI_ConsInte__b = Usuario');
 
         if ($this->session->userdata('tpo_usuario') == 'ABOGADO') {
           if( $this->session->userdata('codigo_abogado') != NULL){
-              $this->db->where('G719.G719_C17153', $this->session->userdata('codigo_abogado'));
+              $this->db->where('InformacionCredito.Abogado', $this->session->userdata('codigo_abogado'));
           }else{
-              $this->db->where('G719.G719_C17153 IS NOT NULL');
-              $this->db->where('G719.G719_C17153', $this->session->userdata('codigo_abogado'));
+              $this->db->where('InformacionCredito.Abogado IS NOT NULL');
+              $this->db->where('InformacionCredito.Abogado', $this->session->userdata('codigo_abogado'));
           }
         }elseif ($this->session->userdata('tpo_usuario') == 'GESTOR') {
             if($this->session->userdata('identificacion') != NULL){
-                $this->db->where('G719.G719_C17347', $this->session->userdata('identificacion'));
+                $this->db->where('InformacionCredito.G719_C17347', $this->session->userdata('identificacion'));
             }else{
-                $this->db->where('G719.G719_C17347 IS NOT NULL');
-                $this->db->where('G719.G719_C17347', $this->session->userdata('identificacion'));
+                $this->db->where('InformacionCredito.G719_C17347 IS NOT NULL');
+                $this->db->where('InformacionCredito.G719_C17347', $this->session->userdata('identificacion'));
             }
         }elseif ($this->session->userdata('tpo_usuario') == 'FRG') {
             if($this->session->userdata('frg') != NULL){
-                 $this->db->where('G719.G719_C17029', $this->session->userdata('frg'));
+                 $this->db->where('InformacionCredito.FRG', $this->session->userdata('frg'));
             }else{
-                $this->db->where('G719.G719_C17029 IS NOT NULL');
-                $this->db->where('G719.G719_C17029', $this->session->userdata('frg'));
+                $this->db->where('InformacionCredito.FRG IS NOT NULL');
+                $this->db->where('InformacionCredito.FRG', $this->session->userdata('frg'));
             }
         }
 
 
         if($resultadocomunicacion != NULL && $resultadocomunicacion != '' && $resultadocomunicacion != 0){
-            $this->db->where('G742_C17250',  $resultadocomunicacion);     
+            $this->db->where('ResultadoComunicacion',  $resultadocomunicacion);     
         }
 
         if($gestion != NULL && $gestion != '' && $gestion != 0){
-            $this->db->where('G742_C17251',  $gestion);
+            $this->db->where('Gestion',  $gestion);
         }
 
         if($subgestion != NULL && $subgestion != '' && $subgestion != 0){
-            $this->db->where('G742_C17252', $subgestion );
+            $this->db->where('SubGesstion', $subgestion );
         }
 
         if($fechaInicial != NULL && $fechaFinal != NULL){
-            $this->db->where("G742_C17242 BETWEEN '".$fechaInicial."' AND '".$fechaFinal."'");
+            $this->db->where("FechaEjecucion BETWEEN '".$fechaInicial."' AND '".$fechaFinal."'");
         }
 
 
         if($fechaInicial != NULL && $fechaFinal == NULL){
-            $this->db->where('G742_C17242',  $fechaInicial);   
+            $this->db->where('FechaEjecucion',  $fechaInicial);   
 
         }
 
-        $this->db->order_by('G742_C17242','DESC');
+        $this->db->order_by('FechaEjecucion','DESC');
 
-        $query = $this->db->get('G742');
+        $query = $this->db->get('GestionExtrajudicial');
         return $query->result();
     }
 
@@ -319,105 +319,108 @@ function getGestionExtrajudicialTotalEliminar($numeroLiquidacion){
 
 
     function getgestionExtrajudicialtotalById($id){
-        $this->db->select(' G742_ConsInte__b as id, 
-                            G717_C17240 as nombres,
-                            G742_C17242 as fechaIngreso ,
-                            G742_C17243 as Niidea,
-                            G742_C17244 as contrato,
-                            G742_C17245 as users,
-                            G742_C17246 as observaciones,
-                            a.LISOPC_Nombre____b as mediocomunicacion,
-                            b.LISOPC_Nombre____b as resultadocomunicacion,
-                            c.LISOPC_Nombre____b as gestion,
+        $this->db->select(' Id as id, 
+                            NombreDeudor as nombres,
+                            FechaEjecucion as fechaIngreso ,
+                            HoraEjecucion as Niidea,
+                            NumeroContrato as contrato,
+                            Ejecutor as users,
+                            Observaciones as observaciones,
+                            a.Nombre_b as mediocomunicacion,
+                            b.Nombre_b as resultadocomunicacion,
+                            c.Nombre_b as gestion,
                             G732_C17131 as subgestion');
        
-        $this->db->join('LISOPC a', 'a.LISOPC_ConsInte__b = G742_C17249');
-        $this->db->join('LISOPC b', 'b.LISOPC_ConsInte__b = G742_C17250');
-        $this->db->join('LISOPC c', 'c.LISOPC_ConsInte__b = G742_C17251');
-        $this->db->join('G732', 'G732_ConsInte__b = G742_C17252', 'left');
-        $this->db->join('G717', 'G717_ConsInte__b = G742_C17425');
-        $this->db->where('G742_ConsInte__b', $id); 
-        $query = $this->db->get('G742');
+        $this->db->join('ParametroGeneral a', 'a.Id = MedioComunicacion');
+        $this->db->join('ParametroGeneral b', 'b.Id = ResultadoComunicacion');
+        $this->db->join('ParametroGeneral c', 'c.Id = Gestion');
+        $this->db->join('G732', 'G732_ConsInte__b = SubGesstion', 'left');
+        $this->db->join('InformacionCliente', 'Id = IdCliente');
+        $this->db->where('Id', $id); 
+        $query = $this->db->get('GestionExtrajudicial');
         return $query->result();
     }
 
 
     function getgestioJudicial($contrato){
-        $this->db->select(' G735_ConsInte__b as id, 
+        $this->db->select(' Id as id, 
                             G724_C17105 as actuacion ,
                             G735_C17138 as contrato,
-                            G735_C17139 as txtFechaTramite,
+                            NumeroContrato as txtFechaTramite,
                             G735_C17140 as users,
-                            a.LISOPC_Nombre____b as TipoProceso,
+                            a.Nombre_b as TipoProceso,
                             G735_C17219 as txtObservaciones,
                             G735_C17141 as txtFechaIngreso,
                             G725_C17108 as Etapa' );
         $this->db->join('G725', 'G725_ConsInte__b = G735_C17142', 'LEFT');
-        $this->db->join('LISOPC a', 'a.LISOPC_ConsInte__b = G735_C17143');
-        $this->db->join('G724', 'G724_ConsInte__b = G735_C17137');
+        $this->db->join('ParametroGeneral a', 'a.Id = G735_C17143');
+        $this->db->join('G724', 'G724_ConsInte__b = Actuacion');
         $this->db->where('G735_C17138', $contrato); 
         $query = $this->db->get('G735');
         return $query->result();
     }
 
-    function getgestioJudicialTotal($numeroliquidacion){
-        $this->db->select(' G735_ConsInte__b as id, 
+   function getgestioJudicialTotal($fechaInicial = NULL, $fechaFinal = NULL){
+        $this->db->select(' Id as id, 
                             G724_C17105 as actuacion ,
-                            G719_C17026 as contrato,
+                            NoContrato as contrato,
                             G719_C17423 as liquidacion,
-                            G735_C17139 as txtFechaTramite,
+                            NumeroContrato as txtFechaTramite,
                             USUARI_Nombre____b as users,
                             G735_C17143 as TipoProceso,
                             G735_C17219 as txtObservaciones,
                             G735_C17141 as txtFechaIngreso,
                             G725_C17108 as Etapa,
-                            G717_C17240 as nombres,
-                            G717_C17005 as identificacion,
+                            NombreDeudor as nombres,
+                            NroIdentificacion as identificacion,
                             tipo_identificacion as tipo_identificacion,
-                            G719_C17039 as SAP,  
+                            NroProcesoJudicialSAP as SAP,  
                             G719_C17424 as Vlorpagado,
-                            G730_C17126 as financiero,
-                            b.LISOPC_Nombre____b as claseProceso,
-                            G729_C17121 as FRG' );
+                            NombreIF as financiero,
+                            b.Nombre_b as claseProceso,
+                            FRG as FRG' );
 
-        $this->db->join('LISOPC b', 'b.LISOPC_ConsInte__b = G735_C17143','LEFT');
+        $this->db->join('ParametroGeneral b', 'b.Id = G735_C17143','LEFT');
         $this->db->join('G725', 'G725_ConsInte__b = G735_C17142', 'LEFT');
-        $this->db->join('G724', 'G724_ConsInte__b = G735_C17137');
+        $this->db->join('G724', 'G724_ConsInte__b = Actuacion');
 
 
-        $this->db->join('G719', 'G719_ConsInte__b = G735_C17138');
-        $this->db->join('G737', 'G719_ConsInte__b = G737_C17182');
-        $this->db->join('G717','G717_ConsInte__b = G737_C17181');
-        $this->db->join('G730', 'G730_ConsInte__b = G719_C17030','LEFT');
-        $this->db->join('G729', 'G729_ConsInte__b = G719_C17029','LEFT');
-        $this->db->join('USUARI', 'USUARI_ConsInte__b = G735_Usuario');
+        $this->db->join('InformacionCredito', 'Id = G735_C17138');
+        $this->db->join('ClienteObligacion', 'Id = NumeroContratoId');
+        $this->db->join('InformacionCliente','Id = InformacionClientesId');
+        $this->db->join('IntermediarioFinanciero', 'Id = IntermediarioFinanciero','LEFT');
+        $this->db->join('FRG', 'Id = FRG','LEFT');
+        $this->db->join('USUARI', 'USUARI_ConsInte__b = Usuario');
 
         if ($this->session->userdata('tpo_usuario') == 'ABOGADO') {
           if( $this->session->userdata('codigo_abogado') != NULL){
-              $this->db->where('G719.G719_C17153', $this->session->userdata('codigo_abogado'));
+              $this->db->where('InformacionCredito.Abogado', $this->session->userdata('codigo_abogado'));
           }else{
-              $this->db->where('G719.G719_C17153 IS NOT NULL');
-              $this->db->where('G719.G719_C17153', $this->session->userdata('codigo_abogado'));
+              $this->db->where('InformacionCredito.Abogado IS NOT NULL');
+              $this->db->where('InformacionCredito.Abogado', $this->session->userdata('codigo_abogado'));
           }
         }elseif ($this->session->userdata('tpo_usuario') == 'GESTOR') {
             if($this->session->userdata('identificacion') != NULL){
-                $this->db->where('G719.G719_C17347', $this->session->userdata('identificacion'));
+                $this->db->where('InformacionCredito.G719_C17347', $this->session->userdata('identificacion'));
             }else{
-                $this->db->where('G719.G719_C17347 IS NOT NULL');
-                $this->db->where('G719.G719_C17347', $this->session->userdata('identificacion'));
+                $this->db->where('InformacionCredito.G719_C17347 IS NOT NULL');
+                $this->db->where('InformacionCredito.G719_C17347', $this->session->userdata('identificacion'));
             }
         }elseif ($this->session->userdata('tpo_usuario') == 'FRG') {
             if($this->session->userdata('frg') != NULL){
-                 $this->db->where('G719.G719_C17029', $this->session->userdata('frg'));
+                 $this->db->where('InformacionCredito.FRG', $this->session->userdata('frg'));
             }else{
-                $this->db->where('G719.G719_C17029 IS NOT NULL');
-                $this->db->where('G719.G719_C17029', $this->session->userdata('frg'));
+                $this->db->where('InformacionCredito.FRG IS NOT NULL');
+                $this->db->where('InformacionCredito.FRG', $this->session->userdata('frg'));
             }
         }
-        $this->db->where('G719_C17423',  $numeroliquidacion);   
+         if($fechaInicial != NULL && $fechaFinal != NULL){
+            $this->db->where("G735_C17141 BETWEEN '".$fechaInicial."' AND '".$fechaFinal."'");
+        }
 
-        $this->db->where('G737.G737_C17183', 1786);
-		$this->db->order_by('G735_C17141','DESC');
+
+        $this->db->where('ClienteObligacion.Rol', 1786);
+        $this->db->order_by('G735_C17141','DESC');
 
         $query = $this->db->get('G735');
         return $query->result();
@@ -425,49 +428,49 @@ function getGestionExtrajudicialTotalEliminar($numeroLiquidacion){
 
 
     function getgestioJudicialTotal_SAP($proceso = NULL, $etapa = NULL, $actuaciones = NULL, $fechaInicial = NULL, $fechaFinal = NULL){
-        $this->db->select(' G735_ConsInte__b as id, 
-                            G735_C17137 as actuacion ,
-                            G719_C17026 as contrato,
+        $this->db->select(' Id as id, 
+                            Actuacion as actuacion ,
+                            NoContrato as contrato,
                             G719_C17423 as liquidacion,
-                            G735_C17139 as txtFechaTramite,
+                            NumeroContrato as txtFechaTramite,
                             G735_C17140 as users,
                             G735_C17143 as TipoProceso,
                             G735_C17219 as txtObservaciones,
                             G735_C17141 as txtFechaIngreso,
                             G735_C17142 as Etapa,
-                            G717_C17240 as nombres,
-                            G717_C17005 as identificacion,
+                            NombreDeudor as nombres,
+                            NroIdentificacion as identificacion,
                             tipo_identificacion as tipo_identificacion,
-                            G719_C17039 as SAP,  
+                            NroProcesoJudicialSAP as SAP,  
                             G719_C17424 as Vlorpagado,
-                            G719_C17030 as financiero,
+                            IntermediarioFinanciero as financiero,
                             G735_C17143 as claseProceso' );
 
-        $this->db->join('G719', 'G719_ConsInte__b = G735_C17138');
-        $this->db->join('G737', 'G719_ConsInte__b = G737_C17182');
-        $this->db->join('G717','G717_ConsInte__b = G737_C17181');
+        $this->db->join('InformacionCredito', 'Id = G735_C17138');
+        $this->db->join('ClienteObligacion', 'Id = NumeroContratoId');
+        $this->db->join('InformacionCliente','Id = InformacionClientesId');
 
 
         if ($this->session->userdata('tpo_usuario') == 'ABOGADO') {
           if( $this->session->userdata('codigo_abogado') != NULL){
-              $this->db->where('G719.G719_C17153', $this->session->userdata('codigo_abogado'));
+              $this->db->where('InformacionCredito.Abogado', $this->session->userdata('codigo_abogado'));
           }else{
-              $this->db->where('G719.G719_C17153 IS NOT NULL');
-              $this->db->where('G719.G719_C17153', $this->session->userdata('codigo_abogado'));
+              $this->db->where('InformacionCredito.Abogado IS NOT NULL');
+              $this->db->where('InformacionCredito.Abogado', $this->session->userdata('codigo_abogado'));
           }
         }elseif ($this->session->userdata('tpo_usuario') == 'GESTOR') {
             if($this->session->userdata('identificacion') != NULL){
-                $this->db->where('G719.G719_C17347', $this->session->userdata('identificacion'));
+                $this->db->where('InformacionCredito.G719_C17347', $this->session->userdata('identificacion'));
             }else{
-                $this->db->where('G719.G719_C17347 IS NOT NULL');
-                $this->db->where('G719.G719_C17347', $this->session->userdata('identificacion'));
+                $this->db->where('InformacionCredito.G719_C17347 IS NOT NULL');
+                $this->db->where('InformacionCredito.G719_C17347', $this->session->userdata('identificacion'));
             }
         }elseif ($this->session->userdata('tpo_usuario') == 'FRG') {
             if($this->session->userdata('frg') != NULL){
-                 $this->db->where('G719.G719_C17029', $this->session->userdata('frg'));
+                 $this->db->where('InformacionCredito.FRG', $this->session->userdata('frg'));
             }else{
-                $this->db->where('G719.G719_C17029 IS NOT NULL');
-                $this->db->where('G719.G719_C17029', $this->session->userdata('frg'));
+                $this->db->where('InformacionCredito.FRG IS NOT NULL');
+                $this->db->where('InformacionCredito.FRG', $this->session->userdata('frg'));
             }
         }
 
@@ -480,7 +483,7 @@ function getGestionExtrajudicialTotalEliminar($numeroLiquidacion){
         }
 
         if($actuaciones != NULL && $actuaciones != '' && $actuaciones != 0){
-            $this->db->where('G735_C17137', $actuaciones );
+            $this->db->where('Actuacion', $actuaciones );
         }
 
         if($fechaInicial != NULL && $fechaFinal != NULL){
@@ -490,7 +493,7 @@ function getGestionExtrajudicialTotalEliminar($numeroLiquidacion){
         if($fechaInicial != NULL && $fechaFinal == NULL){
             $this->db->where('G735_C17141',  $fechaInicial);   
         }
-        $this->db->where('G737.G737_C17183', 1786);
+        $this->db->where('ClienteObligacion.Rol', 1786);
         $this->db->order_by('G735_C17141','DESC');
 
         $query = $this->db->get('G735');
@@ -498,20 +501,20 @@ function getGestionExtrajudicialTotalEliminar($numeroLiquidacion){
     }
 
     function getgestioJudicialById($contra){
-        $this->db->select(' G735_ConsInte__b as id, 
+        $this->db->select(' Id as id, 
                             G724_C17105 as actuacion ,
                             G735_C17138 as contrato,
-                            G735_C17139 as txtFechaTramite,
+                            NumeroContrato as txtFechaTramite,
                             G735_C17140 as users,
-                            LISOPC_Nombre____b as TipoProceso,
+                            Nombre_b as TipoProceso,
                             G735_C17219 as txtObservaciones,
                             G735_C17141 as txtFechaIngreso,
                             G725_C17108 as Etapa' );
         $this->db->join('G725', 'G725_ConsInte__b = G735_C17142', 'LEFT');
-        $this->db->join('G724', 'G724_ConsInte__b = G735_C17137');
-        $this->db->join('LISOPC', 'LISOPC_ConsInte__b = G735_C17143');
+        $this->db->join('G724', 'G724_ConsInte__b = Actuacion');
+        $this->db->join('ParametroGeneral', 'Id = G735_C17143');
         
-        $this->db->where('G735_ConsInte__b', $contra); 
+        $this->db->where('Id', $contra); 
         $query = $this->db->get('G735');
         return $query->result();
     }
@@ -546,54 +549,54 @@ function getGestionExtrajudicialTotalEliminar($numeroLiquidacion){
                             G736_C17147 as Secuestre,
                             G736_C17148 as OtroBien,
                             G736_C17149 as Observaciones,
-                            G719_C17026 as contrato,
+                            NoContrato as contrato,
                             G719_C17423 as liquidacion,
                             G736_C17283 as FechaInforme,
-                            G717_C17240 as nombres,
-                            G717_C17005 as identificacion,
+                            NombreDeudor as nombres,
+                            NroIdentificacion as identificacion,
                             tipo_identificacion as tipo_identificacion,
-                            G719_C17039 as SAP,  
+                            NroProcesoJudicialSAP as SAP,  
                             G719_C17424 as Vlorpagado,
-                            G730_C17126 as financiero,
+                            NombreIF as financiero,
                             G731_C17128 as Medida,
                             resultadoMedida,
-                            G729_C17121 as FRG' );
+                            FRG as FRG' );
 
         $this->db->join('G731', 'G731_ConsInte__b = G736_C17150');
-        $this->db->join('G719', 'G719_ConsInte__b = G736_C17151');
-        $this->db->join('G737', 'G719_ConsInte__b = G737_C17182');
-        $this->db->join('G717','G717_ConsInte__b = G737_C17181');
-        $this->db->join('G730', 'G730_ConsInte__b = G719_C17030','LEFT');
-        $this->db->join('G729', 'G729_ConsInte__b = G719_C17029','LEFT');
+        $this->db->join('InformacionCredito', 'Id = G736_C17151');
+        $this->db->join('ClienteObligacion', 'Id = NumeroContratoId');
+        $this->db->join('InformacionCliente','Id = InformacionClientesId');
+        $this->db->join('IntermediarioFinanciero', 'Id = IntermediarioFinanciero','LEFT');
+        $this->db->join('FRG', 'Id = FRG','LEFT');
 
 
         if ($this->session->userdata('tpo_usuario') == 'ABOGADO') {
           if( $this->session->userdata('codigo_abogado') != NULL){
-              $this->db->where('G719.G719_C17153', $this->session->userdata('codigo_abogado'));
+              $this->db->where('InformacionCredito.Abogado', $this->session->userdata('codigo_abogado'));
           }else{
-              $this->db->where('G719.G719_C17153 IS NOT NULL');
-              $this->db->where('G719.G719_C17153', $this->session->userdata('codigo_abogado'));
+              $this->db->where('InformacionCredito.Abogado IS NOT NULL');
+              $this->db->where('InformacionCredito.Abogado', $this->session->userdata('codigo_abogado'));
           }
         }elseif ($this->session->userdata('tpo_usuario') == 'GESTOR') {
             if($this->session->userdata('identificacion') != NULL){
-                $this->db->where('G719.G719_C17347', $this->session->userdata('identificacion'));
+                $this->db->where('InformacionCredito.G719_C17347', $this->session->userdata('identificacion'));
             }else{
-                $this->db->where('G719.G719_C17347 IS NOT NULL');
-                $this->db->where('G719.G719_C17347', $this->session->userdata('identificacion'));
+                $this->db->where('InformacionCredito.G719_C17347 IS NOT NULL');
+                $this->db->where('InformacionCredito.G719_C17347', $this->session->userdata('identificacion'));
             }
         }elseif ($this->session->userdata('tpo_usuario') == 'FRG') {
             if($this->session->userdata('frg') != NULL){
-                 $this->db->where('G719.G719_C17029', $this->session->userdata('frg'));
+                 $this->db->where('InformacionCredito.FRG', $this->session->userdata('frg'));
             }else{
-                $this->db->where('G719.G719_C17029 IS NOT NULL');
-                $this->db->where('G719.G719_C17029', $this->session->userdata('frg'));
+                $this->db->where('InformacionCredito.FRG IS NOT NULL');
+                $this->db->where('InformacionCredito.FRG', $this->session->userdata('frg'));
             }
         }
 
         if($medida != NULL && $medida != '' && $medida != 0){
             $this->db->where('G736_C17150', $medida);
         }
-        $this->db->where('G737.G737_C17183', 1786);
+        $this->db->where('ClienteObligacion.Rol', 1786);
         $query = $this->db->get('G736');
         return $query->result();
     }
@@ -609,40 +612,40 @@ function getGestionExtrajudicialTotalEliminar($numeroLiquidacion){
                             G736_C17147 as Secuestre,
                             G736_C17148 as OtroBien,
                             G736_C17149 as Observaciones,
-                            G719_C17026 as contrato,
+                            NoContrato as contrato,
                             G719_C17423 as liquidacion,
                             G736_C17283 as FechaInforme,
-                            G717_C17240 as nombres,
-                            G717_C17005 as identificacion,
+                            NombreDeudor as nombres,
+                            NroIdentificacion as identificacion,
                             tipo_identificacion as tipo_identificacion,
-                            G719_C17039 as SAP,  
+                            NroProcesoJudicialSAP as SAP,  
                             G719_C17424 as Vlorpagado,
-                            G719_C17030 as financiero,
+                            IntermediarioFinanciero as financiero,
                             G736_C17150 as Medida,
                             resultadoMedida' );
-        $this->db->join('G719', 'G719_ConsInte__b = G736_C17151');
-        $this->db->join('G737', 'G719_ConsInte__b = G737_C17182');
-        $this->db->join('G717','G717_ConsInte__b = G737_C17181');
+        $this->db->join('InformacionCredito', 'Id = G736_C17151');
+        $this->db->join('ClienteObligacion', 'Id = NumeroContratoId');
+        $this->db->join('InformacionCliente','Id = InformacionClientesId');
         if ($this->session->userdata('tpo_usuario') == 'ABOGADO') {
           if( $this->session->userdata('codigo_abogado') != NULL){
-              $this->db->where('G719.G719_C17153', $this->session->userdata('codigo_abogado'));
+              $this->db->where('InformacionCredito.Abogado', $this->session->userdata('codigo_abogado'));
           }else{
-              $this->db->where('G719.G719_C17153 IS NOT NULL');
-              $this->db->where('G719.G719_C17153', $this->session->userdata('codigo_abogado'));
+              $this->db->where('InformacionCredito.Abogado IS NOT NULL');
+              $this->db->where('InformacionCredito.Abogado', $this->session->userdata('codigo_abogado'));
           }
         }elseif ($this->session->userdata('tpo_usuario') == 'GESTOR') {
             if($this->session->userdata('identificacion') != NULL){
-                $this->db->where('G719.G719_C17347', $this->session->userdata('identificacion'));
+                $this->db->where('InformacionCredito.G719_C17347', $this->session->userdata('identificacion'));
             }else{
-                $this->db->where('G719.G719_C17347 IS NOT NULL');
-                $this->db->where('G719.G719_C17347', $this->session->userdata('identificacion'));
+                $this->db->where('InformacionCredito.G719_C17347 IS NOT NULL');
+                $this->db->where('InformacionCredito.G719_C17347', $this->session->userdata('identificacion'));
             }
         }elseif ($this->session->userdata('tpo_usuario') == 'FRG') {
             if($this->session->userdata('frg') != NULL){
-                 $this->db->where('G719.G719_C17029', $this->session->userdata('frg'));
+                 $this->db->where('InformacionCredito.FRG', $this->session->userdata('frg'));
             }else{
-                $this->db->where('G719.G719_C17029 IS NOT NULL');
-                $this->db->where('G719.G719_C17029', $this->session->userdata('frg'));
+                $this->db->where('InformacionCredito.FRG IS NOT NULL');
+                $this->db->where('InformacionCredito.FRG', $this->session->userdata('frg'));
             }
         }
 
@@ -658,7 +661,7 @@ function getGestionExtrajudicialTotalEliminar($numeroLiquidacion){
             $this->db->where('G736_C17283',  $fechaInicial);   
         }
         
-        $this->db->where('G737.G737_C17183', 1786);
+        $this->db->where('ClienteObligacion.Rol', 1786);
         $query = $this->db->get('G736');
         return $query->result();
     }
@@ -683,17 +686,17 @@ function getGestionExtrajudicialTotalEliminar($numeroLiquidacion){
     }
 
     function getCodeudores($contrato){
-        $this->db->select(' G717_ConsInte__b as id,
-                            G717_C17005 as Identificacion, 
+        $this->db->select(' Id as id,
+                            NroIdentificacion as Identificacion, 
                             tipo_identificacion as tipo_identificacion,
-                            G717_C17240 as nombre, 
-                            G717_C17154 as Numero_obligaciones');
+                            NombreDeudor as nombre, 
+                            NroObligacionesDeudor as Numero_obligaciones');
        
-        $this->db->join('LISOPC', 'LISOPC_ConsInte__b = G737_C17183 ');
-        $this->db->join('G717', 'G717_ConsInte__b = G737_C17181');
-        $this->db->where('G737_C17182', $contrato); 
-        $this->db->where('LISOPC_ConsInte__b != 1786'); 
-        $query = $this->db->get('G737');
+        $this->db->join('ParametroGeneral', 'Id = Rol ');
+        $this->db->join('InformacionCliente', 'Id = InformacionClientesId');
+        $this->db->where('NumeroContratoId', $contrato); 
+        $this->db->where('Id != 1786'); 
+        $query = $this->db->get('ClienteObligacion');
         if($query->num_rows() > 0){
            return $query->result();
        }else{
@@ -705,38 +708,38 @@ function getGestionExtrajudicialTotalEliminar($numeroLiquidacion){
 	
 
     function gerAcuerdoPago($contrato){
-        $this->db->select(' G726_C17237 as CONTRATO, 
-                            G726_C17110 as FECHA_CONSIGNACION_ANTICIPO, 
-                            G726_C17111 as FECHA_DE_LEGALIZACION,
-                            G726_C17112 as VALOR_DEL_ACUERDO,
-                            G726_C17113 as PLAZO_ACUERDO_DE_PAGO,
-                            G726_C17223 as VALOR_CUOTA_DEL_ACUERDO,
-                            G726_C17224 as FECHA_DE_PAGO_DE_LA_PRIMERA_CUOTA,
-                            G726_C17109 as FECHA_LIQUIDACION,
-                            G726_C17225 as FECHA_ULTIMACUOTA,
-                            G726_C17419 as TASAINTERES,
-                            G726_ConsInte__b as id');
+        $this->db->select(' FechaPagoUltimaCuota as CONTRATO, 
+                            FechaLiquidacion as FECHA_CONSIGNACION_ANTICIPO, 
+                            FechaConsignacionAnticipo as FECHA_DE_LEGALIZACION,
+                            FechaLegalizacion as VALOR_DEL_ACUERDO,
+                            ValorRecaudo as PLAZO_ACUERDO_DE_PAGO,
+                            PlazoAcuerdoPago as VALOR_CUOTA_DEL_ACUERDO,
+                            ValorCuotaAcuerdo as FECHA_DE_PAGO_DE_LA_PRIMERA_CUOTA,
+                            NumeroContrato as FECHA_LIQUIDACION,
+                            FechaPagoPrimeraCuota as FECHA_ULTIMACUOTA,
+                            TasaInteresCorrienteAcuerdoPago as TASAINTERES,
+                            Id as id');
     
-        $this->db->where('G726_C17237', $contrato); 
-        $query = $this->db->get('G726');
+        $this->db->where('FechaPagoUltimaCuota', $contrato); 
+        $query = $this->db->get('AcuerdosPago');
         return $query->result();
     }
 
     function gerAcuerdoPagoById($contrato){
-        $this->db->select(' G719_C17026 as CONTRATO, 
-                            G726_C17110 as FECHA_CONSIGNACION_ANTICIPO, 
-                            G726_C17111 as FECHA_DE_LEGALIZACION,
-                            G726_C17112 as VALOR_DEL_ACUERDO,
-                            G726_C17113 as PLAZO_ACUERDO_DE_PAGO,
-                            G726_C17223 as VALOR_CUOTA_DEL_ACUERDO,
-                            G726_C17224 as FECHA_DE_PAGO_DE_LA_PRIMERA_CUOTA,
-                            G726_C17109 as FECHA_LIQUIDACION,
-                            G726_C17225 as FECHA_ULTIMACUOTA,
-                            G726_C17419 as TASAINTERES,
-                            G726_ConsInte__b as id');
-        $this->db->from('G726');
-        $this->db->join('G719', 'G719_ConsInte__b = G726_C17237');
-        $this->db->where('G726_ConsInte__b', $contrato); 
+        $this->db->select(' NoContrato as CONTRATO, 
+                            FechaLiquidacion as FECHA_CONSIGNACION_ANTICIPO, 
+                            FechaConsignacionAnticipo as FECHA_DE_LEGALIZACION,
+                            FechaLegalizacion as VALOR_DEL_ACUERDO,
+                            ValorRecaudo as PLAZO_ACUERDO_DE_PAGO,
+                            PlazoAcuerdoPago as VALOR_CUOTA_DEL_ACUERDO,
+                            ValorCuotaAcuerdo as FECHA_DE_PAGO_DE_LA_PRIMERA_CUOTA,
+                            NumeroContrato as FECHA_LIQUIDACION,
+                            FechaPagoPrimeraCuota as FECHA_ULTIMACUOTA,
+                            TasaInteresCorrienteAcuerdoPago as TASAINTERES,
+                            Id as id');
+        $this->db->from('AcuerdosPago');
+        $this->db->join('InformacionCredito', 'Id = FechaPagoUltimaCuota');
+        $this->db->where('Id', $contrato); 
         $query = $this->db->get();
         return $query->result();
     }
@@ -745,9 +748,9 @@ function getGestionExtrajudicialTotalEliminar($numeroLiquidacion){
         $this->db->select(' G734_ConsInte__b as id,
                             G734_C17135 as garantia, 
                             G734_C17136 as pagare,
-                            G719_C17026 as contrato,
+                            NoContrato as contrato,
                             G719_C17425 as vPagado');
-        $this->db->join('G719','G734_C17241 = G719_ConsInte__b');
+        $this->db->join('InformacionCredito','G734_C17241 = Id');
         $this->db->where('G734_C17241', $contrato); 
         $query = $this->db->get('G734');
         return $query->result();
@@ -757,20 +760,20 @@ function getGestionExtrajudicialTotalEliminar($numeroLiquidacion){
     /// Procesos Asociados Jeisson Patiño 24 01 2019
     function getProcesoAsociado($idUsuario){
         $this->db->select(' 
-                            G717_ConsInte__b idUsuario,
-                            G717_C17005 as identificacion,
+                            Id idUsuario,
+                            NroIdentificacion as identificacion,
                             liquidacion,
-                            a.LISOPC_Nombre____b AS Proceso,
-                            b.LISOPC_Nombre____b AS EstadoProceso
+                            a.Nombre_b AS Proceso,
+                            b.Nombre_b AS EstadoProceso
                             ');
         $this->db->from('HistoricoProcesoAsociado');
-        $this->db->join('G719','IdCredito = G719_ConsInte__b','LEFT');
-        $this->db->join('LISOPC as a','IdClaseProc = a.LISOPC_ConsInte__b','LEFT');
-        $this->db->join('LISOPC as b','IdEstProceso = b.LISOPC_ConsInte__b');
-        $this->db->join('G737','IdCredito = G737_C17182');
-        $this->db->join('G717','G717_ConsInte__b = G737_C17181');
-        $this->db->where('ProcJudicial != G719_C17039');
-        $this->db->where('G717_ConsInte__b', $idUsuario); 
+        $this->db->join('InformacionCredito','IdCredito = Id','LEFT');
+        $this->db->join('ParametroGeneral as a','IdClaseProc = a.Id','LEFT');
+        $this->db->join('ParametroGeneral as b','IdEstProceso = b.Id');
+        $this->db->join('ClienteObligacion','IdCredito = NumeroContratoId');
+        $this->db->join('InformacionCliente','Id = InformacionClientesId');
+        $this->db->where('ProcJudicial != NroProcesoJudicialSAP');
+        $this->db->where('Id', $idUsuario); 
         $query = $this->db->get();
         return $query->result();
     }
@@ -780,9 +783,9 @@ function getGestionExtrajudicialTotalEliminar($numeroLiquidacion){
         $this->db->select(' G734_ConsInte__b as id,
                             G734_C17135 as garantia, 
                             G734_C17136 as pagare,
-                            G719_C17026 as contrato,
+                            NoContrato as contrato,
                             G719_C17425 as vPagado');
-        $this->db->join('G719','G734_C17241 = G719_ConsInte__b');
+        $this->db->join('InformacionCredito','G734_C17241 = Id');
         $this->db->where('G719_C17423', $liquidacion); 
         $query = $this->db->get('G734');
         return $query->result();
@@ -793,8 +796,8 @@ function getGestionExtrajudicialTotalEliminar($numeroLiquidacion){
 
     function getLiquidacionN($contrato){
         $this->db->select('G719_C17423 as eso');
-        $this->db->where('G719_ConsInte__b', $contrato); 
-        $query = $this->db->get('G719');
+        $this->db->where('Id', $contrato); 
+        $query = $this->db->get('InformacionCredito');
         if($query->num_rows() > 0){
             return $query->row()->eso;
         }else{
@@ -804,9 +807,9 @@ function getGestionExtrajudicialTotalEliminar($numeroLiquidacion){
     }
 
     function getcontratosXLiquidacion($contrato){
-        $this->db->select('G719_ConsInte__b');
+        $this->db->select('Id');
         $this->db->where('G719_C17423', $contrato); 
-        $query = $this->db->get('G719');
+        $query = $this->db->get('InformacionCredito');
         return $query->result();
         
     }
@@ -822,101 +825,101 @@ function getGestionExtrajudicialTotalEliminar($numeroLiquidacion){
     }
 
     function getFacturasbyid($contrato){
-        $this->db->select(' G744_C17262 as FECHA_DE_FACTURA_AUTO_DE_SUBROGACION, 
-                            G744_C17263 as N_DE_FACTURA_AUTO_DE_SUBROGACION, 
-                            G744_C17264 as FECHA_AUTO_DE_SUBROGACION,
-                            G744_C17265 as N_DE_FACTURA_SENTENCIA_IRRECUPERABLE,
-                            G744_C17266 as FECHA_SENTENCIA_IRRECUPERABLE,
-                            G744_C17267 as FECHA_DE_FACTURA_SENTENCIA_IRRECUPERABLE,
-                            G744_C17270 as N_DE_FACTURAS_SOPORTES_CISA,
-                            G744_C17285 as FECHA_LIQUIDACION_CREDITO,
-                            G744_C17286 as FECHA_AUTO_IRRECUPERABLE,
-                            b.LISOPC_Nombre____b As SOPORTE,
-                            G744_C17276 as VALOR_FACTURADO_AUTO_DE_SUBROGACION, 
-                            G744_C17268 as FECHA_FACTURA_SOPORTES_CISA, 
-                            G744_C17277 as VALOR_FACTURADO_SENTENCIA_IRRECUPERABLE,
-                            G744_C17278 as VALOR_FACTURADO_SOPORTES_CISA,
-                            a.LISOPC_Nombre____b As RENUNCIA_Y_PAZ_Y_SALVO_O_CESION,
-                            G744_C17280 as N_CONTRATO,
-                            G744_C17269 as HONORARIOS_VENTA_CISA,
-                            G744_C17423 as N_Factura_honorarios_venta_CISA,
-                            G744_C17424 as Fecha_de_factura_honorarios_venta_CISA,
-                            G744_ConsInte__b ,
-                            Fecha_recepcion_soporte,
-                            Fecha_aprobacion_soporte');
-        $this->db->join('LISOPC a', 'a.LISOPC_ConsInte__b = G744_C17279 ', 'LEFT');
-        $this->db->join('LISOPC b', 'b.LISOPC_ConsInte__b = G744_C17275 ', 'LEFT');        
-        $this->db->where('G744_ConsInte__b', $contrato); 
-        $query = $this->db->get('G744');
+        $this->db->select(' FechaFacturacionAutoSubRogacion as FECHA_DE_FACTURA_AUTO_DE_SUBROGACION, 
+                            NroFacturaAutoSubRogacion as N_DE_FACTURA_AUTO_DE_SUBROGACION, 
+                            FechaAutoSubRogacion as FECHA_AUTO_DE_SUBROGACION,
+                            NroFacturaSentenciaIrrecuperable as N_DE_FACTURA_SENTENCIA_IRRECUPERABLE,
+                            FechaSentenciaIrrecuperable as FECHA_SENTENCIA_IRRECUPERABLE,
+                            FechaFacturaSentenciaIrrecuperable as FECHA_DE_FACTURA_SENTENCIA_IRRECUPERABLE,
+                            NroFacturaSoporteCISA as N_DE_FACTURAS_SOPORTES_CISA,
+                            FechaLiquidacionCredito as FECHA_LIQUIDACION_CREDITO,
+                            FechaAutoIrrecuperable as FECHA_AUTO_IRRECUPERABLE,
+                            b.Nombre_b As SOPORTE,
+                            FechaFacturaSoporteCISA as VALOR_FACTURADO_AUTO_DE_SUBROGACION, 
+                            FechaFacturaSoporteCISA_ as FECHA_FACTURA_SOPORTES_CISA, 
+                            ValorFacturadoSentenciaIrrecuperable as VALOR_FACTURADO_SENTENCIA_IRRECUPERABLE,
+                            ValorFacturadoSoporteCISA as VALOR_FACTURADO_SOPORTES_CISA,
+                            a.Nombre_b As RENUNCIA_Y_PAZ_Y_SALVO_O_CESION,
+                            NumeroContratoId as N_CONTRATO,
+                            FechaFacturaHonorarioCISA2 as HONORARIOS_VENTA_CISA,
+                            FechaFacturaHonorarioCISA3 as N_Factura_honorarios_venta_CISA,
+                            FechaFacturaHonorarioCISA4 as Fecha_de_factura_honorarios_venta_CISA,
+                            Id ,
+                            FechaRecepcionSoporte,
+                            FechaAprobacionSoporte');
+        $this->db->join('ParametroGeneral a', 'a.Id = FechaFacturaHonorarioCISA1 ', 'LEFT');
+        $this->db->join('ParametroGeneral b', 'b.Id = Soporte ', 'LEFT');        
+        $this->db->where('Id', $contrato); 
+        $query = $this->db->get('Factura');
         return $query->result();
     }
 
     function getFacturas($contrato){
-        $this->db->select(' G744_C17262 as FECHA_DE_FACTURA_AUTO_DE_SUBROGACION, 
-                            G744_C17263 as N_DE_FACTURA_AUTO_DE_SUBROGACION, 
-                            G744_C17264 as FECHA_AUTO_DE_SUBROGACION,
+        $this->db->select(' FechaFacturacionAutoSubRogacion as FECHA_DE_FACTURA_AUTO_DE_SUBROGACION, 
+                            NroFacturaAutoSubRogacion as N_DE_FACTURA_AUTO_DE_SUBROGACION, 
+                            FechaAutoSubRogacion as FECHA_AUTO_DE_SUBROGACION,
                             
-                            G744_C17265 as N_DE_FACTURA_SENTENCIA_IRRECUPERABLE,
-                            G744_C17266 as FECHA_SENTENCIA_IRRECUPERABLE,
-                            G744_C17267 as FECHA_DE_FACTURA_SENTENCIA_IRRECUPERABLE,
-                            G744_C17270 as N_DE_FACTURAS_SOPORTES_CISA,
-                            G744_C17285 as FECHA_LIQUIDACION_CREDITO,
-                            G744_C17286 as FECHA_AUTO_IRRECUPERABLE,
-                            G744_C17275 as SOPORTE,
-                            G744_C17276 as VALOR_FACTURADO_AUTO_DE_SUBROGACION, 
-                            G744_C17268 as FECHA_FACTURA_SOPORTES_CISA, 
-                            G744_C17277 as VALOR_FACTURADO_SENTENCIA_IRRECUPERABLE,
-                            G744_C17278 as VALOR_FACTURADO_SOPORTES_CISA,
-                            G744_C17279 as RENUNCIA_Y_PAZ_Y_SALVO_O_CESION,
-                            G744_C17280 as N_CONTRATO,
-                            G744_C17269 as HONORARIOS_VENTA_CISA,
-                            G744_C17423 as N_Factura_honorarios_venta_CISA,
-                            G744_C17424 as Fecha_de_factura_honorarios_venta_CISA,
-                            G744_ConsInte__b,
-                            Fecha_recepcion_soporte,
-                            Fecha_aprobacion_soporte ');
+                            NroFacturaSentenciaIrrecuperable as N_DE_FACTURA_SENTENCIA_IRRECUPERABLE,
+                            FechaSentenciaIrrecuperable as FECHA_SENTENCIA_IRRECUPERABLE,
+                            FechaFacturaSentenciaIrrecuperable as FECHA_DE_FACTURA_SENTENCIA_IRRECUPERABLE,
+                            NroFacturaSoporteCISA as N_DE_FACTURAS_SOPORTES_CISA,
+                            FechaLiquidacionCredito as FECHA_LIQUIDACION_CREDITO,
+                            FechaAutoIrrecuperable as FECHA_AUTO_IRRECUPERABLE,
+                            Soporte as SOPORTE,
+                            FechaFacturaSoporteCISA as VALOR_FACTURADO_AUTO_DE_SUBROGACION, 
+                            FechaFacturaSoporteCISA_ as FECHA_FACTURA_SOPORTES_CISA, 
+                            ValorFacturadoSentenciaIrrecuperable as VALOR_FACTURADO_SENTENCIA_IRRECUPERABLE,
+                            ValorFacturadoSoporteCISA as VALOR_FACTURADO_SOPORTES_CISA,
+                            FechaFacturaHonorarioCISA1 as RENUNCIA_Y_PAZ_Y_SALVO_O_CESION,
+                            NumeroContratoId as N_CONTRATO,
+                            FechaFacturaHonorarioCISA2 as HONORARIOS_VENTA_CISA,
+                            FechaFacturaHonorarioCISA3 as N_Factura_honorarios_venta_CISA,
+                            FechaFacturaHonorarioCISA4 as Fecha_de_factura_honorarios_venta_CISA,
+                            Id,
+                            FechaRecepcionSoporte,
+                            FechaAprobacionSoporte ');
                             
-        $this->db->where('G744_C17280', $contrato); 
-        $query = $this->db->get('G744');
+        $this->db->where('NumeroContratoId', $contrato); 
+        $query = $this->db->get('Factura');
         return $query->result();
     }
 
     function getinformacionJudicial($contrato){
-        $this->db->select('G719_C17043 AS Radicado_o_expediente, 
-                           G719_C17044 AS Fech_demanda, 
-                           G719_C17045 AS Fecha_admision_demanda,
-                           G719_C17046 AS Fecha_mandamiento_de_pago,
+        $this->db->select('RadicadoExpediente AS Radicado_o_expediente, 
+                           FechaDemanda AS Fech_demanda, 
+                           FechaAdmisionDemanda AS Fecha_admision_demanda,
+                           FechaMandamientoPago AS Fecha_mandamiento_de_pago,
                            G719_C17222 As Total_gastos_judiciales,
                            G719_C17426 As abogado_if,
-                           G719_ConsInte__b as id,
+                           Id as id,
                            G719_C17427 as fechaenvioterminacion');
-        $this->db->where('G719_ConsInte__b', $contrato); 
-        $query = $this->db->get('G719');
+        $this->db->where('Id', $contrato); 
+        $query = $this->db->get('InformacionCredito');
         return $query->result();
     
     }
 
     function getInformacionAbogado($contrato){
         
-        $this->db->select(' G723_C17099 as Abogado,
-                            G723_C17100 as celular,
-                            G723_C17101 as correo,
+        $this->db->select(' Nombre as Abogado,
+                            Celular as celular,
+                            CorreoElectronico as correo,
                             direccion,
                             telefono,
                             G719_C17051 as Fecha_asignacion_abogado,
                             G719_C17054 as No_Poliza,
                             G719_C17056 as Fecha_de_aprobacion_de_Poliza,
                             G719_C17055 as Fecha_de_vencimiento,
-                            G729_C17121 as frg,
+                            FRG as frg,
                             G728_C17116 as firma,
                             G719_C17220 as promotor');
-		$this->db->join('G723', 'G723_ConsInte__b = G719_C17153', 'LEFT');
-        //Firma_abogados,  G729_C17121 G729_ConsInte__b
-        $this->db->join('G728', 'G728_ConsInte__b = Firma_abogados', 'LEFT');
-        $this->db->join('G729', 'G729_ConsInte__b = Frg_ConsInte__b', 'LEFT');
+		$this->db->join('Abogados', 'Id = Abogado', 'LEFT');
+        //FirmaAbogado,  FRG Id
+        $this->db->join('G728', 'G728_ConsInte__b = FirmaAbogado', 'LEFT');
+        $this->db->join('FRG', 'Id = Frg_ConsInte__b', 'LEFT');
 
-        $this->db->where('G719_ConsInte__b', $contrato); 
-        $query = $this->db->get('G719');
+        $this->db->where('Id', $contrato); 
+        $query = $this->db->get('InformacionCredito');
         return $query->result();
     }
 
@@ -925,15 +928,15 @@ function getGestionExtrajudicialTotalEliminar($numeroLiquidacion){
         $this->db->select(' G719_C17071 AS Fecha_de_expedicion_del_paz_y_salvo,
                             G719_C17070 AS Paz_y_salvo,
                             G719_C17073 AS Fecha_venta');
-        $this->db->where('G719_ConsInte__b', $contrato); 
-        $query = $this->db->get('G719');
+        $this->db->where('Id', $contrato); 
+        $query = $this->db->get('InformacionCredito');
         return $query->result();
     }
 
     function getSubrogacion($contrato){
         
-        $this->db->select(' G719_C17048 AS Fecha_envio_memorial_de_subrogacion_al_FRG,
-                            G719_C17049 AS Fecha_devolucion_FRG_memorial_de_subrogacion_por_errores,
+        $this->db->select(' FechaEnvioMemorialSubrogacionFRG AS Fecha_envio_memorial_de_subrogacion_al_FRG,
+                            FechaDevolucionFRGMemorialSubrogacionxErrores AS Fecha_devolucion_FRG_memorial_de_subrogacion_por_errores,
                             G719_C17050 AS Fecha_envio_memorial_de_subrogacion_corregido,
                             G719_C17212 AS Fecha_radicacion_memorial,
                             G719_C17213 As Fecha_pronunciamiento,
@@ -941,28 +944,28 @@ function getGestionExtrajudicialTotalEliminar($numeroLiquidacion){
                             G719_C17218 AS Fecha_impugnacion_decision_final,
                             b.G724_C17105 As Nombre_clase_de_impugnacion,
                             c.G724_C17105 As decicion_Final,
-                            Fecha_decision_final');
+                            FechaDecisionFinal');
         $this->db->join('G724 a', 'G719_C17214 = a.G724_ConsInte__b', 'LEFT');
         $this->db->join('G724 b', 'G719_C17215 = b.G724_ConsInte__b', 'LEFT');
         $this->db->join('G724 c', 'G719_C17216 = c.G724_ConsInte__b', 'LEFT');
-        $this->db->where('G719_ConsInte__b', $contrato); 
-        $query = $this->db->get('G719');
+        $this->db->where('Id', $contrato); 
+        $query = $this->db->get('InformacionCredito');
         return $query->result();
     }
 
     function getSubrogacionByCOntrato($contrato){
         
         $this->db->select('G719_C17212 AS Fecha_radicacion_memorial');
-        $this->db->where('G719_ConsInte__b', $contrato); 
-        $query = $this->db->get('G719');
+        $this->db->where('Id', $contrato); 
+        $query = $this->db->get('InformacionCredito');
         return $query->row()->Fecha_radicacion_memorial;
     }
 
     function getSubrogacionParaDecicionFinal($contrato){
         
         $this->db->select('G719_C17218 AS Fecha_inpugnacion');
-        $this->db->where('G719_ConsInte__b', $contrato); 
-        $query = $this->db->get('G719');
+        $this->db->where('Id', $contrato); 
+        $query = $this->db->get('InformacionCredito');
         return $query->row()->Fecha_inpugnacion;
     }
 
@@ -970,29 +973,29 @@ function getGestionExtrajudicialTotalEliminar($numeroLiquidacion){
        
         $this->db->select(' G743_C17256 AS Telefono,
                             G743_C17257 AS Direccion,
-                            G718_C17015 AS Ciudad,
+                            Ciudad AS Ciudad,
                             G743_C17363 AS Correo_electronico,
                             G743_C17260 AS Descripcion,
                             G743_C17361 AS Fecha,
                             G743_ConsInte__b as id,
-                            a.LISOPC_Nombre____b As Calificacion_correo,
-                            b.LISOPC_Nombre____b As Calificacion_telefono,
-                            c.LISOPC_Nombre____b As Calificacion_direccion,
-                            d.LISOPC_Nombre____b As Calificacion_ciudad,
-                            e.LISOPC_Nombre____b As Calificacion_descripcion,
+                            a.Nombre_b As Calificacion_correo,
+                            b.Nombre_b As Calificacion_telefono,
+                            c.Nombre_b As Calificacion_direccion,
+                            d.Nombre_b As Calificacion_ciudad,
+                            e.Nombre_b As Calificacion_descripcion,
                             G719_C17423 as obligacion,
-                            G717_C17240 as deudor,
+                            NombreDeudor as deudor,
                             G743_C17269 as rol');
-        $this->db->join('G718', 'G718_ConsInte__b = G743_C17258', 'LEFT');
+        $this->db->join('Ciudad', 'Id = G743_C17258', 'LEFT');
    
 
-        $this->db->join('LISOPC a', 'a.LISOPC_ConsInte__b = G743_C17262 ', 'LEFT');
-        $this->db->join('LISOPC b', 'b.LISOPC_ConsInte__b = G743_C17263 ', 'LEFT');
-        $this->db->join('LISOPC c', 'c.LISOPC_ConsInte__b = G743_C17264 ', 'LEFT');
-        $this->db->join('LISOPC d', 'd.LISOPC_ConsInte__b = G743_C17265 ', 'LEFT');
-        $this->db->join('LISOPC e', 'e.LISOPC_ConsInte__b = G743_C17266 ', 'LEFT');
-        $this->db->join('G719', 'G719_ConsInte__b = G743_C17267 ', 'LEFT');
-        $this->db->join('G717', 'G717_ConsInte__b = G743_C17268 ', 'LEFT');
+        $this->db->join('ParametroGeneral a', 'a.Id = G743_C17262 ', 'LEFT');
+        $this->db->join('ParametroGeneral b', 'b.Id = G743_C17263 ', 'LEFT');
+        $this->db->join('ParametroGeneral c', 'c.Id = G743_C17264 ', 'LEFT');
+        $this->db->join('ParametroGeneral d', 'd.Id = G743_C17265 ', 'LEFT');
+        $this->db->join('ParametroGeneral e', 'e.Id = G743_C17266 ', 'LEFT');
+        $this->db->join('InformacionCredito', 'Id = G743_C17267 ', 'LEFT');
+        $this->db->join('InformacionCliente', 'Id = G743_C17268 ', 'LEFT');
         $this->db->where('G743_C17261', $clienteId); 
         $query = $this->db->get('G743');
         return $query->result();
@@ -1001,23 +1004,23 @@ function getGestionExtrajudicialTotalEliminar($numeroLiquidacion){
     function getDatosAdicionalesByid($id){
         $this->db->select(' G743_C17256 AS Telefono,
                             G743_C17257 AS Direccion,
-                            G718_C17015 AS Ciudad,
+                            Ciudad AS Ciudad,
                             G743_C17363 AS Correo_electronico,
                     
                             G743_C17260 AS Descripcion,
                             G743_C17361 AS Fecha,
                             G743_ConsInte__b as id,
-                            a.LISOPC_Nombre____b As Calificacion_correo,
-                            b.LISOPC_Nombre____b As Calificacion_telefono,
-                            c.LISOPC_Nombre____b As Calificacion_direccion,
-                            d.LISOPC_Nombre____b As Calificacion_ciudad,
-                            e.LISOPC_Nombre____b As Calificacion_descripcion');
-        $this->db->join('G718', 'G718_ConsInte__b = G743_C17258', 'LEFT');
-        $this->db->join('LISOPC a', 'a.LISOPC_ConsInte__b = G743_C17262 ', 'LEFT');
-        $this->db->join('LISOPC b', 'b.LISOPC_ConsInte__b = G743_C17263 ', 'LEFT');
-        $this->db->join('LISOPC c', 'c.LISOPC_ConsInte__b = G743_C17264 ', 'LEFT');
-        $this->db->join('LISOPC d', 'd.LISOPC_ConsInte__b = G743_C17265 ', 'LEFT');
-        $this->db->join('LISOPC e', 'e.LISOPC_ConsInte__b = G743_C17266 ', 'LEFT');
+                            a.Nombre_b As Calificacion_correo,
+                            b.Nombre_b As Calificacion_telefono,
+                            c.Nombre_b As Calificacion_direccion,
+                            d.Nombre_b As Calificacion_ciudad,
+                            e.Nombre_b As Calificacion_descripcion');
+        $this->db->join('Ciudad', 'Id = G743_C17258', 'LEFT');
+        $this->db->join('ParametroGeneral a', 'a.Id = G743_C17262 ', 'LEFT');
+        $this->db->join('ParametroGeneral b', 'b.Id = G743_C17263 ', 'LEFT');
+        $this->db->join('ParametroGeneral c', 'c.Id = G743_C17264 ', 'LEFT');
+        $this->db->join('ParametroGeneral d', 'd.Id = G743_C17265 ', 'LEFT');
+        $this->db->join('ParametroGeneral e', 'e.Id = G743_C17266 ', 'LEFT');
 
         $this->db->where('G743_ConsInte__b', $id); 
         $query = $this->db->get('G743');
@@ -1032,9 +1035,9 @@ function getGestionExtrajudicialTotalEliminar($numeroLiquidacion){
     }
 
     function validarSAP($sap){
-        $this->db->select('G719_ConsInte__b');
-        $this->db->where('G719_C17039', $sap);
-        $query = $this->db->get('G719');
+        $this->db->select('Id');
+        $this->db->where('NroProcesoJudicialSAP', $sap);
+        $query = $this->db->get('InformacionCredito');
 
         if($query->num_rows() > 0){
             return true;
@@ -1044,9 +1047,9 @@ function getGestionExtrajudicialTotalEliminar($numeroLiquidacion){
     }
 
     function validarObligacion($contrato){
-        $this->db->select('G719_ConsInte__b');
-        $this->db->where('G719_C17026', $contrato);
-        $query = $this->db->get('G719');
+        $this->db->select('Id');
+        $this->db->where('NoContrato', $contrato);
+        $query = $this->db->get('InformacionCredito');
         if($query->num_rows() > 0){
             return true;
         }else{
@@ -1055,9 +1058,9 @@ function getGestionExtrajudicialTotalEliminar($numeroLiquidacion){
     }
 
     function validarLiquidacion($liquidacion){
-        $this->db->select('G719_ConsInte__b');
+        $this->db->select('Id');
         $this->db->where('G719_C17423', $liquidacion);
-        $query = $this->db->get('G719');
+        $query = $this->db->get('InformacionCredito');
 
         if($query->num_rows() > 0){
             return true;
@@ -1067,9 +1070,9 @@ function getGestionExtrajudicialTotalEliminar($numeroLiquidacion){
     }
 
     function getNumeroContrato($liquidacion){
-        $this->db->select('G719_C17026 as NumeroContrato');
+        $this->db->select('NoContrato as NumeroContrato');
         $this->db->where('G719_C17423', $liquidacion);
-        $query = $this->db->get('G719');
+        $query = $this->db->get('InformacionCredito');
 
         
         if($query->num_rows() > 0){
@@ -1083,45 +1086,45 @@ function getGestionExtrajudicialTotalEliminar($numeroLiquidacion){
 
 
     function getgestionExtrajudicialtotal_SAP_Final($fechaInicial = NULL, $fechaFinal = NULL, $id){
-        $this->db->select('TOP 1 G742_ConsInte__b as id, 
-                            G717_C17240 as nombres,
-                            G717_C17005 as identificacion,
+        $this->db->select('TOP 1 Id as id, 
+                            NombreDeudor as nombres,
+                            NroIdentificacion as identificacion,
                             tipo_identificacion as tipo_identificacion,
-                            G719_C17039 as SAP,  
-                            G719_C17034 as Vlorpagado,
-                            G742_C17242 as fechaIngreso ,
-                            G742_C17243 as Niidea,
-                            G719_C17026 as contrato,
+                            NroProcesoJudicialSAP as SAP,  
+                            ValorPagado as Vlorpagado,
+                            FechaEjecucion as fechaIngreso ,
+                            HoraEjecucion as Niidea,
+                            NoContrato as contrato,
                             G719_C17423 as liquidacion,
-                            G742_C17245 as users,
-                            G742_C17246 as observaciones,
-                            G742_C17249 as mediocomunicacion,
-                            G742_C17250 as resultadocomunicacion,
-                            G742_C17251 as gestion,
-                            G719_C17030 as financiero,
-                            G742_C17252 as subgestion,
-                            G723_C17099 as abogado,
+                            Ejecutor as users,
+                            Observaciones as observaciones,
+                            MedioComunicacion as mediocomunicacion,
+                            ResultadoComunicacion as resultadocomunicacion,
+                            Gestion as gestion,
+                            IntermediarioFinanciero as financiero,
+                            SubGesstion as subgestion,
+                            Nombre as abogado,
                             G719_C17051 as fechaabogado,
                             G719_C17054 as poliza,
                             G719_C17056 as fecha_aprovacion,
                             G719_C17055 as fecha_vencimiento
-                            G742_C17244');
+                            NumeroContrato');
        
 
-        $this->db->join('G717', 'G717_ConsInte__b = G742_C17425');
-        $this->db->join('G719', 'G719_ConsInte__b = G742_C17244');
-        $this->db->join('G723', 'G723_ConsInte__b =  G719_C17153', 'LEFT');
+        $this->db->join('InformacionCliente', 'Id = IdCliente');
+        $this->db->join('InformacionCredito', 'Id = NumeroContrato');
+        $this->db->join('Abogados', 'Id =  Abogado', 'LEFT');
         if($fechaInicial != NULL && $fechaFinal != NULL){
-            $this->db->where("G742_C17242 BETWEEN '".$fechaInicial."' AND '".$fechaFinal."'");
+            $this->db->where("FechaEjecucion BETWEEN '".$fechaInicial."' AND '".$fechaFinal."'");
         }
 
         if($fechaInicial != NULL && $fechaFinal == NULL){
-            $this->db->where('G742_C17242',  $fechaInicial);   
+            $this->db->where('FechaEjecucion',  $fechaInicial);   
         }
-        $this->db->where('G742_C17244',  $id);   
-        $this->db->order_by('G742_C17242','DESC');
+        $this->db->where('NumeroContrato',  $id);   
+        $this->db->order_by('FechaEjecucion','DESC');
 
-        $query = $this->db->get('G742');
+        $query = $this->db->get('GestionExtrajudicial');
         
         if( $query->num_rows() > 0){
             return $query->result();
@@ -1134,28 +1137,28 @@ function getGestionExtrajudicialTotalEliminar($numeroLiquidacion){
 
     function getgestioJudicialTotal_SAP_Final($fechaInicial = NULL, $fechaFinal = NULL, $idContrato){
 
-        $this->db->select('TOP 1 G735_ConsInte__b as id, 
-                            G735_C17137 as actuacion ,
-                            G735_C17139 as txtFechaTramite,
+        $this->db->select('TOP 1 Id as id, 
+                            Actuacion as actuacion ,
+                            NumeroContrato as txtFechaTramite,
                             G735_C17140 as users,
                             G735_C17143 as TipoProceso,
                             G735_C17219 as txtObservaciones,
                             G735_C17141 as txtFechaIngreso,
                             G735_C17142 as Etapa,
                             G735_C17143 as claseProceso,
-                            G723_C17099 as abogado,
+                            Nombre as abogado,
                             G719_C17051 as fechaabogado,
                             G719_C17054 as poliza,
                             G719_C17056 as fecha_aprovacion,
                             G719_C17055 as fecha_vencimiento,
-                            G719_C17039 as SAP,
+                            NroProcesoJudicialSAP as SAP,
                             G719_C17423 as liquidacion,
                             G719_C17212 AS Fecha_radicacion_memorial,
                             G719_C17213 As Fecha_pronunciamiento,
                             G719_C17214 AS Decision' );
 
-        $this->db->join('G719', 'G719_ConsInte__b = G735_C17138');
-        $this->db->join('G723', 'G723_ConsInte__b =  G719_C17153', 'LEFT');
+        $this->db->join('InformacionCredito', 'Id = G735_C17138');
+        $this->db->join('Abogados', 'Id =  Abogado', 'LEFT');
 
 
         if($fechaInicial != NULL && $fechaFinal != NULL){
@@ -1213,49 +1216,49 @@ function getGestionExtrajudicialTotalEliminar($numeroLiquidacion){
 
 
     function getgestionJudicialEliminar($liquidacion){
-        $this->db->select(' G735_ConsInte__b as id, 
-                            G735_C17137 as actuacion ,
-                            G719_C17026 as contrato,
+        $this->db->select(' Id as id, 
+                            Actuacion as actuacion ,
+                            NoContrato as contrato,
                             G719_C17423 as liquidacion,
-                            G735_C17139 as txtFechaTramite,
+                            NumeroContrato as txtFechaTramite,
                             G735_C17140 as users,
                             G735_C17143 as TipoProceso,
                             G735_C17219 as txtObservaciones,
                             G735_C17141 as txtFechaIngreso,
                             G735_C17142 as Etapa,
-                            G717_C17240 as nombres,
-                            G717_C17005 as identificacion,
+                            NombreDeudor as nombres,
+                            NroIdentificacion as identificacion,
                             tipo_identificacion as tipo_identificacion,
-                            G719_C17039 as SAP,  
+                            NroProcesoJudicialSAP as SAP,  
                             G719_C17424 as Vlorpagado,
-                            G719_C17030 as financiero,
+                            IntermediarioFinanciero as financiero,
                             G735_C17143 as claseProceso' );
 
-        $this->db->join('G719', 'G719_ConsInte__b = G735_C17138');
-        $this->db->join('G737', 'G719_ConsInte__b = G737_C17182');
-        $this->db->join('G717','G717_ConsInte__b = G737_C17181');
+        $this->db->join('InformacionCredito', 'Id = G735_C17138');
+        $this->db->join('ClienteObligacion', 'Id = NumeroContratoId');
+        $this->db->join('InformacionCliente','Id = InformacionClientesId');
 
 
         if ($this->session->userdata('tpo_usuario') == 'ABOGADO') {
           if( $this->session->userdata('codigo_abogado') != NULL){
-              $this->db->where('G719.G719_C17153', $this->session->userdata('codigo_abogado'));
+              $this->db->where('InformacionCredito.Abogado', $this->session->userdata('codigo_abogado'));
           }else{
-              $this->db->where('G719.G719_C17153 IS NOT NULL');
-              $this->db->where('G719.G719_C17153', $this->session->userdata('codigo_abogado'));
+              $this->db->where('InformacionCredito.Abogado IS NOT NULL');
+              $this->db->where('InformacionCredito.Abogado', $this->session->userdata('codigo_abogado'));
           }
         }elseif ($this->session->userdata('tpo_usuario') == 'GESTOR') {
             if($this->session->userdata('identificacion') != NULL){
-                $this->db->where('G719.G719_C17347', $this->session->userdata('identificacion'));
+                $this->db->where('InformacionCredito.G719_C17347', $this->session->userdata('identificacion'));
             }else{
-                $this->db->where('G719.G719_C17347 IS NOT NULL');
-                $this->db->where('G719.G719_C17347', $this->session->userdata('identificacion'));
+                $this->db->where('InformacionCredito.G719_C17347 IS NOT NULL');
+                $this->db->where('InformacionCredito.G719_C17347', $this->session->userdata('identificacion'));
             }
         }elseif ($this->session->userdata('tpo_usuario') == 'FRG') {
             if($this->session->userdata('frg') != NULL){
-                 $this->db->where('G719.G719_C17029', $this->session->userdata('frg'));
+                 $this->db->where('InformacionCredito.FRG', $this->session->userdata('frg'));
             }else{
-                $this->db->where('G719.G719_C17029 IS NOT NULL');
-                $this->db->where('G719.G719_C17029', $this->session->userdata('frg'));
+                $this->db->where('InformacionCredito.FRG IS NOT NULL');
+                $this->db->where('InformacionCredito.FRG', $this->session->userdata('frg'));
             }
         }
 
@@ -1264,7 +1267,7 @@ function getGestionExtrajudicialTotalEliminar($numeroLiquidacion){
         }
 
        
-        $this->db->where('G737.G737_C17183', 1786);
+        $this->db->where('ClienteObligacion.Rol', 1786);
         $this->db->order_by('G735_C17141','DESC');
 
         $query = $this->db->get('G735');
@@ -1275,74 +1278,74 @@ function getGestionExtrajudicialTotalEliminar($numeroLiquidacion){
        
         $this->db->select(' G743_C17256 AS Telefono,
                             G743_C17257 AS Direccion,
-                            G718_C17015 AS Ciudad,
+                            Ciudad AS Ciudad,
                             G743_C17363 AS Correo_electronico,
                             G743_C17260 AS Descripcion,
                             G743_C17361 AS Fecha,
                             G743_ConsInte__b as id,
-                            a.LISOPC_Nombre____b As Calificacion_correo,
-                            b.LISOPC_Nombre____b As Calificacion_telefono,
-                            c.LISOPC_Nombre____b As Calificacion_direccion,
-                            d.LISOPC_Nombre____b As Calificacion_ciudad,
-                            e.LISOPC_Nombre____b As Calificacion_descripcion,
+                            a.Nombre_b As Calificacion_correo,
+                            b.Nombre_b As Calificacion_telefono,
+                            c.Nombre_b As Calificacion_direccion,
+                            d.Nombre_b As Calificacion_ciudad,
+                            e.Nombre_b As Calificacion_descripcion,
                             G719_C17423 as obligacion,
-                            G717_C17240 as deudor,
+                            NombreDeudor as deudor,
                             G743_C17269 as rol');
-        $this->db->join('G719', 'G719_ConsInte__b = G743_C17267 ', 'LEFT');
-        $this->db->join('HistoricoProcesoAsociado', 'IdCredito = G719_ConsInte__b ', 'LEFT');
-        $this->db->join('G718', 'G718_ConsInte__b = G743_C17258', 'LEFT');
-        $this->db->join('LISOPC a', 'a.LISOPC_ConsInte__b = G743_C17262 ', 'LEFT');
-        $this->db->join('LISOPC b', 'b.LISOPC_ConsInte__b = G743_C17263 ', 'LEFT');
-        $this->db->join('LISOPC c', 'c.LISOPC_ConsInte__b = G743_C17264 ', 'LEFT');
-        $this->db->join('LISOPC d', 'd.LISOPC_ConsInte__b = G743_C17265 ', 'LEFT');
-        $this->db->join('LISOPC e', 'e.LISOPC_ConsInte__b = G743_C17266 ', 'LEFT');
-        $this->db->join('G717', 'G717_ConsInte__b = G743_C17268 ', 'LEFT');
+        $this->db->join('InformacionCredito', 'Id = G743_C17267 ', 'LEFT');
+        $this->db->join('HistoricoProcesoAsociado', 'IdCredito = Id ', 'LEFT');
+        $this->db->join('Ciudad', 'Id = G743_C17258', 'LEFT');
+        $this->db->join('ParametroGeneral a', 'a.Id = G743_C17262 ', 'LEFT');
+        $this->db->join('ParametroGeneral b', 'b.Id = G743_C17263 ', 'LEFT');
+        $this->db->join('ParametroGeneral c', 'c.Id = G743_C17264 ', 'LEFT');
+        $this->db->join('ParametroGeneral d', 'd.Id = G743_C17265 ', 'LEFT');
+        $this->db->join('ParametroGeneral e', 'e.Id = G743_C17266 ', 'LEFT');
+        $this->db->join('InformacionCliente', 'Id = G743_C17268 ', 'LEFT');
         $this->db->where('liquidacion', $liquidacion); 
         $query = $this->db->get('G743');
         return $query->result();
     }
      function getgestionExtrajudicialProcesoAsociado($contrato){
-        $this->db->select(' G742_ConsInte__b as id, 
-                            G717_C17240 as nombres,
-                            G742_C17242 as fechaIngreso ,
-                            G742_C17243 as Niidea,
-                            G742_C17244 as contrato,
-                            G742_C17245 as users,
+        $this->db->select(' Id as id, 
+                            NombreDeudor as nombres,
+                            FechaEjecucion as fechaIngreso ,
+                            HoraEjecucion as Niidea,
+                            NumeroContrato as contrato,
+                            Ejecutor as users,
                             G742_C17426 as tarea,
-                            G742_C17246 as observaciones,
-                            a.LISOPC_Nombre____b as mediocomunicacion,
-                            b.LISOPC_Nombre____b as resultadocomunicacion,
-                            c.LISOPC_Nombre____b as gestion,
+                            Observaciones as observaciones,
+                            a.Nombre_b as mediocomunicacion,
+                            b.Nombre_b as resultadocomunicacion,
+                            c.Nombre_b as gestion,
                             G732_C17131 as subgestion');
-        $this->db->join('HistoricoProcesoAsociado', ' G742_C17244 = IdCredito', 'left');
-        $this->db->join('G719', 'G719_ConsInte__b = IdCredito', 'left');
-        $this->db->join('LISOPC a', 'a.LISOPC_ConsInte__b = G742_C17249', 'left');
-        $this->db->join('LISOPC b', 'b.LISOPC_ConsInte__b = G742_C17250', 'left');
-        $this->db->join('LISOPC c', 'c.LISOPC_ConsInte__b = G742_C17251', 'left');
-        $this->db->join('G732', 'G732_ConsInte__b = G742_C17252', 'left');
-        $this->db->join('G717', 'G717_ConsInte__b = G742_C17425', 'left');
-        $this->db->where('ProcJudicial != G719_C17039 and G742_C17244', $contrato); 
-        $query = $this->db->get('G742');
+        $this->db->join('HistoricoProcesoAsociado', ' NumeroContrato = IdCredito', 'left');
+        $this->db->join('InformacionCredito', 'Id = IdCredito', 'left');
+        $this->db->join('ParametroGeneral a', 'a.Id = MedioComunicacion', 'left');
+        $this->db->join('ParametroGeneral b', 'b.Id = ResultadoComunicacion', 'left');
+        $this->db->join('ParametroGeneral c', 'c.Id = Gestion', 'left');
+        $this->db->join('G732', 'G732_ConsInte__b = SubGesstion', 'left');
+        $this->db->join('InformacionCliente', 'Id = IdCliente', 'left');
+        $this->db->where('ProcJudicial != NroProcesoJudicialSAP and NumeroContrato', $contrato); 
+        $query = $this->db->get('GestionExtrajudicial');
         return $query->result();
     }
 
 
     function getgestioJudicialProcesoAsociado($contrato){
-        $this->db->select(' G735_ConsInte__b as id, 
+        $this->db->select(' Id as id, 
                             G724_C17105 as actuacion ,
                             G735_C17138 as contrato,
-                            G735_C17139 as txtFechaTramite,
+                            NumeroContrato as txtFechaTramite,
                             G735_C17140 as users,
-                            a.LISOPC_Nombre____b as TipoProceso,
+                            a.Nombre_b as TipoProceso,
                             G735_C17219 as txtObservaciones,
                             G735_C17141 as txtFechaIngreso,
                             G725_C17108 as Etapa' );
         $this->db->join('G725', 'G725_ConsInte__b = G735_C17142', 'LEFT');
         $this->db->join('HistoricoProcesoAsociado','IdCredito = G735_C17138','LEFT');
-        $this->db->join('G719', 'G719_ConsInte__b = IdCredito', 'left');
-        $this->db->join('LISOPC a', 'a.LISOPC_ConsInte__b = G735_C17143');
-        $this->db->join('G724', 'G724_ConsInte__b = G735_C17137');
-        $this->db->where('ProcJudicial != G719_C17039');
+        $this->db->join('InformacionCredito', 'Id = IdCredito', 'left');
+        $this->db->join('ParametroGeneral a', 'a.Id = G735_C17143');
+        $this->db->join('G724', 'G724_ConsInte__b = Actuacion');
+        $this->db->where('ProcJudicial != NroProcesoJudicialSAP');
         $this->db->where('IdCredito', $contrato); 
         $query = $this->db->get('G735');
         return $query->result();
@@ -1363,9 +1366,9 @@ function getGestionExtrajudicialTotalEliminar($numeroLiquidacion){
                             G731_C17128 as Medida,
                             resultadoMedida' );
         $this->db->join('HistoricoProcesoAsociado', 'IdCredito = G736_C17151');
-        $this->db->join('G719', 'G719_ConsInte__b = IdCredito', 'left');
+        $this->db->join('InformacionCredito', 'Id = IdCredito', 'left');
         $this->db->join('G731', 'G731_ConsInte__b = G736_C17150');
-        $this->db->where('ProcJudicial != G719_C17039');
+        $this->db->where('ProcJudicial != NroProcesoJudicialSAP');
         $this->db->where('IdCredito', $contrato); 
         $query = $this->db->get('G736');
         return $query->result();
@@ -1373,20 +1376,20 @@ function getGestionExtrajudicialTotalEliminar($numeroLiquidacion){
 
 
     function getCodeudoresProcesoAsociado($contrato){
-        $this->db->select(' TOP 1 G717_ConsInte__b as id,
-                            G717_C17005 as Identificacion, 
+        $this->db->select(' TOP 1 Id as id,
+                            NroIdentificacion as Identificacion, 
                             tipo_identificacion as tipo_identificacion,
-                            G717_C17240 as nombre, 
-                            G717_C17154 as Numero_obligaciones');
+                            NombreDeudor as nombre, 
+                            NroObligacionesDeudor as Numero_obligaciones');
 
-        $this->db->join('G719', 'G737_C17182 = G719_ConsInte__b','LEFT');
-        $this->db->join('HistoricoProcesoAsociado', 'IdCredito = G719_ConsInte__b ');
-        $this->db->join('LISOPC', 'LISOPC_ConsInte__b = G737_C17183 ');
-        $this->db->join('G717', 'G717_ConsInte__b = G737_C17181');
-        $this->db->where('ProcJudicial != G719_C17039');
+        $this->db->join('InformacionCredito', 'NumeroContratoId = Id','LEFT');
+        $this->db->join('HistoricoProcesoAsociado', 'IdCredito = Id ');
+        $this->db->join('ParametroGeneral', 'Id = Rol ');
+        $this->db->join('InformacionCliente', 'Id = InformacionClientesId');
+        $this->db->where('ProcJudicial != NroProcesoJudicialSAP');
         $this->db->where('IdCredito', $contrato); 
-        $this->db->where('LISOPC_ConsInte__b != 1786'); 
-        $query = $this->db->get('G737');
+        $this->db->where('Id != 1786'); 
+        $query = $this->db->get('ClienteObligacion');
         if($query->num_rows() > 0){
            return $query->result();
        }else{
@@ -1397,21 +1400,21 @@ function getGestionExtrajudicialTotalEliminar($numeroLiquidacion){
     
 
     function gerAcuerdoPagoProcesoAsociado($contrato){
-        $this->db->select(' G726_C17237 as CONTRATO, 
-                            G726_C17110 as FECHA_CONSIGNACION_ANTICIPO, 
-                            G726_C17111 as FECHA_DE_LEGALIZACION,
-                            G726_C17112 as VALOR_DEL_ACUERDO,
-                            G726_C17113 as PLAZO_ACUERDO_DE_PAGO,
-                            G726_C17223 as VALOR_CUOTA_DEL_ACUERDO,
-                            G726_C17224 as FECHA_DE_PAGO_DE_LA_PRIMERA_CUOTA,
-                            G726_C17109 as FECHA_LIQUIDACION,
-                            G726_C17225 as FECHA_ULTIMACUOTA,
-                            G726_C17419 as TASAINTERES,
-                            G726_ConsInte__b as id');
-        $this->db->join('G719', 'G726_C17237 = G719_ConsInte__b','LEFT');
-        $this->db->join('HistoricoProcesoAsociado', 'IdCredito = G719_ConsInte__b','LEFT');
+        $this->db->select(' FechaPagoUltimaCuota as CONTRATO, 
+                            FechaLiquidacion as FECHA_CONSIGNACION_ANTICIPO, 
+                            FechaConsignacionAnticipo as FECHA_DE_LEGALIZACION,
+                            FechaLegalizacion as VALOR_DEL_ACUERDO,
+                            ValorRecaudo as PLAZO_ACUERDO_DE_PAGO,
+                            PlazoAcuerdoPago as VALOR_CUOTA_DEL_ACUERDO,
+                            ValorCuotaAcuerdo as FECHA_DE_PAGO_DE_LA_PRIMERA_CUOTA,
+                            NumeroContrato as FECHA_LIQUIDACION,
+                            FechaPagoPrimeraCuota as FECHA_ULTIMACUOTA,
+                            TasaInteresCorrienteAcuerdoPago as TASAINTERES,
+                            Id as id');
+        $this->db->join('InformacionCredito', 'FechaPagoUltimaCuota = Id','LEFT');
+        $this->db->join('HistoricoProcesoAsociado', 'IdCredito = Id','LEFT');
         $this->db->where('IdCredito', $contrato); 
-        $query = $this->db->get('G726');
+        $query = $this->db->get('AcuerdosPago');
         return $query->result();
     }
 
@@ -1435,8 +1438,8 @@ function getGestionExtrajudicialTotalEliminar($numeroLiquidacion){
                             IdCredito as contrato,
                             G719_C17425 as vPagado');
 
-        $this->db->join('G719','G734_C17241 = G719_ConsInte__b');
-        $this->db->join('HistoricoProcesoAsociado','IdCredito = G719_ConsInte__b');
+        $this->db->join('InformacionCredito','G734_C17241 = Id');
+        $this->db->join('HistoricoProcesoAsociado','IdCredito = Id');
         $this->db->where('IdCredito', $contrato); 
         $query = $this->db->get('G734');
         return $query->result();
@@ -1450,78 +1453,78 @@ function getGestionExtrajudicialTotalEliminar($numeroLiquidacion){
      }  
 
      function getFacturasProcesoAsociado($contrato){
-        $this->db->select(' G744_C17262 as FECHA_DE_FACTURA_AUTO_DE_SUBROGACION, 
-                            G744_C17263 as N_DE_FACTURA_AUTO_DE_SUBROGACION, 
-                            G744_C17264 as FECHA_AUTO_DE_SUBROGACION,
+        $this->db->select(' FechaFacturacionAutoSubRogacion as FECHA_DE_FACTURA_AUTO_DE_SUBROGACION, 
+                            NroFacturaAutoSubRogacion as N_DE_FACTURA_AUTO_DE_SUBROGACION, 
+                            FechaAutoSubRogacion as FECHA_AUTO_DE_SUBROGACION,
                             
-                            G744_C17265 as N_DE_FACTURA_SENTENCIA_IRRECUPERABLE,
-                            G744_C17266 as FECHA_SENTENCIA_IRRECUPERABLE,
-                            G744_C17267 as FECHA_DE_FACTURA_SENTENCIA_IRRECUPERABLE,
-                            G744_C17270 as N_DE_FACTURAS_SOPORTES_CISA,
-                            G744_C17285 as FECHA_LIQUIDACION_CREDITO,
-                            G744_C17286 as FECHA_AUTO_IRRECUPERABLE,
-                            G744_C17275 as SOPORTE,
-                            G744_C17276 as VALOR_FACTURADO_AUTO_DE_SUBROGACION, 
-                            G744_C17268 as FECHA_FACTURA_SOPORTES_CISA, 
-                            G744_C17277 as VALOR_FACTURADO_SENTENCIA_IRRECUPERABLE,
-                            G744_C17278 as VALOR_FACTURADO_SOPORTES_CISA,
-                            G744_C17279 as RENUNCIA_Y_PAZ_Y_SALVO_O_CESION,
-                            G744_C17280 as N_CONTRATO,
-                            G744_C17269 as HONORARIOS_VENTA_CISA,
-                            G744_C17423 as N_Factura_honorarios_venta_CISA,
-                            G744_C17424 as Fecha_de_factura_honorarios_venta_CISA,
-                            G744_ConsInte__b,
-                            Fecha_recepcion_soporte,
-                            Fecha_aprobacion_soporte ');
+                            NroFacturaSentenciaIrrecuperable as N_DE_FACTURA_SENTENCIA_IRRECUPERABLE,
+                            FechaSentenciaIrrecuperable as FECHA_SENTENCIA_IRRECUPERABLE,
+                            FechaFacturaSentenciaIrrecuperable as FECHA_DE_FACTURA_SENTENCIA_IRRECUPERABLE,
+                            NroFacturaSoporteCISA as N_DE_FACTURAS_SOPORTES_CISA,
+                            FechaLiquidacionCredito as FECHA_LIQUIDACION_CREDITO,
+                            FechaAutoIrrecuperable as FECHA_AUTO_IRRECUPERABLE,
+                            Soporte as SOPORTE,
+                            FechaFacturaSoporteCISA as VALOR_FACTURADO_AUTO_DE_SUBROGACION, 
+                            FechaFacturaSoporteCISA_ as FECHA_FACTURA_SOPORTES_CISA, 
+                            ValorFacturadoSentenciaIrrecuperable as VALOR_FACTURADO_SENTENCIA_IRRECUPERABLE,
+                            ValorFacturadoSoporteCISA as VALOR_FACTURADO_SOPORTES_CISA,
+                            FechaFacturaHonorarioCISA1 as RENUNCIA_Y_PAZ_Y_SALVO_O_CESION,
+                            NumeroContratoId as N_CONTRATO,
+                            FechaFacturaHonorarioCISA2 as HONORARIOS_VENTA_CISA,
+                            FechaFacturaHonorarioCISA3 as N_Factura_honorarios_venta_CISA,
+                            FechaFacturaHonorarioCISA4 as Fecha_de_factura_honorarios_venta_CISA,
+                            Id,
+                            FechaRecepcionSoporte,
+                            FechaAprobacionSoporte ');
 
-        $this->db->join('HistoricoProcesoAsociado','IdCredito = G744_C17280');
-        $this->db->join('G719','IdCredito = G719_ConsInte__b');    
-        $this->db->where('ProcJudicial != G719_C17039');                
+        $this->db->join('HistoricoProcesoAsociado','IdCredito = NumeroContratoId');
+        $this->db->join('InformacionCredito','IdCredito = Id');    
+        $this->db->where('ProcJudicial != NroProcesoJudicialSAP');                
         $this->db->where('IdCredito', $contrato); 
-        $query = $this->db->get('G744');
+        $query = $this->db->get('Factura');
         return $query->result();
     }
 
 
     function getinformacionJudicialProcesoAsociado($contrato){
-        $this->db->select('G719_C17043 AS Radicado_o_expediente, 
-                           G719_C17044 AS Fech_demanda, 
-                           G719_C17045 AS Fecha_admision_demanda,
-                           G719_C17046 AS Fecha_mandamiento_de_pago,
+        $this->db->select('RadicadoExpediente AS Radicado_o_expediente, 
+                           FechaDemanda AS Fech_demanda, 
+                           FechaAdmisionDemanda AS Fecha_admision_demanda,
+                           FechaMandamientoPago AS Fecha_mandamiento_de_pago,
                            G719_C17222 As Total_gastos_judiciales,
                            G719_C17426 As abogado_if,
-                           G719_ConsInte__b as id,
+                           Id as id,
                            G719_C17427 as fechaenvioterminacion');
 
-        $this->db->join('HistoricoProcesoAsociado','IdCredito = G719_ConsInte__b'); 
-        $this->db->where('ProcJudicial != G719_C17039');
+        $this->db->join('HistoricoProcesoAsociado','IdCredito = Id'); 
+        $this->db->where('ProcJudicial != NroProcesoJudicialSAP');
         $this->db->where('IdCredito', $contrato); 
-        $query = $this->db->get('G719');
+        $query = $this->db->get('InformacionCredito');
         return $query->result();
     
     }
 
     function getInformacionAbogadoProcesoAsociado($contrato){
         
-        $this->db->select(' G723_C17099 as Abogado,
-                            G723_C17100 as celular,
-                            G723_C17101 as correo,
+        $this->db->select(' Nombre as Abogado,
+                            Celular as celular,
+                            CorreoElectronico as correo,
                             direccion,
                             telefono,
                             G719_C17051 as Fecha_asignacion_abogado,
                             G719_C17054 as No_Poliza,
                             G719_C17056 as Fecha_de_aprobacion_de_Poliza,
                             G719_C17055 as Fecha_de_vencimiento,
-                            G729_C17121 as frg,
+                            FRG as frg,
                             G728_C17116 as firma,
                             G719_C17220 as promotor');
-        $this->db->join('G723', 'G723_ConsInte__b = G719_C17153', 'LEFT');
-        $this->db->join('HistoricoProcesoAsociado','idCredito = G719_ConsInte__b'); 
-        $this->db->join('G728', 'G728_ConsInte__b = Firma_abogados', 'LEFT');
-        $this->db->join('G729', 'G729_ConsInte__b = Frg_ConsInte__b', 'LEFT');
-        $this->db->where('ProcJudicial != G719_C17039');
+        $this->db->join('Abogados', 'Id = Abogado', 'LEFT');
+        $this->db->join('HistoricoProcesoAsociado','idCredito = Id'); 
+        $this->db->join('G728', 'G728_ConsInte__b = FirmaAbogado', 'LEFT');
+        $this->db->join('FRG', 'Id = Frg_ConsInte__b', 'LEFT');
+        $this->db->where('ProcJudicial != NroProcesoJudicialSAP');
         $this->db->where('idCredito', $contrato); 
-        $query = $this->db->get('G719');
+        $query = $this->db->get('InformacionCredito');
         return $query->result();
     }
 
@@ -1531,18 +1534,18 @@ function getGestionExtrajudicialTotalEliminar($numeroLiquidacion){
         $this->db->select(' G719_C17071 AS Fecha_de_expedicion_del_paz_y_salvo,
                             G719_C17070 AS Paz_y_salvo,
                             G719_C17073 AS Fecha_venta');
-        $this->db->join('HistoricoProcesoAsociado','idCredito = G719_ConsInte__b'); 
-        $this->db->where('ProcJudicial != G719_C17039');
+        $this->db->join('HistoricoProcesoAsociado','idCredito = Id'); 
+        $this->db->where('ProcJudicial != NroProcesoJudicialSAP');
         $this->db->where('idCredito', $contrato); 
-        $query = $this->db->get('G719');
+        $query = $this->db->get('InformacionCredito');
         return $query->result();
     }
 
 
     function getSubrogacionProcesoAsociado($contrato){
         
-        $this->db->select(' G719_C17048 AS Fecha_envio_memorial_de_subrogacion_al_FRG,
-                            G719_C17049 AS Fecha_devolucion_FRG_memorial_de_subrogacion_por_errores,
+        $this->db->select(' FechaEnvioMemorialSubrogacionFRG AS Fecha_envio_memorial_de_subrogacion_al_FRG,
+                            FechaDevolucionFRGMemorialSubrogacionxErrores AS Fecha_devolucion_FRG_memorial_de_subrogacion_por_errores,
                             G719_C17050 AS Fecha_envio_memorial_de_subrogacion_corregido,
                             G719_C17212 AS Fecha_radicacion_memorial,
                             G719_C17213 As Fecha_pronunciamiento,
@@ -1550,14 +1553,14 @@ function getGestionExtrajudicialTotalEliminar($numeroLiquidacion){
                             G719_C17218 AS Fecha_impugnacion_decision_final,
                             b.G724_C17105 As Nombre_clase_de_impugnacion,
                             c.G724_C17105 As decicion_Final,
-                            Fecha_decision_final');
-        $this->db->join('HistoricoProcesoAsociado','idCredito = G719_ConsInte__b'); 
+                            FechaDecisionFinal');
+        $this->db->join('HistoricoProcesoAsociado','idCredito = Id'); 
         $this->db->join('G724 a', 'G719_C17214 = a.G724_ConsInte__b', 'LEFT');
         $this->db->join('G724 b', 'G719_C17215 = b.G724_ConsInte__b', 'LEFT');
         $this->db->join('G724 c', 'G719_C17216 = c.G724_ConsInte__b', 'LEFT');
-        $this->db->where('ProcJudicial != G719_C17039');
-        $this->db->where('G719_ConsInte__b', $contrato); 
-        $query = $this->db->get('G719');
+        $this->db->where('ProcJudicial != NroProcesoJudicialSAP');
+        $this->db->where('Id', $contrato); 
+        $query = $this->db->get('InformacionCredito');
         return $query->result();
     }
                            

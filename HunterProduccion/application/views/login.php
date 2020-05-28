@@ -40,7 +40,7 @@ class Login extends CI_Controller {
                                             'identificacion'            => $fila->USUARI_ConsInte__b,
                                             'fecha'                     => $fila->USUARI_FechCrea__b,
                                             'tpo_usuario'               => $fila->USUARI_Cargo_____b,
-                                            'codigo_abogado'            => $fila->G723_ConsInte__b,
+                                            'codigo_abogado'            => $fila->Id,
                                             'frg'                       => $fila->USUARI_LlaveExte_b,
                                             'login_ok'                  => TRUE,
                                             'USUARI_asignacion_abogados_p'          => $fila->USUARI_asignacion_abogados_p

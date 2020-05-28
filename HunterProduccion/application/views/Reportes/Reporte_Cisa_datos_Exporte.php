@@ -11,7 +11,7 @@
 
     foreach ($getionBase as $key) {
         $totalBaseMedicion++;
-        $soporte = $ci->Reportes_model->tieneFechaPagoReporte($key->G719_ConsInte__b, $fechaInicial, $fechaFinal);
+        $soporte = $ci->Reportes_model->tieneFechaPagoReporte($key->Id, $fechaInicial, $fechaFinal);
         if($soporte >= 1){
             $cumplimiento++;
         }else{
@@ -24,7 +24,7 @@
 
 ?>
 
-
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
 <table class="table table-hover table-bordered" id="tablacontratos">
     <thead>
@@ -45,7 +45,7 @@
         <?php
             foreach($contratos as $key){
 
-                    $soporte = $this->Reportes_Model->tieneFechaPagoReporte($key->G719_ConsInte__b, $fechaInicial, $fechaFinal);
+                    $soporte = $this->Reportes_Model->tieneFechaPagoReporte($key->Id, $fechaInicial, $fechaFinal);
                     $si = 'NO';
                     if($soporte >= 1){
                        $si = 'SI';

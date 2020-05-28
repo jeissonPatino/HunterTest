@@ -1,6 +1,6 @@
 <section class="content-header">
     <h1>
-     Histórico gestión judicial
+     HISTÓRICO GESTIÓN JUDICIAL
     </h1>
     <ol class="breadcrumb">
     	<li><a href="<?php echo base_url();?>home">Inicio</a></li>
@@ -51,11 +51,12 @@
 										</div>
 									</div>
 								</div>
+								
 								<div class="col-md-3">
 									<div class="form-group">
 										<label>&nbsp;</label>
 										<div class="input-group">
-											<a id="btnExportarExcel" class="btn btn-success" href="#">Exportar a excel</a>
+											<a id="btnExportarExcel" class="btn btn-success" href="#">Excel</a>
 										</div>
 									</div>
 								</div>
@@ -159,30 +160,30 @@
 				        { mData: "frg" } ,
 				        { mData: "users"} 	
 		            ],
-		         
-		            "bJQueryUI": true,
-		            "bProcessing": true,
-		            "bSort": true,
-		            "aaSorting":[[4,"desc"]],
-		            "bSortClasses": false,
-		            "bDeferRender": true,
-		            "sPaginationType": "simple",
-			        "oLanguage": {
-		                "sLengthMenu": "_MENU_ reg.",
-		                "sZeroRecords": "No hay registros",
+		         	
+					"bJQueryUI": true,
+					"bProcessing": true,
+					"bSort": true,
+					"bSortClasses": false,
+					"bDeferRender": true,
+					"sPaginationType": "simple",
+		            "iDisplayLength": 20,
+		            "aaSorting":[[0,"asc"]],
+				    
+		            "aLengthMenu": [[20, 40, 60, 100], [20, 40, 60, 100]],
+					"oLanguage": {
+		                "sLengthMenu": "_MENU_ registros por página",
+		                "sZeroRecords": "0 resultados en el criterio de busqueda",
 		                "sInfo": "Mostrando de _START_ a _END_ de _TOTAL_ registros",
-		                "sInfoEmpty": "0 a 0 de 0 registros",
+		                "sInfoEmpty": "Mostrando de 0 a 0 de 0 registros",
 		                "sInfoFiltered": "(Filtrado de _MAX_ total registros)",
-		                "sSearch": "",
+		                "sSearch": "Buscar:",
 		                "oPaginate": {
 					        "sNext": ">>",
 					        "sPrevious": "<<"
-				      	}
-		                
+				      	} 
 		            },
-		            "iDisplayLength": 10,
-		            "aLengthMenu": [[10, 20, 30, 40], [10, 20, 30, 40]],
-			        "fnRowCallback": function( nRow, aData, iDisplayIndex ) {
+		            "fnRowCallback": function( nRow, aData, iDisplayIndex ) {
 		          		var id = aData.id;
 			            $(nRow).attr("dato",id);
 		             	$(nRow).attr("class",'trobligacion');
@@ -196,9 +197,7 @@
 		               		var garantia = $(this).attr('dato');
 		               		getdatos(garantia);
 		               });
-		            },
-		            "dom": 'Bfrtip',
-			        "buttons": []
+		            }
 			    });
 			});
 		}
@@ -306,8 +305,8 @@
 		      	}
                 
             },
-            "iDisplayLength": 10,
-            "aLengthMenu": [[10, 20, 30, 40], [10, 20, 30, 40]],
+            "iDisplayLength": 20,
+           "aLengthMenu": [[20, 40, 60, 100], [20, 40, 60, 100]],
 	        "fnRowCallback": function( nRow, aData, iDisplayIndex ) {
           		var id = aData.id;
 	            $(nRow).attr("dato",id);
@@ -322,9 +321,7 @@
                		var garantia = $(this).attr('dato');
                		getdatos(garantia);
                });
-            },
-            "dom": 'Bfrtip',
-	        "buttons": []
+            }
 	    });
 
 	});

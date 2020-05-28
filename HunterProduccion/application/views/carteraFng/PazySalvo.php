@@ -1,6 +1,6 @@
 <section class="content-header">
     <h1>
-        Cartera FNG - Mis procesos con Paz y Salvo
+       CARTERA FNG - MIS PROCESOS CON PAZ Y SALVO
     </h1>
     <ol class="breadcrumb">
     	<li><a href="<?php echo base_url();?>home">Inicio</a></li>
@@ -75,27 +75,37 @@
 				{ mData: "fecha" },
 				{ mData: "fechaTramite" }
 			],
-			"bJQueryUI": true,
-			"bProcessing": true,
-			"bSort": true,
-			"bSortClasses": false,
-			"bDeferRender": true,
-			"sPaginationType": "simple",
-		   "iDisplayLength": 20,
-		   "aaSorting":[[0,"asc"]],
-		   "aLengthMenu": [[20, 40, 60, 100], [20, 40, 60, 100]],
-			"oLanguage": {
-				"sLengthMenu": "_MENU_ registros por página",
-				"sZeroRecords": "0 resultados en el criterio de busqueda",
-				"sInfo": "Mostrando de _START_ a _END_ de _TOTAL_ registros",
-				"sInfoEmpty": "Mostrando de 0 a 0 de 0 registros",
-				"sInfoFiltered": "(Filtrado de _MAX_ total registros)",
-				"sSearch": "Buscar:",
-				"oPaginate": {
-					"sNext": ">>",
-					"sPrevious": "<<"
-				}
-			},
+			"dom": 'Blfrtip',
+	        "bJQueryUI": true,
+	        "bProcessing": true,
+	        "bSort": true,
+	        "bSortClasses": false,
+	        "bDeferRender": true,
+	        "sPaginationType": "simple",
+	            "iDisplayLength": 20,
+	            "aaSorting":[[0,"asc"]],
+	          "buttons": [{
+			                  extend: 'csv',
+			                  text: 'Excel',
+			                  fieldSeparator : ';',
+			                  charset: 'utf-8',
+			                  extension: '.csv',
+	              filename: 'Mis procesos con Paz y Salvo',
+	              bom: true
+	              }],
+	            "aLengthMenu": [[20, 40, 60, 100], [20, 40, 60, 100]],
+	        "oLanguage": {
+	                "sLengthMenu": "_MENU_ registros por página",
+	                "sZeroRecords": "0 resultados en el criterio de busqueda",
+	                "sInfo": "Mostrando de _START_ a _END_ de _TOTAL_ registros",
+	                "sInfoEmpty": "Mostrando de 0 a 0 de 0 registros",
+	                "sInfoFiltered": "(Filtrado de _MAX_ total registros)",
+	                "sSearch": "Buscar:",
+	                "oPaginate": {
+	                "sNext": ">>",
+	                "sPrevious": "<<"
+	              } 
+	            },
 			"processing": true,
 		   //	"ajax": "<?php echo base_url();?>Cartera_fng/getDatosProcesosVigentes",
 			"fnRowCallback": function( nRow, aData, iDisplayIndex ) {
@@ -111,9 +121,7 @@
 					var garantia = $(this).attr('dato').replace(' ', '');
 					window.location.href = "<?php echo base_url();?>cartera_fng/datosJudiciales/"+garantia+"/5";
 			   });
-			},
-			"dom": 'Bfrtip',
-			"buttons": ['excel']
+			}
 	    });
 
 

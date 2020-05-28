@@ -1,10 +1,10 @@
 <section class="content-header">
     <h1>
-        Asignación - Abogados
+        ASIGNACIÓN - ABOGADOS 
     </h1>
     <ol class="breadcrumb">
     	<li><a href="<?php echo base_url();?>home">Inicio</a></li>
-        <li class="active">Asignacion - Abogados</li>
+        <li class="active">Asignación - Abogados</li>
     </ol>
 </section>
 
@@ -46,7 +46,7 @@
               	<label for="inputEmail3" class="col-sm-2 control-label">Asignado por:</label>
               	<div class="col-sm-10">
                 	<select id="cmbFiltros" name="filtro" class="form-control">
-                      <option value="G719_C17039">No. Proceso SAP</option>
+                      <option value="NroProcesoJudicialSAP">No. Proceso SAP</option>
                   	</select>
               	</div>
             </div>
@@ -93,7 +93,7 @@
         	      <label for="inputEmail3" class="col-sm-2 control-label">Seleccionar Filtro</label>
               	<div class="col-sm-10">
               	    <select id="cmbFiltros2" name="cmbFiltros2" class="form-control">
-                        <option value="G719_C17039">No. Proceso SAP</option>
+                        <option value="NroProcesoJudicialSAP">No. Proceso SAP</option>
                   	</select>
               	</div>
             </div>
@@ -215,7 +215,7 @@
           }
 
           if($("#txtnumeroSap").val().length < 1){
-              alertify.error('Debe escribir el numero del proceso');
+              alertify.error('Debe escribir el número del proceso');
               validador = 1;
           }
 
@@ -237,7 +237,7 @@
                                 alertify.success("Registro guardado!");
                                 otherForm[0].reset();
                             }else if(data == 'NOP'){
-                                alertify.error("El numero SAP no es valido!");
+                                alertify.error("El número SAP no es valido!");
                                // otherForm[0].reset();
                             }
                         }

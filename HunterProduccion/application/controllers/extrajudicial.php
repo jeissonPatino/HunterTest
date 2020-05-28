@@ -60,14 +60,14 @@ class Extrajudicial extends CI_Controller {
                 $deudor = trim(utf8_encode($key->deudor));
                 $nombre = substr($deudor, 0, 3);
 
-				$datosDelarray[$i]['deudor'] = "<span style='display: none;'>".utf8_encode($nombre)."</span>".$deudor ;
+				$datosDelarray[$i]['deudor'] =utf8_encode($deudor) ;
 				$datosDelarray[$i]['identificacion'] = $key->identificacion ;
         $datosDelarray[$i]['tipo_identificacion'] = $key->tipo_identificacion ;
 				$datosDelarray[$i]['intemediario'] = utf8_encode($key->intemediario) ;
 				$datosDelarray[$i]['valor'] =  "$".number_format($key->valor, 0, '.',',');
 				$datosDelarray[$i]['fecha'] = $fachas[2]."/".$fachas[1]."/".$fachas[0];
                 $datosDelarray[$i]['liquidacion'] = $key->liquidacion;
-				$datosDelarray[$i]['G737_C17183'] = $key->G737_C17183 ;
+				$datosDelarray[$i]['Rol'] = $key->Rol ;
 				$i++;
 			}
 		$datos = array('clientes' => json_encode($datosDelarray),'procesos' => $total );
@@ -102,7 +102,7 @@ class Extrajudicial extends CI_Controller {
 				$datosDelarray[$i]['intemediario'] = utf8_encode($key->intemediario) ;
 				$datosDelarray[$i]['valor'] =  "$".number_format($key->valor, 0, '.',',');
 				$datosDelarray[$i]['fecha'] = "<span style='display: none;'>".$fachas[0]."/".$fachas[1]."/".$fachas[2]."</span>".$fachas[2]."/".$fachas[1]."/".$fachas[0];
-				$datosDelarray[$i]['G737_C17183'] = $key->G737_C17183 ;
+				$datosDelarray[$i]['Rol'] = $key->Rol ;
 
                 $datosDelarray[$i]['contrato'] = $key->liquidacion;
                                 
@@ -127,28 +127,28 @@ class Extrajudicial extends CI_Controller {
             $data = array();
             $i = 0;
             if($varaiable == 0){
-              $this->db->select('id_log_datos, a.G718_C17015 as ciudadDomicilio , b.G718_C17015 as ciudadOficina ,tefonoOficina ,telefonoDomicilio ,celular, celularAdicional ,mail  as correo ,direccionDomicilio ,direccionOficina ,iddeusuario , G717_C17240 as deudor, G717_C17005 as identificacion , tipo_identificacion as tipo_identificacion,  fecha_modificacion ,c.LISOPC_Nombre____b As cal_ciudadDomicilio                          ,d.LISOPC_Nombre____b As cal_ciudadOficina, e.LISOPC_Nombre____b As cal_tefonoOficina
-                ,f.LISOPC_Nombre____b As cal_telefonoDomicilio ,g.LISOPC_Nombre____b As cal_celular
-                ,h.LISOPC_Nombre____b As cal_celularAdicional ,i.LISOPC_Nombre____b As cal_mail
-                ,j.LISOPC_Nombre____b As cal_direccionDomicilio ,k.LISOPC_Nombre____b As cal_direccionOficina ,l.LISOPC_Nombre____b As cal_dir_Adicional ,m.LISOPC_Nombre____b As cal_tele_adicional       ,n.LISOPC_Nombre____b As cal_ciudad_adicional');
+              $this->db->select('id_log_datos, a.Ciudad as ciudadDomicilio , b.Ciudad as ciudadOficina ,tefonoOficina ,telefonoDomicilio ,celular, celularAdicional ,mail  as correo ,direccionDomicilio ,direccionOficina ,iddeusuario , NombreDeudor as deudor, NroIdentificacion as identificacion , tipo_identificacion as tipo_identificacion,  fecha_modificacion ,c.Nombre_b As cal_ciudadDomicilio                          ,d.Nombre_b As cal_ciudadOficina, e.Nombre_b As cal_tefonoOficina
+                ,f.Nombre_b As cal_telefonoDomicilio ,g.Nombre_b As cal_celular
+                ,h.Nombre_b As cal_celularAdicional ,i.Nombre_b As cal_mail
+                ,j.Nombre_b As cal_direccionDomicilio ,k.Nombre_b As cal_direccionOficina ,l.Nombre_b As cal_dir_Adicional ,m.Nombre_b As cal_tele_adicional       ,n.Nombre_b As cal_ciudad_adicional');
 
               $this->db->from('Log_datos_iniciales');
-              $this->db->join('G718 a', 'a.G718_ConsInte__b = ciudadDomicilio', 'LEFT');
-              $this->db->join('G718 b', 'b.G718_ConsInte__b = ciudadOficina', 'LEFT');
-              $this->db->join('G717', 'G717.G717_ConsInte__b = iddeusuario');
+              $this->db->join('Ciudad a', 'a.Id = ciudadDomicilio', 'LEFT');
+              $this->db->join('Ciudad b', 'b.Id = ciudadOficina', 'LEFT');
+              $this->db->join('InformacionCliente', 'InformacionCliente.Id = iddeusuario');
 
-              $this->db->join('LISOPC c', 'c.LISOPC_ConsInte__b = cal_ciudadDomicilio ', 'LEFT');
-              $this->db->join('LISOPC d', 'd.LISOPC_ConsInte__b = cal_ciudadOficina ', 'LEFT');
-              $this->db->join('LISOPC e', 'e.LISOPC_ConsInte__b = cal_tefonoOficina ', 'LEFT');
-              $this->db->join('LISOPC f', 'f.LISOPC_ConsInte__b = cal_telefonoDomicilio ', 'LEFT');
-              $this->db->join('LISOPC g', 'g.LISOPC_ConsInte__b = cal_celular ', 'LEFT');
-              $this->db->join('LISOPC h', 'h.LISOPC_ConsInte__b = cal_celularAdicional ', 'LEFT');
-              $this->db->join('LISOPC i', 'i.LISOPC_ConsInte__b = cal_mail ', 'LEFT');
-              $this->db->join('LISOPC j', 'j.LISOPC_ConsInte__b = cal_direccionDomicilio ', 'LEFT');
-              $this->db->join('LISOPC k', 'k.LISOPC_ConsInte__b = cal_direccionOficina ', 'LEFT');
-              $this->db->join('LISOPC l', 'l.LISOPC_ConsInte__b = cal_dir_Adicional ', 'LEFT');
-              $this->db->join('LISOPC m', 'm.LISOPC_ConsInte__b = cal_tele_adicional ', 'LEFT');
-              $this->db->join('LISOPC n', 'n.LISOPC_ConsInte__b = cal_ciudad_adicional ', 'LEFT');
+              $this->db->join('ParametroGeneral c', 'c.Id = cal_ciudadDomicilio ', 'LEFT');
+              $this->db->join('ParametroGeneral d', 'd.Id = cal_ciudadOficina ', 'LEFT');
+              $this->db->join('ParametroGeneral e', 'e.Id = cal_tefonoOficina ', 'LEFT');
+              $this->db->join('ParametroGeneral f', 'f.Id = cal_telefonoDomicilio ', 'LEFT');
+              $this->db->join('ParametroGeneral g', 'g.Id = cal_celular ', 'LEFT');
+              $this->db->join('ParametroGeneral h', 'h.Id = cal_celularAdicional ', 'LEFT');
+              $this->db->join('ParametroGeneral i', 'i.Id = cal_mail ', 'LEFT');
+              $this->db->join('ParametroGeneral j', 'j.Id = cal_direccionDomicilio ', 'LEFT');
+              $this->db->join('ParametroGeneral k', 'k.Id = cal_direccionOficina ', 'LEFT');
+              $this->db->join('ParametroGeneral l', 'l.Id = cal_dir_Adicional ', 'LEFT');
+              $this->db->join('ParametroGeneral m', 'm.Id = cal_tele_adicional ', 'LEFT');
+              $this->db->join('ParametroGeneral n', 'n.Id = cal_ciudad_adicional ', 'LEFT');
 
               $query2 = $this->db->get();
               $result2 = $query2->result();
@@ -206,16 +206,16 @@ class Extrajudicial extends CI_Controller {
               }  
 
 
-                $this->db->select('G743_C17363 as correeo, G743_C17256 as telefono, G743_C17257 as direccion, G718_C17015 as ciudad, G743_C17260 as observacion, G743_C17361 as fecha_ingreso, G743_C17269 as rol, G717_C17240 as deudor, G717_C17005 as identificacion ,tipo_identificacion as tipo_identificacion, G719_C17423 as liquidacion, a.LISOPC_Nombre____b As Calificacion_correo, b.LISOPC_Nombre____b As Calificacion_telefono,                           c.LISOPC_Nombre____b As Calificacion_direccion, d.LISOPC_Nombre____b As Calificacion_ciudad,        e.LISOPC_Nombre____b As Calificacion_descripcion');
+                $this->db->select('G743_C17363 as correeo, G743_C17256 as telefono, G743_C17257 as direccion, Ciudad as ciudad, G743_C17260 as observacion, G743_C17361 as fecha_ingreso, G743_C17269 as rol, NombreDeudor as deudor, NroIdentificacion as identificacion ,tipo_identificacion as tipo_identificacion, G719_C17423 as liquidacion, a.Nombre_b As Calificacion_correo, b.Nombre_b As Calificacion_telefono,                           c.Nombre_b As Calificacion_direccion, d.Nombre_b As Calificacion_ciudad,        e.Nombre_b As Calificacion_descripcion');
                 $this->db->from('G743');
-                $this->db->join('G718', 'G718_ConsInte__b = G743_C17258', 'LEFT');
-                $this->db->join('G717', 'G717_ConsInte__b = G743_C17268', 'LEFT');
-                $this->db->join('G719', 'G719_ConsInte__b = G743_C17267', 'LEFT');
-                $this->db->join('LISOPC a', 'a.LISOPC_ConsInte__b = G743_C17262 ', 'LEFT');
-                $this->db->join('LISOPC b', 'b.LISOPC_ConsInte__b = G743_C17263 ', 'LEFT');
-                $this->db->join('LISOPC c', 'c.LISOPC_ConsInte__b = G743_C17264 ', 'LEFT');
-                $this->db->join('LISOPC d', 'd.LISOPC_ConsInte__b = G743_C17265 ', 'LEFT');
-                $this->db->join('LISOPC e', 'e.LISOPC_ConsInte__b = G743_C17266 ', 'LEFT');
+                $this->db->join('Ciudad', 'Id = G743_C17258', 'LEFT');
+                $this->db->join('InformacionCliente', 'Id = G743_C17268', 'LEFT');
+                $this->db->join('InformacionCredito', 'Id = G743_C17267', 'LEFT');
+                $this->db->join('ParametroGeneral a', 'a.Id = G743_C17262 ', 'LEFT');
+                $this->db->join('ParametroGeneral b', 'b.Id = G743_C17263 ', 'LEFT');
+                $this->db->join('ParametroGeneral c', 'c.Id = G743_C17264 ', 'LEFT');
+                $this->db->join('ParametroGeneral d', 'd.Id = G743_C17265 ', 'LEFT');
+                $this->db->join('ParametroGeneral e', 'e.Id = G743_C17266 ', 'LEFT');
                 $query = $this->db->get();
                 $clientes = $query->result();
                 
@@ -266,28 +266,28 @@ class Extrajudicial extends CI_Controller {
 
             }else if($varaiable == 1){
 
-                 $this->db->select('id_log_datos, a.G718_C17015 as ciudadDomicilio , b.G718_C17015 as ciudadOficina ,tefonoOficina ,telefonoDomicilio ,celular, celularAdicional ,mail  as correo ,direccionDomicilio ,direccionOficina ,iddeusuario , G717_C17240 as deudor, G717_C17005 as identificacion , tipo_identificacion as tipo_identificacion, fecha_modificacion ,c.LISOPC_Nombre____b As cal_ciudadDomicilio                          ,d.LISOPC_Nombre____b As cal_ciudadOficina, e.LISOPC_Nombre____b As cal_tefonoOficina
-                ,f.LISOPC_Nombre____b As cal_telefonoDomicilio ,g.LISOPC_Nombre____b As cal_celular
-                ,h.LISOPC_Nombre____b As cal_celularAdicional ,i.LISOPC_Nombre____b As cal_mail
-                ,j.LISOPC_Nombre____b As cal_direccionDomicilio ,k.LISOPC_Nombre____b As cal_direccionOficina ,l.LISOPC_Nombre____b As cal_dir_Adicional ,m.LISOPC_Nombre____b As cal_tele_adicional       ,n.LISOPC_Nombre____b As cal_ciudad_adicional');
+                 $this->db->select('id_log_datos, a.Ciudad as ciudadDomicilio , b.Ciudad as ciudadOficina ,tefonoOficina ,telefonoDomicilio ,celular, celularAdicional ,mail  as correo ,direccionDomicilio ,direccionOficina ,iddeusuario , NombreDeudor as deudor, NroIdentificacion as identificacion , tipo_identificacion as tipo_identificacion, fecha_modificacion ,c.Nombre_b As cal_ciudadDomicilio                          ,d.Nombre_b As cal_ciudadOficina, e.Nombre_b As cal_tefonoOficina
+                ,f.Nombre_b As cal_telefonoDomicilio ,g.Nombre_b As cal_celular
+                ,h.Nombre_b As cal_celularAdicional ,i.Nombre_b As cal_mail
+                ,j.Nombre_b As cal_direccionDomicilio ,k.Nombre_b As cal_direccionOficina ,l.Nombre_b As cal_dir_Adicional ,m.Nombre_b As cal_tele_adicional       ,n.Nombre_b As cal_ciudad_adicional');
 
               $this->db->from('Log_datos_iniciales');
-              $this->db->join('G718 a', 'a.G718_ConsInte__b = ciudadDomicilio', 'LEFT');
-              $this->db->join('G718 b', 'b.G718_ConsInte__b = ciudadOficina', 'LEFT');
-              $this->db->join('G717', 'G717.G717_ConsInte__b = iddeusuario');
+              $this->db->join('Ciudad a', 'a.Id = ciudadDomicilio', 'LEFT');
+              $this->db->join('Ciudad b', 'b.Id = ciudadOficina', 'LEFT');
+              $this->db->join('InformacionCliente', 'InformacionCliente.Id = iddeusuario');
 
-              $this->db->join('LISOPC c', 'c.LISOPC_ConsInte__b = cal_ciudadDomicilio ', 'LEFT');
-              $this->db->join('LISOPC d', 'd.LISOPC_ConsInte__b = cal_ciudadOficina ', 'LEFT');
-              $this->db->join('LISOPC e', 'e.LISOPC_ConsInte__b = cal_tefonoOficina ', 'LEFT');
-              $this->db->join('LISOPC f', 'f.LISOPC_ConsInte__b = cal_telefonoDomicilio ', 'LEFT');
-              $this->db->join('LISOPC g', 'g.LISOPC_ConsInte__b = cal_celular ', 'LEFT');
-              $this->db->join('LISOPC h', 'h.LISOPC_ConsInte__b = cal_celularAdicional ', 'LEFT');
-              $this->db->join('LISOPC i', 'i.LISOPC_ConsInte__b = cal_mail ', 'LEFT');
-              $this->db->join('LISOPC j', 'j.LISOPC_ConsInte__b = cal_direccionDomicilio ', 'LEFT');
-              $this->db->join('LISOPC k', 'k.LISOPC_ConsInte__b = cal_direccionOficina ', 'LEFT');
-              $this->db->join('LISOPC l', 'l.LISOPC_ConsInte__b = cal_dir_Adicional ', 'LEFT');
-              $this->db->join('LISOPC m', 'm.LISOPC_ConsInte__b = cal_tele_adicional ', 'LEFT');
-              $this->db->join('LISOPC n', 'n.LISOPC_ConsInte__b = cal_ciudad_adicional ', 'LEFT');
+              $this->db->join('ParametroGeneral c', 'c.Id = cal_ciudadDomicilio ', 'LEFT');
+              $this->db->join('ParametroGeneral d', 'd.Id = cal_ciudadOficina ', 'LEFT');
+              $this->db->join('ParametroGeneral e', 'e.Id = cal_tefonoOficina ', 'LEFT');
+              $this->db->join('ParametroGeneral f', 'f.Id = cal_telefonoDomicilio ', 'LEFT');
+              $this->db->join('ParametroGeneral g', 'g.Id = cal_celular ', 'LEFT');
+              $this->db->join('ParametroGeneral h', 'h.Id = cal_celularAdicional ', 'LEFT');
+              $this->db->join('ParametroGeneral i', 'i.Id = cal_mail ', 'LEFT');
+              $this->db->join('ParametroGeneral j', 'j.Id = cal_direccionDomicilio ', 'LEFT');
+              $this->db->join('ParametroGeneral k', 'k.Id = cal_direccionOficina ', 'LEFT');
+              $this->db->join('ParametroGeneral l', 'l.Id = cal_dir_Adicional ', 'LEFT');
+              $this->db->join('ParametroGeneral m', 'm.Id = cal_tele_adicional ', 'LEFT');
+              $this->db->join('ParametroGeneral n', 'n.Id = cal_ciudad_adicional ', 'LEFT');
 
               $query2 = $this->db->get();
               $result2 = $query2->result();
@@ -347,16 +347,16 @@ class Extrajudicial extends CI_Controller {
 
 
             }else if($varaiable == 2){
-                $this->db->select('G743_C17363 as correeo, G743_C17256 as telefono, G743_C17257 as direccion, G718_C17015 as ciudad, G743_C17260 as observacion, G743_C17361 as fecha_ingreso, G743_C17269 as rol, G717_C17240 as deudor, G717_C17005 as identificacion , tipo_identificacion as tipo_identificacion, G719_C17423 as liquidacion, a.LISOPC_Nombre____b As Calificacion_correo, b.LISOPC_Nombre____b As Calificacion_telefono,                           c.LISOPC_Nombre____b As Calificacion_direccion, d.LISOPC_Nombre____b As Calificacion_ciudad,        e.LISOPC_Nombre____b As Calificacion_descripcion');
+                $this->db->select('G743_C17363 as correeo, G743_C17256 as telefono, G743_C17257 as direccion, Ciudad as ciudad, G743_C17260 as observacion, G743_C17361 as fecha_ingreso, G743_C17269 as rol, NombreDeudor as deudor, NroIdentificacion as identificacion , tipo_identificacion as tipo_identificacion, G719_C17423 as liquidacion, a.Nombre_b As Calificacion_correo, b.Nombre_b As Calificacion_telefono,                           c.Nombre_b As Calificacion_direccion, d.Nombre_b As Calificacion_ciudad,        e.Nombre_b As Calificacion_descripcion');
                 $this->db->from('G743');
-                $this->db->join('G718', 'G718_ConsInte__b = G743_C17258', 'LEFT');
-                $this->db->join('G717', 'G717_ConsInte__b = G743_C17268', 'LEFT');
-                $this->db->join('G719', 'G719_ConsInte__b = G743_C17267', 'LEFT');
-                $this->db->join('LISOPC a', 'a.LISOPC_ConsInte__b = G743_C17262 ', 'LEFT');
-                $this->db->join('LISOPC b', 'b.LISOPC_ConsInte__b = G743_C17263 ', 'LEFT');
-                $this->db->join('LISOPC c', 'c.LISOPC_ConsInte__b = G743_C17264 ', 'LEFT');
-                $this->db->join('LISOPC d', 'd.LISOPC_ConsInte__b = G743_C17265 ', 'LEFT');
-                $this->db->join('LISOPC e', 'e.LISOPC_ConsInte__b = G743_C17266 ', 'LEFT');
+                $this->db->join('Ciudad', 'Ciudad = G743_C17258', 'LEFT');
+                $this->db->join('InformacionCliente', 'Id = G743_C17268', 'LEFT');
+                $this->db->join('InformacionCredito', 'Id = G743_C17267', 'LEFT');
+                $this->db->join('ParametroGeneral a', 'a.Id = G743_C17262 ', 'LEFT');
+                $this->db->join('ParametroGeneral b', 'b.Id = G743_C17263 ', 'LEFT');
+                $this->db->join('ParametroGeneral c', 'c.Id = G743_C17264 ', 'LEFT');
+                $this->db->join('ParametroGeneral d', 'd.Id = G743_C17265 ', 'LEFT');
+                $this->db->join('ParametroGeneral e', 'e.Id = G743_C17266 ', 'LEFT');
                 $query = $this->db->get();
                 $clientes = $query->result();
                 
@@ -429,11 +429,11 @@ class Extrajudicial extends CI_Controller {
             foreach($clientes as $key){
          
 
-                $this->db->select('G717_C17005,tipo_identificacion');
-                $this->db->from('G737');
-                $this->db->join('G717', 'G717_ConsInte__b = G737_C17181');
-                $this->db->where('G737_C17183 = 1786');
-                $this->db->where('G737_C17182', $key->G743_C17267);
+                $this->db->select('NroIdentificacion,tipo_identificacion');
+                $this->db->from('ClienteObligacion');
+                $this->db->join('InformacionCliente', 'Id = InformacionClientesId');
+                $this->db->where('Rol = 1786');
+                $this->db->where('NumeroContratoId', $key->G743_C17267);
                 $cedula = $this->db->get();
                 /*echo 'Esta '.$key->G743_C17267."</br>";
                 if($cedula->num_rows() > 0)
@@ -441,8 +441,8 @@ class Extrajudicial extends CI_Controller {
 
                 $deudor = trim(utf8_encode($key->Nombre));
                 $nombre = substr($deudor, 0, 3);
-                $data[$i]['Nombre'] = "<span style='display: none;'>".utf8_encode($nombre)."</span>".$deudor ;
-                $data[$i]['identificacion'] = $cedula->row()->G717_C17005;
+                $data[$i]['Nombre'] = $deudor ;
+                $data[$i]['identificacion'] = $cedula->row()->NroIdentificacion;
                 $data[$i]['tipo_identificacion'] = $key->tipo_identificacion;
                 $data[$i]['direccion'] =  utf8_encode($key->direccion) ;
                 $data[$i]['telefono'] = $key->telefono;
@@ -455,7 +455,7 @@ class Extrajudicial extends CI_Controller {
 
                 $deudor = trim(utf8_encode($key->Nombre));
                 $nombre = substr($deudor, 0, 3);
-                $data[$i]['Nombre'] = "<span style='display: none;'>".utf8_encode($nombre)."</span>".$deudor ;
+                $data[$i]['Nombre'] = $deudor ;
                 $data[$i]['identificacion'] =$key->identificacion ;
                 $data[$i]['tipo_identificacion'] = $key->tipo_identificacion;
                 $data[$i]['direccion'] =  utf8_encode($key->direccion) ;
@@ -490,7 +490,7 @@ class Extrajudicial extends CI_Controller {
             foreach($clientes as $key){
                 $deudor = trim(utf8_encode($key->nombre));
                 $nombre = substr($deudor, 0, 3);
-                $data[$i]['nombre'] = "<span style='display: none;'>".utf8_encode($nombre)."</span>".$deudor ;
+                $data[$i]['nombre'] = $deudor ;
                 $data[$i]['identificacion'] =  $key->identificacion ;
                 $data[$i]['tipo_identificacion'] =  $key->tipo_identificacion ;
                 $data[$i]['valor'] = "$".number_format($key->valor_pagado, 0, '.',',') ;
@@ -524,7 +524,7 @@ class Extrajudicial extends CI_Controller {
 
                 $deudor = trim(utf8_encode($key->nombre));
                 $nombre = substr($deudor, 0, 3);
-                $data[$i]['nombre'] = "<span style='display: none;'>".utf8_encode($nombre)."</span>".$deudor ;
+                $data[$i]['nombre'] = $deudor ;
                 $data[$i]['identificacion'] =  $key->identificacion ;
                 $data[$i]['tipo_identificacion'] =  $key->tipo_identificacion ;
                 $data[$i]['valor'] = "$".number_format($key->valor_pagado, 0, '.',',') ;
@@ -558,7 +558,7 @@ class Extrajudicial extends CI_Controller {
 
                 $deudor = trim(utf8_encode($key->nombre));
                 $nombre = substr($deudor, 0, 3);
-                $data[$i]['nombre'] = "<span style='display: none;'>".utf8_encode($nombre)."</span>".$deudor ;
+                $data[$i]['nombre'] = $deudor ;
                 $data[$i]['identificacion'] =  $key->identificacion ;
                 $data[$i]['tipo_identificacion'] =  $key->tipo_identificacion ;
                 $data[$i]['valor'] = "$".number_format($key->valor_pagado, 0, '.',',') ;
@@ -592,7 +592,7 @@ class Extrajudicial extends CI_Controller {
 
                 $deudor = trim(utf8_encode($key->nombre));
                 $nombre = substr($deudor, 0, 3);
-                $data[$i]['nombre'] = "<span style='display: none;'>".utf8_encode($nombre)."</span>".$deudor ;
+                $data[$i]['nombre'] = $deudor ;
                 $data[$i]['identificacion'] =  $key->identificacion ;
                 $data[$i]['tipo_identificacion'] =  $key->tipo_identificacion ;
                 $data[$i]['valor'] = "$".number_format($key->valor_pagado, 0, '.',',') ;
@@ -626,7 +626,7 @@ class Extrajudicial extends CI_Controller {
 
                 $deudor = trim(utf8_encode($key->nombre));
                 $nombre = substr($deudor, 0, 3);
-                $data[$i]['nombre'] = "<span style='display: none;'>".utf8_encode($nombre)."</span>".$deudor ;
+                $data[$i]['nombre'] = $deudor ;
                 $data[$i]['identificacion'] =  $key->identificacion ;
                 $data[$i]['tipo_identificacion'] =  $key->tipo_identificacion ;
                 $data[$i]['valor'] = "$".number_format($key->valor_pagado, 0, '.',',') ;
@@ -664,12 +664,12 @@ class Extrajudicial extends CI_Controller {
 
                 $deudor = trim(utf8_encode($key->Nombre));
                 $nombre = substr($deudor, 0, 3);
-                $data[$i]['Nombre'] = "<span style='display: none;'>".utf8_encode($nombre)."</span>".$deudor ;
+                $data[$i]['Nombre'] = $deudor ;
                 $data[$i]['identificacion'] =  $key->identificacion ;
                 $data[$i]['tipo_identificacion'] =  $key->tipo_identificacion ;
                 $data[$i]['contrato'] = $key->liquidacion;
                 //$data[$i]['contrato'] = $key->contrato;
-                $data[$i]['fecha_legal'] = "<span style='display: none;'>".$fecha[0]."/".$fecha[1]."/".$fecha[2]."</span>".$fecha[2]."/".$fecha[1]."/".$fecha[0] ;
+                $data[$i]['fecha_legal'] =$fecha[2]."/".$fecha[1]."/".$fecha[0] ;
 
                 $i++;
             }
@@ -705,7 +705,7 @@ class Extrajudicial extends CI_Controller {
                
                 $deudor = trim(utf8_encode($key->deudor));
                 $nombre = substr($deudor, 0, 3);
-                $data[$i]['deudor'] = "<span style='display: none;'>".utf8_encode($nombre)."</span>".$deudor ;
+                $data[$i]['deudor'] = $deudor ;
                 $data[$i]['identificacion'] =  $key->identificacion ;
                 $data[$i]['tipo_identificacion'] =  $key->tipo_identificacion ;
                 $data[$i]['financiera'] = utf8_encode($key->financiera);
@@ -741,7 +741,7 @@ class Extrajudicial extends CI_Controller {
             foreach($clientes as $key){
                 $deudor = trim(utf8_encode($key->deudor));
                 $nombre = substr($deudor, 0, 3);
-                $data[$i]['deudor'] = "<span style='display: none;'>".utf8_encode($nombre)."</span>".$deudor ;
+                $data[$i]['deudor'] = $deudor ;
                 $data[$i]['identificacion'] =  $key->identificacion ;
                 $data[$i]['tipo_identificacion'] =  $key->tipo_identificacion ;
                 $data[$i]['contrato'] = $key->liquidacion;
@@ -749,7 +749,7 @@ class Extrajudicial extends CI_Controller {
                 if(!is_null($key->garantia)){
                     $fecha = explode(" ", $key->garantia)[0];
                     $fecha = explode("-", $fecha);
-                    $fecha = "<span style='display: none;'>".$fecha[0]."/".$fecha[1]."/".$fecha[2]."</span>".$fecha[2]."/".$fecha[1]."/".$fecha[0];
+                    $fecha = $fecha[2]."/".$fecha[1]."/".$fecha[0];
                 }
                  
 
@@ -783,7 +783,7 @@ class Extrajudicial extends CI_Controller {
             foreach($clientes as $key){
                 $deudor = trim(utf8_encode($key->nombre));
                 $nombre = substr($deudor, 0, 3);
-                $data[$i]['nombre'] = "<span style='display: none;'>".utf8_encode($nombre)."</span>".$deudor ;
+                $data[$i]['nombre'] = $deudor ;
                 $data[$i]['identificacion'] =  $key->identificacion ;
                  $data[$i]['tipo_identificacion'] =  $key->tipo_identificacion ;
                 $data[$i]['contrato'] = $key->contrato;
@@ -820,11 +820,11 @@ class Extrajudicial extends CI_Controller {
                 if(!is_null($key->fecha_venta))
                 $fecha = explode(" ",$key->fecha_venta)[0];
                 $fecha = explode("-",$fecha);
-                $fecha = "<span style='display: none;'>".$fecha[0]."/".$fecha[1]."/".$fecha[2]."</span>".$fecha[2]."/".$fecha[1]."/".$fecha[0];
+                $fecha = $fecha[2]."/".$fecha[1]."/".$fecha[0];
 
                 $deudor = trim(utf8_encode($key->nombre));
                 $nombre = substr($deudor, 0, 3);
-                $data[$i]['nombre'] = "<span style='display: none;'>".utf8_encode($nombre)."</span>".$deudor ;
+                $data[$i]['nombre'] = $deudor ;
                 $data[$i]['identificacion'] =  $key->identificacion ;
                 $data[$i]['tipo_identificacion'] =  $key->tipo_identificacion ;
                 $data[$i]['contrato'] = $key->liquidacion;
@@ -863,13 +863,13 @@ class Extrajudicial extends CI_Controller {
                 $fecha = explode("-",$fecha);
                 $deudor = trim(utf8_encode($key->nombre));
                 $nombre = substr($deudor, 0, 3);
-                $data[$i]['nombre'] = "<span style='display: none;'>".utf8_encode($nombre)."</span>".$deudor ;
+                $data[$i]['nombre'] = $deudor ;
                 $data[$i]['identificacion'] =  $key->identificacion ;
                 $data[$i]['tipo_identificacion'] =  $key->tipo_identificacion ;
                 $data[$i]['contrato'] = $key->liquidacion;
                 $data[$i]['valor_pagado'] = "$".number_format($key->valor_pagado, 0, '.',',') ;
                 $data[$i]['financiera'] = utf8_encode($key->financiera);
-                $data[$i]['fecha'] = "<span style='display: none;'>".$fecha[0]."/".$fecha[1]."/".$fecha[2]."</span>".$fecha[2]."/".$fecha[1]."/".$fecha[0];
+                $data[$i]['fecha'] = $fecha[2]."/".$fecha[1]."/".$fecha[0];
                 $i++;
             }
             
@@ -944,7 +944,7 @@ class Extrajudicial extends CI_Controller {
            foreach($clientes as $key){
                     $deudor = trim(utf8_encode($key->DEUDOR));
                     $nombre = substr($deudor, 0, 3);
-                    $datosRary[$i]['DEUDOR'] = "<span style='display: none;'>".utf8_encode($nombre)."</span>".$deudor ;
+                    $datosRary[$i]['DEUDOR'] = $deudor ;
                         
             $datosRary[$i]['IDENTIFICACION'] = $key->IDENTIFICACION ;
              $datosRary[$i]['tipo_identificacion'] = $key->tipo_identificacion ;
@@ -1044,7 +1044,7 @@ class Extrajudicial extends CI_Controller {
                 $datosw[$i]['Calificacion_direccion'] = utf8_encode($key->Calificacion_direccion);
                 $datosw[$i]['Calificacion_ciudad'] = utf8_encode($key->Calificacion_ciudad);
                 $datosw[$i]['DESCRIPCION'] = utf8_encode($key->Descripcion);
-                $datosw[$i]['fecha'] = "<span style='display: none;'>".$fecha[0]."/".$fecha[1]."/".$fecha[2]."</span>".$fecha[2]."/".$fecha[1]."/".$fecha[0];
+                $datosw[$i]['fecha'] = $fecha[2]."/".$fecha[1]."/".$fecha[0];
                 $i++;
             }
 
@@ -1056,7 +1056,7 @@ class Extrajudicial extends CI_Controller {
                 if(!is_null($key->fecha_modificacion)){
                     $fecha = explode(" ", $key->fecha_modificacion)[0];
                     $fecha = explode("-", $fecha);
-                    $fecha2 = "<span style='display: none;'>".$fecha[0]."/".$fecha[1]."/".$fecha[2]."</span>".$fecha[2]."/".$fecha[1]."/".$fecha[0];
+                    $fecha2 = $fecha[2]."/".$fecha[1]."/".$fecha[0];
                 }
 
                 $datosIniciales[$j]['ciudadDomicilio'] = utf8_encode($key->ciudadDomicilio) ;
@@ -1143,7 +1143,7 @@ class Extrajudicial extends CI_Controller {
                                 }else{
                                     $array = explode('-', $key);
                                     if(!empty($array)){
-                                      if ($array[0] == 'G719.G719_C17423') $array[1] = $this->completarZerosLiquidacion($array[1]);
+                                      if ($array[0] == 'InformacionCredito.G719_C17423') $array[1] = $this->completarZerosLiquidacion($array[1]);
                                         $jose[$array[0]] = $array[1];
                                     }
 
@@ -1202,7 +1202,7 @@ class Extrajudicial extends CI_Controller {
                 foreach($clientes as $key){
                     $deudor = trim(utf8_encode($key->DEUDOR));
                     $nombre = substr($deudor, 0, 3);
-                    $data[$i]['DEUDOR'] = "<span style='display: none;' >".utf8_encode($nombre)."</span>".$deudor ;
+                    $data[$i]['DEUDOR'] = $deudor ;
                 
 
                     $data[$i]['IDENTIFICACION'] = $key->IDENTIFICACION ;
@@ -1230,7 +1230,7 @@ class Extrajudicial extends CI_Controller {
                     
                     $deudor = trim(utf8_encode($key->DEUDOR));
                     $nombre = substr($deudor, 0, 3);
-                    $data[$i]['DEUDOR'] = "<span style='display: none;'>".utf8_encode($nombre)."</span>".$deudor ;
+                    $data[$i]['DEUDOR'] = $deudor ;
                 
                     $data[$i]['IDENTIFICACION'] = $key->IDENTIFICACION  ;
                     $data[$i]['tipo_identificacion'] = $key->tipo_identificacion ;
@@ -1265,7 +1265,7 @@ class Extrajudicial extends CI_Controller {
             foreach($clientes as $key){
 				$deudor = trim(utf8_encode($key->DEUDOR));
                 $nombre = substr($deudor, 0, 3);
-                $data[$i]['DEUDOR'] = "<span style='display: none;'>".utf8_encode($nombre)."</span>".$deudor ;
+                $data[$i]['DEUDOR'] = $deudor ;
                 
 				$data[$i]['IDENTIFICACION'] = $key->IDENTIFICACION ;
         $data[$i]['tipo_identificacion'] = $key->tipo_identificacion ;
@@ -1303,7 +1303,7 @@ class Extrajudicial extends CI_Controller {
             foreach($clientes as $key){
                 $deudor = trim(utf8_encode($key->deudor));
                 $nombre = substr($deudor, 0, 3);
-                $data[$i]['DEUDOR'] = "<span style='display: none;'>".utf8_encode($nombre)."</span>".$deudor ;
+                $data[$i]['DEUDOR'] = $deudor ;
                 
                 $data[$i]['IDENTIFICACION'] = $key->identificacion ;
                 $data[$i]['tipo_identificacion'] = $key->tipo_identificacion ;
@@ -1322,12 +1322,13 @@ class Extrajudicial extends CI_Controller {
         }
     }
     // 
-    function busquedaGestion(){
+    function busquedaEstado(){
 
         if($this->session->userdata('login_ok')){
-                      
-            $tiposGestion = $this->Extrajudicial_Model->getFiltrosGestion();
-            $datos = array( 'tiposGestion' =>  $tiposGestion);
+              
+            $filtrosEstado = $this->Extrajudicial_Model->getfiltrosEstado();
+
+            $datos = array('filtrosEstado' => $filtrosEstado);
 
             $this->load->view('Includes/head');
             $this->load->view('Includes/header');
@@ -1339,53 +1340,73 @@ class Extrajudicial extends CI_Controller {
             $this->load->view('Login/login');
         }
     }
+     function busquedaGestion(){
+
+            $datos=array();
+            $tiposGestion = $this->Extrajudicial_Model->getfiltrosGestion($_POST['codigo']);
+
+            if (!empty($tiposGestion)) {
+            foreach ($tiposGestion as $key => $val) {
+                $datos[] = array('id' => utf8_decode($val->G732_C17130), 'valor' => utf8_encode($val->Nombre_b));
+            }
+        }
+        return $this->output->set_content_type('application/json')->set_output(json_encode( $datos ));
+    }
+
+
+    function busquedaSubGestion(){
+
+            $datos=array();
+            $tiposGestion = $this->Extrajudicial_Model->getfiltrosSubgestion($_POST['codigo'],$_POST['gestion']);
+
+            if (!empty($tiposGestion)) {
+            foreach ($tiposGestion as $key => $val) {
+                $datos[] = array('id' => utf8_decode($val->G732_ConsInte__b), 'valor' => utf8_encode($val->G732_C17131));
+            }
+        }
+        return $this->output->set_content_type('application/json')->set_output(json_encode( $datos ));
+    }
+
+    function imprimirPlano3 ($texto){
+        $file = fopen("archivo.txt", "w");
+        fwrite($file, $texto . PHP_EOL);
+        fwrite($file, "Otra más" . PHP_EOL);
+        fclose($file);
+    }
 
     function getBusquedaGestion(){
-        
-        $tipoGestion = $_POST['idTipoGestion'];
-      
-        $fechaInicial = $_POST['fechainicial'].' 00:00:00';
-        $fechaFinal = $_POST['fechafinal'].' 23:59:00';
 
-        //$tipoGestion = '1782';
-        //$fechaInicial = '2018-02-05'.' 00:00:00';
-        //$fechaFinal = '2018-02-05'.' 23:59:00';
-
-        if( $tipoGestion != NULL && $tipoGestion != '' && $tipoGestion != 0){
-
-            $arregloGestiones = $this->Extrajudicial_Model->getliquidacionPorGestion($tipoGestion,$fechaInicial,$fechaFinal);
-              $json = array();
-              $i= 0;
-            foreach ($arregloGestiones as $key) {
-
-                    $deudor = trim(utf8_encode($key->NombreDeudor));
-                    
-                    $json[$i]['TipoIdentificacion'] = $key->TipoIdentificacion ;
-                    $json[$i]['NumeroId'] = utf8_encode($key->NumeroId);
-                    $json[$i]['nombre'] =$deudor ;
-                    $json[$i]['NumeroLiquidacion'] = $key->NumeroLiquidacion;
-                    $json[$i]['CiudadDespacho'] = $key->CiudadDespacho;
-                    $json[$i]['Intermediariofinancero'] = $key->Intermediariofinancero;
-                    $json[$i]['ProcesoSAP'] = $key->ProcesoSAP;
-                    $json[$i]['ROL'] = $key->ROL;
-                    $json[$i]['valorPagado'] = "$ ".number_format($key->valorPagado, 0, ',','.');
-                    
-                    $fecha2 = NULL;
-                    $fecha3 = NULL;
-                    if(!is_null($key->fechaIngreso)){
-                        $fecha2 = explode(" ", $key->fechaIngreso)[0];
-                        $fecha2 = explode("-", $fecha2);
-                        $fecha2 = $fecha2[2]."/".$fecha2[1]."/".$fecha2[0];
-                    }
-                                        
-                    $json[$i]['fechaIngreso'] =  $fecha2;
-                  $i++;
+      $arregloGestiones = $this->Extrajudicial_Model->getliquidacionPorGestion($_POST['codigo'],$_POST['gestion'],$_POST['subgestion'],$_POST['fechainicial'],$_POST['fechafinal']);
+        #echo "<br><br><br>".$this->db->last_query($arregloGestiones); die ('Prueba');
+        $json = array();
+        $i= 0;
+      foreach ($arregloGestiones as $key) {
               
-            } 
-            $datos = array( 'ResultadoGestiones' => json_encode($json));
-            //var_dump(json_encode($json)); 
-            $this->load->view('Extrajudicial/busquedaGestionDatos', $datos);
-        }
+              $json[$i]['ti'] = $key->ti ;
+              $json[$i]['identificacion'] = utf8_encode($key->identificacion);
+              $json[$i]['nombre'] =trim(utf8_encode($key->nombre));
+              $json[$i]['liquidacion'] = $key->liquidacion;
+              $json[$i]['intermediario'] = utf8_encode($key->intermediario);
+              $json[$i]['SAP'] = $key->SAP;
+              $json[$i]['rol'] = $key->rol;
+              $json[$i]['Valor'] = "$ ".number_format($key->Valor, 0, ',','.');
+              $json[$i]['Gestor'] = utf8_encode($key->Gestor);
+              
+              $fecha2 = NULL;
+              $fecha3 = NULL;
+              if(!is_null($key->fechaIngreso)){
+                  $fecha2 = explode(" ", $key->fechaIngreso)[0];
+                  $fecha2 = explode("-", $fecha2);
+                  $fecha2 = $fecha2[2]."/".$fecha2[1]."/".$fecha2[0];
+              }
+                                  
+              $json[$i]['fechaIngreso'] =  $fecha2;
+            $i++;
+      } 
+      $datos = array( 'ResultadoGestiones' => json_encode($json));
+      #$this->imprimirPlano3(json_encode($json));
+      $this->load->view('Extrajudicial/busquedaGestionDatos', $datos);
+        
 
     }
     # (ACB2) - Cargue masivo por acuerdo de pago. 
@@ -1434,16 +1455,16 @@ class Extrajudicial extends CI_Controller {
                             if ( is_numeric($val['A']) and is_numeric($val['D']) ) {
                                 # Concatenar ceros a la izquierda.
                                 $liquidacion = $this->completarCerosLiquidacion( $val['A'] );
-                                $this->db->select('G726_ConsInte__b, G719_C17423 NUMERO_LIQUIDACION');
-                                $this->db->from('G726');
-                                $this->db->join('G719', 'G719_ConsInte__b = G726_C17237');
-                                #$this->db->where('G726_C17109 IS NOT NULL');
+                                $this->db->select('Id, G719_C17423 NUMERO_LIQUIDACION');
+                                $this->db->from('AcuerdosPago');
+                                $this->db->join('InformacionCredito', 'Id = FechaPagoUltimaCuota');
+                                #$this->db->where('NumeroContrato IS NOT NULL');
                                 $this->db->where('G719_C17423', $liquidacion);
                                 $query  = $this->db->get();
                                 $resultados = $query->result();
                                 #echo "<br><br><br>".$this->db->last_query(); die ('Prueba');
                                 if (count($resultados)>0) {
-                                    $id = $resultados[0]->G726_ConsInte__b;
+                                    $id = $resultados[0]->Id;
                                     # FECHA DE LA LIQUIDACION.
                                     $partesFecha=explode('-', $val['B']);
                                     $fechaLiquidacion = date("Y-m-d H:i:s");
@@ -1463,15 +1484,15 @@ class Extrajudicial extends CI_Controller {
                                         }
                                     }
                                     $data = array(
-                                        'G726_C17109' => $fechaLiquidacion, // FECHA_LIQUIDACION
-                                        'G726_C17110' => $fechaAnticipo, // FECHA_CONSIG_ANTICIPO
-                                        'G726_C17113' => $val['D'], // PLAZO_ACUERDO_PAGO
-                                        'G726_C17224' => date("Y-m-d H:i:s", strtotime($fechaLiquidacion.' + 46 days')), // FECHA_PAGO_PRIMERA_CUOTA
-                                        'G726_C17225' => date("Y-m-d H:i:s", strtotime(date("Y-m-d H:i:s", strtotime($fechaLiquidacion.' + 46 days')).' + '.$val['D'].' months')), // FECHA_PAGO_ULTIMA_CUOTA
+                                        'NumeroContrato' => $fechaLiquidacion, // FECHA_LIQUIDACION
+                                        'FechaLiquidacion' => $fechaAnticipo, // FECHA_CONSIG_ANTICIPO
+                                        'ValorRecaudo' => $val['D'], // PLAZO_ACUERDO_PAGO
+                                        'ValorCuotaAcuerdo' => date("Y-m-d H:i:s", strtotime($fechaLiquidacion.' + 46 days')), // FECHA_PAGO_PRIMERA_CUOTA
+                                        'FechaPagoPrimeraCuota' => date("Y-m-d H:i:s", strtotime(date("Y-m-d H:i:s", strtotime($fechaLiquidacion.' + 46 days')).' + '.$val['D'].' months')), // FECHA_PAGO_ULTIMA_CUOTA
                                         'FECHA_EMAIL' => date("Y-m-d H:i:s", strtotime($fechaLiquidacion.' + 46 days'))
                                     );
-                                    $this->db->where('G726_ConsInte__b', $id);
-                                    $query = $this->db->update('G726', $data);
+                                    $this->db->where('Id', $id);
+                                    $query = $this->db->update('AcuerdosPago', $data);
 
                                     if ( $this->db->affected_rows() ) {
                                         $actualizados++;
@@ -1514,6 +1535,7 @@ class Extrajudicial extends CI_Controller {
             return str_pad(trim($liquidacion), 10, '0', STR_PAD_LEFT);
         }
     }
+
 
 }
 

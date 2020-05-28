@@ -1,6 +1,6 @@
 <section class="content-header">
     <h1>
-        Aplicación facturas - Gastos Judiciales
+        APLICACIÓN FACTURAS - GASTOS JUDICIALES
     </h1>
     <ol class="breadcrumb">
     	<li><a href="<?php echo base_url();?>home">Inicio</a></li>
@@ -30,7 +30,7 @@
                                     <label for="inputPassword3" class="col-sm-3 control-label">Filtros</label>
                                     <div class="col-sm-9">
                                         <select id="cmbFiltrosMax" name="cmbFiltrosMax" class="form-control">
-                                            <option value="G719_C17026">No. Contrato</option>
+                                            <option value="NoContrato">No. Contrato</option>
                                             <option value="G719_C17423">No. Liquidacion</option>
                                         </select>
                                     </div>

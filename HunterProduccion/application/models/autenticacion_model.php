@@ -31,7 +31,7 @@ class Autenticacion_Model extends CI_Model {
                             USUARI.USUARI_Nombre____b as USUARI_Nombre____b, 
                             USUARI.USUARI_Cargo_____b as USUARI_Cargo_____b, 
                             USUARI_FechCrea__b, 
-                            G723_ConsInte__b, 
+                            Id, 
                             USUARI_LlaveExte_b
                             ,USUARI_asignacion_abogados_p
                             ,USUARI_asignacion_gestores_p
@@ -80,7 +80,7 @@ class Autenticacion_Model extends CI_Model {
                             EliminarGestores,
                             Logeliminacion');
         $this->db->from('USUARI');
-        $this->db->join('G723' , 'G723_C17204 = USUARI_Identific_b', 'LEFT');
+        $this->db->join('Abogados' , 'CCAbogado = USUARI_Identific_b', 'LEFT');
         $this->db->where('USUARI_Codigo____b', $codigo);
         $query = $this->db->get();
         return $query->result();

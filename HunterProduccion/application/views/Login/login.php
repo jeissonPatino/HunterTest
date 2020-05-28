@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Hunter | Login</title>
+        <title>HUNTER | LOGIN</title>
         <!-- Tell the browser to be responsive to screen width -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <!-- Bootstrap 3.3.5 -->
@@ -50,9 +50,9 @@
                   border: none;
                   color: #FFFFFF;
                   text-align: center;
-                  font-size: 20px;
+                  font-size: 14px;
                   padding: 10px;
-                  width: 110px;
+                  width: 95px;
                   transition: all 0.5s;
                   cursor: pointer;
                   margin: 1px;
@@ -102,11 +102,11 @@
 
     </head>
     <body class="hold-transition login-page">
-    <img id="bg"  src="<?php echo base_url();?>assets/img/fondo_login.jpg"  alt="background" id ='bgbgt' /> 
+    <img  /> 
         <div class="login-box">
                 <div class="login-box-body" id="eslogin">
                     <a href="#"><img src="<?php echo base_url();?>assets/img/HunterCRMLogo.png" id="logoHunter"></a>
-                <p class="login-box-msg" style="color: black"><b>Datos de inicio de session</b></p>
+                <p class="login-box-msg" style="color: black"><b>Datos de inicio de sesión.</b></p>
                 <form action="<?php echo base_url();?>login/logwraw" id="formLogin" method="post">
                     <div class="form-group has-feedback">
                         <input type="text" id="esdato" class="form-control" required value="<?php if(isset($usuario)){ echo $usuario; } ?>" name="usuario" placeholder="Usuario">
@@ -120,16 +120,16 @@
                         <div class="col-xs-8">
                             <div  class="checkbox icheck">
                                 <label style="color: black">
-                                    <input  style="lighting-color: black " type="checkbox" ><b> Recuerdame</b>
+                                    <input  style="lighting-color: black " type="checkbox" ><b> Recuérdame.</b>
                                 </label>
                             </div>
                         </div><!-- /.col -->
                         <div class="col-xs-4">
-                            <button class="button" ><span>Ingresar </span>
+                            <button class="button" ><span>Ingresar</span>
                         </div><!-- /.col -->
                     </div>
                 </form>
-                <a style="color: black" href="#"><b>Olvide mi contraseña</a><br>
+                <a style="color: black" href="#"><b></a><br>
                 <br>
                 <div class="login-logo">
                     <a href="#"><img src="<?php echo base_url();?>assets/img/logo_fng.png" ></a>

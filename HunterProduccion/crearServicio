@@ -1,0 +1,15 @@
+como crear un servicio Visual 
+
+Palabras claves.
+1. DTO = Data Transfer Object.
+
+
+
+1. Se da click derecho en la carpeta WcfServiciosSyngenta
+2. Seleccionar la opcion "add", click en new project. 
+3. En el Search de la ventana emergente buscar wcf, Seleccionar la opcion WCF Service Librery 
+4. Se crea un nuevo servicio el cual tiene 2 archivos, "Service1.cs" y "IService1.cs" se debe cambiar el nombre por uno que describa el proceso o la accion que realiza. 
+5. en el archivo "Appp.config"  se debe cambiar el nombre del servicio unicamente. 
+6. Se debe crear la Carpeta "DtoResponse" en el cual se crean los archivos DtoResponse.cs necesarios para el servicio. el nombre de los Archivos deben ser descriptibos con la accion que realiza "DtoxxxxxxxResponse.cs"
+7. Se debe Crear la Carpeta "DtoRequest" en el cual se crear los archivos DtoRequest.cs necesarios para el servicio. el nombre de los archivo deber ser descriptibos con la accion que realiza "DtoxxxxxxxRequest.cs"
+

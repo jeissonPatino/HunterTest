@@ -84,7 +84,7 @@
 
 ?>
 
-
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
    
 <table class="table table-hover table-bordered" width="50%">
             <table class="table table-hover table-bordered" width="50%">

@@ -1,6 +1,6 @@
 <section class="content-header">
     <h1>
-        Etapas
+        ETAPAS
     </h1>
     <ol class="breadcrumb">
     	<li><a href="<?php echo base_url();?>home">Inicio</a></li>
@@ -47,7 +47,7 @@
 								<option value="0">Tipo de proceso</option>
 								<?php 
 									foreach ($procesos as $key) {
-										echo "<option value='".$key->LISOPC_ConsInte__b."'>".utf8_encode($key->LISOPC_Nombre____b)."</option>";
+										echo "<option value='".$key->Id."'>".utf8_encode($key->Nombre_b)."</option>";
 									}
 								?>
 							</select>
@@ -61,7 +61,7 @@
 							<input type="text" class="form-control" placeholder="Etapa FNG"  id="etapa" name="etapa" required disabled>
 						</div>
 						<div class="form-group">
-							<Label>Imagen del boton</Label>
+							<Label>Imagen del botón</Label>
 							<input type="file" class="form-control" id="bottonCara" name="bottonCara" disabled>
 							<input type="hidden" id="hidenesto" name="hidenesto" value='0'>
 						</div>

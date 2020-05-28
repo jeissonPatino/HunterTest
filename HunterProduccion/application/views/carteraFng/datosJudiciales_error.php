@@ -106,7 +106,7 @@
 							<option value="0">Calificación</option>
 							<?php 
 								foreach ($calificacion as $key) {
-									echo "<option value='".$key->LISOPC_ConsInte__b."'>".utf8_encode($key->LISOPC_Nombre____b)."</option>";
+									echo "<option value='".$key->Id."'>".utf8_encode($key->Nombre_b)."</option>";
 								}
 							?>
 						</select>

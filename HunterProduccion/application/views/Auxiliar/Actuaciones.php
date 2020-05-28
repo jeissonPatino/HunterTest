@@ -1,6 +1,6 @@
 <section class="content-header">
     <h1>
-        Actuaciones
+       ACTUACIONES
     </h1>
     <ol class="breadcrumb">
     	<li><a href="<?php echo base_url();?>home">Inicio</a></li>
@@ -45,7 +45,7 @@
 								<option value="0">Tipo de proceso</option>
 								<?php 
 									foreach ($procesos as $key) {
-										echo "<option value='".$key->LISOPC_ConsInte__b."'>".utf8_encode($key->LISOPC_Nombre____b)."</option>";
+										echo "<option value='".$key->Id."'>".utf8_encode($key->Nombre_b)."</option>";
 									}
 								?>
 							</select>

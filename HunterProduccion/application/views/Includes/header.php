@@ -27,7 +27,7 @@
 
                  </li>
                 <li class="dropdown messages-menu" id="menuTask"> 
-                        <a href="<?php echo base_url();?>login/salir" > Cerrar Sesion </a>  
+                        <a href="<?php echo base_url();?>login/salir" > Cerrar Sesión </a>  
                 </li> 
             </ul>
         </div>

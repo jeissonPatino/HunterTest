@@ -1,6 +1,6 @@
 <section class="content-header">
     <h1>
-        Relación Personas - Obligación
+        RELACIÓN PERSONAS - OBLIGACIÓN
     </h1>
     <ol class="breadcrumb">
     	<li><a href="<?php echo base_url();?>home">Inicio</a></li>
@@ -68,7 +68,7 @@
 								<option value="0">Rol</option>
 								<?php 
 									foreach ($roles as $key) {
-										echo "<option value='".$key->LISOPC_ConsInte__b."'>".utf8_encode($key->LISOPC_Nombre____b)."</option>";
+										echo "<option value='".$key->Id."'>".utf8_encode($key->Nombre_b)."</option>";
 									}
 								?>
 							</select>
@@ -98,9 +98,9 @@
 									<?php
 										/*foreach ($obligaciones as $key) {
 											echo '<tr style="cursor:pointer;">
-													<td class="tdMinimo" onclick=" getdatos('.$key->G737_ConsInte__b.');">'.utf8_encode($key->nombre_Usuario).'</td>
-												  	<td class="tdMinimo" onclick=" getdatos('.$key->G737_ConsInte__b.');">'.utf8_encode($key->OBLIGACION).'</td>
-												  	<td class="tdMinimo" onclick=" getdatos('.$key->G737_ConsInte__b.');">'.utf8_encode($key->Roles).'</td>
+													<td class="tdMinimo" onclick=" getdatos('.$key->Id.');">'.utf8_encode($key->nombre_Usuario).'</td>
+												  	<td class="tdMinimo" onclick=" getdatos('.$key->Id.');">'.utf8_encode($key->OBLIGACION).'</td>
+												  	<td class="tdMinimo" onclick=" getdatos('.$key->Id.');">'.utf8_encode($key->Roles).'</td>
 												  </tr>';
 										}*/
 									?>
@@ -340,9 +340,9 @@
 					$("#contr_int_").val(data);
 					$("#NumeroContratoTex").prop('disabled', true);
 					$("#btnFiltrar2").prop('disabled', true);
-					alertify.success('Numero de contrato Valido!');
+					alertify.success('Número de contrato Valido!');
 				}else{
-					alertify.error('Ese numero de contrato no existe');
+					alertify.error('Ese número de contrato no existe');
 				}
 			}
 		});
@@ -360,7 +360,7 @@
 					$("#cedula").prop('disabled', true);
 					alertify.success('Identificación Valida!');
 				}else{
-					alertify.error('Ese numero de contrato no existe');
+					alertify.error('Ese número de contrato no existe');
 				}
 			}
 		});

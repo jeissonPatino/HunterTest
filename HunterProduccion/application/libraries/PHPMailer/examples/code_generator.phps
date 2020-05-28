@@ -476,28 +476,28 @@ if (isset($_POST["submit"]) && $_POST["submit"] == "Submit") {
                         <td class="colrite">
                             <div class="radio">
                                 <label for="radio-mail">Mail()</label>
-                                <input class="radio" type="checkbox" name="test_type" value="mail" id="radio-mail"
+                                <input class="radio" type="radio" name="test_type" value="mail" id="radio-mail"
                                        onclick="showHideDiv(this.value, 'smtp-options-table');"
                                        <?php echo ($test_type == 'mail') ? 'checked' : ''; ?>
                                        required>
                             </div>
                             <div class="radio">
                                 <label for="radio-sendmail">Sendmail</label>
-                                <input class="radio" type="checkbox" name="test_type" value="sendmail" id="radio-sendmail"
+                                <input class="radio" type="radio" name="test_type" value="sendmail" id="radio-sendmail"
                                        onclick="showHideDiv(this.value, 'smtp-options-table');"
                                        <?php echo ($test_type == 'sendmail') ? 'checked' : ''; ?>
                                        required>
                             </div>
                             <div class="radio">
                                 <label for="radio-qmail">Qmail</label>
-                                <input class="radio" type="checkbox" name="test_type" value="qmail" id="radio-qmail"
+                                <input class="radio" type="radio" name="test_type" value="qmail" id="radio-qmail"
                                        onclick="showHideDiv(this.value, 'smtp-options-table');"
                                        <?php echo ($test_type == 'qmail') ? 'checked' : ''; ?>
                                        required>
                             </div>
                             <div class="radio">
                                 <label for="radio-smtp">SMTP</label>
-                                <input class="radio" type="checkbox" name="test_type" value="smtp" id="radio-smtp"
+                                <input class="radio" type="radio" name="test_type" value="smtp" id="radio-smtp"
                                        onclick="showHideDiv(this.value, 'smtp-options-table');"
                                        <?php echo ($test_type == 'smtp') ? 'checked' : ''; ?>
                                        required>

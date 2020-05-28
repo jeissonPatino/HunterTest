@@ -21,7 +21,8 @@ body {
 body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-family: Helvetica, Arial, sans-serif;
+  font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 400;
   overflow-x: hidden;
   overflow-y: auto;
 
@@ -63,7 +64,7 @@ body {
   transition: transform 0.3s ease-in-out, margin 0.3s ease-in-out;
   margin-left: 230px;
   z-index: 820;
-   background: color: white;
+  background: url('../../img/fondo_Nal.png') repeat fixed;
 }
 .layout-top-nav .content-wrapper,
 .layout-top-nav .right-side,
@@ -150,7 +151,6 @@ body.hold-transition .main-header .logo {
   margin-left: auto;
   padding-left: 15px;
   padding-right: 15px;
-  color: rgba(0,0,0)
 }
 /* H1 - H6 font */
 h1,
@@ -165,7 +165,7 @@ h6,
 .h4,
 .h5,
 .h6 {
-  font-family: Helvetica, sans-serif;
+  font-family: 'Source Sans Pro', sans-serif;
 }
 /* General Links */
 a {
@@ -181,7 +181,7 @@ a:focus {
 /* Page Header */
 .page-header {
   margin: 10px 0 20px 0;
-  font-size: 18px;
+  font-size: 22px;
 }
 .page-header > small {
   color: #666;
@@ -206,7 +206,6 @@ a:focus {
   border: none;
   min-height: 50px;
   border-radius: 0;
-  color: rgba(0,0,0,0.7)
 }
 .layout-top-nav .main-header > .navbar {
   margin-left: 0;
@@ -258,7 +257,7 @@ a:focus {
   background-color: transparent;
   background-image: none;
   padding: 15px 15px;
-  font-family: Helvetica, Arial, sans-serif;
+  font-family: fontAwesome;
 }
 .main-header .sidebar-toggle:before {
   content: "\f0c9";
@@ -298,7 +297,7 @@ a:focus {
   line-height: 50px;
   text-align: center;
   width: 230px;
-  font-family: Helvetica, Arial, sans-serif;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   padding: 0 15px;
   font-weight: 300;
   overflow: hidden;
@@ -318,7 +317,7 @@ a:focus {
 }
 .content-header > h1 {
   margin: 0;
-  font-size: 18px;
+  font-size: 24px;
 }
 .content-header > h1 > small {
   font-size: 15px;
@@ -938,7 +937,7 @@ a:focus {
 .navbar-nav > .notifications-menu > .dropdown-menu > li,
 .navbar-nav > .messages-menu > .dropdown-menu > li,
 .navbar-nav > .tasks-menu > .dropdown-menu > li {
-  position: absolute;
+  position: relative;
 }
 .navbar-nav > .notifications-menu > .dropdown-menu > li.header,
 .navbar-nav > .messages-menu > .dropdown-menu > li.header,

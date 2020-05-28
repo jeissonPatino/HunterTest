@@ -66,10 +66,10 @@ class Auxiliar extends CI_Controller {
                 $datos[$i]['nombre'] = utf8_encode($key->Nombre);
                 $datos[$i]['celular'] = $key->celular;
                 $datos[$i]['correo'] = $key->correo;
-                $datos[$i]['frg'] = $key->Frg_ConsInte__b;
+                $datos[$i]['frg'] = $key->FRGId;
                 $datos[$i]['direccion'] = utf8_encode($key->direccion);
                 $datos[$i]['telefono'] = utf8_encode($key->telefono) ;
-                $datos[$i]['firma'] = $key->Firma_abogados;
+                $datos[$i]['firma'] = $key->FirmaAbogado;
                 $i++;
             }
             echo json_encode($datos);
@@ -81,29 +81,29 @@ class Auxiliar extends CI_Controller {
     function guardarAbogads(){
     	if($this->session->userdata('login_ok')){
            	$datos = array(
-           					'G723_C17204' => $_POST['cedula'],
-           					'G723_C17099' => utf8_decode($_POST['nombre']),
-           					'G723_C17100' => $_POST['celular'],
-           					'G723_C17101' => $_POST['correo'],
-                            'Frg_ConsInte__b' => $_POST['cmbFrgs'],
+           					'CCAbogado' => $_POST['cedula'],
+           					'Nombre' => utf8_decode($_POST['nombre']),
+           					'Celular' => $_POST['celular'],
+           					'CorreoElectronico' => $_POST['correo'],
+                            'FRGId' => $_POST['cmbFrgs'],
                             'direccion' => $_POST['TxtDireccion'],
                             'telefono' => $_POST['txtTelefono'],
-                            'Firma_abogados' => $_POST['cambFirmas']
+                            'FirmaAbogado' => $_POST['cambFirmas']
            				);
 
            /*$datos = array(
-                            'G723_C17204' => $_POST['cedula'],
-                            'G723_C17099' => utf8_decode($_POST['nombre']),
-                            'G723_C17100' => $_POST['celular'],
-                            'G723_C17101' => $_POST['correo'],
-                            'Frg_ConsInte__b' => $_POST['cmbFrgs']
+                            'CCAbogado' => $_POST['cedula'],
+                            'Nombre' => utf8_decode($_POST['nombre']),
+                            'Celular' => $_POST['celular'],
+                            'CorreoElectronico' => $_POST['correo'],
+                            'FRGId' => $_POST['cmbFrgs']
                         );*/
 
             $resultado = false;
             if($_POST['id'] == '0'){
-                $resultado = $this->Wizard_Model->guardardatos('G723', $datos);
+                $resultado = $this->Wizard_Model->guardardatos('Abogados', $datos);
             }else{
-                $resultado = $this->Wizard_Model->editarDatos('G723', $datos, $_POST['id'], 'G723_ConsInte__b');
+                $resultado = $this->Wizard_Model->editarDatos('Abogados', $datos, $_POST['id'], 'Id');
             }
 
        	 	  if($resultado){
@@ -119,7 +119,7 @@ class Auxiliar extends CI_Controller {
     function eliminarDatos(){
         if($this->session->userdata('login_ok')){
             $resultado = false;
-            $resultado = $this->Wizard_Model->borrarDatos('G723', $_POST['id'], 'G723_ConsInte__b');
+            $resultado = $this->Wizard_Model->borrarDatos('Abogados', $_POST['id'], 'Id');
             if($resultado){
                 echo "1";
             }else{
@@ -281,14 +281,14 @@ class Auxiliar extends CI_Controller {
     function guardarCiudades(){
       if($this->session->userdata('login_ok')){
             $datos = array(
-                    'G718_C17015' => utf8_decode($_POST['ciudad']),
-                    'G718_C17016' => $_POST['departamento']
+                    'Ciudad' => utf8_decode($_POST['ciudad']),
+                    'Departamento' => $_POST['departamento']
                   );
             $resultado = false;
             if($_POST['id'] == '0'){
-                $resultado = $this->Wizard_Model->guardardatos('G718', $datos);
+                $resultado = $this->Wizard_Model->guardardatos('Ciudad', $datos);
             }else{
-                $resultado = $this->Wizard_Model->editarDatos('G718', $datos, $_POST['id'], 'G718_ConsInte__b');
+                $resultado = $this->Wizard_Model->editarDatos('Ciudad', $datos, $_POST['id'], 'Id');
             }
 
             if($resultado){
@@ -419,19 +419,19 @@ class Auxiliar extends CI_Controller {
         if($this->session->userdata('login_ok')){
             $idUsuario = $_POST['ID_PERSONAS'];
 
-            $datosPersonales = $this->db->get_where('G717', array('G717_C17005' => $_POST['IdentificacionUsers']));
+            $datosPersonales = $this->db->get_where('InformacionCliente', array('NroIdentificacion' => $_POST['IdentificacionUsers']));
             
             
-            $ciudadDomicilio = $datosPersonales->row()->G717_C17012 ;
-            $ciudadOficina = $datosPersonales->row()->G717_C17013 ;
-            $tefonoOficina = $datosPersonales->row()->G717_C17008 ;
-            $telefonoDomicilio = $datosPersonales->row()->G717_C17006 ;
-            $celular = $datosPersonales->row()->G717_C17010 ;
-            $celularAdicional = $datosPersonales->row()->G717_C17011 ;
-            $mail = $datosPersonales->row()->G717_C17017 ;
-            $direccionDomicilio = $datosPersonales->row()->G717_C17007 ;
-            $direccionOficina = $datosPersonales->row()->G717_C17009 ;
-            $iddeusuario = $datosPersonales->row()->G717_ConsInte__b;
+            $ciudadDomicilio = $datosPersonales->row()->CiudadDomicilio ;
+            $ciudadOficina = $datosPersonales->row()->CiudadOficina ;
+            $tefonoOficina = $datosPersonales->row()->TelefonoOficina ;
+            $telefonoDomicilio = $datosPersonales->row()->TelefonoDomicilio ;
+            $celular = $datosPersonales->row()->Celular ;
+            $celularAdicional = $datosPersonales->row()->CelularAdicional ;
+            $mail = $datosPersonales->row()->CorreoElectronico ;
+            $direccionDomicilio = $datosPersonales->row()->DireccionDomicilio ;
+            $direccionOficina = $datosPersonales->row()->DireccionOficina ;
+            $iddeusuario = $datosPersonales->row()->Id;
             $dir_Adicional = $datosPersonales->row()->dir_Adicional;
             $tele_adicional = $datosPersonales->row()->tele_adicional;
             $ciudad_adicional = $datosPersonales->row()->ciudad_adicional;
@@ -484,20 +484,20 @@ class Auxiliar extends CI_Controller {
                 $tele_adicional = $_POST['tele_adicional'];
             }
 
-            $datosNormales = array( 'G717_C17012' => $ciudadDomicilio,
-                                    'G717_C17013' => $ciudadOficina,
-                                    'G717_C17008' => $tefonoOficina,
-                                    'G717_C17006' => $telefonoDomicilio,
-                                    'G717_C17010' => $celular,
-                                    'G717_C17011' => $celularAdicional,
-                                    'G717_C17017' => $mail,
-                                    'G717_C17007' => $direccionDomicilio,
-                                    'G717_C17009' => $direccionOficina,
+            $datosNormales = array( 'CiudadDomicilio' => $ciudadDomicilio,
+                                    'CiudadOficina' => $ciudadOficina,
+                                    'TelefonoOficina' => $tefonoOficina,
+                                    'TelefonoDomicilio' => $telefonoDomicilio,
+                                    'Celular' => $celular,
+                                    'CelularAdicional' => $celularAdicional,
+                                    'CorreoElectronico' => $mail,
+                                    'DireccionDomicilio' => $direccionDomicilio,
+                                    'DireccionOficina' => $direccionOficina,
                                     'tele_adicional' => $tele_adicional,
                                     'dir_Adicional' => $dir_Adicional,
                                     'ciudad_adicional' => $ciudad_adicional );
             
-            $resultados = $this->Wizard_Model->editarDatos('G717', $datosNormales, $iddeusuario, 'G717_ConsInte__b');
+            $resultados = $this->Wizard_Model->editarDatos('InformacionCliente', $datosNormales, $iddeusuario, 'Id');
 
             $datosIniciales = array( 'ciudadDomicilio' => $ciudadDomicilio,
                                      'ciudadOficina' => $ciudadOficina,
@@ -544,8 +544,8 @@ class Auxiliar extends CI_Controller {
         if($this->session->userdata('login_ok')){
 
             $this->db->select("id_log_datos
-                          ,x.G718_C17015 as ciudadDomicilio
-                          ,y.G718_C17015 as ciudadOficina
+                          ,x.Ciudad as ciudadDomicilio
+                          ,y.Ciudad as ciudadOficina
                           ,tefonoOficina
                           ,telefonoDomicilio
                           ,celular
@@ -556,38 +556,38 @@ class Auxiliar extends CI_Controller {
                           ,iddeusuario
                           ,dir_Adicional
                           ,tele_adicional
-                          ,z.G718_C17015 as ciudad_adicional
-                          ,a.LISOPC_Nombre____b As cal_ciudadDomicilio
-                          ,b.LISOPC_Nombre____b As cal_ciudadOficina
-                          ,c.LISOPC_Nombre____b As cal_tefonoOficina
-                          ,d.LISOPC_Nombre____b As cal_telefonoDomicilio
-                          ,e.LISOPC_Nombre____b As cal_celular
-                          ,f.LISOPC_Nombre____b As cal_celularAdicional
-                          ,g.LISOPC_Nombre____b As cal_mail
-                          ,h.LISOPC_Nombre____b As cal_direccionDomicilio
-                          ,i.LISOPC_Nombre____b As cal_direccionOficina
-                          ,j.LISOPC_Nombre____b As cal_dir_Adicional
-                          ,k.LISOPC_Nombre____b As cal_tele_adicional
-                          ,l.LISOPC_Nombre____b As cal_ciudad_adicional
+                          ,z.Ciudad as ciudad_adicional
+                          ,a.Nombre_b As cal_ciudadDomicilio
+                          ,b.Nombre_b As cal_ciudadOficina
+                          ,c.Nombre_b As cal_tefonoOficina
+                          ,d.Nombre_b As cal_telefonoDomicilio
+                          ,e.Nombre_b As cal_celular
+                          ,f.Nombre_b As cal_celularAdicional
+                          ,g.Nombre_b As cal_mail
+                          ,h.Nombre_b As cal_direccionDomicilio
+                          ,i.Nombre_b As cal_direccionOficina
+                          ,j.Nombre_b As cal_dir_Adicional
+                          ,k.Nombre_b As cal_tele_adicional
+                          ,l.Nombre_b As cal_ciudad_adicional
                           ,fecha_modificacion");
             $this->db->from("Log_datos_iniciales");
 
-            $this->db->join('G718 x', 'x.G718_ConsInte__b = ciudadDomicilio', 'LEFT');
-            $this->db->join('G718 y', 'y.G718_ConsInte__b = ciudadOficina', 'LEFT');
-            $this->db->join('G718 z', 'z.G718_ConsInte__b = ciudad_adicional', 'LEFT');
+            $this->db->join('Ciudad x', 'x.Id = ciudadDomicilio', 'LEFT');
+            $this->db->join('Ciudad y', 'y.Id = ciudadOficina', 'LEFT');
+            $this->db->join('Ciudad z', 'z.Id = ciudad_adicional', 'LEFT');
 
-            $this->db->join('LISOPC a', 'a.LISOPC_ConsInte__b = cal_ciudadDomicilio ', 'LEFT');
-            $this->db->join('LISOPC b', 'b.LISOPC_ConsInte__b = cal_ciudadOficina ', 'LEFT');
-            $this->db->join('LISOPC c', 'c.LISOPC_ConsInte__b = cal_tefonoOficina ', 'LEFT');
-            $this->db->join('LISOPC d', 'd.LISOPC_ConsInte__b = cal_telefonoDomicilio ', 'LEFT');
-            $this->db->join('LISOPC e', 'e.LISOPC_ConsInte__b = cal_celular ', 'LEFT');
-            $this->db->join('LISOPC f', 'f.LISOPC_ConsInte__b = cal_celularAdicional ', 'LEFT');
-            $this->db->join('LISOPC g', 'g.LISOPC_ConsInte__b = cal_mail ', 'LEFT');
-            $this->db->join('LISOPC h', 'h.LISOPC_ConsInte__b = cal_direccionDomicilio ', 'LEFT');
-            $this->db->join('LISOPC i', 'i.LISOPC_ConsInte__b = cal_direccionOficina ', 'LEFT');
-            $this->db->join('LISOPC j', 'j.LISOPC_ConsInte__b = cal_dir_Adicional ', 'LEFT');
-            $this->db->join('LISOPC k', 'k.LISOPC_ConsInte__b = cal_tele_adicional ', 'LEFT');
-            $this->db->join('LISOPC l', 'l.LISOPC_ConsInte__b = cal_ciudad_adicional ', 'LEFT');
+            $this->db->join('ParametroGeneral a', 'a.Id = cal_ciudadDomicilio ', 'LEFT');
+            $this->db->join('ParametroGeneral b', 'b.Id = cal_ciudadOficina ', 'LEFT');
+            $this->db->join('ParametroGeneral c', 'c.Id = cal_tefonoOficina ', 'LEFT');
+            $this->db->join('ParametroGeneral d', 'd.Id = cal_telefonoDomicilio ', 'LEFT');
+            $this->db->join('ParametroGeneral e', 'e.Id = cal_celular ', 'LEFT');
+            $this->db->join('ParametroGeneral f', 'f.Id = cal_celularAdicional ', 'LEFT');
+            $this->db->join('ParametroGeneral g', 'g.Id = cal_mail ', 'LEFT');
+            $this->db->join('ParametroGeneral h', 'h.Id = cal_direccionDomicilio ', 'LEFT');
+            $this->db->join('ParametroGeneral i', 'i.Id = cal_direccionOficina ', 'LEFT');
+            $this->db->join('ParametroGeneral j', 'j.Id = cal_dir_Adicional ', 'LEFT');
+            $this->db->join('ParametroGeneral k', 'k.Id = cal_tele_adicional ', 'LEFT');
+            $this->db->join('ParametroGeneral l', 'l.Id = cal_ciudad_adicional ', 'LEFT');
             $this->db->where("id_log_datos", $iddato);
             $query = $this->db->get();
             $abogados = $query->result();
@@ -843,7 +843,7 @@ class Auxiliar extends CI_Controller {
 	function eliminarAcuerdoPago(){
         if($this->session->userdata('login_ok')){
             $resultado = false;
-            $resultado = $this->Wizard_Model->borrarDatos('G726', $_POST['id'], 'G726_ConsInte__b');
+            $resultado = $this->Wizard_Model->borrarDatos('AcuerdosPago', $_POST['id'], 'Id');
             if($resultado){
                 echo "1";
             }else{
@@ -912,34 +912,34 @@ class Auxiliar extends CI_Controller {
 
 
             $datos = array(
-                    'G726_C17237' => $_POST['const_contrato_'],
-                    'G726_C17109' => $_POST['FechaLiquidacion'],
-                    'G726_C17110' => $_POST['FechaAnticipo'],
-                    'G726_C17111' => $legalizacion,
-					'G726_C17112' => $ValorAcuerdo,
-                    'G726_C17113' => $_POST['AcuerdoPlazo'],
-                    'G726_C17223' => $Cuota,
-					'G726_C17224' => $FechaPrimeraCuoota,
-					'G726_C17225' => $FechaPagoUltimaCuota,
-					'G726_c17419' => $tazadeinterez
+                    'FechaPagoUltimaCuota' => $_POST['const_contrato_'],
+                    'NumeroContrato' => $_POST['FechaLiquidacion'],
+                    'FechaLiquidacion' => $_POST['FechaAnticipo'],
+                    'FechaConsignacionAnticipo' => $legalizacion,
+					'FechaLegalizacion' => $ValorAcuerdo,
+                    'ValorRecaudo' => $_POST['AcuerdoPlazo'],
+                    'PlazoAcuerdoPago' => $Cuota,
+					'ValorCuotaAcuerdo' => $FechaPrimeraCuoota,
+					'FechaPagoPrimeraCuota' => $FechaPagoUltimaCuota,
+					'TasaInteresCorrienteAcuerdoPago' => $tazadeinterez
 
                   );
             $resultado = false;
             if($_POST['id'] == '0'){
-                $resultado = $this->Wizard_Model->guardardatos('G726', $datos);
+                $resultado = $this->Wizard_Model->guardardatos('AcuerdosPago', $datos);
             }else{
                 $datos = array(
-                    'G726_C17237' => $_POST['const_contrato_'],
-                    'G726_C17109' => $_POST['FechaLiquidacion'],
-                    'G726_C17110' => $_POST['FechaAnticipo'],
-                    'G726_C17113' => $_POST['AcuerdoPlazo'],
-                    'G726_C17224' => $FechaPrimeraCuoota,
-                    'G726_C17225' => $FechaPagoUltimaCuota,
+                    'FechaPagoUltimaCuota' => $_POST['const_contrato_'],
+                    'NumeroContrato' => $_POST['FechaLiquidacion'],
+                    'FechaLiquidacion' => $_POST['FechaAnticipo'],
+                    'ValorRecaudo' => $_POST['AcuerdoPlazo'],
+                    'ValorCuotaAcuerdo' => $FechaPrimeraCuoota,
+                    'FechaPagoPrimeraCuota' => $FechaPagoUltimaCuota,
                     'FECHA_EMAIL' => $FechaPrimeraCuoota
                   );
 
 
-                $resultado = $this->Wizard_Model->editarDatos('G726', $datos, $_POST['id'], 'G726_ConsInte__b');
+                $resultado = $this->Wizard_Model->editarDatos('AcuerdosPago', $datos, $_POST['id'], 'Id');
                 $Cuota =  $_POST['AcuerdoPlazo'];
                 
                 $this->db->where('cor_acuerdo_de_pago', $_POST['id']);
@@ -1009,14 +1009,14 @@ class Auxiliar extends CI_Controller {
         $fechaIngreso =  date("Y-m-d H:i:s");
 
             $datos = array(
-                    'G733_C17132' => utf8_decode($_POST['despacho']),
-                    'G733_C17133' => $_POST['selpaises']
+                    'Despacho' => utf8_decode($_POST['despacho']),
+                    'CiudadDespacho' => $_POST['selpaises']
                   );
             $resultado = false;
             if($_POST['id'] == '0'){
-                $resultado = $this->Wizard_Model->guardardatos('G733', $datos);
+                $resultado = $this->Wizard_Model->guardardatos('Despacho', $datos);
             }else{
-                $resultado = $this->Wizard_Model->editarDatos('G733', $datos, $_POST['id'], 'G733_ConsInte__b');
+                $resultado = $this->Wizard_Model->editarDatos('Despacho', $datos, $_POST['id'], 'Id');
             }
 
             if($resultado){
@@ -1033,7 +1033,7 @@ class Auxiliar extends CI_Controller {
     function eliminarDespachos(){
         if($this->session->userdata('login_ok')){
             $resultado = false;
-            $resultado = $this->Wizard_Model->borrarDatos('G733', $_POST['id'], 'G733_ConsInte__b');
+            $resultado = $this->Wizard_Model->borrarDatos('Despacho', $_POST['id'], 'Id');
             if($resultado){
                 echo "1";
             }else{
@@ -1200,7 +1200,7 @@ class Auxiliar extends CI_Controller {
                     $nuevo = $key->liquidacion;
                     if($nuevo != $viejo){
                         $datos[$i]['obligacion'] = $key->liquidacion;
-                        $datos[$i]['G719_ConsInte__b'] = $key->G719_ConsInte__b;
+                        $datos[$i]['Id'] = $key->Id;
                         $i++; 
                     }
                     $viejo = $nuevo;
@@ -1288,15 +1288,15 @@ class Auxiliar extends CI_Controller {
                 }
 
                 $aprbacion = NULL;
-                if(!is_null($key->Fecha_aprobacion_soporte)){
-                    $aprbacion = explode(" ", $key->Fecha_aprobacion_soporte)[0];
+                if(!is_null($key->FechaAprobacionSoporte)){
+                    $aprbacion = explode(" ", $key->FechaAprobacionSoporte)[0];
                     $aprbacion = explode("-", $aprbacion);
                     $aprbacion = $aprbacion[2]."/". $aprbacion[1]."/". $aprbacion[0];
                 }
 
                 $recepion = NULL;
-                if(!is_null($key->Fecha_recepcion_soporte)){
-                    $recepion = explode(" ", $key->Fecha_recepcion_soporte)[0];
+                if(!is_null($key->FechaRecepcionSoporte)){
+                    $recepion = explode(" ", $key->FechaRecepcionSoporte)[0];
                     $recepion = explode("-", $recepion);
                     $recepion = $recepion[2]."/". $recepion[1]."/". $recepion[0];
                 }
@@ -1323,7 +1323,7 @@ class Auxiliar extends CI_Controller {
                 $datos[$i]['FECHA_AUTO_DE_SUBROGACION2'] = $tfech;
                 $datos[$i]['FECHAAPROBACION'] = $aprbacion;
                 $datos[$i]['FECHARECPCION'] = $recepion;
-                $datos[$i]['id'] = $key->G744_ConsInte__b;
+                $datos[$i]['id'] = $key->Id;
                 $i++;
             }
             echo json_encode($datos);
@@ -1338,106 +1338,106 @@ class Auxiliar extends CI_Controller {
             date_default_timezone_set('America/Bogota');
             $fechaIngreso =  date("Y-m-d H:i:s");
 
-            $G744_C17262 = NULL;
-            $G744_C17263 = NULL; 
-            $G744_C17264 = NULL;
-            $G744_C17265 = NULL;
-            $G744_C17266 = NULL;
-            $G744_C17267 = NULL;
-            $G744_C17270 = NULL;
-            $G744_C17285 = NULL;
-            $G744_C17286 = NULL;
-            $G744_C17275 = NULL;
-            $G744_C17276 = NULL;
-            $G744_C17268 = NULL;
-            $G744_C17277 = NULL;
-            $G744_C17278 = NULL;
-            $G744_C17279 = NULL;
-            $G744_C17280 = NULL;
-            $G744_C17269 = NULL;
-            $G744_C17423 = NULL;
-            $G744_C17424 = NULL;
+            $FechaFacturacionAutoSubRogacion = NULL;
+            $NroFacturaAutoSubRogacion = NULL; 
+            $FechaAutoSubRogacion = NULL;
+            $NroFacturaSentenciaIrrecuperable = NULL;
+            $FechaSentenciaIrrecuperable = NULL;
+            $FechaFacturaSentenciaIrrecuperable = NULL;
+            $NroFacturaSoporteCISA = NULL;
+            $FechaLiquidacionCredito = NULL;
+            $FechaAutoIrrecuperable = NULL;
+            $Soporte = NULL;
+            $FechaFacturaSoporteCISA = NULL;
+            $FechaFacturaSoporteCISA_ = NULL;
+            $ValorFacturadoSentenciaIrrecuperable = NULL;
+            $ValorFacturadoSoporteCISA = NULL;
+            $FechaFacturaHonorarioCISA1 = NULL;
+            $NumeroContratoId = NULL;
+            $FechaFacturaHonorarioCISA2 = NULL;
+            $FechaFacturaHonorarioCISA3 = NULL;
+            $FechaFacturaHonorarioCISA4 = NULL;
             $txtFechaRecepcion = NULL;
             $txtFechaAprobacion = NULL;
 
             if($_POST['txtFechaFacuraSub'] != '' && $_POST['txtFechaFacuraSub'] != NULL){
-                $G744_C17262 = $_POST['txtFechaFacuraSub'];
+                $FechaFacturacionAutoSubRogacion = $_POST['txtFechaFacuraSub'];
             }
 
             if($_POST['txtFacturaAutoSub'] != '' && $_POST['txtFacturaAutoSub'] != NULL){
-                $G744_C17263 = $_POST['txtFacturaAutoSub'];
+                $NroFacturaAutoSubRogacion = $_POST['txtFacturaAutoSub'];
             }
 
             if($_POST['txtFechaAutoSub'] != '' && $_POST['txtFechaAutoSub'] != NULL){
-                $G744_C17264 = $_POST['txtFechaAutoSub'];
+                $FechaAutoSubRogacion = $_POST['txtFechaAutoSub'];
             }
 
             if($_POST['txtFacturaSentenciaIrr'] != '' && $_POST['txtFacturaSentenciaIrr'] != NULL){
-                $G744_C17265 = $_POST['txtFacturaSentenciaIrr'];
+                $NroFacturaSentenciaIrrecuperable = $_POST['txtFacturaSentenciaIrr'];
             }
 
             if($_POST['txtFechaSentenciaIrr'] != '' && $_POST['txtFechaSentenciaIrr'] != NULL){
-                $G744_C17266 = $_POST['txtFechaSentenciaIrr'];
+                $FechaSentenciaIrrecuperable = $_POST['txtFechaSentenciaIrr'];
             }
 
             if($_POST['txtFechaFacturaIrr'] != '' && $_POST['txtFechaFacturaIrr'] != NULL){
-                $G744_C17267 = $_POST['txtFechaFacturaIrr'];
+                $FechaFacturaSentenciaIrrecuperable = $_POST['txtFechaFacturaIrr'];
             }
 
             if($_POST['txtFechaLiquidacionIrr'] != '' && $_POST['txtFechaLiquidacionIrr'] != NULL){
-                $G744_C17285 = $_POST['txtFechaLiquidacionIrr'];
+                $FechaLiquidacionCredito = $_POST['txtFechaLiquidacionIrr'];
             }
 
             if($_POST['txtFechaAutoSubrogacionIrr'] != '' && $_POST['txtFechaAutoSubrogacionIrr'] != NULL){
-                $G744_C17286 = $_POST['txtFechaAutoSubrogacionIrr'];
+                $FechaAutoIrrecuperable = $_POST['txtFechaAutoSubrogacionIrr'];
             }
 
             if($_POST['txtValorFacturadoAutoSub'] != '' && $_POST['txtValorFacturadoAutoSub'] != NULL){
-               $G744_C17276 = $_POST['txtValorFacturadoAutoSub'];
+               $FechaFacturaSoporteCISA = $_POST['txtValorFacturadoAutoSub'];
             }
 
             if($_POST['txtFechaFacturaCISA'] != '' && $_POST['txtFechaFacturaCISA'] != NULL){
-                $G744_C17268 = $_POST['txtFechaFacturaCISA'];
+                $FechaFacturaSoporteCISA_ = $_POST['txtFechaFacturaCISA'];
             }
 
             if(isset($_POST['txtValorFActuradoIrr'])){
                 if($_POST['txtValorFActuradoIrr'] != '' && $_POST['txtValorFActuradoIrr'] != NULL){
-                    $G744_C17277 = $_POST['txtValorFActuradoIrr'];
+                    $ValorFacturadoSentenciaIrrecuperable = $_POST['txtValorFActuradoIrr'];
                 }
             }
             
 
             if($_POST['txtValoFacturadoCISA'] != '' && $_POST['txtValoFacturadoCISA'] != NULL){
-                $G744_C17278 = $_POST['txtValoFacturadoCISA'];
+                $ValorFacturadoSoporteCISA = $_POST['txtValoFacturadoCISA'];
 
             }
             
             if($_POST['txtRenunciaCISA'] != '' && $_POST['txtRenunciaCISA'] != NULL){
-                $G744_C17279 = $_POST['txtRenunciaCISA'];
+                $FechaFacturaHonorarioCISA1 = $_POST['txtRenunciaCISA'];
             }
 
             if($_POST['NumeroContrato'] != '' && $_POST['NumeroContrato'] != NULL){
-                $G744_C17280 = $_POST['NumeroContrato'];
+                $NumeroContratoId = $_POST['NumeroContrato'];
             }
 
             if($_POST['txtHonorariosVentaCISA'] != '' && $_POST['txtHonorariosVentaCISA'] != NULL){
-                $G744_C17269 = $_POST['txtHonorariosVentaCISA'];
+                $FechaFacturaHonorarioCISA2 = $_POST['txtHonorariosVentaCISA'];
             }
 
             if($_POST['txtFacturaHonorariosCISA'] != '' && $_POST['txtFacturaHonorariosCISA'] != NULL){
-                $G744_C17423 = $_POST['txtFacturaHonorariosCISA'];
+                $FechaFacturaHonorarioCISA3 = $_POST['txtFacturaHonorariosCISA'];
             }
 
             if($_POST['txtFechaFacturaHonorariosCISA'] != '' && $_POST['txtFechaFacturaHonorariosCISA'] != NULL){
-                $G744_C17424 = $_POST['txtFechaFacturaHonorariosCISA'];
+                $FechaFacturaHonorarioCISA4 = $_POST['txtFechaFacturaHonorariosCISA'];
             }
 
             if($_POST['txtSoporteCISA'] != '' && $_POST['txtSoporteCISA'] != NULL){
-                $G744_C17275 = $_POST['txtSoporteCISA'];
+                $Soporte = $_POST['txtSoporteCISA'];
             }
 
             if($_POST['txtFacturaCISA'] != '' && $_POST['txtFacturaCISA'] != NULL){
-                $G744_C17270 = $_POST['txtFacturaCISA'];
+                $NroFacturaSoporteCISA = $_POST['txtFacturaCISA'];
             }
 
             if(isset($_POST['txtFechaRecepcion'] )){
@@ -1454,35 +1454,35 @@ class Auxiliar extends CI_Controller {
             
              
             $datos = array(
-                    'G744_C17262' => $G744_C17262,
-                    'G744_C17263' => $G744_C17263, 
-                    'G744_C17264' => $G744_C17264,
-                    'G744_C17265' => $G744_C17265,
-                    'G744_C17266' => $G744_C17266,
-                    'G744_C17267' => $G744_C17267,
-                    'G744_C17270' => $G744_C17270,
-                    'G744_C17285' => $G744_C17285,
-                    'G744_C17286' => $G744_C17286,
-                    'G744_C17275' => $G744_C17275,
-                    'G744_C17276' => $G744_C17276,
-                    'G744_C17268' => $G744_C17268,
-                    'G744_C17277' => $G744_C17277,
-                    'G744_C17278' => $G744_C17278,
-                    'G744_C17279' => $G744_C17279,
-                    'G744_C17280' => $G744_C17280,
-                    'G744_C17269' => $G744_C17269,
-                    'G744_C17423' => $G744_C17423,
-                    'G744_C17424' => $G744_C17424,
-                    'Fecha_recepcion_soporte' => $txtFechaRecepcion, 
-                    'Fecha_aprobacion_soporte' => $txtFechaAprobacion,
-                    'G744_FechaInsercion' => $fechaIngreso,
+                    'FechaFacturacionAutoSubRogacion' => $FechaFacturacionAutoSubRogacion,
+                    'NroFacturaAutoSubRogacion' => $NroFacturaAutoSubRogacion, 
+                    'FechaAutoSubRogacion' => $FechaAutoSubRogacion,
+                    'NroFacturaSentenciaIrrecuperable' => $NroFacturaSentenciaIrrecuperable,
+                    'FechaSentenciaIrrecuperable' => $FechaSentenciaIrrecuperable,
+                    'FechaFacturaSentenciaIrrecuperable' => $FechaFacturaSentenciaIrrecuperable,
+                    'NroFacturaSoporteCISA' => $NroFacturaSoporteCISA,
+                    'FechaLiquidacionCredito' => $FechaLiquidacionCredito,
+                    'FechaAutoIrrecuperable' => $FechaAutoIrrecuperable,
+                    'Soporte' => $Soporte,
+                    'FechaFacturaSoporteCISA' => $FechaFacturaSoporteCISA,
+                    'FechaFacturaSoporteCISA_' => $FechaFacturaSoporteCISA_,
+                    'ValorFacturadoSentenciaIrrecuperable' => $ValorFacturadoSentenciaIrrecuperable,
+                    'ValorFacturadoSoporteCISA' => $ValorFacturadoSoporteCISA,
+                    'FechaFacturaHonorarioCISA1' => $FechaFacturaHonorarioCISA1,
+                    'NumeroContratoId' => $NumeroContratoId,
+                    'FechaFacturaHonorarioCISA2' => $FechaFacturaHonorarioCISA2,
+                    'FechaFacturaHonorarioCISA3' => $FechaFacturaHonorarioCISA3,
+                    'FechaFacturaHonorarioCISA4' => $FechaFacturaHonorarioCISA4,
+                    'FechaRecepcionSoporte' => $txtFechaRecepcion, 
+                    'FechaAprobacionSoporte' => $txtFechaAprobacion,
+                    'FechaInsercion' => $fechaIngreso,
 
-                    'G744_Usuario' => $this->session->userdata('identificacion')
+                    'Usuario' => $this->session->userdata('identificacion')
                   );
 
             $this->db->select('G719_C17423');
-            $this->db->from('G719');
-            $this->db->where('G719_ConsInte__b', $G744_C17280);
+            $this->db->from('InformacionCredito');
+            $this->db->where('Id', $NumeroContratoId);
             $query = $this->db->get();
             $liquidacion = 0;
             if( $query->num_rows() >  0){
@@ -1491,8 +1491,8 @@ class Auxiliar extends CI_Controller {
                 }
             }else{
                 $this->db->select('G719_C17423');
-                $this->db->from('G719');
-                $this->db->where('G719_C17423', $G744_C17280);
+                $this->db->from('InformacionCredito');
+                $this->db->where('G719_C17423', $NumeroContratoId);
                 $query = $this->db->get();
                 if($query->row()->G719_C17423 != NULL && $query->row()->G719_C17423 != '' ){
                     $liquidacion = $query->row()->G719_C17423;
@@ -1502,66 +1502,66 @@ class Auxiliar extends CI_Controller {
             $resultado = false;
             if($_POST['id'] == '0'){
                 if($liquidacion == 0){
-                    $resultado = $this->Wizard_Model->guardardatos('G744', $datos);
+                    $resultado = $this->Wizard_Model->guardardatos('Factura', $datos);
                 }else{
-                    $this->db->select('G719_ConsInte__b');
-                    $this->db->from('G719');
+                    $this->db->select('Id');
+                    $this->db->from('InformacionCredito');
                     $this->db->where('G719_C17423', $liquidacion);
                     $query = $this->db->get();
                     $variable = $query->result();
                     $resultado = false;
                     foreach ($variable as $key) {
                          $datos = array(
-                                'G744_C17262' => $G744_C17262,
-                                'G744_C17263' => $G744_C17263, 
-                                'G744_C17264' => $G744_C17264,
-                                'G744_C17265' => $G744_C17265,
-                                'G744_C17266' => $G744_C17266,
-                                'G744_C17267' => $G744_C17267,
-                                'G744_C17270' => $G744_C17270,
-                                'G744_C17285' => $G744_C17285,
-                                'G744_C17286' => $G744_C17286,
-                                'G744_C17275' => $G744_C17275,
-                                'G744_C17276' => $G744_C17276,
-                                'G744_C17268' => $G744_C17268,
-                                'G744_C17277' => $G744_C17277,
-                                'G744_C17278' => $G744_C17278,
-                                'G744_C17279' => $G744_C17279,
-                                'G744_C17280' => $key->G719_ConsInte__b,
-                                'G744_C17269' => $G744_C17269,
-                                'G744_C17423' => $G744_C17423,
-                                'G744_C17424' => $G744_C17424,
-                                'Fecha_recepcion_soporte' => $txtFechaRecepcion, 
-                                'Fecha_aprobacion_soporte' => $txtFechaAprobacion,
-                                'G744_FechaInsercion' => $fechaIngreso,
-                                'G744_Usuario' => $this->session->userdata('identificacion')
+                                'FechaFacturacionAutoSubRogacion' => $FechaFacturacionAutoSubRogacion,
+                                'NroFacturaAutoSubRogacion' => $NroFacturaAutoSubRogacion, 
+                                'FechaAutoSubRogacion' => $FechaAutoSubRogacion,
+                                'NroFacturaSentenciaIrrecuperable' => $NroFacturaSentenciaIrrecuperable,
+                                'FechaSentenciaIrrecuperable' => $FechaSentenciaIrrecuperable,
+                                'FechaFacturaSentenciaIrrecuperable' => $FechaFacturaSentenciaIrrecuperable,
+                                'NroFacturaSoporteCISA' => $NroFacturaSoporteCISA,
+                                'FechaLiquidacionCredito' => $FechaLiquidacionCredito,
+                                'FechaAutoIrrecuperable' => $FechaAutoIrrecuperable,
+                                'Soporte' => $Soporte,
+                                'FechaFacturaSoporteCISA' => $FechaFacturaSoporteCISA,
+                                'FechaFacturaSoporteCISA_' => $FechaFacturaSoporteCISA_,
+                                'ValorFacturadoSentenciaIrrecuperable' => $ValorFacturadoSentenciaIrrecuperable,
+                                'ValorFacturadoSoporteCISA' => $ValorFacturadoSoporteCISA,
+                                'FechaFacturaHonorarioCISA1' => $FechaFacturaHonorarioCISA1,
+                                'NumeroContratoId' => $key->Id,
+                                'FechaFacturaHonorarioCISA2' => $FechaFacturaHonorarioCISA2,
+                                'FechaFacturaHonorarioCISA3' => $FechaFacturaHonorarioCISA3,
+                                'FechaFacturaHonorarioCISA4' => $FechaFacturaHonorarioCISA4,
+                                'FechaRecepcionSoporte' => $txtFechaRecepcion, 
+                                'FechaAprobacionSoporte' => $txtFechaAprobacion,
+                                'FechaInsercion' => $fechaIngreso,
+                                'Usuario' => $this->session->userdata('identificacion')
                             );
-                        $resultado = $this->Wizard_Model->guardardatos('G744', $datos);
+                        $resultado = $this->Wizard_Model->guardardatos('Factura', $datos);
                     }
                 }
                 
             }else{
                     //2016-02-16
 
-                $G744_C17262 = NULL;
-                $G744_C17263 = NULL; 
-                $G744_C17264 = NULL;
-                $G744_C17265 = NULL;
-                $G744_C17266 = NULL;
-                $G744_C17267 = NULL;
-                $G744_C17270 = NULL;
-                $G744_C17285 = NULL;
-                $G744_C17286 = NULL;
-                $G744_C17275 = NULL;
-                $G744_C17276 = NULL;
-                $G744_C17268 = NULL;
-                $G744_C17277 = NULL;
-                $G744_C17278 = NULL;
-                $G744_C17279 = NULL;
-                $G744_C17280 = NULL;
-                $G744_C17269 = NULL;
-                $G744_C17423 = NULL;
-                $G744_C17424 = NULL;
+                $FechaFacturacionAutoSubRogacion = NULL;
+                $NroFacturaAutoSubRogacion = NULL; 
+                $FechaAutoSubRogacion = NULL;
+                $NroFacturaSentenciaIrrecuperable = NULL;
+                $FechaSentenciaIrrecuperable = NULL;
+                $FechaFacturaSentenciaIrrecuperable = NULL;
+                $NroFacturaSoporteCISA = NULL;
+                $FechaLiquidacionCredito = NULL;
+                $FechaAutoIrrecuperable = NULL;
+                $Soporte = NULL;
+                $FechaFacturaSoporteCISA = NULL;
+                $FechaFacturaSoporteCISA_ = NULL;
+                $ValorFacturadoSentenciaIrrecuperable = NULL;
+                $ValorFacturadoSoporteCISA = NULL;
+                $FechaFacturaHonorarioCISA1 = NULL;
+                $NumeroContratoId = NULL;
+                $FechaFacturaHonorarioCISA2 = NULL;
+                $FechaFacturaHonorarioCISA3 = NULL;
+                $FechaFacturaHonorarioCISA4 = NULL;
                 $txtFechaRecepcion = NULL;
                 $txtFechaAprobacion = NULL;
 
@@ -1569,40 +1569,40 @@ class Auxiliar extends CI_Controller {
                 if($_POST['txtFechaFacuraSub'] != '' && $_POST['txtFechaFacuraSub'] != NULL){
                     $pos = strpos($_POST['txtFechaFacuraSub'], '/');
                     if($pos === false){
-                        $G744_C17262 = $_POST['txtFechaFacuraSub'];
+                        $FechaFacturacionAutoSubRogacion = $_POST['txtFechaFacuraSub'];
                     }else{
                         $fecha1 = explode("/", $_POST['txtFechaFacuraSub']);
-                        $G744_C17262 = $fecha1[2]."-".$fecha1[1]."-".$fecha1[0];
+                        $FechaFacturacionAutoSubRogacion = $fecha1[2]."-".$fecha1[1]."-".$fecha1[0];
                     }
                     
                 }
 
                 if($_POST['txtFacturaAutoSub'] != '' && $_POST['txtFacturaAutoSub'] != NULL){
-                    $G744_C17263 = $_POST['txtFacturaAutoSub'];
+                    $NroFacturaAutoSubRogacion = $_POST['txtFacturaAutoSub'];
                 }
 
                 if($_POST['txtFechaAutoSub'] != '' && $_POST['txtFechaAutoSub'] != NULL){
                     $pos = strpos($_POST['txtFechaAutoSub'], '/');
                     if($pos === false){
-                        $G744_C17264 = $_POST['txtFechaAutoSub'];
+                        $FechaAutoSubRogacion = $_POST['txtFechaAutoSub'];
                     }else{
                         $fecha2 = explode("/", $_POST['txtFechaAutoSub']);
-                        $G744_C17264 = $fecha2[2]."-".$fecha2[1]."-".$fecha2[0];
+                        $FechaAutoSubRogacion = $fecha2[2]."-".$fecha2[1]."-".$fecha2[0];
                     }
                     
                 }
 
                 if($_POST['txtFacturaSentenciaIrr'] != '' && $_POST['txtFacturaSentenciaIrr'] != NULL){
-                    $G744_C17265 = $_POST['txtFacturaSentenciaIrr'];
+                    $NroFacturaSentenciaIrrecuperable = $_POST['txtFacturaSentenciaIrr'];
                 }
 
                 if($_POST['txtFechaSentenciaIrr'] != '' && $_POST['txtFechaSentenciaIrr'] != NULL){
                     $pos = strpos($_POST['txtFechaSentenciaIrr'], '/');
                     if($pos === false){
-                        $G744_C17266 = $_POST['txtFechaSentenciaIrr'];
+                        $FechaSentenciaIrrecuperable = $_POST['txtFechaSentenciaIrr'];
                     }else{
                         $fecha3 = explode("/", $_POST['txtFechaSentenciaIrr']);
-                        $G744_C17266 = $fecha3[2]."-".$fecha3[1]."-".$fecha3[0];
+                        $FechaSentenciaIrrecuperable = $fecha3[2]."-".$fecha3[1]."-".$fecha3[0];
                     }
                     
                 }
@@ -1610,10 +1610,10 @@ class Auxiliar extends CI_Controller {
                 if($_POST['txtFechaFacturaIrr'] != '' && $_POST['txtFechaFacturaIrr'] != NULL){
                     $pos = strpos($_POST['txtFechaFacturaIrr'], '/');
                     if($pos === false){
-                        $G744_C17267 = $_POST['txtFechaFacturaIrr'];
+                        $FechaFacturaSentenciaIrrecuperable = $_POST['txtFechaFacturaIrr'];
                     }else{
                         $fecha4 = explode("/", $_POST['txtFechaFacturaIrr']);
-                        $G744_C17267 = $fecha4[2]."-".$fecha4[1]."-".$fecha4[0];
+                        $FechaFacturaSentenciaIrrecuperable = $fecha4[2]."-".$fecha4[1]."-".$fecha4[0];
                     }
                     
                 }
@@ -1621,10 +1621,10 @@ class Auxiliar extends CI_Controller {
                 if($_POST['txtFechaLiquidacionIrr'] != '' && $_POST['txtFechaLiquidacionIrr'] != NULL){
                     $pos = strpos($_POST['txtFechaLiquidacionIrr'], '/');
                     if($pos === false){
-                        $G744_C17285 = $_POST['txtFechaLiquidacionIrr'];
+                        $FechaLiquidacionCredito = $_POST['txtFechaLiquidacionIrr'];
                     }else{
                         $fecha5 = explode("/", $_POST['txtFechaLiquidacionIrr']);
-                        $G744_C17285 = $fecha5[2]."-".$fecha5[1]."-".$fecha5[0];
+                        $FechaLiquidacionCredito = $fecha5[2]."-".$fecha5[1]."-".$fecha5[0];
                     }
                     
                 }
@@ -1632,72 +1632,72 @@ class Auxiliar extends CI_Controller {
                 if($_POST['txtFechaAutoSubrogacionIrr'] != '' && $_POST['txtFechaAutoSubrogacionIrr'] != NULL){
                     $pos = strpos($_POST['txtFechaAutoSubrogacionIrr'], '/');
                     if($pos === false){
-                        $G744_C17286 = $_POST['txtFechaAutoSubrogacionIrr'];
+                        $FechaAutoIrrecuperable = $_POST['txtFechaAutoSubrogacionIrr'];
                     }else{
                         $fecha6 = explode("/", $_POST['txtFechaAutoSubrogacionIrr']);
-                        $G744_C17286 = $fecha6[2]."-".$fecha6[1]."-".$fecha6[0];
+                        $FechaAutoIrrecuperable = $fecha6[2]."-".$fecha6[1]."-".$fecha6[0];
                     }
 
                 }
 
                 if($_POST['txtValorFacturadoAutoSub'] != '' && $_POST['txtValorFacturadoAutoSub'] != NULL){
-                   $G744_C17276 = $_POST['txtValorFacturadoAutoSub'];
+                   $FechaFacturaSoporteCISA = $_POST['txtValorFacturadoAutoSub'];
                 }
 
                 if($_POST['txtFechaFacturaCISA'] != '' && $_POST['txtFechaFacturaCISA'] != NULL){
                     $pos = strpos($_POST['txtFechaFacturaCISA'], '/');
                     if($pos === false){
-                        $G744_C17268 = $_POST['txtFechaFacturaCISA'];
+                        $FechaFacturaSoporteCISA_ = $_POST['txtFechaFacturaCISA'];
                     }else{
                         $fecha7 = explode("/", $_POST['txtFechaFacturaCISA']);
-                        $G744_C17268 =  $fecha7[2]."-".$fecha7[1]."-".$fecha7[0];
+                        $FechaFacturaSoporteCISA_ =  $fecha7[2]."-".$fecha7[1]."-".$fecha7[0];
                     }
 
                 }
 
                 if($_POST['txtValorFActuradoIrr'] != '' && $_POST['txtValorFActuradoIrr'] != NULL){
-                    $G744_C17277 = $_POST['txtValorFActuradoIrr'];
+                    $ValorFacturadoSentenciaIrrecuperable = $_POST['txtValorFActuradoIrr'];
                 }
 
                 if($_POST['txtValoFacturadoCISA'] != '' && $_POST['txtValoFacturadoCISA'] != NULL){
-                    $G744_C17278 = $_POST['txtValoFacturadoCISA'];
+                    $ValorFacturadoSoporteCISA = $_POST['txtValoFacturadoCISA'];
 
                 }
                 
                 if($_POST['txtRenunciaCISA'] != '' && $_POST['txtRenunciaCISA'] != NULL){
-                    $G744_C17279 = $_POST['txtRenunciaCISA'];
+                    $FechaFacturaHonorarioCISA1 = $_POST['txtRenunciaCISA'];
                 }
 
                 if($_POST['NumeroContrato'] != '' && $_POST['NumeroContrato'] != NULL){
-                    $G744_C17280 = $_POST['NumeroContrato'];
+                    $NumeroContratoId = $_POST['NumeroContrato'];
                 }
 
                 if($_POST['txtHonorariosVentaCISA'] != '' && $_POST['txtHonorariosVentaCISA'] != NULL){
-                    $G744_C17269 = $_POST['txtHonorariosVentaCISA'];
+                    $FechaFacturaHonorarioCISA2 = $_POST['txtHonorariosVentaCISA'];
                 }
 
                 if($_POST['txtFacturaHonorariosCISA'] != '' && $_POST['txtFacturaHonorariosCISA'] != NULL){
-                    $G744_C17423 = $_POST['txtFacturaHonorariosCISA'];
+                    $FechaFacturaHonorarioCISA3 = $_POST['txtFacturaHonorariosCISA'];
                 }
 
                 if($_POST['txtFechaFacturaHonorariosCISA'] != '' && $_POST['txtFechaFacturaHonorariosCISA'] != NULL){
                     $pos = strpos($_POST['txtFechaFacturaHonorariosCISA'], '/');
                     if($pos === false){
-                        $G744_C17424 = $_POST['txtFechaFacturaHonorariosCISA'];
+                        $FechaFacturaHonorarioCISA4 = $_POST['txtFechaFacturaHonorariosCISA'];
                     }else{
                         $fecha8 = explode("/", $_POST['txtFechaFacturaHonorariosCISA']);
-                        $G744_C17424 = $fecha8[2]."-".$fecha8[1]."-".$fecha8[0];
+                        $FechaFacturaHonorarioCISA4 = $fecha8[2]."-".$fecha8[1]."-".$fecha8[0];
                     }
                     
                 }
 
 
                 if($_POST['txtSoporteCISA'] != '' && $_POST['txtSoporteCISA'] != NULL){
-                    $G744_C17275 = $_POST['txtSoporteCISA'];
+                    $Soporte = $_POST['txtSoporteCISA'];
                 }
 
                 if($_POST['txtFacturaCISA'] != '' && $_POST['txtFacturaCISA'] != NULL){
-                    $G744_C17270 = $_POST['txtFacturaCISA'];
+                    $NroFacturaSoporteCISA = $_POST['txtFacturaCISA'];
                 }
 
 
@@ -1724,8 +1724,8 @@ class Auxiliar extends CI_Controller {
                 }
 
                 $this->db->select('G719_C17423');
-                $this->db->from('G719');
-                $this->db->where('G719_ConsInte__b', $G744_C17280);
+                $this->db->from('InformacionCredito');
+                $this->db->where('Id', $NumeroContratoId);
                 $query = $this->db->get();
                 $liquidacion = 0;
                 if( $query->num_rows() >  0){
@@ -1734,8 +1734,8 @@ class Auxiliar extends CI_Controller {
                     }
                 }else{
                     $this->db->select('G719_C17423');
-                    $this->db->from('G719');
-                    $this->db->where('G719_C17423', $G744_C17280);
+                    $this->db->from('InformacionCredito');
+                    $this->db->where('G719_C17423', $NumeroContratoId);
                     $query = $this->db->get();
                     if($query->row()->G719_C17423 != NULL && $query->row()->G719_C17423 != '' ){
                         $liquidacion = $query->row()->G719_C17423;
@@ -1747,32 +1747,32 @@ class Auxiliar extends CI_Controller {
                 
 
                 $datos = array(
-                    'G744_C17262' => $G744_C17262,
-                    'G744_C17263' => $G744_C17263, 
-                    'G744_C17264' => $G744_C17264,
-                    'G744_C17265' => $G744_C17265,
-                    'G744_C17266' => $G744_C17266,
-                    'G744_C17267' => $G744_C17267,
-                    'G744_C17270' => $G744_C17270,
-                    'G744_C17285' => $G744_C17285,
-                    'G744_C17286' => $G744_C17286,
-                    'G744_C17275' => $G744_C17275,
-                    'G744_C17276' => $G744_C17276,
-                    'G744_C17268' => $G744_C17268,
-                    'G744_C17277' => $G744_C17277,
-                    'G744_C17278' => $G744_C17278,
-                    'G744_C17279' => $G744_C17279,
-                    'G744_C17280' => $G744_C17280,
-                    'G744_C17269' => $G744_C17269,
-                    'G744_C17423' => $G744_C17423,
-                    'G744_C17424' => $G744_C17424,
-                    'G744_FechaInsercion' => $fechaIngreso,
-                    'Fecha_recepcion_soporte' => $txtFechaRecepcion, 
-                    'Fecha_aprobacion_soporte' => $txtFechaAprobacion,
-                    'G744_Usuario' => $this->session->userdata('identificacion')
+                    'FechaFacturacionAutoSubRogacion' => $FechaFacturacionAutoSubRogacion,
+                    'NroFacturaAutoSubRogacion' => $NroFacturaAutoSubRogacion, 
+                    'FechaAutoSubRogacion' => $FechaAutoSubRogacion,
+                    'NroFacturaSentenciaIrrecuperable' => $NroFacturaSentenciaIrrecuperable,
+                    'FechaSentenciaIrrecuperable' => $FechaSentenciaIrrecuperable,
+                    'FechaFacturaSentenciaIrrecuperable' => $FechaFacturaSentenciaIrrecuperable,
+                    'NroFacturaSoporteCISA' => $NroFacturaSoporteCISA,
+                    'FechaLiquidacionCredito' => $FechaLiquidacionCredito,
+                    'FechaAutoIrrecuperable' => $FechaAutoIrrecuperable,
+                    'Soporte' => $Soporte,
+                    'FechaFacturaSoporteCISA' => $FechaFacturaSoporteCISA,
+                    'FechaFacturaSoporteCISA_' => $FechaFacturaSoporteCISA_,
+                    'ValorFacturadoSentenciaIrrecuperable' => $ValorFacturadoSentenciaIrrecuperable,
+                    'ValorFacturadoSoporteCISA' => $ValorFacturadoSoporteCISA,
+                    'FechaFacturaHonorarioCISA1' => $FechaFacturaHonorarioCISA1,
+                    'NumeroContratoId' => $NumeroContratoId,
+                    'FechaFacturaHonorarioCISA2' => $FechaFacturaHonorarioCISA2,
+                    'FechaFacturaHonorarioCISA3' => $FechaFacturaHonorarioCISA3,
+                    'FechaFacturaHonorarioCISA4' => $FechaFacturaHonorarioCISA4,
+                    'FechaInsercion' => $fechaIngreso,
+                    'FechaRecepcionSoporte' => $txtFechaRecepcion, 
+                    'FechaAprobacionSoporte' => $txtFechaAprobacion,
+                    'Usuario' => $this->session->userdata('identificacion')
                 );
 
-                $resultado = $this->Wizard_Model->editarDatos('G744', $datos, $_POST['id'], 'G744_ConsInte__b');
+                $resultado = $this->Wizard_Model->editarDatos('Factura', $datos, $_POST['id'], 'Id');
             }
 
             if($resultado){
@@ -1788,7 +1788,7 @@ class Auxiliar extends CI_Controller {
     function eliminarFacturas(){
         if($this->session->userdata('login_ok')){
             $resultado = false;
-            $resultado = $this->Wizard_Model->borrarDatos('G744', $_POST['id'], 'G744_ConsInte__b');
+            $resultado = $this->Wizard_Model->borrarDatos('Factura', $_POST['id'], 'Id');
             if($resultado){
                 echo "1";
             }else{
@@ -1917,11 +1917,11 @@ class Auxiliar extends CI_Controller {
             $this->db->select('[G728_C17116] as nombres
                               ,[G728_C17117] as telefono
                               ,[G728_C17118] as direccion
-                              ,G718_C17015 as ciudad
+                              ,Ciudad as ciudad
                               ,[G728_C17120] as correo,
                               G728_ConsInte__b');
             $this->db->from('G728');
-            $this->db->join('G718','G718_ConsInte__b = G728_C17119');
+            $this->db->join('Ciudad','Id = G728_C17119');
             $query = $this->db->get();
             $datos = array('firmas' => $query->result(), 'ciudades' => $ciudades );
             $this->load->view('Includes/head');
@@ -1962,9 +1962,9 @@ class Auxiliar extends CI_Controller {
     }
 
     function getAbogadosByFirma($id){
-        $this->db->select('G723_ConsInte__b as id, Frg_ConsInte__b,  G723_C17204 as cedula, G723_C17099 as Nombre, G723_C17100 as celular, G723_C17101 as correo, direccion, telefono');   
-        $this->db->where('Firma_abogados', $id);  
-        $query = $this->db->get('G723');
+        $this->db->select('Id as id, FRGId,  CCAbogado as cedula, Nombre as Nombre, Celular as celular, CorreoElectronico as correo, Direccion, Telefono');   
+        $this->db->where('FirmaAbogado', $id);  
+h        $query = $this->db->get('Abogados');
         $datos = array();
         $i=0;
         $r = $query->result();
@@ -2040,7 +2040,7 @@ class Auxiliar extends CI_Controller {
             $datos = array();
             $i = 0;
             foreach ($abogados as $key) {
-                $datos[$i]['id'] = $key->G729_ConsInte__b;
+                $datos[$i]['id'] = $key->Id;
                 $datos[$i]['Frg'] = utf8_encode($key->Frg);
                 $datos[$i]['direccion'] = utf8_encode($key->direccion);
                 $datos[$i]['ciudad'] = utf8_encode($key->ciudad);
@@ -2062,17 +2062,17 @@ class Auxiliar extends CI_Controller {
         $fechaIngreso =  date("Y-m-d H:i:s");
 
             $datos = array(
-                    'G729_C17121' => utf8_decode($_POST['frg']),
-                    'G729_C17122' => $_POST['direccion'],
-                    'G729_C17123' => $_POST['selCiudades'],
-                    'G729_C17124' => $_POST['telefono'],
-                    'G729_C17125' => $_POST['contacto']
+                    'FRG' => utf8_decode($_POST['frg']),
+                    'Direccion' => $_POST['direccion'],
+                    'Ciudad' => $_POST['selCiudades'],
+                    'Telefono' => $_POST['telefono'],
+                    'NombrePersonaContacto' => $_POST['contacto']
                   );
             $resultado = false;
             if($_POST['id'] == '0'){
-                $resultado = $this->Wizard_Model->guardardatos('G729', $datos);
+                $resultado = $this->Wizard_Model->guardardatos('FRG', $datos);
             }else{
-                $resultado = $this->Wizard_Model->editarDatos('G729', $datos, $_POST['id'], 'G729_ConsInte__b');
+                $resultado = $this->Wizard_Model->editarDatos('FRG', $datos, $_POST['id'], 'Id');
             }
 
             if($resultado){
@@ -2088,7 +2088,7 @@ class Auxiliar extends CI_Controller {
     function eliminarGastosFrg(){
         if($this->session->userdata('login_ok')){
             $resultado = false;
-            $resultado = $this->Wizard_Model->borrarDatos('G729', $_POST['id'], 'G729_ConsInte__b');
+            $resultado = $this->Wizard_Model->borrarDatos('FRG', $_POST['id'], 'Id');
             if($resultado){
                 echo "1";
             }else{
@@ -2125,7 +2125,7 @@ class Auxiliar extends CI_Controller {
                 $datos[$i]['Garantia'] = $key->Garantia;
                 $datos[$i]['Pagare'] = $key->pagare;
                 $datos[$i]['Contrato'] = $key->contrato;
-                $datos[$i]['idCn'] = $key->G719_ConsInte__b;
+                $datos[$i]['idCn'] = $key->Id;
                 $i++;
             }
             echo json_encode($datos);
@@ -2202,8 +2202,8 @@ class Auxiliar extends CI_Controller {
             $datos = array();
             $i = 0;
             foreach ($abogados as $key) {
-                $datos[$i]['id'] = $key->G730_ConsInte__b;
-                $datos[$i]['Ifs'] = $key->G730_C17126;
+                $datos[$i]['id'] = $key->Id;
+                $datos[$i]['Ifs'] = $key->NombreIF;
 
                 $i++;
             }
@@ -2221,15 +2221,15 @@ class Auxiliar extends CI_Controller {
         $fechaIngreso =  date("Y-m-d H:i:s");
 
             $datos = array(
-                    'G730_C17126' => utf8_decode($_POST['Ifses'])
+                    'NombreIF' => utf8_decode($_POST['Ifses'])
     
                    
                   );
             $resultado = false;
             if($_POST['id'] == '0'){
-                $resultado = $this->Wizard_Model->guardardatos('G730', $datos);
+                $resultado = $this->Wizard_Model->guardardatos('IntermediarioFinanciero', $datos);
             }else{
-                $resultado = $this->Wizard_Model->editarDatos('G730', $datos, $_POST['id'], 'G730_ConsInte__b');
+                $resultado = $this->Wizard_Model->editarDatos('IntermediarioFinanciero', $datos, $_POST['id'], 'Id');
             }
 
             if($resultado){
@@ -2245,7 +2245,7 @@ class Auxiliar extends CI_Controller {
     function eliminarIf(){
         if($this->session->userdata('login_ok')){
             $resultado = false;
-            $resultado = $this->Wizard_Model->borrarDatos('G730', $_POST['id'], 'G730_ConsInte__b');
+            $resultado = $this->Wizard_Model->borrarDatos('IntermediarioFinanciero', $_POST['id'], 'Id');
             if($resultado){
                 echo "1";
             }else{
@@ -2350,7 +2350,7 @@ class Auxiliar extends CI_Controller {
                 $data[$i]['cliente'] = utf8_encode($key->nombre_Usuario) ;
                 $data[$i]['contrato'] = $key->OBLIGACION ;
                 $data[$i]['rol'] = utf8_encode($key->Roles) ;
-                $data[$i]['id'] = $key->G737_ConsInte__b;
+                $data[$i]['id'] = $key->Id;
                 $i++;
             }
 
@@ -2371,7 +2371,7 @@ class Auxiliar extends CI_Controller {
             $datos = array();
             $i = 0;
             foreach ($abogados as $key) {
-                $datos[$i]['id'] = $key->G737_ConsInte__b;
+                $datos[$i]['id'] = $key->Id;
                 $datos[$i]['idUsuario'] = $key->usuario;
                 $datos[$i]['idcontrato'] = $key->contrato;
                 $datos[$i]['idrol'] = $key->rol;
@@ -2398,16 +2398,16 @@ class Auxiliar extends CI_Controller {
 
                            
             $datos = array(
-                    'G737_C17181' => $_POST['usuario'],
-                    'G737_C17182' => $_POST['contrato'],
-                    'G737_C17183' => $_POST['selRoles']
+                    'InformacionClientesId' => $_POST['usuario'],
+                    'NumeroContratoId' => $_POST['contrato'],
+                    'Rol' => $_POST['selRoles']
                    
                   );
             $resultado = false;
             if($_POST['id'] == '0'){
-                $resultado = $this->Wizard_Model->guardardatos('G737', $datos);
+                $resultado = $this->Wizard_Model->guardardatos('ClienteObligacion', $datos);
             }else{
-                $resultado = $this->Wizard_Model->editarDatos('G737', $datos, $_POST['id'], 'G737_ConsInte__b');
+                $resultado = $this->Wizard_Model->editarDatos('ClienteObligacion', $datos, $_POST['id'], 'Id');
             }
 
             if($resultado){
@@ -2423,7 +2423,7 @@ class Auxiliar extends CI_Controller {
     function eliminarRelacion(){
         if($this->session->userdata('login_ok')){
             $resultado = false;
-            $resultado = $this->Wizard_Model->borrarDatos('G737', $_POST['id'], 'G737_ConsInte__b');
+            $resultado = $this->Wizard_Model->borrarDatos('ClienteObligacion', $_POST['id'], 'Id');
             if($resultado){
                 echo "1";
             }else{
@@ -2664,7 +2664,7 @@ class Auxiliar extends CI_Controller {
                             );
                             
                             $resultado = false;
-                            $resultado = $this->Wizard_Model->editarDatos('G719', $datos, $value['A'], $filtro);
+                            $resultado = $this->Wizard_Model->editarDatos('InformacionCredito', $datos, $value['A'], $filtro);
                             if($resultado){
                                 $acertados += 1;
                             }else{
@@ -2713,7 +2713,7 @@ class Auxiliar extends CI_Controller {
                                 'G719_C17427' => $fecha
                             );
                 $resultado = false;
-                $resultado = $this->Wizard_Model->editarDatos('G719', $datos, $sap, $filtro);
+                $resultado = $this->Wizard_Model->editarDatos('InformacionCredito', $datos, $sap, $filtro);
 
                 if($resultado){  
                     //$this->mandarCorreo($sap, $abogado); 
@@ -2753,56 +2753,56 @@ class Auxiliar extends CI_Controller {
             $factura = $_POST['txtnumeroSap'];
             $selPor = $_POST['selPor'];
             $liquiacion = $_POST['liquidacion'];
-            if($selPor == 'G719_C17026'){
+            if($selPor == 'NoContrato'){
 
-                $this->db->select('G719_ConsInte__b');
-                $this->db->from('G719');
-                $this->db->where('G719_C17026', $liquiacion);
+                $this->db->select('Id');
+                $this->db->from('InformacionCredito');
+                $this->db->where('NoContrato', $liquiacion);
                 $query2 = $this->db->get();  
 
-                $this->db->select('G744_ConsInte__b');
-                $this->db->from('G744');
+                $this->db->select('Id');
+                $this->db->from('Factura');
                 $this->db->where($filtro, $factura);
-                $this->db->where('G744_C17280', $query2->row()->G719_ConsInte__b);
+                $this->db->where('NumeroContratoId', $query2->row()->Id);
                 $query = $this->db->get();
 
                 if($query->num_rows() > 0){
                     $datos = array();
                     
-                    if($filtro == 'G744_C17263'){
+                    if($filtro == 'NroFacturaAutoSubRogacion'){
                         //Subrogacion
-                        $datos = array( 'G744_C17262' => NULL, 
-                                        'G744_C17263' => NULL,
-                                        'G744_C17264' => NULL,
-                                        'G744_C17276' => NULL);
+                        $datos = array( 'FechaFacturacionAutoSubRogacion' => NULL, 
+                                        'NroFacturaAutoSubRogacion' => NULL,
+                                        'FechaAutoSubRogacion' => NULL,
+                                        'FechaFacturaSoporteCISA' => NULL);
 
-                    }else if($filtro == 'G744_C17265'){
+                    }else if($filtro == 'NroFacturaSentenciaIrrecuperable'){
                         //Irrecuperable
-                        $datos = array( 'G744_C17267' => NULL, 
-                                        'G744_C17265' => NULL, 
-                                        'G744_C17286' => NULL, 
-                                        'G744_C17266' => NULL, 
-                                        'G744_C17285' => NULL,
-                                        'G744_C17277' => NULL);
+                        $datos = array( 'FechaFacturaSentenciaIrrecuperable' => NULL, 
+                                        'NroFacturaSentenciaIrrecuperable' => NULL, 
+                                        'FechaAutoIrrecuperable' => NULL, 
+                                        'FechaSentenciaIrrecuperable' => NULL, 
+                                        'FechaLiquidacionCredito' => NULL,
+                                        'ValorFacturadoSentenciaIrrecuperable' => NULL);
 
-                    }else if($filtro == 'G744_C17270'){
+                    }else if($filtro == 'NroFacturaSoporteCISA'){
                         //Soporte
-                        $datos = array( 'Fecha_recepcion_soporte' => NULL, 
-                                        'Fecha_aprobacion_soporte' => NULL,
-                                        'G744_C17270' => NULL,
-                                        'G744_C17278' => NULL,
-                                        'G744_C17275' => NULL,
-                                        'G744_C17279' => NULL,
-                                        'G744_C17268' => NULL);
+                        $datos = array( 'FechaRecepcionSoporte' => NULL, 
+                                        'FechaAprobacionSoporte' => NULL,
+                                        'NroFacturaSoporteCISA' => NULL,
+                                        'ValorFacturadoSoporteCISA' => NULL,
+                                        'Soporte' => NULL,
+                                        'FechaFacturaHonorarioCISA1' => NULL,
+                                        'FechaFacturaSoporteCISA_' => NULL);
                     }else{
                         //VEnta CISA
-                        $datos = array( 'G744_C17424' => NULL,
-                                        'G744_C17423' => NULL,
-                                        'G744_C17269' => NULL);
+                        $datos = array( 'FechaFacturaHonorarioCISA4' => NULL,
+                                        'FechaFacturaHonorarioCISA3' => NULL,
+                                        'FechaFacturaHonorarioCISA2' => NULL);
                     }   
 
                     $resultado = false;
-                    $resultado = $this->Wizard_Model->editarDatos('G744', $datos, $query->row()->G744_ConsInte__b, 'G744_ConsInte__b');
+                    $resultado = $this->Wizard_Model->editarDatos('Factura', $datos, $query->row()->Id, 'Id');
 
                     if($resultado){  
                         //$this->mandarCorreo($sap, $abogado); 
@@ -2815,55 +2815,55 @@ class Auxiliar extends CI_Controller {
             }else{
                 $resultado = false;
                 $numero = 0;
-                $this->db->select('G719_ConsInte__b');
-                $this->db->from('G719');
+                $this->db->select('Id');
+                $this->db->from('InformacionCredito');
                 $this->db->where("G719_C17423 LIKE '%".$liquiacion."%' ");
                 $query2 = $this->db->get(); 
                 $result = $query2->result();
                 foreach ($result as $key) {
-                    //echo $key->G719_ConsInte__b;
-                    $this->db->select('G744_ConsInte__b');
-                    $this->db->from('G744');
+                    //echo $key->Id;
+                    $this->db->select('Id');
+                    $this->db->from('Factura');
                     $this->db->where($filtro, $factura);
-                    $this->db->where('G744_C17280', $key->G719_ConsInte__b);
+                    $this->db->where('NumeroContratoId', $key->Id);
                     $query = $this->db->get();
 
                     if($query->num_rows() > 0){
                         $datos = array();
                         
-                        if($filtro == 'G744_C17263'){
+                        if($filtro == 'NroFacturaAutoSubRogacion'){
                             //Subrogacion
-                            $datos = array( 'G744_C17262' => NULL, 
-                                            'G744_C17263' => NULL,
-                                            'G744_C17264' => NULL,
-                                            'G744_C17276' => NULL);
+                            $datos = array( 'FechaFacturacionAutoSubRogacion' => NULL, 
+                                            'NroFacturaAutoSubRogacion' => NULL,
+                                            'FechaAutoSubRogacion' => NULL,
+                                            'FechaFacturaSoporteCISA' => NULL);
 
-                        }else if($filtro == 'G744_C17265'){
+                        }else if($filtro == 'NroFacturaSentenciaIrrecuperable'){
                             //Irrecuperable
-                            $datos = array( 'G744_C17267' => NULL, 
-                                            'G744_C17265' => NULL, 
-                                            'G744_C17286' => NULL, 
-                                            'G744_C17266' => NULL, 
-                                            'G744_C17285' => NULL,
-                                            'G744_C17277' => NULL);
+                            $datos = array( 'FechaFacturaSentenciaIrrecuperable' => NULL, 
+                                            'NroFacturaSentenciaIrrecuperable' => NULL, 
+                                            'FechaAutoIrrecuperable' => NULL, 
+                                            'FechaSentenciaIrrecuperable' => NULL, 
+                                            'FechaLiquidacionCredito' => NULL,
+                                            'ValorFacturadoSentenciaIrrecuperable' => NULL);
 
-                        }else if($filtro == 'G744_C17270'){
+                        }else if($filtro == 'NroFacturaSoporteCISA'){
                             //Soporte
-                            $datos = array( 'Fecha_recepcion_soporte' => NULL, 
-                                            'Fecha_aprobacion_soporte' => NULL,
-                                            'G744_C17270' => NULL,
-                                            'G744_C17278' => NULL,
-                                            'G744_C17275' => NULL,
-                                            'G744_C17279' => NULL,
-                                            'G744_C17268' => NULL);
+                            $datos = array( 'FechaRecepcionSoporte' => NULL, 
+                                            'FechaAprobacionSoporte' => NULL,
+                                            'NroFacturaSoporteCISA' => NULL,
+                                            'ValorFacturadoSoporteCISA' => NULL,
+                                            'Soporte' => NULL,
+                                            'FechaFacturaHonorarioCISA1' => NULL,
+                                            'FechaFacturaSoporteCISA_' => NULL);
                         }else{
                             //VEnta CISA
-                            $datos = array( 'G744_C17424' => NULL,
-                                            'G744_C17423' => NULL,
-                                            'G744_C17269' => NULL);
+                            $datos = array( 'FechaFacturaHonorarioCISA4' => NULL,
+                                            'FechaFacturaHonorarioCISA3' => NULL,
+                                            'FechaFacturaHonorarioCISA2' => NULL);
                         }   
                         
-                        $resultado = $this->Wizard_Model->editarDatos('G744', $datos, $query->row()->G744_ConsInte__b, 'G744_ConsInte__b');
+                        $resultado = $this->Wizard_Model->editarDatos('Factura', $datos, $query->row()->Id, 'Id');
                         if($resultado){  
                             $numero += 1;
                         }
@@ -2918,56 +2918,56 @@ class Auxiliar extends CI_Controller {
                     }    
                     if($value['A'] != ""){
 
-                        if($comboFiltros == 'G719_C17026'){
+                        if($comboFiltros == 'NoContrato'){
 
-                            $this->db->select('G719_ConsInte__b');
-                            $this->db->from('G719');
-                            $this->db->where('G719_C17026', $value['A']);
+                            $this->db->select('Id');
+                            $this->db->from('InformacionCredito');
+                            $this->db->where('NoContrato', $value['A']);
                             $query2 = $this->db->get();  
 
-                            $this->db->select('G744_ConsInte__b');
-                            $this->db->from('G744');
+                            $this->db->select('Id');
+                            $this->db->from('Factura');
                             $this->db->where($filtro, $value['B']);
-                            $this->db->where('G744_C17280', $query2->row()->G719_ConsInte__b);
+                            $this->db->where('NumeroContratoId', $query2->row()->Id);
                             $query = $this->db->get();
 
                             if($query->num_rows() > 0){
                                 $datos = array();
                                 
-                                if($filtro == 'G744_C17263'){
+                                if($filtro == 'NroFacturaAutoSubRogacion'){
                                     //Subrogacion
-                                    $datos = array( 'G744_C17262' => NULL, 
-                                                    'G744_C17263' => NULL,
-                                                    'G744_C17264' => NULL,
-                                                    'G744_C17276' => NULL);
+                                    $datos = array( 'FechaFacturacionAutoSubRogacion' => NULL, 
+                                                    'NroFacturaAutoSubRogacion' => NULL,
+                                                    'FechaAutoSubRogacion' => NULL,
+                                                    'FechaFacturaSoporteCISA' => NULL);
 
-                                }else if($filtro == 'G744_C17265'){
+                                }else if($filtro == 'NroFacturaSentenciaIrrecuperable'){
                                     //Irrecuperable
-                                    $datos = array( 'G744_C17267' => NULL, 
-                                                    'G744_C17265' => NULL, 
-                                                    'G744_C17286' => NULL, 
-                                                    'G744_C17266' => NULL, 
-                                                    'G744_C17285' => NULL,
-                                                    'G744_C17277' => NULL);
+                                    $datos = array( 'FechaFacturaSentenciaIrrecuperable' => NULL, 
+                                                    'NroFacturaSentenciaIrrecuperable' => NULL, 
+                                                    'FechaAutoIrrecuperable' => NULL, 
+                                                    'FechaSentenciaIrrecuperable' => NULL, 
+                                                    'FechaLiquidacionCredito' => NULL,
+                                                    'ValorFacturadoSentenciaIrrecuperable' => NULL);
 
-                                }else if($filtro == 'G744_C17270'){
+                                }else if($filtro == 'NroFacturaSoporteCISA'){
                                     //Soporte
-                                    $datos = array( 'Fecha_recepcion_soporte' => NULL, 
-                                                    'Fecha_aprobacion_soporte' => NULL,
-                                                    'G744_C17270' => NULL,
-                                                    'G744_C17278' => NULL,
-                                                    'G744_C17275' => NULL,
-                                                    'G744_C17279' => NULL,
-                                                    'G744_C17268' => NULL);
+                                    $datos = array( 'FechaRecepcionSoporte' => NULL, 
+                                                    'FechaAprobacionSoporte' => NULL,
+                                                    'NroFacturaSoporteCISA' => NULL,
+                                                    'ValorFacturadoSoporteCISA' => NULL,
+                                                    'Soporte' => NULL,
+                                                    'FechaFacturaHonorarioCISA1' => NULL,
+                                                    'FechaFacturaSoporteCISA_' => NULL);
                                 }else{
                                     //VEnta CISA
-                                    $datos = array( 'G744_C17424' => NULL,
-                                                    'G744_C17423' => NULL,
-                                                    'G744_C17269' => NULL);
+                                    $datos = array( 'FechaFacturaHonorarioCISA4' => NULL,
+                                                    'FechaFacturaHonorarioCISA3' => NULL,
+                                                    'FechaFacturaHonorarioCISA2' => NULL);
                                 }    
 
                                 $resultado = false;
-                                $resultado = $this->Wizard_Model->editarDatos('G744', $datos, $query->row()->G744_ConsInte__b, 'G744_ConsInte__b');
+                                $resultado = $this->Wizard_Model->editarDatos('Factura', $datos, $query->row()->Id, 'Id');
 
                                 if($resultado){
                                     $acertados += 1;
@@ -2979,56 +2979,56 @@ class Auxiliar extends CI_Controller {
                                 $fallosExistenciales +=1;
                             }
                         }else{
-                            $this->db->select('G719_ConsInte__b');
-                            $this->db->from('G719');
+                            $this->db->select('Id');
+                            $this->db->from('InformacionCredito');
                             $this->db->where("G719_C17423 LIKE '%".$value['A']."%' ");
                             $query2 = $this->db->get(); 
                             $result = $query2->result();
                             if($query2->num_rows() > 0){
                                 foreach ($result as $key) {
-                                    $this->db->select('G744_ConsInte__b');
-                                    $this->db->from('G744');
+                                    $this->db->select('Id');
+                                    $this->db->from('Factura');
                                     $this->db->where($filtro, $value['B']);
-                                    $this->db->where('G744_C17280', $key->G719_ConsInte__b);
+                                    $this->db->where('NumeroContratoId', $key->Id);
                                     $query = $this->db->get();
 
                                     if($query->num_rows() > 0){
                                         $datos = array();
                                         
-                                        if($filtro == 'G744_C17263'){
+                                        if($filtro == 'NroFacturaAutoSubRogacion'){
                                             //Subrogacion
-                                            $datos = array( 'G744_C17262' => NULL, 
-                                                            'G744_C17263' => NULL,
-                                                            'G744_C17264' => NULL,
-                                                            'G744_C17276' => NULL);
+                                            $datos = array( 'FechaFacturacionAutoSubRogacion' => NULL, 
+                                                            'NroFacturaAutoSubRogacion' => NULL,
+                                                            'FechaAutoSubRogacion' => NULL,
+                                                            'FechaFacturaSoporteCISA' => NULL);
 
-                                        }else if($filtro == 'G744_C17265'){
+                                        }else if($filtro == 'NroFacturaSentenciaIrrecuperable'){
                                             //Irrecuperable
-                                            $datos = array( 'G744_C17267' => NULL, 
-                                                            'G744_C17265' => NULL, 
-                                                            'G744_C17286' => NULL, 
-                                                            'G744_C17266' => NULL, 
-                                                            'G744_C17285' => NULL,
-                                                            'G744_C17277' => NULL);
+                                            $datos = array( 'FechaFacturaSentenciaIrrecuperable' => NULL, 
+                                                            'NroFacturaSentenciaIrrecuperable' => NULL, 
+                                                            'FechaAutoIrrecuperable' => NULL, 
+                                                            'FechaSentenciaIrrecuperable' => NULL, 
+                                                            'FechaLiquidacionCredito' => NULL,
+                                                            'ValorFacturadoSentenciaIrrecuperable' => NULL);
 
-                                        }else if($filtro == 'G744_C17270'){
+                                        }else if($filtro == 'NroFacturaSoporteCISA'){
                                             //Soporte
-                                            $datos = array( 'Fecha_recepcion_soporte' => NULL, 
-                                                            'Fecha_aprobacion_soporte' => NULL,
-                                                            'G744_C17270' => NULL,
-                                                            'G744_C17278' => NULL,
-                                                            'G744_C17275' => NULL,
-                                                            'G744_C17279' => NULL,
-                                                            'G744_C17268' => NULL);
+                                            $datos = array( 'FechaRecepcionSoporte' => NULL, 
+                                                            'FechaAprobacionSoporte' => NULL,
+                                                            'NroFacturaSoporteCISA' => NULL,
+                                                            'ValorFacturadoSoporteCISA' => NULL,
+                                                            'Soporte' => NULL,
+                                                            'FechaFacturaHonorarioCISA1' => NULL,
+                                                            'FechaFacturaSoporteCISA_' => NULL);
                                         }else{
                                             //VEnta CISA
-                                            $datos = array( 'G744_C17424' => NULL,
-                                                            'G744_C17423' => NULL,
-                                                            'G744_C17269' => NULL);
+                                            $datos = array( 'FechaFacturaHonorarioCISA4' => NULL,
+                                                            'FechaFacturaHonorarioCISA3' => NULL,
+                                                            'FechaFacturaHonorarioCISA2' => NULL);
                                         }     
 
                                         $resultado = false;
-                                        $resultado = $this->Wizard_Model->editarDatos('G744', $datos, $query->row()->G744_ConsInte__b, 'G744_ConsInte__b');
+                                        $resultado = $this->Wizard_Model->editarDatos('Factura', $datos, $query->row()->Id, 'Id');
 
                                         if($resultado){
                                             $acertados += 1;
@@ -3074,43 +3074,43 @@ class Auxiliar extends CI_Controller {
         if($this->session->userdata('login_ok')){
             $datosFooter = array('ul'=> 'ULconfiguracion' , 'li' => 'LIExpo_datos_ad');
             
-            $this->db->select('G743_C17363 as correeo, G743_C17256 as telefono, G743_C17257 as direccion, G718_C17015 as ciudad, G743_C17260 as observacion, G743_C17361 as fecha_ingreso, G743_C17269 as rol, G717_C17240 as deudor, G717_C17005 as identificacion ,tipo_identificacion as tipo_identificacion, G719_C17423 as liquidacion, a.LISOPC_Nombre____b As Calificacion_correo, b.LISOPC_Nombre____b As Calificacion_telefono,                           c.LISOPC_Nombre____b As Calificacion_direccion, d.LISOPC_Nombre____b As Calificacion_ciudad,        e.LISOPC_Nombre____b As Calificacion_descripcion');
+            $this->db->select('G743_C17363 as correeo, G743_C17256 as telefono, G743_C17257 as direccion, Ciudad as ciudad, G743_C17260 as observacion, G743_C17361 as fecha_ingreso, G743_C17269 as rol, NombreDeudor as deudor, NroIdentificacion as identificacion ,tipo_identificacion as tipo_identificacion, G719_C17423 as liquidacion, a.Nombre_b As Calificacion_correo, b.Nombre_b As Calificacion_telefono,                           c.Nombre_b As Calificacion_direccion, d.Nombre_b As Calificacion_ciudad,        e.Nombre_b As Calificacion_descripcion');
             $this->db->from('G743');
-            $this->db->join('G718', 'G718_ConsInte__b = G743_C17258', 'LEFT');
-            $this->db->join('G717', 'G717_ConsInte__b = G743_C17268', 'LEFT');
-            $this->db->join('G719', 'G719_ConsInte__b = G743_C17267', 'LEFT');
-            $this->db->join('LISOPC a', 'a.LISOPC_ConsInte__b = G743_C17262 ', 'LEFT');
-            $this->db->join('LISOPC b', 'b.LISOPC_ConsInte__b = G743_C17263 ', 'LEFT');
-            $this->db->join('LISOPC c', 'c.LISOPC_ConsInte__b = G743_C17264 ', 'LEFT');
-            $this->db->join('LISOPC d', 'd.LISOPC_ConsInte__b = G743_C17265 ', 'LEFT');
-            $this->db->join('LISOPC e', 'e.LISOPC_ConsInte__b = G743_C17266 ', 'LEFT');
+            $this->db->join('Ciudad', 'Id = G743_C17258', 'LEFT');
+            $this->db->join('InformacionCliente', 'Id = G743_C17268', 'LEFT');
+            $this->db->join('InformacionCredito', 'Id = G743_C17267', 'LEFT');
+            $this->db->join('ParametroGeneral a', 'a.Id = G743_C17262 ', 'LEFT');
+            $this->db->join('ParametroGeneral b', 'b.Id = G743_C17263 ', 'LEFT');
+            $this->db->join('ParametroGeneral c', 'c.Id = G743_C17264 ', 'LEFT');
+            $this->db->join('ParametroGeneral d', 'd.Id = G743_C17265 ', 'LEFT');
+            $this->db->join('ParametroGeneral e', 'e.Id = G743_C17266 ', 'LEFT');
 
 
             $query = $this->db->get();
             $result = $query->result();
 
-            $this->db->select('id_log_datos, a.G718_C17015 as ciudadDomicilio , b.G718_C17015 as ciudadOficina ,tefonoOficina ,telefonoDomicilio ,celular, celularAdicional ,mail  as correo ,direccionDomicilio ,direccionOficina ,iddeusuario , G717_C17240 as deudor, G717_C17005 as identificacion ,tipo_identificacion as tipo_identificacion, fecha_modificacion ,c.LISOPC_Nombre____b As cal_ciudadDomicilio                          ,d.LISOPC_Nombre____b As cal_ciudadOficina, e.LISOPC_Nombre____b As cal_tefonoOficina
-                ,f.LISOPC_Nombre____b As cal_telefonoDomicilio ,g.LISOPC_Nombre____b As cal_celular
-                ,h.LISOPC_Nombre____b As cal_celularAdicional ,i.LISOPC_Nombre____b As cal_mail
-                ,j.LISOPC_Nombre____b As cal_direccionDomicilio ,k.LISOPC_Nombre____b As cal_direccionOficina ,l.LISOPC_Nombre____b As cal_dir_Adicional ,m.LISOPC_Nombre____b As cal_tele_adicional       ,n.LISOPC_Nombre____b As cal_ciudad_adicional');
+            $this->db->select('id_log_datos, a.Ciudad as ciudadDomicilio , b.Ciudad as ciudadOficina ,tefonoOficina ,telefonoDomicilio ,celular, celularAdicional ,mail  as correo ,direccionDomicilio ,direccionOficina ,iddeusuario , NombreDeudor as deudor, NroIdentificacion as identificacion ,tipo_identificacion as tipo_identificacion, fecha_modificacion ,c.Nombre_b As cal_ciudadDomicilio                          ,d.Nombre_b As cal_ciudadOficina, e.Nombre_b As cal_tefonoOficina
+                ,f.Nombre_b As cal_telefonoDomicilio ,g.Nombre_b As cal_celular
+                ,h.Nombre_b As cal_celularAdicional ,i.Nombre_b As cal_mail
+                ,j.Nombre_b As cal_direccionDomicilio ,k.Nombre_b As cal_direccionOficina ,l.Nombre_b As cal_dir_Adicional ,m.Nombre_b As cal_tele_adicional       ,n.Nombre_b As cal_ciudad_adicional');
 
             $this->db->from('Log_datos_iniciales');
-            $this->db->join('G718 a', 'a.G718_ConsInte__b = ciudadDomicilio', 'LEFT');
-            $this->db->join('G718 b', 'b.G718_ConsInte__b = ciudadOficina', 'LEFT');
-            $this->db->join('G717', 'G717.G717_ConsInte__b = iddeusuario');
+            $this->db->join('Ciudad a', 'a.Id = ciudadDomicilio', 'LEFT');
+            $this->db->join('Ciudad b', 'b.Id = ciudadOficina', 'LEFT');
+            $this->db->join('InformacionCliente', 'InformacionCliente.Id = iddeusuario');
 
-            $this->db->join('LISOPC c', 'c.LISOPC_ConsInte__b = cal_ciudadDomicilio ', 'LEFT');
-            $this->db->join('LISOPC d', 'd.LISOPC_ConsInte__b = cal_ciudadOficina ', 'LEFT');
-            $this->db->join('LISOPC e', 'e.LISOPC_ConsInte__b = cal_tefonoOficina ', 'LEFT');
-            $this->db->join('LISOPC f', 'f.LISOPC_ConsInte__b = cal_telefonoDomicilio ', 'LEFT');
-            $this->db->join('LISOPC g', 'g.LISOPC_ConsInte__b = cal_celular ', 'LEFT');
-            $this->db->join('LISOPC h', 'h.LISOPC_ConsInte__b = cal_celularAdicional ', 'LEFT');
-            $this->db->join('LISOPC i', 'i.LISOPC_ConsInte__b = cal_mail ', 'LEFT');
-            $this->db->join('LISOPC j', 'j.LISOPC_ConsInte__b = cal_direccionDomicilio ', 'LEFT');
-            $this->db->join('LISOPC k', 'k.LISOPC_ConsInte__b = cal_direccionOficina ', 'LEFT');
-            $this->db->join('LISOPC l', 'l.LISOPC_ConsInte__b = cal_dir_Adicional ', 'LEFT');
-            $this->db->join('LISOPC m', 'm.LISOPC_ConsInte__b = cal_tele_adicional ', 'LEFT');
-            $this->db->join('LISOPC n', 'n.LISOPC_ConsInte__b = cal_ciudad_adicional ', 'LEFT');
+            $this->db->join('ParametroGeneral c', 'c.Id = cal_ciudadDomicilio ', 'LEFT');
+            $this->db->join('ParametroGeneral d', 'd.Id = cal_ciudadOficina ', 'LEFT');
+            $this->db->join('ParametroGeneral e', 'e.Id = cal_tefonoOficina ', 'LEFT');
+            $this->db->join('ParametroGeneral f', 'f.Id = cal_telefonoDomicilio ', 'LEFT');
+            $this->db->join('ParametroGeneral g', 'g.Id = cal_celular ', 'LEFT');
+            $this->db->join('ParametroGeneral h', 'h.Id = cal_celularAdicional ', 'LEFT');
+            $this->db->join('ParametroGeneral i', 'i.Id = cal_mail ', 'LEFT');
+            $this->db->join('ParametroGeneral j', 'j.Id = cal_direccionDomicilio ', 'LEFT');
+            $this->db->join('ParametroGeneral k', 'k.Id = cal_direccionOficina ', 'LEFT');
+            $this->db->join('ParametroGeneral l', 'l.Id = cal_dir_Adicional ', 'LEFT');
+            $this->db->join('ParametroGeneral m', 'm.Id = cal_tele_adicional ', 'LEFT');
+            $this->db->join('ParametroGeneral n', 'n.Id = cal_ciudad_adicional ', 'LEFT');
 
             $query2 = $this->db->get();
             $result2 = $query2->result();
@@ -3130,7 +3130,7 @@ class Auxiliar extends CI_Controller {
                     $datosAdcicionales[$i]['observacion'] = NULL ;
                     $fecha = explode(' ', $key2->fecha_modificacion)[0];
                     $fecha = explode('-', $fecha);
-                    $datosAdcicionales[$i]['fecharegistro'] = "<span style='display: none;'>".$fecha[2].$fecha[1].$fecha[0]."</span>".$fecha[2].'/'.$fecha[1].'/'.$fecha[0] ;
+                    $datosAdcicionales[$i]['fecharegistro'] = $fecha[2].'/'.$fecha[1].'/'.$fecha[0] ;
                     $datosAdcicionales[$i]['rol'] = 'Deudor' ;
                     $datosAdcicionales[$i]['deudor'] = utf8_encode($key2->deudor) ;
                     $datosAdcicionales[$i]['liquidacion'] = NULL ;

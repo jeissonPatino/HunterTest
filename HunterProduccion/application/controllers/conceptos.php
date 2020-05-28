@@ -183,48 +183,48 @@ class Conceptos extends CI_Controller {
                             $contrato = 0;
                            // $contrato = $this->Obligaciones_Model->getIdObligacion($value['A']);
                             if($filtro == 'G719_C17423'){
-                                $this->db->select('G719_ConsInte__b');
-                                $this->db->from('G719');
+                                $this->db->select('Id');
+                                $this->db->from('InformacionCredito');
                                 $this->db->where('G719_C17423', $value['A']);
                                 $contrato = $this->db->get();
                             }else{
-                                $this->db->select('G719_ConsInte__b');
-                                $this->db->from('G719');
-                                $this->db->where('G719_C17026', $value['A']);
+                                $this->db->select('Id');
+                                $this->db->from('InformacionCredito');
+                                $this->db->where('NoContrato', $value['A']);
                                 $contrato = $this->db->get();
                             }
                             
                   
-                            if($contrato->row()->G719_ConsInte__b != 0){
+                            if($contrato->row()->Id != 0){
                                 //voy a buscar si acepto la subrogacion
                                 
 
                                
-                                $aja = $this->db->get_where('G744', array('G744_C17280' => $contrato->row()->G719_ConsInte__b));
-                                $this->db->select('G744_ConsInte__b');
-                                $this->db->from('G744');
-                                $this->db->where('G744_C17280', $contrato->row()->G719_ConsInte__b);
+                                $aja = $this->db->get_where('Factura', array('NumeroContratoId' => $contrato->row()->Id));
+                                $this->db->select('Id');
+                                $this->db->from('Factura');
+                                $this->db->where('NumeroContratoId', $contrato->row()->Id);
                                 $aja = $this->db->get();
                                 $res = $aja->result();
 
                                 $resultado = false;
                                 if($aja->num_rows() > 0){
-                                     $datosActualizados = array( 'G744_FechaInsercion' => $fechaIngreso,
-                                                                    'G744_Usuario' => $this->session->userdata('identificacion'),
-                                                                    'G744_C17262' => $fecha2, 
-                                                                    'G744_C17263' => $value['B'],
-                                                                    'G744_C17264' => $fecha3,
-                                                                    'G744_C17276' => $value['E']);
-                                    $resultado = $this->Wizard_Model->editarDatos('G744', $datosActualizados, $contrato->row()->G719_ConsInte__b, 'G744_C17280');
+                                     $datosActualizados = array( 'FechaInsercion' => $fechaIngreso,
+                                                                    'Usuario' => $this->session->userdata('identificacion'),
+                                                                    'FechaFacturacionAutoSubRogacion' => $fecha2, 
+                                                                    'NroFacturaAutoSubRogacion' => $value['B'],
+                                                                    'FechaAutoSubRogacion' => $fecha3,
+                                                                    'FechaFacturaSoporteCISA' => $value['E']);
+                                    $resultado = $this->Wizard_Model->editarDatos('Factura', $datosActualizados, $contrato->row()->Id, 'NumeroContratoId');
                                 }else{
-                                    $datosActualizados = array( 'G744_FechaInsercion' => $fechaIngreso,
-                                                            'G744_Usuario' => $this->session->userdata('identificacion'),
-                                                            'G744_C17262' => $fecha2, 
-                                                            'G744_C17263' => $value['B'],
-                                                            'G744_C17264' => $fecha3,
-                                                            'G744_C17276' => $value['E'],
-                                                            'G744_C17280' => $contrato->row()->G719_ConsInte__b);
-                                    $resultado = $this->Wizard_Model->guardardatos('G744', $datosActualizados);
+                                    $datosActualizados = array( 'FechaInsercion' => $fechaIngreso,
+                                                            'Usuario' => $this->session->userdata('identificacion'),
+                                                            'FechaFacturacionAutoSubRogacion' => $fecha2, 
+                                                            'NroFacturaAutoSubRogacion' => $value['B'],
+                                                            'FechaAutoSubRogacion' => $fecha3,
+                                                            'FechaFacturaSoporteCISA' => $value['E'],
+                                                            'NumeroContratoId' => $contrato->row()->Id);
+                                    $resultado = $this->Wizard_Model->guardardatos('Factura', $datosActualizados);
                                 }
                                 
                                 if($resultado){
@@ -290,28 +290,28 @@ class Conceptos extends CI_Controller {
                             $contrato = 0;
                            // $contrato = $this->Obligaciones_Model->getIdObligacion($value['A']);
                             if($filtro == 'G719_C17423'){
-                                $this->db->select('G719_ConsInte__b');
-                                $this->db->from('G719');
+                                $this->db->select('Id');
+                                $this->db->from('InformacionCredito');
                                 $this->db->where('G719_C17423', $value['A']);
                                 $contrato = $this->db->get();
                             }else{
-                                $this->db->select('G719_ConsInte__b');
-                                $this->db->from('G719');
-                                $this->db->where('G719_C17026', $value['A']);
+                                $this->db->select('Id');
+                                $this->db->from('InformacionCredito');
+                                $this->db->where('NoContrato', $value['A']);
                                 $contrato = $this->db->get();
                             }
                             
                         if($contrato->num_rows() > 0)
-                            if($contrato->row()->G719_ConsInte__b != 0){
-                                $this->db->select('G719_C17213 as fecha_decicion, G719_C17214 as decicion, Fecha_decision_final, G719_C17216');
-                                $this->db->from('G719');
-                                $this->db->where('G719_ConsInte__b', $contrato->row()->G719_ConsInte__b );
+                            if($contrato->row()->Id != 0){
+                                $this->db->select('G719_C17213 as fecha_decicion, G719_C17214 as decicion, FechaDecisionFinal, G719_C17216');
+                                $this->db->from('InformacionCredito');
+                                $this->db->where('Id', $contrato->row()->Id );
                                 $aja = $this->db->get();
                                 
                                 
                                 
                                 $resultado = false;
-                                //echo $contrato->row()->G719_ConsInte__b;
+                                //echo $contrato->row()->Id;
                                 if($aja->num_rows() > 0){
                                      
                                     $fecha3 = NULL;
@@ -331,8 +331,8 @@ class Conceptos extends CI_Controller {
                                             }else{
                                                 if(!is_null($key->G719_C17216)){
                                                     if($key->G719_C17216 == 27){
-                                                        if(!is_null($key->Fecha_decision_final)){
-                                                            $fecha3 = explode(' ', $key->Fecha_decision_final)[0];
+                                                        if(!is_null($key->FechaDecisionFinal)){
+                                                            $fecha3 = explode(' ', $key->FechaDecisionFinal)[0];
                                                             $fecha3 = explode('-', $fecha3);
                                                             $anho = $fecha3[0];
                                                             $fecha4 = $fecha3[2]."/".$fecha3[1]."/".$fecha3[0];
@@ -346,8 +346,8 @@ class Conceptos extends CI_Controller {
                                         }else{
                                             if(!is_null($key->G719_C17216)){
                                                 if($key->G719_C17216 == 27){
-                                                   if(!is_null($key->Fecha_decision_final)){
-                                                        $fecha3 = explode(' ', $key->Fecha_decision_final)[0];
+                                                   if(!is_null($key->FechaDecisionFinal)){
+                                                        $fecha3 = explode(' ', $key->FechaDecisionFinal)[0];
                                                         $fecha3 = explode('-', $fecha3);
                                                         $anho = $fecha3[0];
                                                         $fecha4 = $fecha3[2]."/".$fecha3[1]."/".$fecha3[0];
@@ -362,14 +362,14 @@ class Conceptos extends CI_Controller {
                                             $valores = "$ ".number_format($valores, 0, ',', '.');
                                         }
                                         
-                                        $this->db->select('G744_C17276');
-                                        $this->db->from('G744');
-                                        $this->db->where('G744_C17280', $contrato->row()->G719_ConsInte__b );
+                                        $this->db->select('FechaFacturaSoporteCISA');
+                                        $this->db->from('Factura');
+                                        $this->db->where('NumeroContratoId', $contrato->row()->Id );
                                         $valorPagado = $this->db->get();
                                         $valu = 0;
 
                                         if($valorPagado->num_rows() > 0){
-                                            $valu = "$ ".number_format($valorPagado->row()->G744_C17276, 0, ',', '.');
+                                            $valu = "$ ".number_format($valorPagado->row()->FechaFacturaSoporteCISA, 0, ',', '.');
                                         }
 
 
@@ -467,46 +467,46 @@ class Conceptos extends CI_Controller {
                             $contrato = 0;
 
                             if($filtro == 'G719_C17423'){
-                                $this->db->select('G719_ConsInte__b');
-                                $this->db->from('G719');
+                                $this->db->select('Id');
+                                $this->db->from('InformacionCredito');
                                 $this->db->where('G719_C17423', $value['A']);
                                 $contrato = $this->db->get();
                             }else{
-                                $this->db->select('G719_ConsInte__b');
-                                $this->db->from('G719');
-                                $this->db->where('G719_C17026', $value['A']);
+                                $this->db->select('Id');
+                                $this->db->from('InformacionCredito');
+                                $this->db->where('NoContrato', $value['A']);
                                 $contrato = $this->db->get();
                             }
                             
                             if($contrato->num_rows() > 0){
-                                $this->db->select('G744_ConsInte__b');
-                                $this->db->from('G744');
-                                $this->db->where('G744_C17280', $contrato->row()->G719_ConsInte__b);
+                                $this->db->select('Id');
+                                $this->db->from('Factura');
+                                $this->db->where('NumeroContratoId', $contrato->row()->Id);
                                 $aja = $this->db->get();
        
                                 
                                 $resultado = false;
                                 if($aja->num_rows() > 0){
-                                     $datosActualizados = array(    'G744_FechaInsercion' => $fechaIngreso,
-                                                                    'G744_Usuario' => $this->session->userdata('identificacion'),
-                                                                    'G744_C17267' => $fecha2, 
-                                                                    'G744_C17265' => $value['B'], 
-                                                                    'G744_C17286' => $fecha3, 
-                                                                    'G744_C17266' => $fecha4, 
-                                                                    'G744_C17285' => $fecha5,
-                                                                    'G744_C17277' => $value['G']);
-                                    $resultado = $this->Wizard_Model->editarDatos('G744', $datosActualizados, $contrato->row()->G719_ConsInte__b, 'G744_C17280');
+                                     $datosActualizados = array(    'FechaInsercion' => $fechaIngreso,
+                                                                    'Usuario' => $this->session->userdata('identificacion'),
+                                                                    'FechaFacturaSentenciaIrrecuperable' => $fecha2, 
+                                                                    'NroFacturaSentenciaIrrecuperable' => $value['B'], 
+                                                                    'FechaAutoIrrecuperable' => $fecha3, 
+                                                                    'FechaSentenciaIrrecuperable' => $fecha4, 
+                                                                    'FechaLiquidacionCredito' => $fecha5,
+                                                                    'ValorFacturadoSentenciaIrrecuperable' => $value['G']);
+                                    $resultado = $this->Wizard_Model->editarDatos('Factura', $datosActualizados, $contrato->row()->Id, 'NumeroContratoId');
                                 }else{
-                                    $datosActualizados = array(     'G744_FechaInsercion' => $fechaIngreso,
-                                                                    'G744_Usuario' => $this->session->userdata('identificacion'),
-                                                                    'G744_C17267' => $fecha2, 
-                                                                    'G744_C17265' => $value['B'], 
-                                                                    'G744_C17286' => $fecha3, 
-                                                                    'G744_C17266' => $fecha4, 
-                                                                    'G744_C17285' => $fecha5,
-                                                                    'G744_C17277' => $value['G'],
-                                                                    'G744_C17280' => $contrato->row()->G719_ConsInte__b);
-                                    $resultado = $this->Wizard_Model->guardardatos('G744', $datosActualizados);
+                                    $datosActualizados = array(     'FechaInsercion' => $fechaIngreso,
+                                                                    'Usuario' => $this->session->userdata('identificacion'),
+                                                                    'FechaFacturaSentenciaIrrecuperable' => $fecha2, 
+                                                                    'NroFacturaSentenciaIrrecuperable' => $value['B'], 
+                                                                    'FechaAutoIrrecuperable' => $fecha3, 
+                                                                    'FechaSentenciaIrrecuperable' => $fecha4, 
+                                                                    'FechaLiquidacionCredito' => $fecha5,
+                                                                    'ValorFacturadoSentenciaIrrecuperable' => $value['G'],
+                                                                    'NumeroContratoId' => $contrato->row()->Id);
+                                    $resultado = $this->Wizard_Model->guardardatos('Factura', $datosActualizados);
                                 }
                                 
                                 if($resultado){
@@ -563,34 +563,34 @@ class Conceptos extends CI_Controller {
                         $contrato = 0;
                        //obtenemos el ID si es por Liquidacion o por contrato
                         if($filtro == 'G719_C17423'){
-                            $this->db->select('G719_ConsInte__b');
-                            $this->db->from('G719');
+                            $this->db->select('Id');
+                            $this->db->from(InformacionCredito);
                             $this->db->where('G719_C17423', $value['A']);
                             $contrato = $this->db->get();
                         }else{
-                            $this->db->select('G719_ConsInte__b');
-                            $this->db->from('G719');
-                            $this->db->where('G719_C17026', $value['A']);
+                            $this->db->select('Id');
+                            $this->db->from(InformacionCredito);
+                            $this->db->where('NoContrato', $value['A']);
                             $contrato = $this->db->get();
                         }
                         
                         //si ese numero de contrato es valido hacemos es el proceso
                         if($contrato->num_rows() > 0){    
-                            //$contrato->row()->G719_ConsInte__b != 0
+                            //$contrato->row()->Id != 0
                             //G719_C17216 -- esta es la decision final --actuacion 27
                             //G719_C17213 -- fecha tramite
-                            $this->db->select('G719_C17213 as fecha_decicion, G719_C17214 as decicion, Fecha_decision_final, G719_C17216 ');
-                            $this->db->from('G719');
-                            $this->db->where('G719_ConsInte__b', $contrato->row()->G719_ConsInte__b );
+                            $this->db->select('G719_C17213 as fecha_decicion, G719_C17214 as decicion, FechaDecisionFinal, G719_C17216 ');
+                            $this->db->from(InformacionCredito);
+                            $this->db->where('Id', $contrato->row()->Id );
                             $aja = $this->db->get();
                             
                             
-                            /*$this->db->select('G744_C17264, G744_C17276');
-                            $this->db->from('G744');
-                            $this->db->where('G744_C17280', $contrato->row()->G719_ConsInte__b);
+                            /*$this->db->select('FechaAutoSubRogacion, FechaFacturaSoporteCISA');
+                            $this->db->from('Factura');
+                            $this->db->where('NumeroContratoId', $contrato->row()->Id);
                             $aja = $this->db->get();*/
                             $resultado = false;
-                            //echo $contrato->row()->G719_ConsInte__b;
+                            //echo $contrato->row()->Id;
                             if($aja->num_rows() > 0){
                                 $fechaDecicion = '';
                                 $fechaSentcnia = '';
@@ -616,8 +616,8 @@ class Conceptos extends CI_Controller {
                                         }else{
                                             if(!is_null($key->G719_C17216)){
                                                 if($key->G719_C17216 == 27){
-                                                   if(!is_null($key->Fecha_decision_final)){
-                                                        $fecha3 = explode(' ', $key->Fecha_decision_final)[0];
+                                                   if(!is_null($key->FechaDecisionFinal)){
+                                                        $fecha3 = explode(' ', $key->FechaDecisionFinal)[0];
                                                         $fecha3 = explode('-', $fecha3);
                                                         $fecha4 = $fecha3[2]."/".$fecha3[1]."/".$fecha3[0];
                                                         $fechaDecicion = $fecha3[2]."-".$fecha3[1]."-".$fecha3[0];    
@@ -630,8 +630,8 @@ class Conceptos extends CI_Controller {
                                     }else{
                                         if(!is_null($key->G719_C17216)){
                                             if($key->G719_C17216 == 27){
-                                                if(!is_null($key->Fecha_decision_final)){
-                                                    $fecha3 = explode(' ', $key->Fecha_decision_final)[0];
+                                                if(!is_null($key->FechaDecisionFinal)){
+                                                    $fecha3 = explode(' ', $key->FechaDecisionFinal)[0];
                                                     $fecha3 = explode('-', $fecha3);
                                                     
                                                     $fecha4 = $fecha3[2]."/".$fecha3[1]."/".$fecha3[0];
@@ -647,17 +647,17 @@ class Conceptos extends CI_Controller {
                                     //ahora buscamos la sentencia faborable
                                    
 
-                                    $this->db->select('G735_C17139');
+                                    $this->db->select('NumeroContrato');
                                     $this->db->from('G735');
-                                    $this->db->where('G735_C17138', $contrato->row()->G719_ConsInte__b);
-                                    $this->db->where('G735_C17137', 62);
+                                    $this->db->where('G735_C17138', $contrato->row()->Id);
+                                    $this->db->where('Actuacion', 62);
                                     $sentencia1 = $this->db->get();
 
                                     if($sentencia1->num_rows() > 0){
                                         $dat =  $sentencia1->result();
                                         foreach ($dat as $key ) {
-                                            if(!is_null($key->G735_C17139)){
-                                                $fecha3 = explode(' ', $key->G735_C17139)[0];
+                                            if(!is_null($key->NumeroContrato)){
+                                                $fecha3 = explode(' ', $key->NumeroContrato)[0];
                                                 $fecha3 = explode('-', $fecha3);
                                                 $anho = $fecha3[0];
                                                 $fecha_sentencia_favorable = $fecha3[2]."/".$fecha3[1]."/".$fecha3[0];
@@ -670,17 +670,17 @@ class Conceptos extends CI_Controller {
                                     }
 
                                     $fecha_liquidacion = NULL;
-                                    $this->db->select('G735_C17139');
+                                    $this->db->select('NumeroContrato');
                                     $this->db->from('G735');
-                                    $this->db->where('G735_C17138', $contrato->row()->G719_ConsInte__b);
-                                    $this->db->where('G735_C17137 = 79');
+                                    $this->db->where('G735_C17138', $contrato->row()->Id);
+                                    $this->db->where('Actuacion = 79');
                                     $sentencia2 = $this->db->get();
 
                                     if($sentencia2->num_rows() > 0){
                                         $dat2 =  $sentencia2->result();
                                         foreach ($dat2 as $key ) {
-                                            if(!is_null($key->G735_C17139)){
-                                                $fecha3 = explode(' ', $key->G735_C17139)[0];
+                                            if(!is_null($key->NumeroContrato)){
+                                                $fecha3 = explode(' ', $key->NumeroContrato)[0];
                                                 $fecha3 = explode('-', $fecha3);
                                                 $fecha_liquidacion = $fecha3[2]."/".$fecha3[1]."/".$fecha3[0];
                                             }
@@ -688,17 +688,17 @@ class Conceptos extends CI_Controller {
                                         }
                                         
                                     }else{
-                                        $this->db->select('G735_C17139');
+                                        $this->db->select('NumeroContrato');
                                         $this->db->from('G735');
-                                        $this->db->where('G735_C17138', $contrato->row()->G719_ConsInte__b);
-                                        $this->db->where('G735_C17137 = 80');
+                                        $this->db->where('G735_C17138', $contrato->row()->Id);
+                                        $this->db->where('Actuacion = 80');
                                         $sentencia2 = $this->db->get();
 
                                         if($sentencia2->num_rows() > 0){
                                             $dat2 =  $sentencia2->result();
                                             foreach ($dat2 as $key ) {
-                                                if(!is_null($key->G735_C17139)){
-                                                    $fecha3 = explode(' ', $key->G735_C17139)[0];
+                                                if(!is_null($key->NumeroContrato)){
+                                                    $fecha3 = explode(' ', $key->NumeroContrato)[0];
                                                     $fecha3 = explode('-', $fecha3);
                                                     $fecha_liquidacion = $fecha3[2]."/".$fecha3[1]."/".$fecha3[0];
                                                 }
@@ -706,17 +706,17 @@ class Conceptos extends CI_Controller {
                                             
                                         }else{
                                             
-                                            $this->db->select('G735_C17139');
+                                            $this->db->select('NumeroContrato');
                                             $this->db->from('G735');
-                                            $this->db->where('G735_C17138', $contrato->row()->G719_ConsInte__b);
-                                            $this->db->where('G735_C17137 = 81');
+                                            $this->db->where('G735_C17138', $contrato->row()->Id);
+                                            $this->db->where('Actuacion = 81');
                                             $sentencia2 = $this->db->get();
 
                                             if($sentencia2->num_rows() > 0){
                                                 $dat2 =  $sentencia2->result();
                                                 foreach ($dat2 as $key ) {
-                                                    if(!is_null($key->G735_C17139)){
-                                                        $fecha3 = explode(' ', $key->G735_C17139)[0];
+                                                    if(!is_null($key->NumeroContrato)){
+                                                        $fecha3 = explode(' ', $key->NumeroContrato)[0];
                                                         $fecha3 = explode('-', $fecha3);
                                                         $fecha_liquidacion = $fecha3[2]."/".$fecha3[1]."/".$fecha3[0];
                                                     }
@@ -749,7 +749,7 @@ class Conceptos extends CI_Controller {
                                     $datos[$j]['fecha_liquidacion'] = $fecha_liquidacion;
                                     $datos[$j]['fecha_sentencia'] = $fecha_sentencia_favorable;
                                     $datos[$j]['valor'] = $valores;
-                                    //$datos[$j]['valor_pagado'] = "$ ".number_format($key->G744_C17276, 0, ',', '.');
+                                    //$datos[$j]['valor_pagado'] = "$ ".number_format($key->FechaFacturaSoporteCISA, 0, ',', '.');
                                     $j++;
                                 }
                             }
@@ -831,53 +831,53 @@ class Conceptos extends CI_Controller {
                        // $contrato = $this->Obligaciones_Model->getIdObligacion($value['A']);
                        $value['A'] =  $this->completarZerosLiquidacion($value['A']);
                         if($filtro == 'G719_C17423'){
-                            $this->db->select('G719_ConsInte__b');
-                            $this->db->from('G719');
+                            $this->db->select('Id');
+                            $this->db->from(InformacionCredito);
                             $this->db->where('G719_C17423', $value['A']);
                             $contrato = $this->db->get();
                         }else{
-                            $this->db->select('G719_ConsInte__b');
-                            $this->db->from('G719');
-                            $this->db->where('G719_C17026', $value['A']);
+                            $this->db->select('Id');
+                            $this->db->from(InformacionCredito);
+                            $this->db->where('NoContrato', $value['A']);
                             $contrato = $this->db->get();
                         }
                         
                         if($contrato->num_rows() > 0){
 
-                            // $aja = $this->db->get_where('G744', array('G744_C17280' => $contrato->row()->G719_ConsInte__b));
-                            $this->db->select('G744_ConsInte__b');
-                            $this->db->from('G744');
-                            $this->db->where('G744_C17280', $contrato->row()->G719_ConsInte__b);
+                            // $aja = $this->db->get_where('Factura', array('NumeroContratoId' => $contrato->row()->Id));
+                            $this->db->select('Id');
+                            $this->db->from('Factura');
+                            $this->db->where('NumeroContratoId', $contrato->row()->Id);
                             $aja = $this->db->get();
                             //$res = $aja->result();
-                            //Honorarios venta G744_C17269
-                            //fecha de factura G744_C17424
-                            //factura G744_C17423 
+                            //Honorarios venta FechaFacturaHonorarioCISA2
+                            //fecha de factura FechaFacturaHonorarioCISA4
+                            //factura FechaFacturaHonorarioCISA3 
                             
                             $resultado = false;
 
                             
                             if($aja->num_rows() > 0){
-                                 $datosActualizados = array('G744_FechaInsercion' => $fechaIngreso, 
-                                                            'G744_Usuario' => $this->session->userdata('identificacion'),
-                                                            'G744_C17424' => $fechaFacturaHonorarios,
-                                                            'G744_C17423' => $value['F'],
-                                                            'G744_C17269' => $value['D'],
-                                                            'G744_C17275' => 1405,
-                                                            'fechaAprobHonorarios' => $fechaAprobacionSoporteH,
-                                                            'fechaReceptHonorarios' => $fechaRecepcionSoporteH,
-                                                            'G744_C17279' => 1803); 
-                                $resultado = $this->Wizard_Model->editarDatos('G744', $datosActualizados, $contrato->row()->G719_ConsInte__b, 'G744_C17280');
+                                 $datosActualizados = array('FechaInsercion' => $fechaIngreso, 
+                                                            'Usuario' => $this->session->userdata('identificacion'),
+                                                            'FechaFacturaHonorarioCISA4' => $fechaFacturaHonorarios,
+                                                            'FechaFacturaHonorarioCISA3' => $value['F'],
+                                                            'FechaFacturaHonorarioCISA2' => $value['D'],
+                                                            'Soporte' => 1405,
+                                                            'FechaAprobacionHonorario' => $fechaAprobacionSoporteH,
+                                                            'FechaRecepcionHonorarios' => $fechaRecepcionSoporteH,
+                                                            'FechaFacturaHonorarioCISA1' => 1803); 
+                                $resultado = $this->Wizard_Model->editarDatos('Factura', $datosActualizados, $contrato->row()->Id, 'NumeroContratoId');
                             }else{
-                                $datosActualizados = array('G744_FechaInsercion' => $fechaIngreso,
-                                                           'G744_Usuario' => $this->session->userdata('identificacion'),
-                                                           'G744_C17424' => $fechaFacturaHonorarios, 
-                                                           'G744_C17423' => $value['B'], 
-                                                           'G744_C17269' => $value['D'],
-                                                           'fechaAprobHonorarios' => $fechaAprobacionSoporteH,
-                                                           'fechaReceptHonorarios' => $fechaRecepcionSoporteH,
-                                                           'G744_C17280' => $contrato->row()->G719_ConsInte__b);
-                                $resultado = $this->Wizard_Model->guardardatos('G744', $datosActualizados);
+                                $datosActualizados = array('FechaInsercion' => $fechaIngreso,
+                                                           'Usuario' => $this->session->userdata('identificacion'),
+                                                           'FechaFacturaHonorarioCISA4' => $fechaFacturaHonorarios, 
+                                                           'FechaFacturaHonorarioCISA3' => $value['B'], 
+                                                           'FechaFacturaHonorarioCISA2' => $value['D'],
+                                                           'FechaAprobacionHonorario' => $fechaAprobacionSoporteH,
+                                                           'FechaRecepcionHonorarios' => $fechaRecepcionSoporteH,
+                                                           'NumeroContratoId' => $contrato->row()->Id);
+                                $resultado = $this->Wizard_Model->guardardatos('Factura', $datosActualizados);
                             }
                             
                             if($resultado){
@@ -941,42 +941,42 @@ class Conceptos extends CI_Controller {
                 
                         $value['A'] =  $this->completarZerosLiquidacion($value['A']);
                         if($filtro == 'G719_C17423'){
-                            $this->db->select('G719_ConsInte__b');
-                            $this->db->from('G719');
+                            $this->db->select('Id');
+                            $this->db->from(InformacionCredito);
                             $this->db->where('G719_C17423', $value['A']);
                             $contrato = $this->db->get();
                         }else{
-                            $this->db->select('G719_ConsInte__b');
-                            $this->db->from('G719');
-                            $this->db->where('G719_C17026', $value['A']);
+                            $this->db->select('Id');
+                            $this->db->from(InformacionCredito);
+                            $this->db->where('NoContrato', $value['A']);
                             $contrato = $this->db->get();
                         }
                         
                         if($contrato->num_rows() > 0 ){
 
-                            $this->db->select('G744_ConsInte__b');
-                            $this->db->from('G744');
-                            $this->db->where('G744_C17280', $contrato->row()->G719_ConsInte__b);
+                            $this->db->select('Id');
+                            $this->db->from('Factura');
+                            $this->db->where('NumeroContratoId', $contrato->row()->Id);
                             $aja = $this->db->get();
                             
                             $resultado = false;
                             if($aja->num_rows() > 0){
                                
-                                 $datosActualizados = array('G744_FechaInsercion' => $fechaIngreso,
-                                                            'G744_Usuario' => $this->session->userdata('identificacion'),
-                                                            'Fecha_recepcion_soporte' => $fechaRecepcionSoporte, 
-                                                            'Fecha_aprobacion_soporte' => $fechaAprobacionSoporte 
+                                 $datosActualizados = array('FechaInsercion' => $fechaIngreso,
+                                                            'Usuario' => $this->session->userdata('identificacion'),
+                                                            'FechaRecepcionSoporte' => $fechaRecepcionSoporte, 
+                                                            'FechaAprobacionSoporte' => $fechaAprobacionSoporte 
                                                             ); 
-                                $resultado = $this->Wizard_Model->editarDatos('G744', $datosActualizados, $contrato->row()->G719_ConsInte__b, 'G744_C17280');
+                                $resultado = $this->Wizard_Model->editarDatos('Factura', $datosActualizados, $contrato->row()->Id, 'NumeroContratoId');
                               
                             }else{
                                
-                                $datosActualizados = array('G744_FechaInsercion' => $fechaIngreso, 
-                                                           'G744_Usuario' => $this->session->userdata('identificacion'),
-                                                           'Fecha_recepcion_soporte' => $fechaRecepcionSoporte, 
-                                                           'Fecha_aprobacion_soporte' => $fechaAprobacionSoporte,
-                                                           'G744_C17280' => $contrato->row()->G719_ConsInte__b);
-                                $resultado = $this->Wizard_Model->guardardatos('G744', $datosActualizados);
+                                $datosActualizados = array('FechaInsercion' => $fechaIngreso, 
+                                                           'Usuario' => $this->session->userdata('identificacion'),
+                                                           'FechaRecepcionSoporte' => $fechaRecepcionSoporte, 
+                                                           'FechaAprobacionSoporte' => $fechaAprobacionSoporte,
+                                                           'NumeroContratoId' => $contrato->row()->Id);
+                                $resultado = $this->Wizard_Model->guardardatos('Factura', $datosActualizados);
                             }
                             
                             if($resultado){
@@ -1041,37 +1041,37 @@ class Conceptos extends CI_Controller {
                         $contrato = 0;
                       
                        
-                            $this->db->select('G719_ConsInte__b');
-                            $this->db->from('G719');
+                            $this->db->select('Id');
+                            $this->db->from(InformacionCredito);
                             $this->db->where('G719_C17423', $value['A']);
                             $contrato = $this->db->get();
                        
                         
               
                         if($contrato->num_rows() > 0){
-                            $this->db->select('G744_ConsInte__b');
-                            $this->db->from('G744');
-                            $this->db->where('G744_C17280', $contrato->row()->G719_ConsInte__b);
+                            $this->db->select('Id');
+                            $this->db->from('Factura');
+                            $this->db->where('NumeroContratoId', $contrato->row()->Id);
                             $aja = $this->db->get();
                             
                             $resultado = false;
                             if($aja->num_rows() > 0){
                                
-                                 $datosActualizados = array('G744_FechaInsercion' => $fechaIngreso,
-                                                            'G744_Usuario' => $this->session->userdata('identificacion'),
-                                                            'G744_C17268' => $fechaFactura, 
-                                                            'G744_C17270' => $value['C'] 
+                                 $datosActualizados = array('FechaInsercion' => $fechaIngreso,
+                                                            'Usuario' => $this->session->userdata('identificacion'),
+                                                            'FechaFacturaSoporteCISA_' => $fechaFactura, 
+                                                            'NroFacturaSoporteCISA' => $value['C'] 
                                                             ); 
-                                $resultado = $this->Wizard_Model->editarDatos('G744', $datosActualizados, $contrato->row()->G719_ConsInte__b, 'G744_C17280');
+                                $resultado = $this->Wizard_Model->editarDatos('Factura', $datosActualizados, $contrato->row()->Id, 'NumeroContratoId');
                                
                             }else{
                               
-                                $datosActualizados = array('G744_FechaInsercion' => $fechaIngreso, 
-                                                           'G744_Usuario' => $this->session->userdata('identificacion'),
-                                                           'G744_C17280' => $contrato->row()->G719_ConsInte__b,
-                                                            'G744_C17268' => $fechaFactura, 
-                                                            'G744_C17270' => $value['C'] );
-                                $resultado = $this->Wizard_Model->guardardatos('G744', $datosActualizados);
+                                $datosActualizados = array('FechaInsercion' => $fechaIngreso, 
+                                                           'Usuario' => $this->session->userdata('identificacion'),
+                                                           'NumeroContratoId' => $contrato->row()->Id,
+                                                            'FechaFacturaSoporteCISA_' => $fechaFactura, 
+                                                            'NroFacturaSoporteCISA' => $value['C'] );
+                                $resultado = $this->Wizard_Model->guardardatos('Factura', $datosActualizados);
                             }
                           
                             if($resultado){
@@ -1158,23 +1158,23 @@ class Conceptos extends CI_Controller {
                             $contrato = 0;
                            // $contrato = $this->Obligaciones_Model->getIdObligacion($value['A']);
                             if($filtro == 'G719_C17423'){
-                                $this->db->select('G719_ConsInte__b');
-                                $this->db->from('G719');
+                                $this->db->select('Id');
+                                $this->db->from(InformacionCredito);
                                 $this->db->where('G719_C17423', $value['A']);
                                 $contrato = $this->db->get();
                             }else{
-                                $this->db->select('G719_ConsInte__b');
-                                $this->db->from('G719');
-                                $this->db->where('G719_C17026', $value['A']);
+                                $this->db->select('Id');
+                                $this->db->from(InformacionCredito);
+                                $this->db->where('NoContrato', $value['A']);
                                 $contrato = $this->db->get();
                             }
 
                             if($contrato->num_rows() > 0){
                                 
-                               // $aja = $this->db->get_where('G744', array('G744_C17280' => $contrato->row()->G719_ConsInte__b));
+                               // $aja = $this->db->get_where('Factura', array('NumeroContratoId' => $contrato->row()->Id));
                                 $this->db->select('G745_ConsInte__b');
                                 $this->db->from('G745');
-                                $this->db->where('G745_C17292', $contrato->row()->G719_ConsInte__b);
+                                $this->db->where('G745_C17292', $contrato->row()->Id);
                                 $aja = $this->db->get();
                                //$res = $aja->result();
 
@@ -1186,14 +1186,14 @@ class Conceptos extends CI_Controller {
                                         'G745_C17289' => $fecha2,
                                         'G745_C17290' => $value['E']
                                     );
-                                    $resultado = $this->Wizard_Model->editarDatos('G745', $datos, $contrato->row()->G719_ConsInte__b, 'G745_C17292');
+                                    $resultado = $this->Wizard_Model->editarDatos('G745', $datos, $contrato->row()->Id, 'G745_C17292');
                                 }else{
                                     $datos = array(
                                         'G745_C17287' => $value['C'],
                                         'G745_C17288' => $value['B'],
                                         'G745_C17289' => $fecha2,
                                         'G745_C17290' => $value['E'],
-                                        'G745_C17292' => $contrato->row()->G719_ConsInte__b
+                                        'G745_C17292' => $contrato->row()->Id
                                     );
                      
                                     $resultado = $this->Wizard_Model->guardardatos('G745', $datos);
@@ -1264,19 +1264,19 @@ class Conceptos extends CI_Controller {
         $contrato = 0;
        // $contrato = $this->Obligaciones_Model->getIdObligacion($value['A']);
         $noLiquidacion =   $this->completarZerosLiquidacion($_POST['liquidacion']);
-        $this->db->select('G719_ConsInte__b');
-        $this->db->from('G719');
+        $this->db->select('Id');
+        $this->db->from(InformacionCredito);
         $this->db->where('G719_C17423', $noLiquidacion);
         $contrato = $this->db->get();
         
         
 
-        if($contrato->row()->G719_ConsInte__b != 0){
+        if($contrato->row()->Id != 0){
             $datos = array(
-                'G719_C17049' => $_POST['fechadevolucion']
+                'FechaDevolucionFRGMemorialSubrogacionxErrores' => $_POST['fechadevolucion']
                 //,'G719_C17050' => $_POST['fechaenvio']
             );
-            $resultado = $this->Wizard_Model->editarDatos('G719', $datos, $contrato->row()->G719_ConsInte__b, 'G719_ConsInte__b');
+            $resultado = $this->Wizard_Model->editarDatos(InformacionCredito, $datos, $contrato->row()->Id, 'Id');
           
             if($resultado){
                echo "Registro guardado!";
@@ -1289,18 +1289,18 @@ class Conceptos extends CI_Controller {
         $contrato = 0;
        // $contrato = $this->Obligaciones_Model->getIdObligacion($value['A']);
         $noLiquidacion =   $this->completarZerosLiquidacion($_POST['liquidacion']);
-        $this->db->select('G719_ConsInte__b');
-        $this->db->from('G719');
+        $this->db->select('Id');
+        $this->db->from(InformacionCredito);
         $this->db->where('G719_C17423', $noLiquidacion);
         $contrato = $this->db->get();
         
         
 
-        if($contrato->row()->G719_ConsInte__b != 0){
+        if($contrato->row()->Id != 0){
             $datos = array(
                 'G719_C17050' => $_POST['fechaenvio']
             );
-            $resultado = $this->Wizard_Model->editarDatos('G719', $datos, $contrato->row()->G719_ConsInte__b, 'G719_ConsInte__b');
+            $resultado = $this->Wizard_Model->editarDatos(InformacionCredito, $datos, $contrato->row()->Id, 'Id');
           
             if($resultado){
                echo "Registro guardado!";
@@ -1358,16 +1358,16 @@ class Conceptos extends CI_Controller {
                             $contrato = 0;
                            // $contrato = $this->Obligaciones_Model->getIdObligacion($value['A']);
                             $value['A'] = $this->completarZerosLiquidacion($value['A']);
-                            $this->db->select('G719_ConsInte__b');
-                            $this->db->from('G719');
+                            $this->db->select('Id');
+                            $this->db->from(InformacionCredito);
                             $this->db->where('G719_C17423', $value['A']);
                             $contrato = $this->db->get();
-                            if($contrato->row()->G719_ConsInte__b != 0){
+                            if($contrato->row()->Id != 0){
                                 $datos = array(
-                                    'G719_C17049' => $fecha2
+                                    'FechaDevolucionFRGMemorialSubrogacionxErrores' => $fecha2
                                     //,'G719_C17050' => $fecha4
                                 );
-                                $resultado = $this->Wizard_Model->editarDatos('G719', $datos, $contrato->row()->G719_ConsInte__b, 'G719_ConsInte__b');
+                                $resultado = $this->Wizard_Model->editarDatos(InformacionCredito, $datos, $contrato->row()->Id, 'Id');
                               
                                 if($resultado){
                                     $acertados++;
@@ -1426,15 +1426,15 @@ class Conceptos extends CI_Controller {
                             $contrato = 0;
                            // $contrato = $this->Obligaciones_Model->getIdObligacion($value['A']);
                             $value['A'] = $this->completarZerosLiquidacion($value['A']);
-                            $this->db->select('G719_ConsInte__b');
-                            $this->db->from('G719');
+                            $this->db->select('Id');
+                            $this->db->from(InformacionCredito);
                             $this->db->where('G719_C17423', $value['A']);
                             $contrato = $this->db->get();
-                            if($contrato->row()->G719_ConsInte__b != 0){
+                            if($contrato->row()->Id != 0){
                                 $datos = array(
                                     'G719_C17050' => $fecha2
                                 );
-                                $resultado = $this->Wizard_Model->editarDatos('G719', $datos, $contrato->row()->G719_ConsInte__b, 'G719_ConsInte__b');
+                                $resultado = $this->Wizard_Model->editarDatos(InformacionCredito, $datos, $contrato->row()->Id, 'Id');
                               
                                 if($resultado){
                                     $acertados++;

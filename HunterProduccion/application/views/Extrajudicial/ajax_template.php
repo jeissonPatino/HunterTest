@@ -13,7 +13,6 @@
     "DEUDOR" :  "<span style='display: none;'><?=utf8_encode($nombre); ?></span>"<?=$deudor; ?>,
     "tipo_identificacion" : <?=$key->tipo_identificacion; ?> ,
     "IDENTIFICACION" : <?=$key->IDENTIFICACION; ?> ,
-    
     "INTERMEDIARIO" : <?=utf8_encode($key->INTERMEDIARIO); ?> ,
     "OBLIGACION" : <?=$key->LIQUIDACION; ?>,
     "PROCESO_SAP" : <?=$key->PROCESO_SAP; ?> ,

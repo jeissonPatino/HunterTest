@@ -1,6 +1,6 @@
 <section class="content-header">
     <h1>
-      Facturas
+      FACTURAS
     </h1>
     <ol class="breadcrumb">
     	<li><a href="<?php echo base_url();?>home">Inicio</a></li>
@@ -218,7 +218,7 @@
 							  				<option value="0">Seleccione</option>
 							  				<?php 
 							  					foreach ($sino as $key) {
-							  						echo "<option value='".$key->LISOPC_ConsInte__b."'>".utf8_encode($key->LISOPC_Nombre____b)."</option>";
+							  						echo "<option value='".$key->Id."'>".utf8_encode($key->Nombre_b)."</option>";
 							  					}
 						  					?>
 							  			</select>
@@ -230,7 +230,7 @@
 							  				<option value="0">Seleccione</option>
 							  				<?php 
 							  					foreach ($renucia as $key) {
-							  						echo "<option value='".$key->LISOPC_ConsInte__b."'>".utf8_encode($key->LISOPC_Nombre____b)."</option>";
+							  						echo "<option value='".$key->Id."'>".utf8_encode($key->Nombre_b)."</option>";
 							  					}
 						  					?>
 							  			</select>
@@ -389,7 +389,7 @@
 			"iDisplayLength": 10,
 			"aLengthMenu": [[10, 20, 30, 40], [10, 20, 30, 40]],
 			"fnRowCallback": function( nRow, aData, iDisplayIndex ) {
-				var id = aData.G719_ConsInte__b;
+				var id = aData.Id;
 				$(nRow).attr("dato",id);
 				$(nRow).attr("class",'trobligacion');
 				
@@ -816,7 +816,7 @@
 					getdatos(data, getId);
 					//alert(data);
 				}else{
-					alertify.error('Ese numero de contrato no existe');
+					alertify.error('Ese número de contrato no existe');
 				}
 			}
 		});
@@ -830,9 +830,9 @@
 			success : function(data){
 				if(data.length > 0){
 					$("#NumeroContrato").val(data);
-					alertify.success('Numero de contrato Valido!');
+					alertify.success('Número de contrato Valido!');
 				}else{
-					alertify.error('Ese numero de contrato no existe');
+					alertify.error('Ese número de contrato no existe');
 				}
 			}
 		});

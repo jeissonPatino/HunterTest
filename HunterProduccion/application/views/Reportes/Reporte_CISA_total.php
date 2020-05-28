@@ -152,9 +152,8 @@
               <tr>
                 <th>No. Liquidaci&oacute;n</th>
                 <th>Deudor</th>
-                <th>Tipo Identificación</th>
-                <th>Identificación</th>
-                
+                <th>Tipo Identificaci&oacute;n</th>
+                <th>Identificaci&oacute;n</th>
                 <th>SAP</th>
                 <th>IF</th>
                 <th>Fecha Entrega Soporte</th>
@@ -215,32 +214,32 @@
                 
                 {
                     label: "Total Vendidas",
-                    fillColor: "rgba(54, 162, 235)",
-                    strokeColor: "rgba(210, 214, 222)",
-                    pointColor: "rgba(180, 214, 222)",
+                    fillColor: "#5F9EA0",
+                    strokeColor: "#5F9EA0",
+                    pointColor: "#5F9EA0",
                     pointStrokeColor: "#c1c7d1",
                     pointHighlightFill: "#fff",
-                    pointHighlightStroke: "rgba(220,220,220)",
+                    pointHighlightStroke: "rgba(220,220,220,1)",
                     data: <?php echo $data1;?>
                 },
                 {
                     label: "Con Soporte",
-                    fillColor: "rgba(255, 128, 0)",
-                    strokeColor: "rgba(210, 214, 222)",
-                    pointColor: "rgba(180, 214, 222)",
+                    fillColor: "#228B22",
+                    strokeColor: "#228B22",
+                    pointColor: "#228B22",
                     pointStrokeColor: "#c1c7d1",
                     pointHighlightFill: "#fff",
-                    pointHighlightStroke: "rgba(220,220,220)",
+                    pointHighlightStroke: "rgba(220,220,220,1)",
                     data: <?php echo $data2;?>
                 },
                 {
                     label: "No Cumplen",
-                    fillColor: "rgba(153, 255, 51)",
-                    strokeColor: "rgba(210, 214, 222)",
-                    pointColor: "rgba(180, 214, 222)",
+                    fillColor: "#5F9EA0",
+                    strokeColor: "#5F9EA0",
+                    pointColor: "#5F9EA0",
                     pointStrokeColor: "#c1c7d1",
                     pointHighlightFill: "#fff",
-                    pointHighlightStroke: "rgba(220,220,220)",
+                    pointHighlightStroke: "rgba(220,220,220,1)",
                     data: <?php echo $data3;?>
                 }
             ]
@@ -317,7 +316,6 @@
                   { mData: "nombre"},
                   { mData: "tipo_identificacion"},
                   { mData: "identificacion"},
-                  
                   { mData: "SAP" },
                   { mData: "ifinanciero" },
                   { mData: "fecha_soprte" },

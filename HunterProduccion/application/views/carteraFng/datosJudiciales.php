@@ -6,31 +6,31 @@
 			switch ($vista) {
 				case '1':
 				//viene de Clientes nuevos
-					echo 'Cartera FNG - Mis procesos vigentes';	
+					echo 'CARTERA FNG - MIS PROCESOS VIGENTES';	
 					break;
 
 				case '2':
 				//viene de Clientes nuevos
-					echo 'Cartera FNG - Mis procesos irrecuperables';	
+					echo 'CARTERA FNG - MIS PROCESOS IRRECUPERABLES ';	
 					break;
 				case '3':
 				//viene de clientes con datos nuevos
-					echo 'Cartera FNG - Mis procesos vendidos';
+					echo 'CARTERA FNG - MIS PROCESOS VENDIDOS';
 					break;
 
 				case '4':
 				//viene de clientes con acuerdo de pago
-					echo 'Cartera FNG - Búsqueda avanzada';
+					echo 'CARTERA FNG - BÚSQUEDA AVANZADA';
 					break;
 
 				case '5':
 				//viene de clientes con acuerdo de pago
-					echo 'Cartera FNG - Obligaciones con paz y salvo';
+					echo 'CARTERA FNG - OBLIGACIONES CON PAZ Y SALVO';
 					break;
 			}
 		}else{
 			//viene de Clientes nuevos
-			echo 'Cartera FNG - Mis procesos vigentes';
+			echo 'CARTERA FNG - MIS PROCESOS VIGENTES';
 		}
 		
 	?>
@@ -104,7 +104,7 @@
 									$(function(){
 										$("#ciudad_domicilio option").filter(function() {
 										    //may want to use $.trim in here
-										    return $(this).val() == <?php echo $key->G717_C17012 ;?>; ; 
+										    return $(this).val() == <?php echo $key->CiudadDomicilio ;?>; ; 
 										}).prop('selected', true);
 									});
 								</script>
@@ -126,7 +126,7 @@
 									$(function(){
 										$("#ciudad_oficina option").filter(function() {
 										    //may want to use $.trim in here
-										    return $(this).val() == <?php echo $key->G717_C17013 ;?>; 
+										    return $(this).val() == <?php echo $key->CiudadOficina ;?>; 
 										}).prop('selected', true);
 									});
 								</script>
@@ -165,7 +165,7 @@
 									$(function(){
 										$("#ciudad_adicional option").filter(function() {
 										    //may want to use $.trim in here
-										    return $(this).val() == <?php echo $key->G717_C17013 ;?>; 
+										    return $(this).val() == <?php echo $key->CiudadOficina ;?>; 
 										}).prop('selected', true);
 									});
 								</script>
@@ -190,7 +190,7 @@
 									<option value="0">Calificación</option>
 									<?php 
 										foreach ($calificacion as $key) {
-											echo "<option value='".$key->LISOPC_ConsInte__b."'>".utf8_encode($key->LISOPC_Nombre____b)."</option>";
+											echo "<option value='".$key->Id."'>".utf8_encode($key->Nombre_b)."</option>";
 										}
 									?>
 								</select>
@@ -201,7 +201,7 @@
 									<option value="0">Calificación</option>
 									<?php 
 										foreach ($calificacion as $key) {
-											echo "<option value='".$key->LISOPC_ConsInte__b."'>".utf8_encode($key->LISOPC_Nombre____b)."</option>";
+											echo "<option value='".$key->Id."'>".utf8_encode($key->Nombre_b)."</option>";
 										}
 									?>
 								</select>
@@ -213,7 +213,7 @@
 									<option value="0">Calificación</option>
 									<?php 
 										foreach ($calificacion as $key) {
-											echo "<option value='".$key->LISOPC_ConsInte__b."'>".utf8_encode($key->LISOPC_Nombre____b)."</option>";
+											echo "<option value='".$key->Id."'>".utf8_encode($key->Nombre_b)."</option>";
 										}
 									?>
 								</select>
@@ -225,7 +225,7 @@
 									<option value="0">Calificación</option>
 									<?php 
 										foreach ($calificacion as $key) {
-											echo "<option value='".$key->LISOPC_ConsInte__b."'>".utf8_encode($key->LISOPC_Nombre____b)."</option>";
+											echo "<option value='".$key->Id."'>".utf8_encode($key->Nombre_b)."</option>";
 										}
 									?>
 								</select>
@@ -237,7 +237,7 @@
 									<option value="0">Calificación</option>
 									<?php 
 										foreach ($calificacion as $key) {
-											echo "<option value='".$key->LISOPC_ConsInte__b."'>".utf8_encode($key->LISOPC_Nombre____b)."</option>";
+											echo "<option value='".$key->Id."'>".utf8_encode($key->Nombre_b)."</option>";
 										}
 									?>
 								</select>
@@ -249,7 +249,7 @@
 									<option value="0">Calificación</option>
 									<?php 
 										foreach ($calificacion as $key) {
-											echo "<option value='".$key->LISOPC_ConsInte__b."'>".utf8_encode($key->LISOPC_Nombre____b)."</option>";
+											echo "<option value='".$key->Id."'>".utf8_encode($key->Nombre_b)."</option>";
 										}
 									?>
 								</select>
@@ -261,7 +261,7 @@
 									<option value="0">Calificación</option>
 									<?php 
 										foreach ($calificacion as $key) {
-											echo "<option value='".$key->LISOPC_ConsInte__b."'>".utf8_encode($key->LISOPC_Nombre____b)."</option>";
+											echo "<option value='".$key->Id."'>".utf8_encode($key->Nombre_b)."</option>";
 										}
 									?>
 								</select>
@@ -273,7 +273,7 @@
 									<option value="0">Calificación</option>
 									<?php 
 										foreach ($calificacion as $key) {
-											echo "<option value='".$key->LISOPC_ConsInte__b."'>".utf8_encode($key->LISOPC_Nombre____b)."</option>";
+											echo "<option value='".$key->Id."'>".utf8_encode($key->Nombre_b)."</option>";
 										}
 									?>
 								</select>
@@ -285,7 +285,7 @@
 									<option value="0">Calificación</option>
 									<?php 
 										foreach ($calificacion as $key) {
-											echo "<option value='".$key->LISOPC_ConsInte__b."'>".utf8_encode($key->LISOPC_Nombre____b)."</option>";
+											echo "<option value='".$key->Id."'>".utf8_encode($key->Nombre_b)."</option>";
 										}
 									?>
 								</select>
@@ -298,7 +298,7 @@
 									<option value="0">Calificación</option>
 									<?php 
 										foreach ($calificacion as $key) {
-											echo "<option value='".$key->LISOPC_ConsInte__b."'>".utf8_encode($key->LISOPC_Nombre____b)."</option>";
+											echo "<option value='".$key->Id."'>".utf8_encode($key->Nombre_b)."</option>";
 										}
 									?>
 								</select>
@@ -309,7 +309,7 @@
 									<option value="0">Calificación</option>
 									<?php 
 										foreach ($calificacion as $key) {
-											echo "<option value='".$key->LISOPC_ConsInte__b."'>".utf8_encode($key->LISOPC_Nombre____b)."</option>";
+											echo "<option value='".$key->Id."'>".utf8_encode($key->Nombre_b)."</option>";
 										}
 									?>
 								</select>
@@ -320,7 +320,7 @@
 									<option value="0">Calificación</option>
 									<?php 
 										foreach ($calificacion as $key) {
-											echo "<option value='".$key->LISOPC_ConsInte__b."'>".utf8_encode($key->LISOPC_Nombre____b)."</option>";
+											echo "<option value='".$key->Id."'>".utf8_encode($key->Nombre_b)."</option>";
 										}
 									?>
 								</select>
@@ -365,13 +365,13 @@
 										for($i=0;$i < count($obligaciones); $i++){
 											if(!is_null($obligaciones[$i])){
 												if($obligaciones[$i]['contrato']!= '' && !is_null($obligaciones[$i]['contrato'])){
-												 	$this->db->select('TOP 1 G719_ConsInte__b, G730_C17126');
-												    $this->db->from('G719');
-												    $this->db->join('G730', 'G730_ConsInte__b = G719_C17030','LEFT');
+												 	$this->db->select('TOP 1 Id, NombreIF');
+												    $this->db->from('InformacionCredito');
+												    $this->db->join('IntermediarioFinanciero', 'Id = IntermediarioFinanciero','LEFT');
 												    $this->db->where('G719_C17423', $obligaciones[$i]['contrato']);
 												    $query = $this->db->get();
 
-												    echo "<option value='".$query->row()->G719_ConsInte__b."'>".$obligaciones[$i]['contrato']." </option>";
+												    echo "<option value='".$query->row()->Id."'>".$obligaciones[$i]['contrato']." </option>";
 												}
 											}
 										}
@@ -436,7 +436,7 @@
 									<option value="0">Calificación</option>
 									<?php 
 										foreach ($calificacion as $key) {
-											echo "<option value='".$key->LISOPC_ConsInte__b."'>".utf8_encode($key->LISOPC_Nombre____b)."</option>";
+											echo "<option value='".$key->Id."'>".utf8_encode($key->Nombre_b)."</option>";
 										}
 									?>
 								</select>
@@ -447,7 +447,7 @@
 									<option value="0">Calificación</option>
 									<?php 
 										foreach ($calificacion as $key) {
-											echo "<option value='".$key->LISOPC_ConsInte__b."'>".utf8_encode($key->LISOPC_Nombre____b)."</option>";
+											echo "<option value='".$key->Id."'>".utf8_encode($key->Nombre_b)."</option>";
 										}
 									?>
 								</select>
@@ -458,7 +458,7 @@
 									<option value="0">Calificación</option>
 									<?php 
 										foreach ($calificacion as $key) {
-											echo "<option value='".$key->LISOPC_ConsInte__b."'>".utf8_encode($key->LISOPC_Nombre____b)."</option>";
+											echo "<option value='".$key->Id."'>".utf8_encode($key->Nombre_b)."</option>";
 										}
 									?>
 								</select>
@@ -469,7 +469,7 @@
 									<option value="0">Calificación</option>
 									<?php 
 										foreach ($calificacion as $key) {
-											echo "<option value='".$key->LISOPC_ConsInte__b."'>".utf8_encode($key->LISOPC_Nombre____b)."</option>";
+											echo "<option value='".$key->Id."'>".utf8_encode($key->Nombre_b)."</option>";
 										}
 									?>
 								</select>
@@ -818,6 +818,21 @@
 					</h4>
 				</div>
 				<div id="collapseOne" class="panel-collapse collapse">
+					<table >
+						<tbody style="background-color: #ef7f1a">
+							<ul>
+								<td style=""><i class="fa fa-circle" style="color: #f00"></i>&nbsp; Saldo</td>
+
+								<td><i class="fa fa-circle" style="color: #feff0d"></i>&nbsp; Acuerdos de pago</td>
+
+								<td><i class="fa fa-circle" style="color: #769462"></i>&nbsp; Saldo Cero</td>
+
+								<td><i class="fa fa-circle" style="color: #5ace10"></i>&nbsp; Paz y Salvo</td>
+
+								<td><i class="fa fa-circle" style="color: #adabab"></i>&nbsp; Vendida</td>
+							</ul>	
+						</tbody>
+					</table>
 					<div class="box-body">
 						<div row="row-fluid">
 							<div class="col-md-2">
@@ -832,61 +847,31 @@
 												for($i=0;$i < count($contratos); $i++){
 													if(!is_null($contratos[$i])){
 														if($contratos[$i]['contrato']!= ''){
-															$this->db->select('TOP 1 G719_ConsInte__b, G730_C17126');
-														    $this->db->from('G719');
-														    $this->db->join('G730', 'G730_ConsInte__b = G719_C17030','LEFT');
+															$this->db->select('TOP 1 Id, NombreIF');
+														    $this->db->from('InformacionCredito');
+														    $this->db->join('IntermediarioFinanciero', 'Id = IntermediarioFinanciero','LEFT');
 														    $this->db->where('G719_C17423', $contratos[$i]['contrato']);
 														    $query = $this->db->get();
 
 													$color = $this->Obligaciones_Model->getColoresLiquidacicones($contratos[$i]['contrato']);
-														json_decode($color);
+																json_encode($color);
 
 													
-														 	echo "<tr><td style='cursor:pointer;background-color:".$color."'; contrato ='".$query->row()->G719_ConsInte__b."'>".$contratos[$i]['contrato']." ".$query->row()->G730_C17126 ."</td></tr>";
+														 	echo "<tr><td style='cursor:pointer;background-color:".$color[0]->Color."; color:".$color[0]->ColorFunte."' contrato ='".$query->row()->Id."'>".$contratos[$i]['contrato']." ".$query->row()->NombreIF ."</td></tr>";
 
 														}
 													}
 												}
 											}else{
 												for($i=0;$i < count($contratos); $i++){
-													if(!is_null($contratos[$i])){
+														if(!is_null($contratos[$i])){
+														 	echo "<tr><td style='cursor:pointer;background-color:".$color[$i]->Color."; color:".$color[$i]->ColorFunte."' contrato ='".$contratos[$i]['No_CONTRATO']."'>".$contratos[$i]['contrato']." ".$contratos[$i]['if'] ."</td></tr>";
 
-													 	echo "<tr><td style='cursor:pointer;background-color:".$color."'; contrato ='".$contratos[$i]['No_CONTRATO']."'>".$contratos[$i]['contrato']." ".$contratos[$i]['if'] ."</td></tr>";
 
-
+														}
 													}
-												}
 											}
 										?>
-									</tbody>
-								</table>
-								<table class="table table-hover table-bordered">
-									<thead>
-										<th>
-											Especificaciones Color
-										</th>
-									</thead>
-									<tbody>
-										<tr>
-											<td style="background-color:#ef251a75">Vendidos</td>
-										</tr>	
-										<tr>
-											<td style="background-color:#ef7f1a94">Acuerdos de pago</td>
-										</tr>
-										<tr>
-											<td style="background-color:#f7ec016b">Saldo Cero</td>
-										</tr>
-											<td style="background-color:#97b0f3">Otros</td>
-										<tr>
-											<td style="background-color:#5ace77">Paz y Salvo</td>
-										</tr>
-										<tr>
-											<td style="background-color:#ad6d6d">Sentencia Irrecuperable</td>
-										</tr>
-										<tr>
-											<td style="background-color:#fff">Saldo Favor</td>
-
-										</tr>
 									</tbody>
 								</table>
 							</div>
@@ -903,16 +888,7 @@
 										<div class="box-body">
 											<div class="row-fluid">
 												<div class="col-md-12">
-													<div class="row">
-															<div class="col-md-3">
-																<div class="form-group">
-																	<label for="TxtCelulara">Estado de Asignación</label>
-											                 	</div>
-															</div>
-															<div class="col-md-3" id="AsigancionAbogado" >
-																
-															</div>
-														</div>
+													
 													<div class="row">
 														<div class="col-md-3">
 															<div class="form-group">
@@ -1031,7 +1007,16 @@
 														</div>
 														
 													</div>
-
+													<div class="row">
+															<div class="col-md-3">
+																<div class="form-group">
+																	<label for="TxtCelulara">Estado de Asignación</label>
+											                 	</div>
+															</div>
+															<div class="col-md-3" id="AsigancionAbogado" >
+																
+															</div>
+														</div>
 
 
 												</div>
@@ -1073,7 +1058,7 @@
 									</div>
 									<div id="collapsetwo" class="panel-collapse collapse ">
 										<div class="box-body table-responsive no-padding">
-											<a id="exportarExtrajudicial" class="btn btn-primary">Exportar a Excel</a><br><br>
+											<br><br>
 											<table class="table table-hover table-bordered" id="tblHistoricoExtrajudicial">
 												<thead>
 													<tr>
@@ -1107,7 +1092,7 @@
 									<div id="collapsethree" class="panel-collapse collapse ">
 										<div class="box-body table-responsive no-padding">
 											
-											<a id="exportarJudicial" class="btn btn-primary">Exportar a Excel</a><br><br>
+											<br><br>
 											<table class="table table-hover table-bordered" id="tblHistoricoJudicial">
 												<thead>
 													<tr>
@@ -1141,7 +1126,7 @@
 									<div id="collapsefour" class="panel-collapse collapse ">
 										<div class="box-body table-responsive no-padding">
 											
-											<a id="exportarMedidas" class="btn btn-primary">Exportar a Excel</a>
+											
 											<br><br>
 										  	<table class="table table-hover table-bordered" id="tblHistoricoMedidas">
 												<thead>
@@ -1172,6 +1157,7 @@
 									</div>
 									<div id="collapsefive" class="panel-collapse collapse ">
 										<div class="box-body table-responsive no-padding">
+											<br><br>
 										  	<table class="table table-hover table-bordered">
 												<thead>
 													<tr>
@@ -1198,6 +1184,7 @@
 									</div>
 									<div id="collapseSix" class="panel-collapse collapse ">
 										<div class="box-body table-responsive no-padding">
+											<br><br>
 										  	<table class="table table-hover table-bordered" id="tblAcuerdoPago">
 												<thead>
 													<tr>
@@ -1224,6 +1211,7 @@
 									</div>
 									<div id="collapseSven" class="panel-collapse collapse ">
 										<div class="box-body">
+											<br><br>
 										  	<table class="table table-hover table-bordered" id="tblGarantiaPagare">
 												<thead>
 													<tr>
@@ -1251,6 +1239,7 @@
 									</div>
 									<div id="collapseEigth" class="panel-collapse collapse ">
 										<div class="box-body table-responsive">
+											<br><br>
 										  	<table class="table table-hover table-bordered" id="tblFacturas">
 												<thead>
 													<tr>
@@ -1322,6 +1311,7 @@
 											</a>
 										</h4>
 									</div>
+									
 									<div id="collapseNine" class="panel-collapse collapse ">
 										<div class="box-body">
 										  	<div class="row">
@@ -1357,6 +1347,7 @@
 											</a>
 										</h4>
 									</div>
+									
 									<div id="collapseTen" class="panel-collapse collapse ">
 										<div class="box-body">
 										  	<div class="row">
@@ -1378,7 +1369,7 @@
 										  		<div class="col-md-3" id="AbogadoPromotor"> </div>
 										  	</div>
 										  	<div class="row">
-										  		<div class="col-md-3"><label>Fecha fijacion del aviso</label> </div>
+										  		<div class="col-md-3"><label>Fecha fijación del aviso</label> </div>
 										  		<div class="col-md-3"  id="AbogadoFechaFijacion"> </div>
 										  		<div class="col-md-3"><label>Celular</label> </div>
 										  		<div class="col-md-3" id="AbogadoCelular"> </div>
@@ -1412,6 +1403,7 @@
 											</a>
 										</h4>
 									</div>
+									
 									<div id="collapseEleven" class="panel-collapse collapse ">
 										<div class="box-body">
 										  	<div class="row">
@@ -1435,6 +1427,7 @@
 											</a>
 										</h4>
 									</div>
+									
 									<div id="collapseTwelve" class="panel-collapse collapse ">
 										<div class="box-body">
 										  	<div class="row">
@@ -1524,7 +1517,7 @@
                 <div class="row">
                     <div class="col-md-12" >
                         <div class="form-group">
-                            <label>Que quieres hacer?</label>
+                            <label>Qué quieres hacer?</label>
                             <select class="form-control" id="gestionCombo">
                             	<option value="1792">Llamar</option>
                             	<option value="1793">Reunión</option>
@@ -1548,8 +1541,8 @@
                 <div class="row">
                     <div class="col-md-12" >
                         <div class="form-group">
-                            <label>Descripcion</label>
-                            <textarea class="form-control" rows="3" id="txtDescripcion" placeholder="Descripcion"></textarea>
+                            <label>Descripción</label>
+                            <textarea class="form-control" rows="3" id="txtDescripcion" placeholder="Descripción"></textarea>
                         </div>
                     </div>
                 </div>
@@ -1595,7 +1588,7 @@
             	<div class="nav-tabs-custom">
 	                <!-- Tabs within a box -->
 	                <ul class="nav nav-tabs pull-left">
-	              		<li class="active"><a id="tab1" href="#revenue-chart" data-toggle="tab">Que quieres hacer</a></li>
+	              		<li class="active"><a id="tab1" href="#revenue-chart" data-toggle="tab">Qué quieres hacer</a></li>
 	                 	<li><a id="tab2" href="#revenue-chart2" data-toggle="">Localizado o Ilocalizado</a></li>
 	           			<li><a id="tab3" href="#revenue-chart3" data-toggle="">Gestiones</a></li>
 	           			<li><a id="tab4" href="#revenue-chart4" data-toggle="">subgestiones</a></li>
@@ -1810,7 +1803,7 @@
 							echo '<div class="row">
 						  		<div class="col-md-3"><label>Nombre del Deudor</label></div>
 						  		<div class="col-md-3">'.utf8_encode($key->Deudor).'</div>
-						  		<div class="col-md-3"><label>Numero de Identificación</label></div>
+						  		<div class="col-md-3"><label>Número de Identificación</label></div>
 						  		<div class="col-md-3">'.$key->identificacion.'</div>
 						  	</div>
 						  	<div class="row">
@@ -1820,7 +1813,7 @@
 						  	
 						}?>
 					  	<div class="row">
-					  		<div class="col-md-3"><label>Numero de Contrato</label></div>
+					  		<div class="col-md-3"><label>Número de Contrato</label></div>
 					  		<div class="col-md-3" id='simularContrato'></div>
 					  		<div class="col-md-3"><label>Intermediario Financiero</label></div>
 					  		<div class="col-md-3" id="simuladorIntemediario"></div>
@@ -1938,7 +1931,7 @@
 					  		<div class="col-md-6">
 					  			<form class="form-horizontal">
 									<div class="form-group">
-										<label for="inputEmail3" class="col-sm-4 control-label">Numero de Cuotas</label>
+										<label for="inputEmail3" class="col-sm-4 control-label">Número de Cuotas</label>
 										<div class="col-sm-8">
 											<input type="text" class="form-control" value="10" id="txtNumeroCuotas">
 										</div>
@@ -1999,7 +1992,7 @@
 					  	<div class="row">
 					  		<div class="col-md-3"><label>TITULAR DE LA CUENTA</label></div>
 					  		<div class="col-md-3"><label>Fondo Nacional de Garantías S.A.</label></div>
-					  		<div class="col-md-3"><label>NUMERO DE REFERENCIA</label></div>
+					  		<div class="col-md-3"><label>NÚMERO DE REFERENCIA</label></div>
 					  		<div class="col-md-3" id="referenciaCOntratop"></div>
 					  	</div>
 					</div>
@@ -2663,8 +2656,13 @@ var tipoProceso = 0;
 							    	});
 							   });
 							},
-							"dom": 'Bfrtip',
-			    			"buttons": ['excel']
+							"dom": 'Blfrtip',
+		        			"buttons": [{
+			                  extend: 'csv',
+			                  text: 'Excel',
+			                  charset: 'utf-8',
+			                  fieldSeparator : ';',
+			                  extension: '.csv'}]
 							
 				            
 				    });
@@ -2749,8 +2747,13 @@ var tipoProceso = 0;
 							    	});
 							   });
 							},
-							"dom": 'Bfrtip',
-			    			"buttons": ['excel']
+							"dom": 'Blfrtip',
+			    			"buttons": [{
+			                  extend: 'csv',
+			                  text: 'Excel',
+			                  charset: 'utf-8',
+			                  fieldSeparator : ';',
+			                  extension: '.csv'}]
 				    });
 				
 	    		}
@@ -2826,8 +2829,13 @@ var tipoProceso = 0;
 							    	});
 							   });
 							},
-							"dom": 'Bfrtip',
-			    			"buttons": ['excel']
+							"dom": 'Blfrtip',
+			    			"buttons": [{
+			                  extend: 'csv',
+			                  text: 'Excel',
+			                  charset: 'utf-8',
+			                  fieldSeparator : ';',
+			                  extension: '.csv'}]
 				    });
 	    		}
 	    	});
@@ -2899,8 +2907,13 @@ var tipoProceso = 0;
 
 					
 							},
-							"dom": 'Bfrtip',
-			    			"buttons": ['excel']
+							"dom": 'Blfrtip',
+			    			"buttons": [{
+			                  extend: 'csv',
+			                  text: 'Excel',
+			                  charset: 'utf-8',
+			                  fieldSeparator : ';',
+			                  extension: '.csv'}]
 							
 				    });
 	    		}
@@ -2979,8 +2992,13 @@ var tipoProceso = 0;
 							   });
 							},
 							
-							"dom": 'Bfrtip',
-			    			"buttons": ['excel']
+							"dom": 'Blfrtip',
+			    			"buttons": [{
+			                  extend: 'csv',
+			                  text: 'Excel',
+			                  charset: 'utf-8',
+			                  fieldSeparator : ';',
+			                  extension: '.csv'}]
 				    });
   		
 				}
@@ -3061,8 +3079,13 @@ var tipoProceso = 0;
 							    	});
 							   });
 							},
-							"dom": 'Bfrtip',
-			    			"buttons": ['excel']
+							"dom": 'Blfrtip',
+			    			"buttons": [{
+			                  extend: 'csv',
+			                  text: 'Excel',
+			                  charset: 'utf-8',
+			                  fieldSeparator : ';',
+			                  extension: '.csv'}]
 							
 				    });
 	    		}
@@ -3140,8 +3163,13 @@ var tipoProceso = 0;
 							    	});
 							   });
 							},
-							"dom": 'Bfrtip',
-			    			"buttons": ['excel']
+							"dom": 'Blfrtip',
+			    			"buttons": [{
+			                  extend: 'csv',
+			                  text: 'Excel',
+			                  charset: 'utf-8',
+			                  fieldSeparator : ';',
+			                  extension: '.csv'}]
 							
 				    });
 	    		}
@@ -3220,8 +3248,13 @@ var tipoProceso = 0;
 							   });
 							},
 							
-							"dom": 'Bfrtip',
-			    			"buttons": ['excel']
+							"dom": 'Blfrtip',
+			    			"buttons": [{
+			                  extend: 'csv',
+			                  text: 'Excel',
+			                  charset: 'utf-8',
+			                  fieldSeparator : ';',
+			                  extension: '.csv'}]
 				    });
 	    		}
 	    	});
@@ -3297,8 +3330,13 @@ var tipoProceso = 0;
 							    	});
 							   });
 							},
-							"dom": 'Bfrtip',
-			    			"buttons": ['excel']
+							"dom": 'Blfrtip',
+			    			"buttons": [{
+			                  extend: 'csv',
+			                  text: 'Excel',
+			                  charset: 'utf-8',
+			                  fieldSeparator : ';',
+			                  extension: '.csv'}]
 							
 				    });
 	    		}
@@ -3559,9 +3597,13 @@ var tipoProceso = 0;
 						"sPaginationType": "simple",
 			           	"iDisplayLength": 20,
 			           	"aLengthMenu": [[20, 40, 60, 100], [20, 40, 60, 100]],
-			            "dom": 'Bfrtip',
-				        "buttons": [
-				             'excel'
+			            "dom": 'Blfrtip',
+				        "buttons": [{
+			                  extend: 'csv',
+			                  text: 'Excel',
+			                  charset: 'utf-8',
+			                  fieldSeparator : ';',
+			                  extension: '.csv'}
 				        ]
 			    	});
 	    		}
@@ -3656,10 +3698,13 @@ echo(<?php echo $idUsuario;?>);
 						"sPaginationType": "simple",
 			            "iDisplayLength": 20,
 			            "aLengthMenu": [[20, 40, 60, 100], [20, 40, 60, 100]],
-			            "dom": 'Bfrtip',
-				        "buttons": [
-				             'excel'
-				        ]
+			            "dom": 'Blfrtip',
+				        "buttons": [{
+			                  extend: 'csv',
+			                  text: 'Excel',
+			                  charset: 'utf-8',
+			                  fieldSeparator : ';',
+			                  extension: '.csv'}]
 			       	});
 
 			       	fng.asignarDatos(tablaExtraJudicial);
@@ -3986,10 +4031,13 @@ echo(<?php echo $idUsuario;?>);
 				"sPaginationType": "simple",
 	           	"iDisplayLength": 20,
 	           	"aLengthMenu": [[20, 40, 60, 100], [20, 40, 60, 100]],
-	            "dom": 'Bfrtip',
-		        "buttons": [
-		             'excel'
-		        ]
+	            "dom": 'Blfrtip',
+		        "buttons": [{
+			                  extend: 'csv',
+			                  text: 'Excel',
+			                  charset: 'utf-8',
+			                  fieldSeparator : ';',
+			                  extension: '.csv'}]
 	    });
 
 
@@ -4039,10 +4087,13 @@ echo(<?php echo $idUsuario;?>);
 				"sPaginationType": "simple",
 	           	"iDisplayLength": 20,
 	           	"aLengthMenu": [[20, 40, 60, 100], [20, 40, 60, 100]],
-	            "dom": 'Bfrtip',
-		        "buttons": [
-		             'excel'
-		        ]
+	            "dom": 'Blfrtip',
+		        "buttons": [{
+			                  extend: 'csv',
+			                  text: 'Excel',
+			                  charset: 'utf-8',
+			                  fieldSeparator : ';',
+			                  extension: '.csv'}]
 	    });
 			<?php } ?>
 		
@@ -4124,10 +4175,14 @@ echo(<?php echo $idUsuario;?>);
 			"sPaginationType": "simple",
            	"iDisplayLength": 20,
            	"aLengthMenu": [[20, 40, 60, 100], [20, 40, 60, 100]],
-            "dom": 'Bfrtip',
-	        "buttons": [
-             	'excel'
-	        ]
+            "dom": 'Blfrtip',
+		        "buttons": [{
+			                  extend: 'csv',
+			                  text: 'Excel',
+			                  charset: 'utf-8',
+			                  fieldSeparator : ';',
+			                  extension: '.csv'}]
+	        
        	});
 
 	    $("#RowContrato td").click(function(){

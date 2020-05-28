@@ -105,12 +105,12 @@ class Reportes_Model extends CI_Model {
     }
 
     function getFrgById($id){
-    	$this->db->select('DISTINCT G729_C17121 ');
-    	$this->db->from('G719');
-    	$this->db->join('G729', 'G719_C17029 = G729_ConsInte__b');
-    	$this->db->where('G719_C17029', $id);
+    	$this->db->select('DISTINCT FRG ');
+    	$this->db->from('InformacionCredito');
+    	$this->db->join('FRG', 'FRG = Id');
+    	$this->db->where('FRG', $id);
     	
-    	return $this->db->get()->row()->G729_C17121;
+    	return $this->db->get()->row()->FRG;
     }
 
     function getReportesDataBase(){
@@ -124,19 +124,19 @@ class Reportes_Model extends CI_Model {
     function getReportesAsignacion_abogados($frg = NULL, $abogado = NULL, $fechaInicial, $fechaFinal){
         //Nombre deudor, No de identificación,  valor pagado
 
-        $this->db->select('G719_C17051, G719_C17048, G719_C17423, G719_C17050, G719_C17029 AS FRG, G719_C17153 AS abogado');
-        $this->db->from('G719');
+        $this->db->select('G719_C17051, FechaEnvioMemorialSubrogacionFRG, G719_C17423, G719_C17050, FRG AS FRG, Abogado AS abogado');
+        $this->db->from('InformacionCredito');
         //G719_C17051
-        $this->db->where("G719_C17048 BETWEEN '".$fechaInicial."' AND '".$fechaFinal."' ");
+        $this->db->where("FechaEnvioMemorialSubrogacionFRG BETWEEN '".$fechaInicial."' AND '".$fechaFinal."' ");
         //OR G719_C17050 BETWEEN '".$fechaInicial."' AND '".$fechaFinal."' 
-        $this->db->where("G719_C17039 IS NOT NULL");
-        $this->db->where("G719_C17039 != ''");
+        $this->db->where("NroProcesoJudicialSAP IS NOT NULL");
+        $this->db->where("NroProcesoJudicialSAP != ''");
 
         if($frg != 0 && $frg != NULL){
-            $this->db->where("G719_C17029", $frg);
+            $this->db->where("FRG", $frg);
         }
         if($abogado != 0  && $abogado != NULL ){
-            $this->db->where("G719_C17153", $abogado); 
+            $this->db->where("Abogado", $abogado); 
         }
         $this->db->order_by('G719_C17423', 'DESC');
         $query = $this->db->get();
@@ -145,21 +145,21 @@ class Reportes_Model extends CI_Model {
 
      function getReportesAsignacion_abogados_deglosado($frg = NULL, $abogado = NULL, $fechaInicial, $fechaFinal){
         //Nombre deudor, No de identificación,  valor pagado
-        $this->db->select('G719_C17423 AS contrato, G730_C17126 AS intermediario, G717_C17240 as nombre, G717_C17005 as identificacion, tipo_identificacion as tipo_identificacion, G719_C17034 as Vlorpagado, G719_C17051, G719_C17048, G719_C17050 ');
-        $this->db->from('G719');
-        $this->db->join('G730', 'G730_ConsInte__b = G719_C17030', 'left');
-        $this->db->join('G737', 'G737_C17182 = G719_ConsInte__b', 'left');
-        $this->db->join('G717','G717_ConsInte__b = G737_C17181', 'left');
-        $this->db->where('G737_C17183','1786');
-        $this->db->where("G719_C17039 IS NOT NULL");
-        $this->db->where("G719_C17039 != ''");
-        $this->db->where("G719_C17048 BETWEEN '".$fechaInicial."' AND '".$fechaFinal."'");
+        $this->db->select('G719_C17423 AS contrato, NombreIF AS intermediario, NombreDeudor as nombre, NroIdentificacion as identificacion, tipo_identificacion as tipo_identificacion, ValorPagado as Vlorpagado, G719_C17051, FechaEnvioMemorialSubrogacionFRG, G719_C17050 ');
+        $this->db->from('InformacionCredito');
+        $this->db->join('IntermediarioFinanciero', 'Id = IntermediarioFinanciero', 'left');
+        $this->db->join('ClienteObligacion', 'G735_C17139Id = G719_ConsInte__b', 'left');
+        $this->db->join('InformacionCliente','Id = InformacionClientesId', 'left');
+        $this->db->where('Rol','1786');
+        $this->db->where("NroProcesoJudicialSAP IS NOT NULL");
+        $this->db->where("NroProcesoJudicialSAP != ''");
+        $this->db->where("FechaEnvioMemorialSubrogacionFRG BETWEEN '".$fechaInicial."' AND '".$fechaFinal."'");
         //OR G719_C17050 BETWEEN '".$fechaInicial."' AND '".$fechaFinal."' 
         if($frg != 0 && $frg != NULL){
-            $this->db->where("G719_C17029", $frg);
+            $this->db->where("FRG", $frg);
         }
         if($abogado != 0  && $abogado != NULL ){
-            $this->db->where("G719_C17153", $abogado); 
+            $this->db->where("Abogado", $abogado); 
         }
         $this->db->order_by('G719_C17423', 'DESC');
         $query = $this->db->get();
@@ -170,16 +170,16 @@ class Reportes_Model extends CI_Model {
     function getGestion_extrajudicial_mensual_Saldo_0($frg= NULL, $fechaInicialPagoGarantia, $fechaFinalPagoGarantia, $fechaInicialAbono, $fechaFinalAbono ){
         
         $this->db->select(' G719_ConsInte__b, 
-                            G719_C17032 as Fecha_pago, 
-                            G719_C17035 as saldo, 
+                            FechaPagoGarantia as Fecha_pago, 
+                            SaldoFNG as saldo, 
                             G719_C17295 as fecha_ultimoAbono,
                             G719_C17423');
-        $this->db->from('G719');
-        $this->db->where("G719_C17032 < '".$fechaFinalPagoGarantia."' ");
-        $this->db->where("G719_C17035 = 0");
+        $this->db->from('InformacionCredito');
+        $this->db->where("FechaPagoGarantia < '".$fechaFinalPagoGarantia."' ");
+        $this->db->where("SaldoFNG = 0");
         $this->db->where("G719_C17295 BETWEEN '".$fechaInicialAbono."' AND '".$fechaFinalAbono."' ");
         if($frg != 0 && $frg != NULL){
-            $this->db->where("G719_C17029", $frg);
+            $this->db->where("FRG", $frg);
         }
         
         $query = $this->db->get();
@@ -189,15 +189,15 @@ class Reportes_Model extends CI_Model {
     function getGestion_extrajudicial_mensual_Saldo_1($frg= NULL, $fechaInicialPagoGarantia, $fechaFinalPagoGarantia ){
         
         $this->db->select('G719_ConsInte__b, 
-                            G719_C17032 as Fecha_pago, 
-                            G719_C17035 as saldo, 
+                            FechaPagoGarantia as Fecha_pago, 
+                            SaldoFNG as saldo, 
                             G719_C17295 as fecha_ultimoAbono,
                             G719_C17423');
-        $this->db->from('G719');
-        $this->db->where("G719_C17032 < '".$fechaFinalPagoGarantia."' ");
-        $this->db->where("G719_C17035 > 0");
+        $this->db->from('InformacionCredito');
+        $this->db->where("FechaPagoGarantia < '".$fechaFinalPagoGarantia."' ");
+        $this->db->where("SaldoFNG > 0");
         if($frg != 0 && $frg != NULL){
-            $this->db->where("G719_C17029", $frg);
+            $this->db->where("FRG", $frg);
         }
         
         $query = $this->db->get();
@@ -207,16 +207,16 @@ class Reportes_Model extends CI_Model {
     function getGestion_extrajudicial_mensual_Saldo_0_Total($frg= NULL, $fechaInicialPagoGarantia, $fechaFinalPagoGarantia, $fechaInicialAbono, $fechaFinalAbono ){
         
         $this->db->select('G719_ConsInte__b, 
-                            G719_C17032 as Fecha_pago, 
-                            G719_C17035 as saldo, 
+                            FechaPagoGarantia as Fecha_pago, 
+                            SaldoFNG as saldo, 
                             G719_C17295 as fecha_ultimoAbono,
                             G719_C17423');
-        $this->db->from('G719');
-        $this->db->where("G719_C17032 < '".$fechaFinalPagoGarantia."' ");
-        $this->db->where("G719_C17035 = 0");
+        $this->db->from('InformacionCredito');
+        $this->db->where("FechaPagoGarantia < '".$fechaFinalPagoGarantia."' ");
+        $this->db->where("SaldoFNG = 0");
         $this->db->where("G719_C17295 BETWEEN '".$fechaInicialAbono."' AND '".$fechaFinalAbono."' ");
         if($frg != 0 && $frg != NULL){
-            $this->db->where("G719_C17029", $frg);
+            $this->db->where("FRG", $frg);
         }
         
         $query = $this->db->get();
@@ -226,15 +226,15 @@ class Reportes_Model extends CI_Model {
     function getGestion_extrajudicial_mensual_Saldo_1_Total($frg= NULL, $fechaInicialPagoGarantia, $fechaFinalPagoGarantia ){
         
         $this->db->select('G719_ConsInte__b, 
-                            G719_C17032 as Fecha_pago, 
-                            G719_C17035 as saldo, 
+                            FechaPagoGarantia as Fecha_pago, 
+                            SaldoFNG as saldo, 
                             G719_C17295 as fecha_ultimoAbono,
                             G719_C17423');
-        $this->db->from('G719');
- 	    $this->db->where("G719_C17032 < '".$fechaFinalPagoGarantia."' ");
-        $this->db->where("G719_C17035 > 0");
+        $this->db->from('InformacionCredito');
+ 	    $this->db->where("FechaPagoGarantia < '".$fechaFinalPagoGarantia."' ");
+        $this->db->where("SaldoFNG > 0");
         if($frg != 0 && $frg != NULL){
-            $this->db->where("G719_C17029", $frg);
+            $this->db->where("FRG", $frg);
         }
         
         $query = $this->db->get();
@@ -245,20 +245,20 @@ class Reportes_Model extends CI_Model {
     function getGestion_extrajudicial_mensual_deglosado_0($frg= NULL, $fechaInicialPagoGarantia, $fechaFinalPagoGarantia, $fechaInicialAbono, $fechaFinalAbono ){
 
 
-        $this->db->select('G719_ConsInte__b, G719_C17423 AS contrato, G730_C17126 AS intermediario, G717_C17240 as nombre, G717_C17005 as identificacion, tipo_identificacion as tipo_identificacion,  G719_C17034 as Vlorpagado, G719_C17051, G719_C17048, G719_C17050 ');
-        $this->db->from('G719');
-        $this->db->join('G730', 'G730_ConsInte__b = G719_C17030','left');
-        $this->db->join('G737', 'G737_C17182 = G719_ConsInte__b');
-        $this->db->join('G717','G717_ConsInte__b = G737_C17181');
-        $this->db->where('G737_C17183','1786');
-        $this->db->where("G719_C17032 < '".$fechaFinalPagoGarantia."' ");
-        $this->db->where("G719_C17035 = 0");
-        $this->db->where("G717_C17005 NOT LIKE '99999999'");
-        $this->db->where("G717_C17240 NOT LIKE '%BORRADO%'");
+        $this->db->select('G719_ConsInte__b, G719_C17423 AS contrato, NombreIF AS intermediario, NombreDeudor as nombre, NroIdentificacion as identificacion, tipo_identificacion as tipo_identificacion,  ValorPagado as Vlorpagado, G719_C17051, FechaEnvioMemorialSubrogacionFRG, G719_C17050 ');
+        $this->db->from('InformacionCredito');
+        $this->db->join('IntermediarioFinanciero', 'Id = IntermediarioFinanciero','left');
+        $this->db->join('ClienteObligacion', 'G735_C17139Id = G719_ConsInte__b');
+        $this->db->join('InformacionCliente','Id = InformacionClientesId');
+        $this->db->where('Rol','1786');
+        $this->db->where("FechaPagoGarantia < '".$fechaFinalPagoGarantia."' ");
+        $this->db->where("SaldoFNG = 0");
+        $this->db->where("NroIdentificacion NOT LIKE '99999999'");
+        $this->db->where("NombreDeudor NOT LIKE '%BORRADO%'");
         $this->db->where("G719_C17295 BETWEEN '".$fechaInicialAbono."' AND '".$fechaFinalAbono."' ");
         //OR G719_C17050 BETWEEN '".$fechaInicial."' AND '".$fechaFinal."' 
         if($frg != 0 && $frg != NULL){
-            $this->db->where("G719_C17029", $frg);
+            $this->db->where("FRG", $frg);
         }
         
         $this->db->order_by('G719_C17423');
@@ -269,24 +269,24 @@ class Reportes_Model extends CI_Model {
     function getGestion_extrajudicial_mensual_deglosado_1($frg= NULL, $fechaInicialPagoGarantia, $fechaFinalPagoGarantia ){
 
         $this->db->select(' G719_ConsInte__b, G719_C17423 AS contrato, 
-                            G730_C17126 AS intermediario, 
-                            G717_C17240 as nombre, 
-                            G717_C17005 as identificacion, 
+                            NombreIF AS intermediario, 
+                            NombreDeudor as nombre, 
+                            NroIdentificacion as identificacion, 
                             tipo_identificacion as tipo_identificacion,
-                            G719_C17034 as Vlorpagado,
-                            G719_C17051, G719_C17048, G719_C17050 ');
-        $this->db->from('G719');
-        $this->db->join('G730', 'G730_ConsInte__b = G719_C17030','left');
-        $this->db->join('G737', 'G737_C17182 = G719_ConsInte__b');
-        $this->db->join('G717','G717_ConsInte__b = G737_C17181');
-        $this->db->where('G737_C17183','1786');
-        $this->db->where("G719_C17032 < '".$fechaFinalPagoGarantia."' ");
-        $this->db->where("G719_C17035 > 0");
-        $this->db->where("G717_C17005 NOT LIKE '99999999'");
-        $this->db->where("G717_C17240 NOT LIKE '%BORRADO%'");
+                            ValorPagado as Vlorpagado,
+                            G719_C17051, FechaEnvioMemorialSubrogacionFRG, G719_C17050 ');
+        $this->db->from('InformacionCredito');
+        $this->db->join('IntermediarioFinanciero', 'Id = IntermediarioFinanciero','left');
+        $this->db->join('ClienteObligacion', 'G735_C17139Id = G719_ConsInte__b');
+        $this->db->join('InformacionCliente','Id = InformacionClientesId');
+        $this->db->where('Rol','1786');
+        $this->db->where("FechaPagoGarantia < '".$fechaFinalPagoGarantia."' ");
+        $this->db->where("SaldoFNG > 0");
+        $this->db->where("NroIdentificacion NOT LIKE '99999999'");
+        $this->db->where("NombreDeudor NOT LIKE '%BORRADO%'");
         //OR G719_C17050 BETWEEN '".$fechaInicial."' AND '".$fechaFinal."' 
         if($frg != 0 && $frg != NULL){
-            $this->db->where("G719_C17029", $frg);
+            $this->db->where("FRG", $frg);
         }
         $this->db->order_by('G719_C17423');
 
@@ -296,10 +296,10 @@ class Reportes_Model extends CI_Model {
 
     //validar si un contrato tiene gestion Extrajudicial
     function tieneGestionExtrajudicial($id_obligacion, $fechaInicial, $fechaFinal){
-        $this->db->select('G742_ConsInte__b');
-        $this->db->from('G742');
-        $this->db->where('G742_C17244', $id_obligacion); 
-        $this->db->where("G742_C17242 BETWEEN '".$fechaInicial."' AND '".$fechaFinal."' ");   
+        $this->db->select('Id');
+        $this->db->from('GestionExtrajudicial');
+        $this->db->where('G735_C17139', $id_obligacion); 
+        $this->db->where("FechaEjecucion BETWEEN '".$fechaInicial."' AND '".$fechaFinal."' ");   
         $query = $this->db->get();
         return $query->num_rows();      
                            
@@ -308,7 +308,7 @@ class Reportes_Model extends CI_Model {
      function getBaseSubrogacionesEfectivas($frg = NULL){
         $this->db->select('COUNT(*) as cantidad');
         $this->db->from('Tabla_base_medicion_subrogaciones');
-        $this->db->join('G719','Sub_id_obligacion = G719_ConsInte__b');
+        $this->db->join('InformacionCredito','Sub_id_obligacion = G719_ConsInte__b');
         if(!is_null($frg)) $this->db->where('Sub_Frg', $frg);
         $year = date('Y');
         $this->db->where("Sub_fecha_year", $year);
@@ -322,9 +322,9 @@ class Reportes_Model extends CI_Model {
 
     function getSubrogacionesEfectivas($frg = NULL, $fechaInicial, $fechaFinal){
         
-        $this->db->select('G719.G719_C17423  as Sub_contrato, Sub_sap, Sub_Frg, Sub_factura_subrogacion, Sub_fecha_factura, Sub_fecha_auto, Sub_id_obligacion');
+        $this->db->select('InformacionCredito.G719_C17423  as Sub_contrato, Sub_sap, Sub_Frg, Sub_factura_subrogacion, Sub_fecha_factura, Sub_fecha_auto, Sub_id_obligacion');
         $this->db->from('Tabla_base_medicion_subrogaciones');
-        $this->db->join('G719','Sub_id_obligacion = G719_ConsInte__b');
+        $this->db->join('InformacionCredito','Sub_id_obligacion = G719_ConsInte__b');
         $this->db->where("Sub_fecha_factura BETWEEN '".$fechaInicial."' AND '".$fechaFinal."' ");
         $this->db->where("Sub_sap IS NOT NULL");
         $this->db->where("Sub_sap != '' ");
@@ -344,15 +344,15 @@ class Reportes_Model extends CI_Model {
     function getReporteSubrogacionesEfectivasDeglosado($frg = NULL, $fechaInicial, $fechaFinal){
         //Nombre deudor, No de identificación,  valor pagado
 
-        $this->db->select('G719.G719_C17423 AS contrato, G730_C17126 AS intermediario, G717_C17240 as nombre, G717_C17005 as identificacion, tipo_identificacion as tipo_identificacion, G719_C17034 as Vlorpagado, G719_C17051, G719_C17048, G719_C17050, Sub_factura_subrogacion, Sub_fecha_factura, Sub_fecha_auto ');
+        $this->db->select('InformacionCredito.G719_C17423 AS contrato, NombreIF AS intermediario, NombreDeudor as nombre, NroIdentificacion as identificacion, tipo_identificacion as tipo_identificacion, ValorPagado as Vlorpagado, G719_C17051, FechaEnvioMemorialSubrogacionFRG, G719_C17050, Sub_factura_subrogacion, Sub_fecha_factura, Sub_fecha_auto ');
         $this->db->from('Tabla_base_medicion_subrogaciones');
-        $this->db->join('G719','Sub_id_obligacion = G719_ConsInte__b');
-        $this->db->join('G730', 'G730_ConsInte__b = G719_C17030', 'left');
-        $this->db->join('G737', 'G737_C17182 = G719_ConsInte__b','left');
-        $this->db->join('G717','G717_ConsInte__b = G737_C17181','left');
+        $this->db->join('InformacionCredito','Sub_id_obligacion = G719_ConsInte__b');
+        $this->db->join('IntermediarioFinanciero', 'Id = IntermediarioFinanciero', 'left');
+        $this->db->join('ClienteObligacion', 'G735_C17139Id = G719_ConsInte__b','left');
+        $this->db->join('InformacionCliente','Id = InformacionClientesId','left');
         
-        $this->db->where('G737_C17183','1786');
-        $this->db->where('G717_C17005 != ','99999999');
+        $this->db->where('Rol','1786');
+        $this->db->where('NroIdentificacion != ','99999999');
         $this->db->where("Sub_fecha_factura BETWEEN '".$fechaInicial."' AND '".$fechaFinal."' ");
         $year = date('Y');
         $this->db->where("Sub_fecha_year", $year);
@@ -368,14 +368,14 @@ class Reportes_Model extends CI_Model {
     function getReporteSubrogacionesEfectivasGeneral($frg = NULL){
         //Nombre deudor, No de identificación,  valor pagado
 
-        $this->db->select('G719.G719_C17423 AS contrato, G730_C17126 AS intermediario, G717_C17240 as nombre, G717_C17005 as identificacion, tipo_identificacion as tipo_identificacion, G719_C17034 as Vlorpagado, G719_C17051, G719_C17048, G719_C17050, Sub_factura_subrogacion, Sub_fecha_factura, Sub_fecha_auto ');
+        $this->db->select('InformacionCredito.G719_C17423 AS contrato, NombreIF AS intermediario, NombreDeudor as nombre, NroIdentificacion as identificacion, tipo_identificacion as tipo_identificacion, ValorPagado as Vlorpagado, G719_C17051, FechaEnvioMemorialSubrogacionFRG, G719_C17050, Sub_factura_subrogacion, Sub_fecha_factura, Sub_fecha_auto ');
         $this->db->from('Tabla_base_medicion_subrogaciones');
-        $this->db->join('G719','Sub_id_obligacion = G719_ConsInte__b');
-        $this->db->join('G730', 'G730_ConsInte__b = G719_C17030', 'left');
-        $this->db->join('G737', 'G737_C17182 = G719_ConsInte__b','left');
-        $this->db->join('G717','G717_ConsInte__b = G737_C17181','left');
-        $this->db->where('G737_C17183','1786');
-        $this->db->where('G717_C17005 != ','99999999');
+        $this->db->join('InformacionCredito','Sub_id_obligacion = G719_ConsInte__b');
+        $this->db->join('IntermediarioFinanciero', 'Id = IntermediarioFinanciero', 'left');
+        $this->db->join('ClienteObligacion', 'G735_C17139Id = G719_ConsInte__b','left');
+        $this->db->join('InformacionCliente','Id = InformacionClientesId','left');
+        $this->db->where('Rol','1786');
+        $this->db->where('NroIdentificacion != ','99999999');
         $year = date('Y');
         $this->db->where("Sub_fecha_year", $year);
         if($frg != 0 && $frg != NULL){
@@ -387,15 +387,15 @@ class Reportes_Model extends CI_Model {
     }
     function getBaseGEstionesJudiciales($frg = NULL){
         $this->db->select('G719_ConsInte__b');
-        $this->db->from('G719');
+        $this->db->from('InformacionCredito');
         
-        $this->db->where("G719_C17039 IS NOT NULL");
-        $this->db->where("G719_C17039 != '' ");
+        $this->db->where("NroProcesoJudicialSAP IS NOT NULL");
+        $this->db->where("NroProcesoJudicialSAP != '' ");
         $this->db->where("G719_C17051 IS NOT NULL");
         $this->db->where("G719_C17051 != '' ");
 
         if($frg != 0 && $frg != NULL){
-            $this->db->where("G719_C17029", $frg);
+            $this->db->where("FRG", $frg);
         }
         
         $query = $this->db->get();
@@ -406,44 +406,44 @@ class Reportes_Model extends CI_Model {
 
            $this->db->select('G719_ConsInte__b,
                             G719_C17423 AS contrato, 
-                            G719_C17039 as SAP,
-                            G730_C17126 AS intermediario, 
-                            G717_C17240 as nombre, 
-                            G717_C17005 as identificacion,  
+                            NroProcesoJudicialSAP as SAP,
+                            NombreIF AS intermediario, 
+                            NombreDeudor as nombre, 
+                            NroIdentificacion as identificacion,  
                             tipo_identificacion as tipo_identificacion,
                             G719_C17051 as fecha_abogado, 
-                            G719_C17048 , 
+                            FechaEnvioMemorialSubrogacionFRG , 
                             G719_C17050 as fecha_envio_corregido,
-                            G719_C17049 as fecha_envio_errores,
-                            G719_C17035 as SaldoalaFecha,
-                            G719_C17034 as Vlorpagado,
-                            G719_C17032 as fechaSaldo,
+                            FechaDevolucionFRGMemorialSubrogacionxErrores as fecha_envio_errores,
+                            SaldoFNG as SaldoalaFecha,
+                            ValorPagado as Vlorpagado,
+                            FechaPagoGarantia as fechaSaldo,
                             G719_C17073 as Fecha_Venta,
                             G719_C17295 as fecha_ultimo_abono,
-                            G729_C17121');
-        $this->db->from('G719');
-        $this->db->join('G730', 'G730_ConsInte__b = G719_C17030', 'left');
-        $this->db->join('G737', 'G737_C17182 = G719_ConsInte__b', 'left');
-        $this->db->join('G717','G717_ConsInte__b = G737_C17181', 'left');
-        $this->db->join('G729', 'G729_ConsInte__b = G719_C17029');
-        $this->db->where('G737_C17183','1786');
+                            FRG');
+        $this->db->from('InformacionCredito');
+        $this->db->join('IntermediarioFinanciero', 'Id = IntermediarioFinanciero', 'left');
+        $this->db->join('ClienteObligacion', 'G735_C17139Id = G719_ConsInte__b', 'left');
+        $this->db->join('InformacionCliente','Id = InformacionClientesId', 'left');
+        $this->db->join('FRG', 'Id = FRG');
+        $this->db->where('Rol','1786');
         $this->db->where('G719_C17423 IS NOT NULL');
-        $this->db->where("G719_C17039 IS NOT NULL");
-        $this->db->where("G719_C17039 != '' ");
-        $this->db->where("G717_C17005 != '99999999' ");
-        $this->db->where("(case when G719_C17048 is not null then 1
+        $this->db->where("NroProcesoJudicialSAP IS NOT NULL");
+        $this->db->where("NroProcesoJudicialSAP != '' ");
+        $this->db->where("NroIdentificacion != '99999999' ");
+        $this->db->where("(case when FechaEnvioMemorialSubrogacionFRG is not null then 1
                                  else (case when G719_C17050 is not null then 1 else 0 end ) end) = 1");
-        $this->db->where("(case when G719_C17049 is null then 1
+        $this->db->where("(case when FechaDevolucionFRGMemorialSubrogacionxErrores is null then 1
                                  else (case when G719_C17050 is not null then 1 else 0 end ) end) = 1");
-        $this->db->where("((SELECT (G719_C17048 +95)) <= '".$fechaInforme."' or (SELECT (G719_C17050 +95))<= '".$fechaInforme."')");
-        $this->db->where("(case when G719_C17035 > 0 then 1 else 
+        $this->db->where("((SELECT (FechaEnvioMemorialSubrogacionFRG +95)) <= '".$fechaInforme."' or (SELECT (G719_C17050 +95))<= '".$fechaInforme."')");
+        $this->db->where("(case when SaldoFNG > 0 then 1 else 
                             (case when (SELECT (G719_C17295+91)) <  '".$fechaInforme."' then 1 else 0 end )
                              end) = 1");
         $this->db->where("(case when G719_C17073 is null then 1
                                  else (case when (SELECT ( G719_C17073+181)) >='".$fechaInforme."' then 1 else 0 end ) end) = 1");
 
         if($frg != 0 && $frg != NULL){
-            $this->db->where("G719_C17029", $frg);
+            $this->db->where("FRG", $frg);
         } 
         $this->db->order_by('G719_C17423');
       
@@ -457,9 +457,9 @@ class Reportes_Model extends CI_Model {
 
 //validar si un contrato tiene gestion Judicial
     function tieneGestionJudicial($noLiquidacion, $fechaInicial, $fechaFinal){
-        $this->db->select('G735_ConsInte__b');
+        $this->db->select('Id');
         $this->db->from('G735');
-        $this->db->join('G719','G735_C17138 = G719_ConsInte__b');
+        $this->db->join('InformacionCredito','G735_C17138 = G719_ConsInte__b');
         $this->db->where('G719_C17423', $noLiquidacion); 
         $this->db->where("G735_C17141 BETWEEN '".$fechaInicial."' AND '".$fechaFinal."' ");   
         $query = $this->db->get();
@@ -468,7 +468,7 @@ class Reportes_Model extends CI_Model {
     }
 	////Manuel Ochoa - Softtek - 19/11/2015 - REQ02
     function getGestionJudicialDatos($noLiquidacion, $fechaInicial, $fechaFinal){
-        $this->db->select('TOP 1 G735_C17137 as Actuacion,
+        $this->db->select('TOP 1 Actuacion as Actuacion,
 								G735_C17139 as FechaTramite,
 								G735_C17140 as Ejecutor,
 								G735_C17141 as FechaInforme,
@@ -476,7 +476,7 @@ class Reportes_Model extends CI_Model {
 								G735_C17143 as TipoProceso,
 								G735_C17219 as Observaciones');
         $this->db->from('G735');
-        $this->db->join('G719','G735_C17138 = G719_ConsInte__b');
+        $this->db->join('InformacionCredito','G735_C17138 = G719_ConsInte__b');
         $this->db->where('G719_C17423', $noLiquidacion); 
         $this->db->where("G735_C17141 BETWEEN '".$fechaInicial."' AND '".$fechaFinal."' "); 
 		$this->db->order_by("G735_C17141", "DESC");
@@ -487,14 +487,14 @@ class Reportes_Model extends CI_Model {
 
     function getReporteCisa($frg = NULL, $fechaVenta){
         $this->db->select('G719_ConsInte__b, G719_C17423 AS liquidacion');
-        $this->db->from('G719');
-        $this->db->where("G719_C17039 IS NOT NULL");
-        $this->db->where("G719_C17039 != '' ");
+        $this->db->from('InformacionCredito');
+        $this->db->where("NroProcesoJudicialSAP IS NOT NULL");
+        $this->db->where("NroProcesoJudicialSAP != '' ");
         $this->db->where("G719_C17073", $fechaVenta);
 
         
         if($frg != 0 && $frg != NULL){
-            $this->db->where("G719_C17029", $frg);
+            $this->db->where("FRG", $frg);
         }
         $this->db->order_by("G719_C17423","DESC");
         $query = $this->db->get();
@@ -506,88 +506,88 @@ class Reportes_Model extends CI_Model {
 
     function getReporteCisa_deglosadoS($frg = NULL, $fechaVenta){
         $this->db->select('distinct G719_C17423 AS contrato, 
-                            G719_C17039 as SAP,
-                            G730_C17126 AS intermediario, 
-                            G717_C17240 as nombre, 
-                            G717_C17005 as identificacion,  
+                            NroProcesoJudicialSAP as SAP,
+                            NombreIF AS intermediario, 
+                            NombreDeudor as nombre, 
+                            NroIdentificacion as identificacion,  
                             tipo_identificacion as tipo_identificacion,
-                            G719_C17034 as Vlorpagado, 
+                            ValorPagado as Vlorpagado, 
                             G719_C17051 as fecha_abogado,
-                            Fecha_aprobacion_soporte,
+                            FechaAprobacionSoporte,
                             Fecha_recepcion_soporte,
                             G719_C17073 fechaVenta,
                             G719_ConsInte__b
                             ');
-        $this->db->from('G719');
-        $this->db->join('G730', 'G730_ConsInte__b = G719_C17030','LEFT');
-        $this->db->join('G737', 'G737_C17182 = G719_ConsInte__b');
-        $this->db->join('G717','G717_ConsInte__b = G737_C17181');
-        $this->db->join('G744','G744_C17280 = G719_ConsInte__b', 'LEFT');
-        $this->db->where('G737_C17183','1786');
-        $this->db->where("G719_C17039 IS NOT NULL");
-        $this->db->where("G719_C17039 != '' ");
+        $this->db->from('InformacionCredito');
+        $this->db->join('IntermediarioFinanciero', 'Id = IntermediarioFinanciero','LEFT');
+        $this->db->join('ClienteObligacion', 'G735_C17139Id = G719_ConsInte__b');
+        $this->db->join('InformacionCliente','Id = InformacionClientesId');
+        $this->db->join('Factura','G735_C17139Id = G719_ConsInte__b', 'LEFT');
+        $this->db->where('Rol','1786');
+        $this->db->where("NroProcesoJudicialSAP IS NOT NULL");
+        $this->db->where("NroProcesoJudicialSAP != '' ");
         $this->db->where("G719_C17073", $fechaVenta);
 
         if($frg != 0 && $frg != NULL){
-            $this->db->where("G719_C17029", $frg);
+            $this->db->where("FRG", $frg);
         }
-        $this->db->order_by("G719_C17423, Fecha_aprobacion_soporte","DESC");
+        $this->db->order_by("G719_C17423, FechaAprobacionSoporte","DESC");
         $query = $this->db->get();
         return $query->result();
     }
 
     function tieneFechaPagoReporte($obligacion, $fechaInicial, $fechaFinal){
         $this->db->select('');
-        $this->db->from('G744');
-        $this->db->where('G744_C17280', $obligacion); 
-        $this->db->where("Fecha_aprobacion_soporte BETWEEN '".$fechaInicial."' AND '".$fechaFinal."' ");
+        $this->db->from('Factura');
+        $this->db->where('G735_C17139Id', $obligacion); 
+        $this->db->where("FechaAprobacionSoporte BETWEEN '".$fechaInicial."' AND '".$fechaFinal."' ");
         $query = $this->db->get();
         return $query->num_rows();      
     }
 
     function getBaseMemorialesSUbrogacion_1($frg, $abogado, $fechaInicial, $fechaFinal){
-        $this->db->select('max (G719_ConsInte__b) AS id, G719_C17048 as Fecha_envio_Memorial, G719_C17050 as Fecha_envio_Memorial_Corregido, G719_C17029 as FRG
-            ,G719_C17423 AS contrato, G719_C17039 as SAP');
-        $this->db->from('G719');
-        $this->db->join ('G723','G723_ConsInte__b = G719_C17153','LEFT');
-        $this->db->where("G719_C17048 BETWEEN '".$fechaInicial."' AND '".$fechaFinal."'");
+        $this->db->select('max (G719_ConsInte__b) AS id, FechaEnvioMemorialSubrogacionFRG as Fecha_envio_Memorial, G719_C17050 as Fecha_envio_Memorial_Corregido, FRG as FRG
+            ,G719_C17423 AS contrato, NroProcesoJudicialSAP as SAP');
+        $this->db->from('InformacionCredito');
+        $this->db->join ('Abogados','Id = Abogado','LEFT');
+        $this->db->where("FechaEnvioMemorialSubrogacionFRG BETWEEN '".$fechaInicial."' AND '".$fechaFinal."'");
         $this->db->where("G719_C17050 is null");
         $this->db->where("G719_C17423 is not null");
         if($frg != NULL && $frg != 0 && $frg != ''){
-            $this->db->where('G719_C17029', $frg);
+            $this->db->where('FRG', $frg);
         }
 
         if($abogado != NULL && $abogado != 0 && $abogado != ''){
-            $this->db->where('G719_C17153', $abogado);
+            $this->db->where('Abogado', $abogado);
         }
-        $query = $this->db->group_by('G719_C17048,G719_C17050,G719_C17029,G719_C17423,G719_C17039');
+        $query = $this->db->group_by('FechaEnvioMemorialSubrogacionFRG,G719_C17050,FRG,G719_C17423,NroProcesoJudicialSAP');
         $query = $this->db->get();
 
         return $query->result();
     }
 
     function getBaseMemorialesSUbrogacion_deglosado_1($frg, $abogado, $fechaInicial, $fechaFinal){
-        $this->db->select('max(G719_ConsInte__b) AS id, G719_C17048 as Fecha_envio_Memorial, G719_C17050 as Fecha_envio_Memorial_Corregido, G719_C17029 as FRG,
-            G723_C17099 as Abogado ,G719_C17423 AS liquidacion, G719_C17039 as SAP,G719_C17153,  G717_C17240 as nombre, G717_C17005 as identificacion,
+        $this->db->select('max(G719_ConsInte__b) AS id, FechaEnvioMemorialSubrogacionFRG as Fecha_envio_Memorial, G719_C17050 as Fecha_envio_Memorial_Corregido, FRG as FRG,
+            Nombre as Abogado ,G719_C17423 AS liquidacion, NroProcesoJudicialSAP as SAP,Abogado,  NombreDeudor as nombre, NroIdentificacion as identificacion,
             tipo_identificacion as tipo_identificacion,
-            G730_C17126 AS intermediario,G719_C17423 AS contrato,G719_C17212 as radicacion ');
-        $this->db->from('G719');
-        $this->db->join('G723', 'G723_ConsInte__b = G719_C17153', 'left');
-        $this->db->join('G737', 'G737_C17182 = G719_ConsInte__b','left');
-        $this->db->join('G717','G717_ConsInte__b = G737_C17181','left');
-        $this->db->join('G730','G730_ConsInte__b = G719_C17030','left');
-        $this->db->where("G719_C17048 BETWEEN '".$fechaInicial."' AND '".$fechaFinal."'");
+            NombreIF AS intermediario,G719_C17423 AS contrato,G719_C17212 as radicacion ');
+        $this->db->from('InformacionCredito');
+        $this->db->join('Abogados', 'Id = Abogado', 'left');
+        $this->db->join('ClienteObligacion', 'G735_C17139Id = G719_ConsInte__b','left');
+        $this->db->join('InformacionCliente','Id = InformacionClientesId','left');
+        $this->db->join('IntermediarioFinanciero','Id = IntermediarioFinanciero','left');
+        $this->db->where("FechaEnvioMemorialSubrogacionFRG BETWEEN '".$fechaInicial."' AND '".$fechaFinal."'");
         $this->db->where("G719_C17050 is null");
         $this->db->where("G719_C17423 is not null");
 
         if($frg != NULL && $frg != 0 && $frg != ''){
-            $this->db->where('G719_C17029', $frg);
+            $this->db->where('FRG', $frg);
         }
 
         if($abogado != NULL && $abogado != 0 && $abogado != ''){
-            $this->db->where('G719_C17153', $abogado);
+            $this->db->where('Abogado', $abogado);
         }
-        $query = $this->db->group_by('G719_C17048,G719_C17050,G719_C17029,G723_C17099,G719_C17423,G719_C17039,G719_C17153,G717_C17240,G717_C17005,tipo_identificacion,G730_C17126,G719_C17423,G719_C17212');
+        $query = $this->db->group_by('FechaEnvioMemorialSubrogacionFRG,G719_C17050,FRG,Nombre,G719_C17423,NroProcesoJudicialSAP,Abogado,NombreDeudor,NroIdentificacion,tipo_identificacion,NombreIF,G719_C17423,G719_C17212');
         $query = $this->db->order_by('contrato','desc');
         $query = $this->db->get();
 
@@ -595,46 +595,46 @@ class Reportes_Model extends CI_Model {
     }
 
     function getBaseMemorialesSUbrogacion_2($frg, $abogado, $fechaInicial, $fechaFinal){
-        $this->db->select('max (G719_ConsInte__b) AS id, G719_C17048 as Fecha_envio_Memorial, G719_C17050 as Fecha_envio_Memorial_Corregido, G719_C17029 as FRG
-            ,G719_C17423 AS contrato, G719_C17039 as SAP');
-        $this->db->from('G719');
-        $this->db->join ('G723','G723_ConsInte__b = G719_C17153','LEFT');
+        $this->db->select('max (G719_ConsInte__b) AS id, FechaEnvioMemorialSubrogacionFRG as Fecha_envio_Memorial, G719_C17050 as Fecha_envio_Memorial_Corregido, FRG as FRG
+            ,G719_C17423 AS contrato, NroProcesoJudicialSAP as SAP');
+        $this->db->from('InformacionCredito');
+        $this->db->join ('Abogados','Id = Abogado','LEFT');
         $this->db->where("G719_C17050 BETWEEN '".$fechaInicial."' AND '".$fechaFinal."'");
         $this->db->where("G719_C17423 is not null");
 
         if($frg != NULL && $frg != 0 && $frg != ''){
-            $this->db->where('G719_C17029', $frg);
+            $this->db->where('FRG', $frg);
         }
 
         if($abogado != NULL && $abogado != 0 && $abogado != ''){
-            $this->db->where('G719_C17153', $abogado);
+            $this->db->where('Abogado', $abogado);
         }
-        $query = $this->db->group_by('G719_C17048,G719_C17050,G719_C17029,G719_C17423,G719_C17039');
+        $query = $this->db->group_by('FechaEnvioMemorialSubrogacionFRG,G719_C17050,FRG,G719_C17423,NroProcesoJudicialSAP');
         $query = $this->db->get();
 
         return $query->result();
     }
 
     function getBaseMemorialesSUbrogacion_deglosado_2($frg, $abogado, $fechaInicial, $fechaFinal){
-         $this->db->select('max(G719_ConsInte__b) AS id, G719_C17048 as Fecha_envio_Memorial, G719_C17050 as Fecha_envio_Memorial_Corregido, G719_C17029 as FRG,
-            G723_C17099 as Abogado ,G719_C17423 AS liquidacion, G719_C17039 as SAP,G719_C17153,  G717_C17240 as nombre, G717_C17005 as identificacion, tipo_identificacion as tipo_identificacion,
-            G730_C17126 AS intermediario,G719_C17423 AS contrato,G719_C17212 as radicacion ');
-        $this->db->from('G719');
-        $this->db->join('G723', 'G723_ConsInte__b = G719_C17153', 'left');
-        $this->db->join('G737', 'G737_C17182 = G719_ConsInte__b');
-        $this->db->join('G717','G717_ConsInte__b = G737_C17181','left');
-        $this->db->join('G730','G730_ConsInte__b = G719_C17030','left');
+         $this->db->select('max(G719_ConsInte__b) AS id, FechaEnvioMemorialSubrogacionFRG as Fecha_envio_Memorial, G719_C17050 as Fecha_envio_Memorial_Corregido, FRG as FRG,
+            Nombre as Abogado ,G719_C17423 AS liquidacion, NroProcesoJudicialSAP as SAP,Abogado,  NombreDeudor as nombre, NroIdentificacion as identificacion, tipo_identificacion as tipo_identificacion,
+            NombreIF AS intermediario,G719_C17423 AS contrato,G719_C17212 as radicacion ');
+        $this->db->from('InformacionCredito');
+        $this->db->join('Abogados', 'Id = Abogado', 'left');
+        $this->db->join('ClienteObligacion', 'G735_C17139Id = G719_ConsInte__b');
+        $this->db->join('InformacionCliente','Id = InformacionClientesId','left');
+        $this->db->join('IntermediarioFinanciero','Id = IntermediarioFinanciero','left');
         $this->db->where("G719_C17050 BETWEEN '".$fechaInicial."' AND '".$fechaFinal."'");
         $this->db->where("G719_C17423 is not null");
 
         if($frg != NULL && $frg != 0 && $frg != ''){
-            $this->db->where('G719_C17029', $frg);
+            $this->db->where('FRG', $frg);
         }
 
         if($abogado != NULL && $abogado != 0 && $abogado != ''){
-            $this->db->where('G719_C17153', $abogado);
+            $this->db->where('Abogado', $abogado);
         }
-        $query = $this->db->group_by('G719_C17048,G719_C17050,G719_C17029,G723_C17099,G719_C17423,G719_C17039,G719_C17153,G717_C17240,G717_C17005,tipo_identificacion, G730_C17126,G719_C17423,G719_C17212');
+        $query = $this->db->group_by('FechaEnvioMemorialSubrogacionFRG,G719_C17050,FRG,Nombre,G719_C17423,NroProcesoJudicialSAP,Abogado,NombreDeudor,NroIdentificacion,tipo_identificacion, NombreIF,G719_C17423,G719_C17212');
         $query = $this->db->order_by('contrato','desc');
         $query = $this->db->get();
         return $query->result();
@@ -642,7 +642,7 @@ class Reportes_Model extends CI_Model {
 
     function tieneRadicado($id_obligacion, $fechaInicial, $fechaFinal){
         $this->db->select('G719_C17212');
-        $this->db->from('G719');
+        $this->db->from('InformacionCredito');
         $this->db->where("G719_C17212 BETWEEN '".$fechaInicial."' AND '".$fechaFinal."'");
         $this->db->where('G719_ConsInte__b', $id_obligacion);
         $this->db->where("G719_C17212 IS NOT NULL");
@@ -659,7 +659,7 @@ class Reportes_Model extends CI_Model {
     function tieneRadicadoFueraTiempo($id_obligacion, $fechaInicial){
      
         $this->db->select('G719_C17212');
-        $this->db->from('G719');
+        $this->db->from('InformacionCredito');
         $this->db->where("G719_C17212 > '".$fechaInicial."'");
         $this->db->where('G719_ConsInte__b', $id_obligacion);
         $this->db->where("G719_C17212 IS NOT NULL");
@@ -676,8 +676,8 @@ class Reportes_Model extends CI_Model {
     function NotieneRadicadoFueraTiempo($id_obligacion, $fechaInicial){
         $fechaFinal = date('Y-m-d');
         $this->db->select('G719_C17212');
-        $this->db->from('G719');
-        $this->db->where("G719_C17048 > '".$fechaInicial."'");
+        $this->db->from('InformacionCredito');
+        $this->db->where("FechaEnvioMemorialSubrogacionFRG > '".$fechaInicial."'");
         $this->db->where('G719_ConsInte__b', $id_obligacion);
        // $this->db->where("G719_C17212 IS NULL");
         //$this->db->where("G719_C17212 = '' ");
@@ -694,7 +694,7 @@ class Reportes_Model extends CI_Model {
      
        $fechaFinal = date('Y-m-d');
         $this->db->select('*');
-        $this->db->from('G719');
+        $this->db->from('InformacionCredito');
         $this->db->where("G719_C17050 > '".$fechaInicial."'");
         $this->db->where('G719_ConsInte__b', $id_obligacion);
         $this->db->where("G719_C17212 IS NULL");
@@ -707,7 +707,7 @@ class Reportes_Model extends CI_Model {
     function NotieneRadicadoFueraTiempo_CON($id_obligacion, $fechaInicial){
         $fechaFinal = date('Y-m-d');
         $this->db->select('G719_C17212');
-        $this->db->from('G719');
+        $this->db->from('InformacionCredito');
         $this->db->where("G719_C17212 BETWEEN '".$fechaInicial."' AND '".$fechaFinal."'");
         $this->db->where('G719_ConsInte__b', $id_obligacion);
         //$this->db->where("G719_C17212 IS NULL");
@@ -721,7 +721,7 @@ class Reportes_Model extends CI_Model {
      
        $fechaFinal = date('Y-m-d');
         $this->db->select('G719_C17212');
-        $this->db->from('G719');
+        $this->db->from('InformacionCredito');
         $this->db->where("G719_C17212 BETWEEN '".$fechaInicial."' AND '".$fechaFinal."'");
         $this->db->where('G719_ConsInte__b', $id_obligacion);
        
@@ -779,7 +779,7 @@ class Reportes_Model extends CI_Model {
     
     function getInformeFrgGestion($frg = NULL, $gestores = NULL, $fechaInicial, $fechaFinal){
         
-
+ 
         $this->db->select(' NumeroLiquidacion,
                             NombreDeudor,
                             TipoIdentificacion, 

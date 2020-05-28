@@ -33,16 +33,16 @@ class Tareas_Model extends CI_Model {
     function getTareabyId($id){
         $this->db->select(' G738_C17195 as fecha_ejecucion,
                             G738_C17196 as hora_ejecucion,
-                            G738_C17186 as contrato_ejecucion,
+                            cast(G738_C17186 as int) as contrato_ejecucion,
                             G738_C17188 as descripcion,
                             G738_C17197 as cliente, 
                             Dedonde as tipificacion,
-                            G717_C17005 as cedula,
+                            NroIdentificacion as cedula,
                             G738_ConsInte__b,
                             vista
                             ');
         $this->db->from('G738');
-        $this->db->join('G717', 'G738_C17190 = G717_ConsInte__b');
+        $this->db->join('InformacionCliente', 'G738_C17190 = Id','LEFT');
         $this->db->where('G738_ConsInte__b', $id);
         $this->db->order_by('G738_C17195');
         $query =  $this->db->get();

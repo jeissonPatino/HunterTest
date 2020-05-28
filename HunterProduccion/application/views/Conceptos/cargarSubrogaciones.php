@@ -1,10 +1,10 @@
 <section class="content-header">
     <h1>
-        Configuración cargue de subrogaciones
+        CONFIGURACIÓN CARGUE DE SUBROGACIONES
     </h1>
     <ol class="breadcrumb">
     	<li><a href="<?php echo base_url();?>home">Inicio</a></li>
-        <li class="active">Asignacion - Abogados</li>
+        <li class="active">Asignación - Abogados</li>
     </ol>
 </section>
 
@@ -46,7 +46,7 @@
               	<label for="inputEmail3" class="col-sm-2 control-label">Asignado por:</label>
               	<div class="col-sm-10">
                 	  <select id="cmbFiltros" name="filtro" class="form-control">
-                        <option value="G719_C17026">No. Contrato</option>
+                        <option value="NoContrato">No. Contrato</option>
                         <option value="G719_C17423">No. Liquidacion</option>
                   	</select>
               	</div>
@@ -94,7 +94,7 @@
             	      <label for="inputEmail3" class="col-sm-2 control-label">Seleccionar Filtro</label>
                   	<div class="col-sm-10">
                   	    <select id="cmbFiltros2" name="cmbFiltros2" class="form-control">
-	                          <option value="G719_C17026">No. Contrato</option>
+	                          <option value="NoContrato">No. Contrato</option>
                             <option value="G719_C17423">No. Liquidacion</option>
                       	</select>
                   	</div>
@@ -157,7 +157,7 @@
          var validador = 0;
           
           if($("#txtnumeroSap").val().length < 1){
-              alertify.error('Debe escribir el numero del contrato y/o liquidacion');
+              alertify.error('Debe escribir el número del contrato y/o liquidacion');
               validador = 1;
           }
 

@@ -3,7 +3,7 @@
     header("Content-type: application/vnd.ms-excel; charset=utf-8");
     header("Content-Disposition: attachment; filename=gestion_extrajudicial_mensual.xls");
 ?>
-
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <table class="table table-hover table-bordered" width="50%">
     <thead>
         <tr>

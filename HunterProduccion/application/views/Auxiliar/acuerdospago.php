@@ -1,6 +1,6 @@
 <section class="content-header">
     <h1>
-        Acuerdos de pago
+        ACUERDOS DE PAGO
     </h1>
     <ol class="breadcrumb">
     	<li><a href="<?php echo base_url();?>home">Inicio</a></li>
@@ -308,7 +308,7 @@
 				if(data.length > 0){
 					getdatos(data, id);
 				}else{
-					alertify.error('Ese numero de contrato no existe');
+					alertify.error('Ese número de contrato no existe');
 				}
 			}
 		});
@@ -322,9 +322,9 @@
 			success : function(data){
 				if(data.length > 0){
 					$("#NumeroContrato").val(data);
-					alertify.success('Numero de contrato Valido!');
+					alertify.success('Número de contrato Valido!');
 				}else{
-					alertify.error('Ese numero de contrato no existe');
+					alertify.error('Ese número de contrato no existe');
 				}
 			}
 		});

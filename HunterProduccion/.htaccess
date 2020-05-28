@@ -11,7 +11,7 @@
 
     
     RewriteCond %{REQUEST_URI} ^system.*
-    RewriteRule ^(.*)$ /HunterProduccion/index.php?/$1 [L]
+    RewriteRule ^(.*)$ HunterBD/index.php?/$1 [L]
 
      
 
@@ -21,7 +21,7 @@
     #Rename 'application' to your applications folder name.
 
     RewriteCond %{REQUEST_URI} ^application.*
-    RewriteRule ^(.*)$ /HunterProduccion/index.php?/$1 [L]
+    RewriteRule ^(.*)$ /HunterBD/index.php?/$1 [L]
 
  
 
@@ -31,7 +31,7 @@
 
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteRule ^(.*)$ /HunterProduccion/index.php?/$1 [L]
+    RewriteRule ^(.*)$ /HunterBD/index.php?/$1 [L]
 
 </IfModule>
 
@@ -43,7 +43,7 @@
     # can be sent to index.php, and everything works as normal.
     # Submitted by: ElliotHaughin
 
-    ErrorDocument 404 /HunterProduccion/index.php
+    ErrorDocument 404 /HunterBD/index.php
 
 </IfModule>
 

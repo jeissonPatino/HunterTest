@@ -1,7 +1,7 @@
 <section class="content-header">
     <h1>
        
-       Obligaciones
+       OBLIGACIONES
     </h1>
     <ol class="breadcrumb">
     	<li><a href="<?php echo base_url();?>home">Inicio</a></li>
@@ -65,7 +65,7 @@
 											<div class="box-header with-border">
 												<h4 class="box-title">
 													<a data-toggle="collapse" data-parent="#accordion" href="#collapseOneOne">
-														DATOS OBLIGACION
+														DATOS OBLIGACIÓN
 													</a>
 												</h4>
 											</div>
@@ -623,7 +623,7 @@
             	<div class="nav-tabs-custom">
 	                <!-- Tabs within a box -->
 	                <ul class="nav nav-tabs pull-left">
-	              		<li class="active"><a id="tab1" href="#revenue-chart" data-toggle="tab">Que quieres hacer</a></li>
+	              		<li class="active"><a id="tab1" href="#revenue-chart" data-toggle="tab">Qué quieres hacer</a></li>
 	                 	<li><a id="tab2" href="#revenue-chart2" data-toggle="">Localizado o Ilocalizado</a></li>
 	           			<li><a id="tab3" href="#revenue-chart3" data-toggle="">Gestiones</a></li>
 	           			<li><a id="tab4" href="#revenue-chart4" data-toggle="">subgestiones</a></li>
@@ -828,7 +828,7 @@
                 <div class="box-header with-border">
 					<h4 class="box-title">
 						<a data-toggle="collapse" data-parent="#accordion" href="#collapseObligacciob">
-							DATOS DE LA OBLIGACION
+							DATOS DE LA OBLIGACIÓN
 						</a>
 					</h4>
 				</div>
@@ -838,13 +838,13 @@
 							echo '<div class="row">
 						  		<div class="col-md-3"><label>Nombre del Deudor</label></div>
 						  		<div class="col-md-3">'.$key->Deudor.'</div>
-						  		<div class="col-md-3"><label>Numero de Identificación</label></div>
+						  		<div class="col-md-3"><label>Número de Identificación</label></div>
 						  		<div class="col-md-3">'.$key->identificacion.'</div>
 						  	</div>';
 						  	
 						}?>
 					  	<div class="row">
-					  		<div class="col-md-3"><label>Numero de Contrato</label></div>
+					  		<div class="col-md-3"><label>Número de Contrato</label></div>
 					  		<div class="col-md-3" id='simularContrato'></div>
 					  		<div class="col-md-3"><label>Intermediario Financiero</label></div>
 					  		<div class="col-md-3" id="simuladorIntemediario"></div>
@@ -962,7 +962,7 @@
 					  		<div class="col-md-6">
 					  			<form class="form-horizontal">
 									<div class="form-group">
-										<label for="inputEmail3" class="col-sm-4 control-label">Numero de Cuotas</label>
+										<label for="inputEmail3" class="col-sm-4 control-label">Número de Cuotas</label>
 										<div class="col-sm-8">
 											<input type="text" class="form-control" value="10" id="txtNumeroCuotas">
 										</div>
@@ -1023,7 +1023,7 @@
 					  	<div class="row">
 					  		<div class="col-md-3"><label>TITULAR DE LA CUENTA</label></div>
 					  		<div class="col-md-3"><label>Fondo Nacional de Garantías S.A.</label></div>
-					  		<div class="col-md-3"><label>NUMERO DE REFERENCIA</label></div>
+					  		<div class="col-md-3"><label>NÚMERO DE REFERENCIA</label></div>
 					  		<div class="col-md-3" id="referenciaCOntratop"></div>
 					  	</div>
 					</div>
@@ -1243,7 +1243,7 @@
                 <div class="row">
                     <div class="col-md-12" >
                         <div class="form-group">
-                            <label>Que quieres hacer?</label>
+                            <label>Qué quieres hacer?</label>
                             <select class="form-control" id="gestionCombo">
                             	<option value="1792">Llamar</option>
                             	<option value="1793">Reunión</option>
@@ -1266,8 +1266,8 @@
                 <div class="row">
                     <div class="col-md-12" >
                         <div class="form-group">
-                            <label>Descripcion</label>
-                            <textarea class="form-control" rows="3" id="txtDescripcion" placeholder="Descripcion"></textarea>
+                            <label>Descripción</label>
+                            <textarea class="form-control" rows="3" id="txtDescripcion" placeholder="Descripción"></textarea>
                         </div>
                     </div>
                 </div>

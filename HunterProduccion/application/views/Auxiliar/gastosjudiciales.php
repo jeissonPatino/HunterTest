@@ -1,6 +1,6 @@
 <section class="content-header">
     <h1>
-       Facturas gastos judiciales
+       FACTURAS GASTOS JUDICIALES 
     </h1>
     <ol class="breadcrumb">
     	<li><a href="<?php echo base_url();?>home">Inicio</a></li>
@@ -46,7 +46,7 @@
 							</div>
 						</div><!-- /.box-header -->
 						<div class="box-body table-responsive no-padding">
-							<table class="table table-hover" id="tblAbogados">
+							<table class="table table-hover" id="tblAbogados2">
 								<thead>
 									<tr>
 										<th style="text-align:center;">No. Liquidación</th>
@@ -89,7 +89,7 @@
 					  				<option value="0">Seleccione</option>
 					  				<?php 
 					  					foreach ($conceptos as $key) {
-					  						echo "<option value='".$key->LISOPC_ConsInte__b."'>".utf8_encode($key->LISOPC_Nombre____b)."</option>";
+					  						echo "<option value='".$key->Id."'>".utf8_encode($key->Nombre_b)."</option>";
 					  					}
 				  					?>
 					  			</select>
@@ -158,7 +158,7 @@
             todayHighlight: true
         });
 
-		$("#tblAbogados").DataTable({
+		$("#tblAbogados2").DataTable({
 				
            	"aaData": <?php echo $valores; ?>,
 	        "aoColumns": [
@@ -184,8 +184,6 @@
                 
             },
             
-            "iDisplayLength": 10,
-            "aLengthMenu": [[10, 20, 30, 40], [10, 20, 30, 40]],
 	        "fnRowCallback": function( nRow, aData, iDisplayIndex ) {
           		var id = aData[0];
 	            $(nRow).attr("dato",id);
@@ -202,7 +200,7 @@
 
 	    });
 
-	    var search_input = $("#tblAbogados").closest('.dataTables_wrapper').find('div[id$=_filter] input');
+	    var search_input = $("#tblAbogados2").closest('.dataTables_wrapper').find('div[id$=_filter] input');
         search_input.attr('placeholder', 'Buscar');
 
 
@@ -373,7 +371,7 @@
 				if(data.length > 0){
 					getdatos(data, getId);
 				}else{
-					alertify.error('Ese numero de contrato no existe');
+					alertify.error('Ese número de contrato no existe');
 				}
 			}
 		});
@@ -387,9 +385,9 @@
 			success : function(data){
 				if(data.length > 0){
 					$("#NumeroContrato").val(data);
-					alertify.success('Numero de contrato Valido!');
+					alertify.success('Número de contrato Valido!');
 				}else{
-					alertify.error('Ese numero de contrato no existe');
+					alertify.error('Ese número de contrato no existe');
 				}
 			}
 		});

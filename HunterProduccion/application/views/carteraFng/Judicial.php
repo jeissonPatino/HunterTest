@@ -1,6 +1,8 @@
 <section class="content-header">
     <h1>
-        Cartera FNG - Mis procesos vigentes
+        
+		CARTERA FNG - MIS PROCESOS VIGENTES
+
     </h1>
     <ol class="breadcrumb">
     	<li><a href="<?php echo base_url();?>home">Inicio</a></li>
@@ -101,16 +103,26 @@
 					{ mData: "ciudad" },
 					{ mData: "abogado" },
 				],
-				"bJQueryUI": true,
-				"bProcessing": true,
-				"bSort": true,
-				"bSortClasses": false,
-				"bDeferRender": true,
-				"sPaginationType": "simple",
+				"dom": 'Blfrtip',
+	        "bJQueryUI": true,
+	        "bProcessing": true,
+	        "bSort": true,
+	        "bSortClasses": false,
+	        "bDeferRender": true,
+	        "sPaginationType": "simple",
 	            "iDisplayLength": 20,
 	            "aaSorting":[[0,"asc"]],
+	          "buttons": [{
+			                  extend: 'csv',
+			                  text: 'Excel',
+			                  fieldSeparator : ';',
+			                  charset: 'utf-8',
+			                  extension: '.csv',
+	              filename: 'Mis procesos vigentes',
+	              bom: true
+	              }],
 	            "aLengthMenu": [[20, 40, 60, 100], [20, 40, 60, 100]],
-				"oLanguage": {
+	        "oLanguage": {
 	                "sLengthMenu": "_MENU_ registros por página",
 	                "sZeroRecords": "0 resultados en el criterio de busqueda",
 	                "sInfo": "Mostrando de _START_ a _END_ de _TOTAL_ registros",
@@ -118,9 +130,9 @@
 	                "sInfoFiltered": "(Filtrado de _MAX_ total registros)",
 	                "sSearch": "Buscar:",
 	                "oPaginate": {
-				        "sNext": ">>",
-				        "sPrevious": "<<"
-			      	}
+	                "sNext": ">>",
+	                "sPrevious": "<<"
+	              } 
 	            },
 	            "processing": true,
 	           //	"ajax": "<?php echo base_url();?>Cartera_fng/getDatosProcesosVigentes",
@@ -137,9 +149,7 @@
 						var garantia = $(this).attr("dato").replace(' ', '');
 						window.location.href = "<?php echo base_url();?>cartera_fng/datosJudiciales/"+garantia+'/1';
 				   });
-				},
-				"dom": 'Bfrtip',
-			    "buttons": ['excel']
+				}
 	    });
 
 

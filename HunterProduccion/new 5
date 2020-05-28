@@ -1,0 +1,71 @@
+reunion de sefuimiento 16 06 2019 
+
+Asistentes:
+		Juan carlos burgon.
+		Juan esteban Ochoa.
+		Carolinas Perez.
+		Andres Angarita.
+		Andres Carrillo.
+		Anghie rincon.
+		Francisco Lugo.
+		Eduard Gutierrez.
+		Huverney Gomez.
+		Tulio Niño.
+		Sandra Sanchez.
+		Carolina 
+		
+				
+Juan carlos burgon 
+
+	-	Agradece a todos los frentes por su compromiso, gestion y apoyo durante la ventana de migracion, 
+		ademas extiende las felicitaciones de Arnulfo de Servientrega por el trabajo realizado durante la ventana.
+	-	El resultado de la migracion estuvo muy bien hasta el 15 de Julio a las 10:30 a.m. de la mañana en donde 
+		se presentaron problemas de lentitud en la aplicacion.
+	-	Se migro del nodo de medellin al de bogota para mitigar el tema de la lentitud, se hara un plan de trabajo 
+		para realizar nuevamnete el cambio de nodo a medellin
+	- 	Interbloqueos en la base de datos se realizaron estadisticas a las tablas mas pesadas a las 9 de noche se realizo mantenimiento, 
+		esto mejoro la velocidad de procesamiento en el motor de Base de datos, el nodo segundario esta en medellin esto con  el fin de tener contingencia.
+	-	se realiza FeedBack con cada uno de los frentes quienes dan sus aportes, comentarios y conclusiones sobre la ventana de migraion realizada.
+	-	Se solicto para la post-ventana que los recursos estuvieran disponibles 7/24, algunos se ausentaron a medio dia del domingo. 
+	-	Advierte que Orion tiene una actividad que prenden los servidores que esten Ofline para realizar actualizaciones.
+	-	La fecha tentativa de migracion de Sismilenio 27 de Julio, los frentes Objetan ya que la cantidad de actividades son extensas de realizar
+	
+Huverney Gomez
+
+	-	por parte de seguridad es importate que la gente de redes ordene el direccionamiento publico.
+	-	agradece la actitud del equipo que asistio a la ventana de migracion por parte de Digiware.
+
+
+Comprimiso:
+	- Enviar documento de mejores practicas:	Responsables: todos los frentes.
+	- Enviar la evidencia de los realizado en la ventana: 	Responsables: Todos los frentes. 
+	- Enviar los informes de las actividades y actualizaciones realizadas durante la ventana:	Responsables:	Todos los frentes.
+	- solicitar la documentacion a F5 de la arquitectura que se actualizo con el 70/30:	Jeisson Patiño
+	- Cada frente realizar un informe en el cual se especifique los rescursos disponibles:	Responsables: Todos los frentes
+	- Por Parte de Qa debe Entregar informes de Avance:	Responsables:	Todos Los Qa
+	- Informes de analisis de diseño de cada aplicacion	Responsables:	Todos Los Qa
+	- Borrador del minutograma de Sismilenio:	Responsables:	Tulio Niño
+	
+Informes de avance 
+	Anghie rincon: sacar de la grabancion.
+	
+	Digiware: 
+	Eduard Gutierrez: Se realizaron las configuraciones del fW para la migracion de Sisclinet, eduard dice que fue una actividad extensa 
+	hace falta autorizacion de Seguridad de la informarcion para habilitar.
+	
+	Networking 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	Eduard Gutierrez
+	- para la actualizacion pendiente se pasara el RFC esta semana para la aprovacion de la ventana para realizar la tarea.
+	

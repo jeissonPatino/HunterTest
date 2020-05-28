@@ -1,6 +1,6 @@
 <section class="content-header">
     <h1>
-      Abogados
+     ABOGADOS
     </h1>
     <ol class="breadcrumb">
     	<li><a href="<?php echo base_url();?>home">Inicio</a></li>
@@ -60,19 +60,19 @@
 
 						<div class="form-group">
 							<Label>Correo Electrónico</Label>
-							<input type="text" class="form-control" placeholder="Correo Electronico"  id="correo" name="correo" disabled>
+							<input type="text" class="form-control" placeholder="Correo Electrónico"  id="correo" name="correo" disabled>
 						</div>
 						<div class="form-group">
 							<Label>Dirección</Label>
 							<input type="text" class="form-control" placeholder="Dirección"  id="TxtDireccion"  name="TxtDireccion" disabled>
 						</div>
 						<div class="form-group">
-							<label>Frg:</label>
+							<label>FRG:</label>
 							<select id="cmbFrgs" name="cmbFrgs" disabled  class="form-control">
 								<option value="0">Seleccione</option>
 								<?php 
 									foreach ($frg as $key) {
-										echo "<option value='".$key->G729_ConsInte__b."'>".utf8_encode($key->Frg)."</option>";
+										echo "<option value='".$key->Id."'>".utf8_encode($key->Frg)."</option>";
 									}
 								?>
 							</select>

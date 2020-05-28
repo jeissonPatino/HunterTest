@@ -1,6 +1,6 @@
 <section class="content-header">
     <h1>
-        Gestión Judicial - Proceso Asociado
+        GESTIÓN JUDICIAL - PROCESO ASOCIADO
     </h1>
     <ol class="breadcrumb">
     	<li><a href="<?php echo base_url();?>home">Inicio</a></li>
@@ -299,10 +299,10 @@
 												for($i=0;$i < count($contratos); $i++){
 													if(!is_null($contratos[$i])){
 														if($contratos[$i]['contrato']!= ''){
-															$this->db->select('TOP 1 G719_ConsInte__b, G730_C17126');
+															$this->db->select('TOP 1 Id, NombreIF');
 														    $this->db->from('HistoricoProcesoAsociado');
-														    $this->db->join('G719', 'G719_ConsInte__b = idCredito','LEFT');
-														    $this->db->join('G730', 'G730_ConsInte__b = idIF','LEFT');
+														    $this->db->join('InformacionCredito', 'Id = idCredito','LEFT');
+														    $this->db->join('IntermediarioFinanciero', 'Id = idIF','LEFT');
 														    $this->db->where('liquidacion', $contratos[$i]['contrato']);
 														    $query = $this->db->get();
 
@@ -310,7 +310,7 @@
 														json_decode($color);
 
 													
-														 	echo "<tr><td style='cursor:pointer;background-color:".$color."'; contrato ='".$query->row()->G719_ConsInte__b."'>".$contratos[$i]['contrato']." ".$query->row()->G730_C17126 ."</td></tr>";
+														 	echo "<tr><td style='cursor:pointer;background-color:".$color."'; contrato ='".$query->row()->Id."'>".$contratos[$i]['contrato']." ".$query->row()->NombreIF ."</td></tr>";
 
 														}
 													}
@@ -810,7 +810,7 @@
 										  		<div class="col-md-3" id="AbogadoPromotor"> </div>
 										  	</div>
 										  	<div class="row">
-										  		<div class="col-md-3"><label>Fecha fijacion del aviso</label> </div>
+										  		<div class="col-md-3"><label>Fecha fijación del aviso</label> </div>
 										  		<div class="col-md-3"  id="AbogadoFechaFijacion"> </div>
 										  		<div class="col-md-3"><label>Celular</label> </div>
 										  		<div class="col-md-3" id="AbogadoCelular"> </div>

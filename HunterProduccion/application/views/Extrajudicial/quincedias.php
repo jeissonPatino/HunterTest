@@ -1,10 +1,10 @@
 <section class="content-header">
     <h1>
-        Cartera FNG - Clientes sin gestión por más de 15 días
+        CARTERA FNG - CLIENTES SIN GESTIÓN POR MÁS DE 15 DÍAS
     </h1>
     <ol class="breadcrumb">
     	<li><a href="<?php echo base_url();?>home">Inicio</a></li>
-    	<li><a href="<?php echo base_url();?>cartera_fng">Cartera Fng</a></li>
+    	<li><a href="<?php echo base_url();?>Extrajudicial">Cartera Fng</a></li>
         <li class="active">Cartera Fng - Clientes sin gestión por más de 15 días</li>
     </ol>
 </section>

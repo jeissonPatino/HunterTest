@@ -1,6 +1,6 @@
 <section class="content-header">
     <h1>
-        Configuración de reportes
+        CONFIGURACIÓN DE REPORTES
     </h1>
     <ol class="breadcrumb">
     	<li><a href="<?php echo base_url();?>home">Inicio</a></li>
@@ -183,7 +183,7 @@
     </div><!-- /.modal-dialog -->
 </div>
 
-<!-- Manuel Ochoa - Softtek - 19/11/2015 - INI - Configuracion INFORMES FRG - Gestión Extrajudicial Mensual   -->
+<!-- Manuel Ochoa - Softtek - 19/11/2015 - INI - Configuracíon INFORMES FRG - Gestión Extrajudicial Mensual   -->
 <div class="modal fade" tabindex="-1" role="dialog" id="Modal-parametros-reporte2">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -212,10 +212,10 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div>
-<!-- Manuel Ochoa - Softtek - 19/11/2015 - FIN - Configuracion INFORMES FRG - Gestión Extrajudicial Mensual   -->
+<!-- Manuel Ochoa - Softtek - 19/11/2015 - FIN - Configuracíon INFORMES FRG - Gestión Extrajudicial Mensual   -->
 
 
-<!-- Manuel Ochoa - Softtek - 19/11/2015 - INI - Configuracion INFORMES FRG - Gestión Extrajudicial Mensual   -->
+<!-- Manuel Ochoa - Softtek - 19/11/2015 - INI - Configuracíon INFORMES FRG - Gestión Extrajudicial Mensual   -->
 <div class="modal fade" tabindex="-1" role="dialog" id="Modal-parametros-reporte7">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -244,7 +244,7 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div>
-<!-- Manuel Ochoa - Softtek - 19/11/2015 - FIN - Configuracion INFORMES FRG - Gestión Extrajudicial Mensual   -->
+<!-- Manuel Ochoa - Softtek - 19/11/2015 - FIN - Configuracíon INFORMES FRG - Gestión Extrajudicial Mensual   -->
 
 <div class="modal fade" tabindex="-1" role="dialog" id="Modal-parametros-reporte4">
     <div class="modal-dialog modal-lg">
@@ -401,7 +401,7 @@
 			}
 		});
 
-		//Manuel Ochoa - Softtek - 19/11/2015 - INI - Configuracion INFORMES FRG - Gestión Extrajudicial Mensual
+		//Manuel Ochoa - Softtek - 19/11/2015 - INI - Configuracíon INFORMES FRG - Gestión Extrajudicial Mensual
 		$("#guardarParametros2").click(function(){
 			if($("#txtMetaCantidadGestiones").val().length < 1){
 				alertify.error("Por favor escriba la cantidad de gestiones");
@@ -429,9 +429,9 @@
 				});
 			}
 		});
-		//Manuel Ochoa - Softtek - 19/11/2015 - FIN - Configuracion INFORMES FRG - Gestión Extrajudicial Mensual
+		//Manuel Ochoa - Softtek - 19/11/2015 - FIN - Configuracíon INFORMES FRG - Gestión Extrajudicial Mensual
 		
-		//Manuel Ochoa - Softtek - 19/11/2015 - INI - Configuracion INFORMES ABOGADOS - Gestión judicial
+		//Manuel Ochoa - Softtek - 19/11/2015 - INI - Configuracíon INFORMES ABOGADOS - Gestión judicial
 		$("#guardarParametros7").click(function(){
 			if($("#txtMetaCantidadGestionesRep7").val().length < 1){
 				alertify.error("Por favor escriba la cantidad de gestiones");
@@ -459,12 +459,12 @@
 				});
 			}
 		});
-		//Manuel Ochoa - Softtek - 19/11/2015 - FIN - Configuracion INFORMES ABOGADOS - Gestión judicial		
+		//Manuel Ochoa - Softtek - 19/11/2015 - FIN - Configuracíon INFORMES ABOGADOS - Gestión judicial		
 		
 		$("#guardarParametros3").click(function(){
 			var idRep = "4";
 			if($("#txtNumeroObligaciones").val().length < 1){
-				alertify.error("Por favor escriba el numero de obligaciones que se necesitan para lograr la meta");
+				alertify.error("Por favor escriba el número de obligaciones que se necesitan para lograr la meta");
 				$("#txtNumeroObligaciones").focus();
 
 
@@ -574,10 +574,10 @@
 
 		$("#guardarParametros5").click(function(){
 			if($("#txtMetaAbogados").val().length < 1){
-				alertify.error("Por favor escriba el numero de obligaciones que se necesitan para lograr la meta");
+				alertify.error("Por favor escriba el número de obligaciones que se necesitan para lograr la meta");
 				$("#txtMetaAbogados").focus();
 			}else if($("#txtDiasTrancurridos").val().length < 1){
-				alertify.error("Por favor escriba el numero de dias trancurridos para la radicación del memorial");
+				alertify.error("Por favor escriba el número de dias trancurridos para la radicación del memorial");
 				$("#txtDiasTrancurridos").focus();
 			}else{
 				$.ajax({
@@ -754,22 +754,22 @@
 					        ]
 				    });
 			});
-		//Manuel Ochoa - Softtek - 19/11/2015 - INI - Configuracion INFORMES FRG - Gestión Extrajudicial Mensual
+		//Manuel Ochoa - Softtek - 19/11/2015 - INI - Configuracíon INFORMES FRG - Gestión Extrajudicial Mensual
 		}else if(id == 3){
 
 			$("#valorReporte").val(id);
 			$.getJSON('<?php echo base_url();?>configuraciones/GetdatosReporte/'+id, {format: "json"}, function(data) { 
 				$("#txtMetaCantidadGestiones").val(data.meta);
 			});
-		//Manuel Ochoa - Softtek - 19/11/2015 - FIN - Configuracion INFORMES FRG - Gestión Extrajudicial Mensual
+		//Manuel Ochoa - Softtek - 19/11/2015 - FIN - Configuracíon INFORMES FRG - Gestión Extrajudicial Mensual
 		
-		//Manuel Ochoa - Softtek - 19/11/2015 - INI - Configuracion INFORMES ABOGADOS - Gestión judicial
+		//Manuel Ochoa - Softtek - 19/11/2015 - INI - Configuracíon INFORMES ABOGADOS - Gestión judicial
 		}else if(id == 8){
 			$("#valorReporte").val(id);
 			$.getJSON('<?php echo base_url();?>configuraciones/GetdatosReporte/'+id, {format: "json"}, function(data) { 
 				$("#txtMetaCantidadGestionesRep7").val(data.meta);
 			});
-		//Manuel Ochoa - Softtek - 19/11/2015 - FIN - Configuracion INFORMES ABOGADOS - Gestión judicial		
+		//Manuel Ochoa - Softtek - 19/11/2015 - FIN - Configuracíon INFORMES ABOGADOS - Gestión judicial		
 		}else{
 			$("#valorReporte").val(id);
 			$.getJSON('<?php echo base_url();?>configuraciones/GetdatosReporte/'+id, {format: "json"}, function(data) { 

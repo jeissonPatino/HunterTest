@@ -14,17 +14,17 @@ class Extrajudicial_Model extends CI_Model {
 						valor,
 						fecha, 
 						liquidacion,
-						[G737_C17183]'); 
+						[Rol]'); 
 						
         if ($this->session->userdata('tpo_usuario') == 'ABOGADO') 
 		{
           if( $this->session->userdata('codigo_abogado') != NULL)
 		  {
-              $this->db->where('G719_C17153', $this->session->userdata('codigo_abogado'));
+              $this->db->where('Abogado', $this->session->userdata('codigo_abogado'));
           }else
 		  {
-              $this->db->where('G719_C17153 IS NOT NULL');
-              $this->db->where('G719_C17153', $this->session->userdata('codigo_abogado'));
+              $this->db->where('Abogado IS NOT NULL');
+              $this->db->where('Abogado', $this->session->userdata('codigo_abogado'));
           }
         }elseif ($this->session->userdata('tpo_usuario') == 'GESTOR') 
 		{
@@ -40,11 +40,11 @@ class Extrajudicial_Model extends CI_Model {
 		{
             if($this->session->userdata('frg') != NULL)
 			{
-                 $this->db->where('G719_C17029', $this->session->userdata('frg'));
+                 $this->db->where('FRG', $this->session->userdata('frg'));
             }else
 			{
-                $this->db->where('G719_C17029 IS NOT NULL');
-                $this->db->where('G719_C17029', $this->session->userdata('frg'));
+                $this->db->where('FRG IS NOT NULL');
+                $this->db->where('FRG', $this->session->userdata('frg'));
             }
         }
 
@@ -55,64 +55,64 @@ class Extrajudicial_Model extends CI_Model {
 	
 	/* funcion vieja clientes nuevos
     function getClientesNuevos(){
-        $this->db->select('[G717_C17240] as deudor
-					      ,[G717_C17005] as identificacion
-					      ,[G717_V1].[G719_C17030] as intemediario
-					      ,[G717_V1].[G719_C17034] as valor
-					      ,[G717_V1].[G719_C17032] as fecha
-					      ,[G717_V1].[G719_ConsInte__b]
-                          ,G719.G719_C17423 as liquidacion
-					      ,[G717_ConsInte__b]
-					      ,[G742_ConsInte__b]
-					      ,[G737_ConsInte__b]
-					      ,[G737_C17183]');
+        $this->db->select('[NombreDeudor] as deudor
+					      ,[NroIdentificacion] as identificacion
+					      ,[G717_V1].[IntermediarioFinanciero] as intemediario
+					      ,[G717_V1].[ValorPagado] as valor
+					      ,[G717_V1].[FechaPagoGarantia] as fecha
+					      ,[G717_V1].[Id]
+                          ,InformacionCredito.G719_C17423 as liquidacion
+					      ,[Id]
+					      ,[Id]
+					      ,[Id]
+					      ,[Rol]');
         // filtros de abogados y gestores
-        $this->db->join('G719', 'G717_V1.G719_ConsInte__b = G719.G719_ConsInte__b');
+        $this->db->join('InformacionCredito', 'G717_V1.Id = InformacionCredito.Id');
         if ($this->session->userdata('tpo_usuario') == 'ABOGADO') 
 		{
           if( $this->session->userdata('codigo_abogado') != NULL)
 		  {
-              $this->db->where('G719.G719_C17153', $this->session->userdata('codigo_abogado'));
+              $this->db->where('InformacionCredito.Abogado', $this->session->userdata('codigo_abogado'));
           }else
 		  {
-              $this->db->where('G719.G719_C17153 IS NOT NULL');
-              $this->db->where('G719.G719_C17153', $this->session->userdata('codigo_abogado'));
+              $this->db->where('InformacionCredito.Abogado IS NOT NULL');
+              $this->db->where('InformacionCredito.Abogado', $this->session->userdata('codigo_abogado'));
           }
         }elseif ($this->session->userdata('tpo_usuario') == 'GESTOR') 
 		{
             if($this->session->userdata('identificacion') != NULL)
 			{
-                $this->db->where('G719.G719_C17347', $this->session->userdata('identificacion'));
+                $this->db->where('InformacionCredito.G719_C17347', $this->session->userdata('identificacion'));
             }else
 			{
-                $this->db->where('G719.G719_C17347 IS NOT NULL');
-                $this->db->where('G719.G719_C17347', $this->session->userdata('identificacion'));
+                $this->db->where('InformacionCredito.G719_C17347 IS NOT NULL');
+                $this->db->where('InformacionCredito.G719_C17347', $this->session->userdata('identificacion'));
             }
         }elseif ($this->session->userdata('tpo_usuario') == 'FRG') 
 		{
             if($this->session->userdata('frg') != NULL)
 			{
-                 $this->db->where('G719.G719_C17029', $this->session->userdata('frg'));
+                 $this->db->where('InformacionCredito.FRG', $this->session->userdata('frg'));
             }else
 			{
-                $this->db->where('G719.G719_C17029 IS NOT NULL');
-                $this->db->where('G719.G719_C17029', $this->session->userdata('frg'));
+                $this->db->where('InformacionCredito.FRG IS NOT NULL');
+                $this->db->where('InformacionCredito.FRG', $this->session->userdata('frg'));
             }
         }
 
         
-        $this->db->group_by('[G717_C17240]
-                ,[G717_C17005]
-                ,[G717_V1].[G719_C17030] 
-                ,[G717_V1].[G719_C17034] 
-                ,[G717_V1].[G719_C17032] 
-                ,[G717_V1].[G719_ConsInte__b]
-                ,G719.G719_C17423 
-                ,[G717_ConsInte__b]
-                ,[G742_ConsInte__b]
-                ,[G737_ConsInte__b]
-                ,[G737_C17183]');
-        $this->db->order_by('[G717_V1].[G717_C17240]', 'ASC');
+        $this->db->group_by('[NombreDeudor]
+                ,[NroIdentificacion]
+                ,[G717_V1].[IntermediarioFinanciero] 
+                ,[G717_V1].[ValorPagado] 
+                ,[G717_V1].[FechaPagoGarantia] 
+                ,[G717_V1].[Id]
+                ,InformacionCredito.G719_C17423 
+                ,[Id]
+                ,[Id]
+                ,[Id]
+                ,[Rol]');
+        $this->db->order_by('[G717_V1].[NombreDeudor]', 'ASC');
         $query = $this->db->get('G717_V1');
 
 
@@ -120,17 +120,17 @@ class Extrajudicial_Model extends CI_Model {
     }
 */
     function gettotalClientesNuevos(){
-        $this->db->select('[G717_C17240] as deudor
-					      ,[G717_C17005] as identificacion
+        $this->db->select('[NombreDeudor] as deudor
+					      ,[NroIdentificacion] as identificacion
                 ,[tipo_identificacion] as tipo_identificacion
-					      ,[G719_C17030] as intemediario
-					      ,[G719_C17034] as valor
-					      ,[G719_C17032] as fecha
-					      ,[G719_ConsInte__b]
-					      ,[G717_ConsInte__b]
-					      ,[G742_ConsInte__b]
-					      ,[G737_ConsInte__b]
-					      ,[G737_C17183]');
+					      ,[IntermediarioFinanciero] as intemediario
+					      ,[ValorPagado] as valor
+					      ,[FechaPagoGarantia] as fecha
+					      ,[Id]
+					      ,[Id]
+					      ,[Id]
+					      ,[Id]
+					      ,[Rol]');
         $query = $this->db->get('G717_V1');
 
 
@@ -138,46 +138,46 @@ class Extrajudicial_Model extends CI_Model {
     }
 
     function getClientesDatoNuevo(){
-    	$this->db->select('DISTINCT [G717_C17240] as nombre
-					      ,[G717_C17005] as identificacion
+    	$this->db->select('DISTINCT [NombreDeudor] as nombre
+					      ,[NroIdentificacion] as identificacion
                 ,[tipo_identificacion] as tipo_identificacion
 					      ,[G743_C17257] as direccion
 					      ,[G743_C17256] as telefono
 					      ,[G743_C17258] as ciudad
-					      ,[G717_ConsInte__b]
+					      ,[Id]
 					      ,[G743_ConsInte__b], G743_C17267 
                 , G719_C17423 as liquidacion
                           ');
         // filtros de abogados y gestores
-        $this->db->join('G737', 'G737.G737_C17181 = G717_V2.G717_ConsInte__b');
-        $this->db->join('G719', 'G737.G737_C17182 = G719.G719_ConsInte__b');
+        $this->db->join('ClienteObligacion', 'ClienteObligacion.InformacionClientesId = G717_V2.Id');
+        $this->db->join('InformacionCredito', 'ClienteObligacion.NumeroContratoId = InformacionCredito.Id');
 
         if ($this->session->userdata('tpo_usuario') == 'ABOGADO') {
           if( $this->session->userdata('codigo_abogado') != NULL){
-              $this->db->where('G719.G719_C17153', $this->session->userdata('codigo_abogado'));
+              $this->db->where('InformacionCredito.Abogado', $this->session->userdata('codigo_abogado'));
           }else{
-              $this->db->where('G719.G719_C17153 IS NOT NULL');
-              $this->db->where('G719.G719_C17153', $this->session->userdata('codigo_abogado'));
+              $this->db->where('InformacionCredito.Abogado IS NOT NULL');
+              $this->db->where('InformacionCredito.Abogado', $this->session->userdata('codigo_abogado'));
           }
         }elseif ($this->session->userdata('tpo_usuario') == 'GESTOR') {
             if($this->session->userdata('identificacion') != NULL){
-                $this->db->where('G719.G719_C17347', $this->session->userdata('identificacion'));
+                $this->db->where('InformacionCredito.G719_C17347', $this->session->userdata('identificacion'));
             }else{
-                $this->db->where('G719.G719_C17347 IS NOT NULL');
-                $this->db->where('G719.G719_C17347', $this->session->userdata('identificacion'));
+                $this->db->where('InformacionCredito.G719_C17347 IS NOT NULL');
+                $this->db->where('InformacionCredito.G719_C17347', $this->session->userdata('identificacion'));
             }
         }elseif ($this->session->userdata('tpo_usuario') == 'FRG') {
             if($this->session->userdata('frg') != NULL){
-                 $this->db->where('G719.G719_C17029', $this->session->userdata('frg'));
+                 $this->db->where('InformacionCredito.FRG', $this->session->userdata('frg'));
             }else{
-                $this->db->where('G719.G719_C17029 IS NOT NULL');
-                $this->db->where('G719.G719_C17029', $this->session->userdata('frg'));
+                $this->db->where('InformacionCredito.FRG IS NOT NULL');
+                $this->db->where('InformacionCredito.FRG', $this->session->userdata('frg'));
             }
         }
 
 
         
-        $this->db->order_by('[G717_C17240]', 'DESC');
+        $this->db->order_by('[NombreDeudor]', 'DESC');
         $query = $this->db->get('G717_V2');
 
 
@@ -187,44 +187,44 @@ class Extrajudicial_Model extends CI_Model {
     }
 
     function getCLentes_titular_datoNuevo(){
-        $this->db->select('DISTINCT [G717_C17240] as Nombre
-                          ,[G717_C17005] as identificacion
+        $this->db->select('DISTINCT [NombreDeudor] as Nombre
+                          ,[NroIdentificacion] as identificacion
                           ,[tipo_identificacion] as tipo_identificacion
                           ,direccionDomicilio as direccion
                           ,telefono
                           ,ciudad
                            , G719_C17423 as liquidacion
-                          ,G717_ConsInte__b');
+                          ,Id');
         // filtros de abogados y gestores
-        $this->db->join('G737', 'G737.G737_C17181 = G717_V2_SV3.G717_ConsInte__b');
-        $this->db->join('G719', 'G737.G737_C17182 = G719.G719_ConsInte__b');
+        $this->db->join('ClienteObligacion', 'ClienteObligacion.InformacionClientesId = G717_V2_SV3.Id');
+        $this->db->join('InformacionCredito', 'ClienteObligacion.NumeroContratoId = InformacionCredito.Id');
 
         if ($this->session->userdata('tpo_usuario') == 'ABOGADO') {
           if( $this->session->userdata('codigo_abogado') != NULL){
-              $this->db->where('G719.G719_C17153', $this->session->userdata('codigo_abogado'));
+              $this->db->where('InformacionCredito.Abogado', $this->session->userdata('codigo_abogado'));
           }else{
-              $this->db->where('G719.G719_C17153 IS NOT NULL');
-              $this->db->where('G719.G719_C17153', $this->session->userdata('codigo_abogado'));
+              $this->db->where('InformacionCredito.Abogado IS NOT NULL');
+              $this->db->where('InformacionCredito.Abogado', $this->session->userdata('codigo_abogado'));
           }
         }elseif ($this->session->userdata('tpo_usuario') == 'GESTOR') {
             if($this->session->userdata('identificacion') != NULL){
-                $this->db->where('G719.G719_C17347', $this->session->userdata('identificacion'));
+                $this->db->where('InformacionCredito.G719_C17347', $this->session->userdata('identificacion'));
             }else{
-                $this->db->where('G719.G719_C17347 IS NOT NULL');
-                $this->db->where('G719.G719_C17347', $this->session->userdata('identificacion'));
+                $this->db->where('InformacionCredito.G719_C17347 IS NOT NULL');
+                $this->db->where('InformacionCredito.G719_C17347', $this->session->userdata('identificacion'));
             }
         }elseif ($this->session->userdata('tpo_usuario') == 'FRG') {
             if($this->session->userdata('frg') != NULL){
-                 $this->db->where('G719.G719_C17029', $this->session->userdata('frg'));
+                 $this->db->where('InformacionCredito.FRG', $this->session->userdata('frg'));
             }else{
-                $this->db->where('G719.G719_C17029 IS NOT NULL');
-                $this->db->where('G719.G719_C17029', $this->session->userdata('frg'));
+                $this->db->where('InformacionCredito.FRG IS NOT NULL');
+                $this->db->where('InformacionCredito.FRG', $this->session->userdata('frg'));
             }
         }
 
 
         
-        $this->db->order_by('[G717_C17240]', 'DESC');
+        $this->db->order_by('[NombreDeudor]', 'DESC');
         $query = $this->db->get('G717_V2_SV3');
 
 
@@ -233,7 +233,7 @@ class Extrajudicial_Model extends CI_Model {
     }
 
     function getTotalClientesDatoNuevo(){
-    	$this->db->select('[G717_C17240] as nombre');
+    	$this->db->select('[NombreDeudor] as nombre');
         // $this->db->where('USUARI_Codigo____b', $codigo); //esto es por si toca filtrarlo por eso lo dejo
        
         $query = $this->db->get('G717_V2');
@@ -245,47 +245,47 @@ class Extrajudicial_Model extends CI_Model {
     }
 
    function getClientesacuerdoPago(){
-      $this->db->select('[G717_C17240] as Nombre
-                          ,[G717_C17005] as identificacion
+      $this->db->select('[NombreDeudor] as Nombre
+                          ,[NroIdentificacion] as identificacion
                           ,[tipo_identificacion] as tipo_identificacion
-                          ,G719.G719_C17423 as liquidacion
-                          ,[G726_C17111] as fecha_legal
-                          ,G726_ConsInte__b as id');
-        $this->db->join('G719', 'G717_V5.G719_ConsInte__b = G719.G719_ConsInte__b');
+                          ,InformacionCredito.G719_C17423 as liquidacion
+                          ,[FechaConsignacionAnticipo] as fecha_legal
+                          ,Id as id');
+        $this->db->join('InformacionCredito', 'G717_V5.Id = InformacionCredito.Id');
 
         if ($this->session->userdata('tpo_usuario') == 'ABOGADO') {
           if( $this->session->userdata('codigo_abogado') != NULL){
-              $this->db->where('G719.G719_C17153', $this->session->userdata('codigo_abogado'));
+              $this->db->where('InformacionCredito.Abogado', $this->session->userdata('codigo_abogado'));
           }else{
-              $this->db->where('G719.G719_C17153 IS NOT NULL');
-              $this->db->where('G719.G719_C17153', $this->session->userdata('codigo_abogado'));
+              $this->db->where('InformacionCredito.Abogado IS NOT NULL');
+              $this->db->where('InformacionCredito.Abogado', $this->session->userdata('codigo_abogado'));
           }
         }elseif ($this->session->userdata('tpo_usuario') == 'GESTOR') {
             if($this->session->userdata('identificacion') != NULL){
-                $this->db->where('G719.G719_C17347', $this->session->userdata('identificacion'));
+                $this->db->where('InformacionCredito.G719_C17347', $this->session->userdata('identificacion'));
             }else{
-                $this->db->where('G719.G719_C17347 IS NOT NULL');
-                $this->db->where('G719.G719_C17347', $this->session->userdata('identificacion'));
+                $this->db->where('InformacionCredito.G719_C17347 IS NOT NULL');
+                $this->db->where('InformacionCredito.G719_C17347', $this->session->userdata('identificacion'));
             }
         }elseif ($this->session->userdata('tpo_usuario') == 'FRG') {
             if($this->session->userdata('frg') != NULL){
-                 $this->db->where('G719.G719_C17029', $this->session->userdata('frg'));
+                 $this->db->where('InformacionCredito.FRG', $this->session->userdata('frg'));
             }else{
-                $this->db->where('G719.G719_C17029 IS NOT NULL');
-                $this->db->where('G719.G719_C17029', $this->session->userdata('frg'));
+                $this->db->where('InformacionCredito.FRG IS NOT NULL');
+                $this->db->where('InformacionCredito.FRG', $this->session->userdata('frg'));
             }
         }
 		  # (ACB2) 
-        $this->db->where('G719.G719_C17048 IS NULL');
-        $this->db->where('G719.G719_C17035 > 0');		 
+        $this->db->where('InformacionCredito.FechaEnvioMemorialSubrogacionFRG IS NULL');
+        $this->db->where('InformacionCredito.SaldoFNG > 0');		 
 
-        $this->db->group_by('[G717_C17240]
-                ,[G717_C17005]
+        $this->db->group_by('[NombreDeudor]
+                ,[NroIdentificacion]
                 ,[tipo_identificacion]
-                ,G719.G719_C17423 
-                ,[G726_C17111]
-                ,G726_ConsInte__b');
-        $this->db->order_by('[G726_C17111]', 'DESC');
+                ,InformacionCredito.G719_C17423 
+                ,[FechaConsignacionAnticipo]
+                ,Id');
+        $this->db->order_by('[FechaConsignacionAnticipo]', 'DESC');
         $query = $this->db->get('G717_V5');
 
 
@@ -294,27 +294,27 @@ class Extrajudicial_Model extends CI_Model {
   
   function getDatosAcuerdosdePago($codigo){
     $this->db->select(' [G719_C17423] as contrato
-                            ,G726_C17109 as liquidacion
-                            ,G726_C17110 as consignacion_ant
-                            ,G726_C17111 as legalizacion
-                            ,G726_C17112 as valor
-                            ,G726_C17113 as plazo
-                            ,G726_C17223 as cuota
-                            ,G726_C17224 as primeracuota
-                            ,G726_C17225 as ultimaCuota
-                            ,G726_C17419 as interes
-                            ,G726_ConsInte__b as id
-                      ,G726_C17237 as codigo');
-    $this->db->join('G719', 'G726_C17237 = G719_ConsInte__b');
-        $this->db->where('G726_ConsInte__b', $codigo);
-        $query = $this->db->get('G726');
+                            ,NumeroContrato as liquidacion
+                            ,FechaLiquidacion as consignacion_ant
+                            ,FechaConsignacionAnticipo as legalizacion
+                            ,FechaLegalizacion as valor
+                            ,ValorRecaudo as plazo
+                            ,PlazoAcuerdoPago as cuota
+                            ,ValorCuotaAcuerdo as primeracuota
+                            ,FechaPagoPrimeraCuota as ultimaCuota
+                            ,TasaInteresCorrienteAcuerdoPago as interes
+                            ,Id as id
+                      ,FechaPagoUltimaCuota as codigo');
+    $this->db->join('InformacionCredito', 'FechaPagoUltimaCuota = Id');
+        $this->db->where('Id', $codigo);
+        $query = $this->db->get('AcuerdosPago');
 
 
         return $query->result();
   }
 
     function getTotalClientesacuerdoPago(){
-    	$this->db->select('[G717_C17240] as Nombre');
+    	$this->db->select('[NombreDeudor] as Nombre');
         // $this->db->where('USUARI_Codigo____b', $codigo); //esto es por si toca filtrarlo por eso lo dejo
         $query = $this->db->get('G717_V5');
 
@@ -324,44 +324,42 @@ class Extrajudicial_Model extends CI_Model {
 
     function getClientesSingestionquincedias($filtro){
       
-    	$this->db->select('G717_V6.[G717_C17240] as deudor
-					      ,G717_V6.[G717_C17005] as identificacion
-                ,G717_V6.[tipo_identificacion] as tipo_identificacion
-					      ,[G742_ConsInte__b]
-					      ,[G717_V6].[G719_ConsInte__b]
-					      ,[G742_C17244] 
-					      ,[G737_C17183]
-                ,G719.G719_C17423 as liquidacion
-					      ,[G717_V6].[G719_C17034] as valor_pagado
-					      ,[G730_C17126] as financiera
-                ,[G717_V6].G719_C17039 AS PROCESO_SAP
-                ,[G717_V6].LISOPC_Nombre____b AS ROL
-                ,[G717_V6].G718_C17015 AS CIUDAD_DOMICILIO 
-               
-					      ');
-        $this->db->join('G719', 'G717_V6.G719_ConsInte__b = G719.G719_ConsInte__b');
-
-
+    	$this->db->select('
+                          G717_V6.[NombreDeudor] as deudor, 
+                          G717_V6.[NroIdentificacion] as identificacion, 
+                          G717_V6.[TipoIdentificacion] as TipoIdentificacion, 
+                          [Id],
+                          [G717_V6].[Id], 
+                          [NumeroContrato], 
+                          [Rol], 
+                          InformacionCredito.G719_C17423 as liquidacion, 
+                          [G717_V6].[ValorPagado] as valor_pagado, 
+                          [NombreIF] as financiera, 
+                          [G717_V6].NroProcesoJudicialSAP AS PROCESO_SAP, 
+                          [G717_V6].Nombre_b AS ROL,
+                          [G717_V6].Ciudad AS CIUDAD_DOMICILIO
+                        ');
+        $this->db->join('InformacionCredito', 'G717_V6.Id = InformacionCredito.Id');
         if ($this->session->userdata('tpo_usuario') == 'ABOGADO') {
           if( $this->session->userdata('codigo_abogado') != NULL){
-              $this->db->where('G719.G719_C17153', $this->session->userdata('codigo_abogado'));
+              $this->db->where('InformacionCredito.Abogado', $this->session->userdata('codigo_abogado'));
           }else{
-              $this->db->where('G719.G719_C17153 IS NOT NULL');
-              $this->db->where('G719.G719_C17153', $this->session->userdata('codigo_abogado'));
+              $this->db->where('InformacionCredito.Abogado IS NOT NULL');
+              $this->db->where('InformacionCredito.Abogado', $this->session->userdata('codigo_abogado'));
           }
         }elseif ($this->session->userdata('tpo_usuario') == 'GESTOR') {
             if($this->session->userdata('identificacion') != NULL){
-                $this->db->where('G719.G719_C17347', $this->session->userdata('identificacion'));
+                $this->db->where('InformacionCredito.G719_C17347', $this->session->userdata('identificacion'));
             }else{
-                $this->db->where('G719.G719_C17347 IS NOT NULL');
-                $this->db->where('G719.G719_C17347', $this->session->userdata('identificacion'));
+                $this->db->where('InformacionCredito.G719_C17347 IS NOT NULL');
+                $this->db->where('InformacionCredito.G719_C17347', $this->session->userdata('identificacion'));
             }
         }elseif ($this->session->userdata('tpo_usuario') == 'FRG') {
             if($this->session->userdata('frg') != NULL){
-                 $this->db->where('G719.G719_C17029', $this->session->userdata('frg'));
+                 $this->db->where('InformacionCredito.FRG', $this->session->userdata('frg'));
             }else{
-                $this->db->where('G719.G719_C17029 IS NOT NULL');
-                $this->db->where('G719.G719_C17029', $this->session->userdata('frg'));
+                $this->db->where('InformacionCredito.FRG IS NOT NULL');
+                $this->db->where('InformacionCredito.FRG', $this->session->userdata('frg'));
             }
         }
         if(count($filtro) > 0){
@@ -373,26 +371,29 @@ class Extrajudicial_Model extends CI_Model {
           $fecha2 = explode('-', $fechas[2]);
           $fechas[2] = "$fecha2[2]-$fecha2[1]-$fecha2[0]";
 
-             $this->db->where("Fecha_gestion BETWEEN '$fechas[1]' AND '$fechas[2]'"); 
-          
+      $this->db->where("InformacionCredito.G719_C17423 not in ( select 
+                                                    distinct G719_C17423
+                                                  from GestionExtrajudicial 
+                                                  join G719 ON InformacionCredito.Id = NumeroContrato
+                                                  where FechaEjecucion BETWEEN '$fechas[1]' AND '$fechas[2]') 
+                        and  Fecha_gestion < '$fechas[1]'"); 
         }
-
-        $this->db->group_by('G717_V6.[G717_C17240]
-                ,G717_V6.[G717_C17005]
-                ,G717_V6.[tipo_identificacion] 
-                ,[G742_ConsInte__b]
-                ,[G717_V6].[G719_ConsInte__b]
-                ,[G742_C17244] 
-                ,[G737_C17183]
-                ,G719.G719_C17423
-                ,[G717_V6].[G719_C17034] 
-                ,[G730_C17126] 
-                ,[G717_V6].G719_C17039
-                ,[G717_V6].LISOPC_Nombre____b
-                ,[G717_V6].G718_C17015
+        $this->db->group_by('G717_V6.[NombreDeudor]
+                ,G717_V6.[NroIdentificacion]
+                ,G717_V6.[TipoIdentificacion] 
+                ,[Id]
+                ,[G717_V6].[Id]
+                ,[NumeroContrato] 
+                ,[Rol]
+                ,InformacionCredito.G719_C17423
+                ,[G717_V6].[ValorPagado] 
+                ,[NombreIF] 
+                ,[G717_V6].NroProcesoJudicialSAP
+                ,[G717_V6].Nombre_b
+                ,[G717_V6].Ciudad
                
                 ');
-        $this->db->order_by('G717_V6.[G717_C17240]', 'DESC');
+        $this->db->order_by('G717_V6.[NombreDeudor]', 'DESC');
         $query = $this->db->get('G717_V6');
 
         return $query->result();
@@ -400,7 +401,7 @@ class Extrajudicial_Model extends CI_Model {
 
      
      function getTotalClientesSingestionquincedias(){
-    	$this->db->select('[G717_C17240] ');
+    	$this->db->select('[NombreDeudor] ');
         // $this->db->where('USUARI_Codigo____b', $codigo); //esto es por si toca filtrarlo por eso lo dejo
         $query = $this->db->get('G717_V6');
 
@@ -410,55 +411,55 @@ class Extrajudicial_Model extends CI_Model {
 
 
     function getMisclietesVigentes(){
-    	$this->db->select('[G717_ConsInte__b]
-					      ,[G717_C17240] as deudor
-					      ,[G717_C17005] as identificacion
-                ,[tipo_identificacion] as tipo_identificacion
-					      ,G717_V7.[G719_ConsInte__b]
-                ,G719.G719_C17423 as liquidacion
-                ,G719.G719_C17032 as garantia
-					      ,G717_V7.[G719_C17034] as valor 
-					      ,[G737_ConsInte__b]
-					      ,[G737_C17183]
+    	$this->db->select('[Id]
+					      ,[NombreDeudor] as deudor
+					      ,[NroIdentificacion] as identificacion
+                ,[TipoIdentificacion] as TipoIdentificacion
+					      ,G717_V7.[Id]
+                ,InformacionCredito.G719_C17423 as liquidacion
+                ,InformacionCredito.FechaPagoGarantia as garantia
+					      ,G717_V7.[ValorPagado] as valor 
+					      ,[Id]
+					      ,[Rol]
 					      ');
-        $this->db->join('G719', 'G717_V7.G719_ConsInte__b = G719.G719_ConsInte__b');
-        $this->db->where('G717_V7.[G719_C17034] > 0 AND G719.G719_C17073 IS NOT NULL AND G719.G719_C17071 IS NOT NULL');
+        $this->db->join('InformacionCredito', 'G717_V7.Id = InformacionCredito.Id');
+        $this->db->where('G717_V7.[ValorPagado] > 0 AND InformacionCredito.G719_C17073 IS NULL AND InformacionCredito.G719_C17071 IS NULL');
         
 
         if ($this->session->userdata('tpo_usuario') == 'ABOGADO') {
           if( $this->session->userdata('codigo_abogado') != NULL){
-              $this->db->where('G719.G719_C17153', $this->session->userdata('codigo_abogado'));
+              $this->db->where('InformacionCredito.Abogado', $this->session->userdata('codigo_abogado'));
           }else{
-              $this->db->where('G719.G719_C17153 IS NOT NULL');
-              $this->db->where('G719.G719_C17153', $this->session->userdata('codigo_abogado'));
+              $this->db->where('InformacionCredito.Abogado IS NOT NULL');
+              $this->db->where('InformacionCredito.Abogado', $this->session->userdata('codigo_abogado'));
           }
         }elseif ($this->session->userdata('tpo_usuario') == 'GESTOR') {
             if($this->session->userdata('identificacion') != NULL){
-                $this->db->where('G719.G719_C17347', $this->session->userdata('identificacion'));
+                $this->db->where('InformacionCredito.G719_C17347', $this->session->userdata('identificacion'));
             }else{
-                $this->db->where('G719.G719_C17347 IS NOT NULL');
-                $this->db->where('G719.G719_C17347', $this->session->userdata('identificacion'));
+                $this->db->where('InformacionCredito.G719_C17347 IS NOT NULL');
+                $this->db->where('InformacionCredito.G719_C17347', $this->session->userdata('identificacion'));
             }
         }elseif ($this->session->userdata('tpo_usuario') == 'FRG') {
             if($this->session->userdata('frg') != NULL){
-                 $this->db->where('G719.G719_C17029', $this->session->userdata('frg'));
+                 $this->db->where('InformacionCredito.FRG', $this->session->userdata('frg'));
             }else{
-                $this->db->where('G719.G719_C17029 IS NOT NULL');
-                $this->db->where('G719.G719_C17029', $this->session->userdata('frg'));
+                $this->db->where('InformacionCredito.FRG IS NOT NULL');
+                $this->db->where('InformacionCredito.FRG', $this->session->userdata('frg'));
             }
         }
         
-        $this->db->group_by('[G717_ConsInte__b]
-                            ,[G717_C17240]
-                            ,[G717_C17005] 
-                            ,[tipo_identificacion]
-                            ,G717_V7.[G719_ConsInte__b]
-                            ,G719.G719_C17423 
-                            ,G719.G719_C17032 
-                            ,G717_V7.[G719_C17034]
-                            ,[G737_ConsInte__b]
-                            ,[G737_C17183]');
-        $this->db->order_by('[G717_C17240]', 'DESC');
+        $this->db->group_by('[Id]
+                            ,[NombreDeudor]
+                            ,[NroIdentificacion] 
+                            ,[TipoIdentificacion]
+                            ,G717_V7.[Id]
+                            ,InformacionCredito.G719_C17423 
+                            ,InformacionCredito.FechaPagoGarantia 
+                            ,G717_V7.[ValorPagado]
+                            ,[Id]
+                            ,[Rol]');
+        $this->db->order_by('[NombreDeudor]', 'DESC');
         $query = $this->db->get('G717_V7');
 
         return $query->result();
@@ -466,7 +467,7 @@ class Extrajudicial_Model extends CI_Model {
     }
 
     function getTotalMisClientesVigentes(){
-    	$this->db->select('[G717_C17240] ');
+    	$this->db->select('[NombreDeudor] ');
         // $this->db->where('USUARI_Codigo____b', $codigo); //esto es por si toca filtrarlo por eso lo dejo
         $query = $this->db->get('G717_V7');
         return $query->num_rows();
@@ -474,51 +475,51 @@ class Extrajudicial_Model extends CI_Model {
 
 
     function getExfuncionarios(){
-    	$this->db->select('[G717_ConsInte__b]
-					      ,[G717_C17240] as nombre
-					      ,[G717_C17005] as identificacion
-                ,[tipo_identificacion] as tipo_identificacion
-					      ,G717_V31.[G719_ConsInte__b]
-					      ,G717_V31.[G719_C17026] as contrato
-					      ,G717_V31.[G719_C17034] as valor_pagado
-					      ,[G737_C17183] 
-					      ,[LISOPC_Nombre____b] as rol
+    	$this->db->select('[Id]
+					      ,[NombreDeudor] as nombre
+					      ,[NroIdentificacion] as identificacion
+                ,[TipoIdentificacion] as TipoIdentificacion
+					      ,G717_V31.[Id]
+					      ,G717_V31.[NoContrato] as contrato
+					      ,G717_V31.[ValorPagado] as valor_pagado
+					      ,[Rol] 
+					      ,[Nombre_b] as rol
 					      ');
         $this->db->from('G717_V31');
         // $this->db->where('USUARI_Codigo____b', $codigo); //esto es por si toca filtrarlo por eso lo dejo
-        $this->db->join('G719', 'G717_V31.G719_ConsInte__b = G719.G719_ConsInte__b');
+        $this->db->join('InformacionCredito', 'G717_V31.Id = InformacionCredito.Id');
 
         if ($this->session->userdata('tpo_usuario') == 'ABOGADO') {
           if( $this->session->userdata('codigo_abogado') != NULL){
-              $this->db->where('G719.G719_C17153', $this->session->userdata('codigo_abogado'));
+              $this->db->where('InformacionCredito.Abogado', $this->session->userdata('codigo_abogado'));
           }else{
-              $this->db->where('G719.G719_C17153 IS NOT NULL');
-              $this->db->where('G719.G719_C17153', $this->session->userdata('codigo_abogado'));
+              $this->db->where('InformacionCredito.Abogado IS NOT NULL');
+              $this->db->where('InformacionCredito.Abogado', $this->session->userdata('codigo_abogado'));
           }
         }elseif ($this->session->userdata('tpo_usuario') == 'GESTOR') {
             if($this->session->userdata('identificacion') != NULL){
-                $this->db->where('G719.G719_C17347', $this->session->userdata('identificacion'));
+                $this->db->where('InformacionCredito.G719_C17347', $this->session->userdata('identificacion'));
             }else{
-                $this->db->where('G719.G719_C17347 IS NOT NULL');
-                $this->db->where('G719.G719_C17347', $this->session->userdata('identificacion'));
+                $this->db->where('InformacionCredito.G719_C17347 IS NOT NULL');
+                $this->db->where('InformacionCredito.G719_C17347', $this->session->userdata('identificacion'));
             }
         }elseif ($this->session->userdata('tpo_usuario') == 'FRG') {
             if($this->session->userdata('frg') != NULL){
-                 $this->db->where('G719.G719_C17029', $this->session->userdata('frg'));
+                 $this->db->where('InformacionCredito.FRG', $this->session->userdata('frg'));
             }else{
-                $this->db->where('G719.G719_C17029 IS NOT NULL');
-                $this->db->where('G719.G719_C17029', $this->session->userdata('frg'));
+                $this->db->where('InformacionCredito.FRG IS NOT NULL');
+                $this->db->where('InformacionCredito.FRG', $this->session->userdata('frg'));
             }
         }
         
-        $this->db->order_by('[G717_C17240]', 'DESC');
+        $this->db->order_by('[NombreDeudor]', 'DESC');
         $query = $this->db->get();
 
         return $query->result();
     }
 
     function getTotalExfuncionarios(){
-    	$this->db->select('[G717_C17240] ');
+    	$this->db->select('[NombreDeudor] ');
         // $this->db->where('USUARI_Codigo____b', $codigo); //esto es por si toca filtrarlo por eso lo dejo
         $query = $this->db->get('G717_V31');
         return $query->num_rows();
@@ -526,305 +527,305 @@ class Extrajudicial_Model extends CI_Model {
 
 
     function getObligaciones_Vendidas(){
-    	$this->db->select('[G717_C17240] as nombre
-					      ,[G717_C17005] as identificacion
-                ,[tipo_identificacion] as tipo_identificacion
-                ,G719.G719_C17423 as liquidacion
-					      ,G717_V32.[G719_C17034] as valor_pagado
-					      ,[G730_C17126] 
+    	$this->db->select('[NombreDeudor] as nombre
+					      ,[NroIdentificacion] as identificacion
+                ,[TipoIdentificacion] as TipoIdentificacion
+                ,InformacionCredito.G719_C17423 as liquidacion
+					      ,G717_V32.[ValorPagado] as valor_pagado
+					      ,[NombreIF] 
 					      ,G717_V32.[G719_C17073] as fecha_venta
-					      ,[G737_C17183]
+					      ,[Rol]
 					      ');
-        $this->db->join('G719', 'G717_V32.G719_ConsInte__b = G719.G719_ConsInte__b');
+        $this->db->join('InformacionCredito', 'G717_V32.Id = InformacionCredito.Id');
 
         if ($this->session->userdata('tpo_usuario') == 'ABOGADO') {
           if( $this->session->userdata('codigo_abogado') != NULL){
-              $this->db->where('G719.G719_C17153', $this->session->userdata('codigo_abogado'));
+              $this->db->where('InformacionCredito.Abogado', $this->session->userdata('codigo_abogado'));
           }else{
-              $this->db->where('G719.G719_C17153 IS NOT NULL');
-              $this->db->where('G719.G719_C17153', $this->session->userdata('codigo_abogado'));
+              $this->db->where('InformacionCredito.Abogado IS NOT NULL');
+              $this->db->where('InformacionCredito.Abogado', $this->session->userdata('codigo_abogado'));
           }
         }elseif ($this->session->userdata('tpo_usuario') == 'GESTOR') {
             if($this->session->userdata('identificacion') != NULL){
-                $this->db->where('G719.G719_C17347', $this->session->userdata('identificacion'));
+                $this->db->where('InformacionCredito.G719_C17347', $this->session->userdata('identificacion'));
             }else{
-                $this->db->where('G719.G719_C17347 IS NOT NULL');
-                $this->db->where('G719.G719_C17347', $this->session->userdata('identificacion'));
+                $this->db->where('InformacionCredito.G719_C17347 IS NOT NULL');
+                $this->db->where('InformacionCredito.G719_C17347', $this->session->userdata('identificacion'));
             }
         }elseif ($this->session->userdata('tpo_usuario') == 'FRG') {
             if($this->session->userdata('frg') != NULL){
-                 $this->db->where('G719.G719_C17029', $this->session->userdata('frg'));
+                 $this->db->where('InformacionCredito.FRG', $this->session->userdata('frg'));
             }else{
-                $this->db->where('G719.G719_C17029 IS NOT NULL');
-                $this->db->where('G719.G719_C17029', $this->session->userdata('frg'));
+                $this->db->where('InformacionCredito.FRG IS NOT NULL');
+                $this->db->where('InformacionCredito.FRG', $this->session->userdata('frg'));
             }
         }
 
-        $this->db->group_by('[G717_C17240]
-                ,[G717_C17005]
-                ,[tipo_identificacion]
-                ,G719.G719_C17423 
-                ,G717_V32.[G719_C17034]
-                ,[G730_C17126] 
+        $this->db->group_by('[NombreDeudor]
+                ,[NroIdentificacion]
+                ,[TipoIdentificacion]
+                ,InformacionCredito.G719_C17423 
+                ,G717_V32.[ValorPagado]
+                ,[NombreIF] 
                 ,G717_V32.[G719_C17073]
-                ,[G737_C17183]
+                ,[Rol]
                 ');
-        $this->db->order_by('[G717_C17240]', 'DESC');
+        $this->db->order_by('[NombreDeudor]', 'DESC');
         $query = $this->db->get('G717_V32');
 
         return $query->result();
     }
 
     function getTotalObligaciones_Vendidas(){
-    	$this->db->select('[G717_C17240] ');
+    	$this->db->select('[NombreDeudor] ');
         // $this->db->where('USUARI_Codigo____b', $codigo); //esto es por si toca filtrarlo por eso lo dejo
         $query = $this->db->get('G717_V32');
         return $query->num_rows();
     }
 
     function getObligacionesPazSalvo(){
-    	$this->db->select('DISTINCT G719.G719_C17423 as liquidacion,
-					             ,[G717_C17240] as nombre
-					             ,[G717_C17005] as identificacion
-                        ,[tipo_identificacion] as tipo_identificacion
-					             ,G717_V33.[G719_C17034] as valor_pagado
-					             ,G717_V33.[G737_C17183] as intermediario
+    	$this->db->select('DISTINCT InformacionCredito.G719_C17423 as liquidacion,
+					             ,[NombreDeudor] as nombre
+					             ,[NroIdentificacion] as identificacion
+                        ,[TipoIdentificacion] as TipoIdentificacion
+					             ,G717_V33.[ValorPagado] as valor_pagado
+					             ,G717_V33.[Rol] as intermediario
                         ,G717_V33.G719_C17071 as fecha
-                        ,G730_C17126 as financiera
+                        ,NombreIF as financiera
 					      ');
-        $this->db->join('G719', 'G717_V33.G719_ConsInte__b = G719.G719_ConsInte__b');
-        $this->db->join('G737', 'G719.G719_ConsInte__b = G737.G737_C17182');
-        $this->db->where('G719.G719_C17071 IS NOT NULL');
-        $this->db->where('G719.G719_C17035 = 0');
-        $this->db->where('G719.G719_C17073 IS NULL');
-        $this->db->where('G737.G737_C17183 = 1786');
+        $this->db->join('InformacionCredito', 'G717_V33.Id = InformacionCredito.Id');
+        $this->db->join('ClienteObligacion', 'InformacionCredito.Id = ClienteObligacion.NumeroContratoId');
+        $this->db->where('InformacionCredito.G719_C17071 IS NOT NULL');
+        $this->db->where('InformacionCredito.SaldoFNG = 0');
+        $this->db->where('InformacionCredito.G719_C17073 IS NULL');
+        $this->db->where('ClienteObligacion.Rol = 1786');
 
 
         if ($this->session->userdata('tpo_usuario') == 'ABOGADO') {
           if( $this->session->userdata('codigo_abogado') != NULL){
-              $this->db->where('G719.G719_C17153', $this->session->userdata('codigo_abogado'));
+              $this->db->where('InformacionCredito.Abogado', $this->session->userdata('codigo_abogado'));
           }else{
-              $this->db->where('G719.G719_C17153 IS NOT NULL');
-              $this->db->where('G719.G719_C17153', $this->session->userdata('codigo_abogado'));
+              $this->db->where('InformacionCredito.Abogado IS NOT NULL');
+              $this->db->where('InformacionCredito.Abogado', $this->session->userdata('codigo_abogado'));
           }
         }elseif ($this->session->userdata('tpo_usuario') == 'GESTOR') {
             if($this->session->userdata('identificacion') != NULL){
-                $this->db->where('G719.G719_C17347', $this->session->userdata('identificacion'));
+                $this->db->where('InformacionCredito.G719_C17347', $this->session->userdata('identificacion'));
             }else{
-                $this->db->where('G719.G719_C17347 IS NOT NULL');
-                $this->db->where('G719.G719_C17347', $this->session->userdata('identificacion'));
+                $this->db->where('InformacionCredito.G719_C17347 IS NOT NULL');
+                $this->db->where('InformacionCredito.G719_C17347', $this->session->userdata('identificacion'));
             }
         }elseif ($this->session->userdata('tpo_usuario') == 'FRG') {
             if($this->session->userdata('frg') != NULL){
-                 $this->db->where('G719.G719_C17029', $this->session->userdata('frg'));
+                 $this->db->where('InformacionCredito.FRG', $this->session->userdata('frg'));
             }else{
-                $this->db->where('G719.G719_C17029 IS NOT NULL');
-                $this->db->where('G719.G719_C17029', $this->session->userdata('frg'));
+                $this->db->where('InformacionCredito.FRG IS NOT NULL');
+                $this->db->where('InformacionCredito.FRG', $this->session->userdata('frg'));
             }
         }
 
-        $this->db->group_by('G719.G719_C17423,
-                ,[G717_C17240]
-                ,[G717_C17005]
-                ,[tipo_identificacion]
-                ,G717_V33.[G719_C17034]
-                ,G717_V33.[G737_C17183]
+        $this->db->group_by('InformacionCredito.G719_C17423,
+                ,[NombreDeudor]
+                ,[NroIdentificacion]
+                ,[TipoIdentificacion]
+                ,G717_V33.[ValorPagado]
+                ,G717_V33.[Rol]
                 ,G717_V33.G719_C17071 
-                ,G730_C17126
+                ,NombreIF
                 ');
-        $this->db->order_by('[G717_C17240]', 'DESC');
+        $this->db->order_by('[NombreDeudor]', 'DESC');
         $query = $this->db->get('G717_V33');
 
         return $query->result();
     }
 
     function gettotalObligacionesPazSalvo(){
-    	$this->db->select('[G717_C17240] ');
+    	$this->db->select('[NombreDeudor] ');
         // $this->db->where('USUARI_Codigo____b', $codigo); //esto es por si toca filtrarlo por eso lo dejo
         $query = $this->db->get('G717_V33');
         return $query->num_rows();
     }
 
     function getvistav3(){
-        $this->db->select('G717_V3.[G717_C17240] as nombre
-                          ,G717_V3.[G717_C17005] as identificacion
-                          ,[tipo_identificacion] as tipo_identificacion
-                          ,G717_V3.[G719_C17034] as valor_pagado
+        $this->db->select('G717_V3.[NombreDeudor] as nombre
+                          ,G717_V3.[NroIdentificacion] as identificacion
+                          ,[TipoIdentificacion] as TipoIdentificacion
+                          ,G717_V3.[ValorPagado] as valor_pagado
                           ');
-        $this->db->join('G719', 'G717_V3.G719_ConsInte__b = G719.G719_ConsInte__b');
+        $this->db->join('InformacionCredito', 'G717_V3.Id = InformacionCredito.Id');
         if ($this->session->userdata('tpo_usuario') == 'ABOGADO') {
           if( $this->session->userdata('codigo_abogado') != NULL){
-              $this->db->where('G719.G719_C17153', $this->session->userdata('codigo_abogado'));
+              $this->db->where('InformacionCredito.Abogado', $this->session->userdata('codigo_abogado'));
           }else{
-              $this->db->where('G719.G719_C17153 IS NOT NULL');
-              $this->db->where('G719.G719_C17153', $this->session->userdata('codigo_abogado'));
+              $this->db->where('InformacionCredito.Abogado IS NOT NULL');
+              $this->db->where('InformacionCredito.Abogado', $this->session->userdata('codigo_abogado'));
           }
         }elseif ($this->session->userdata('tpo_usuario') == 'GESTOR') {
             if($this->session->userdata('identificacion') != NULL){
-                $this->db->where('G719.G719_C17347', $this->session->userdata('identificacion'));
+                $this->db->where('InformacionCredito.G719_C17347', $this->session->userdata('identificacion'));
             }else{
-                $this->db->where('G719.G719_C17347 IS NOT NULL');
-                $this->db->where('G719.G719_C17347', $this->session->userdata('identificacion'));
+                $this->db->where('InformacionCredito.G719_C17347 IS NOT NULL');
+                $this->db->where('InformacionCredito.G719_C17347', $this->session->userdata('identificacion'));
             }
         }elseif ($this->session->userdata('tpo_usuario') == 'FRG') {
             if($this->session->userdata('frg') != NULL){
-                 $this->db->where('G719.G719_C17029', $this->session->userdata('frg'));
+                 $this->db->where('InformacionCredito.FRG', $this->session->userdata('frg'));
             }else{
-                $this->db->where('G719.G719_C17029 IS NOT NULL');
-                $this->db->where('G719.G719_C17029', $this->session->userdata('frg'));
+                $this->db->where('InformacionCredito.FRG IS NOT NULL');
+                $this->db->where('InformacionCredito.FRG', $this->session->userdata('frg'));
             }
         }
 
         
         // $this->db->where('USUARI_Codigo____b', $codigo); //esto es por si toca filtrarlo por eso lo dejo
-        $this->db->order_by('G717_V3.[G719_C17034]', 'DESC');
+        $this->db->order_by('G717_V3.[ValorPagado]', 'DESC');
         $query = $this->db->get('G717_V3');
         return  $query->result();
     }
 
     
     function getvistav24(){
-        $this->db->select('G717_V24.[G717_C17240] as nombre
-                          ,G717_V24.[G717_C17005] as identificacion
-                          ,[tipo_identificacion] as tipo_identificacion
-                          ,G717_V24.[G719_C17034] as valor_pagado
+        $this->db->select('G717_V24.[NombreDeudor] as nombre
+                          ,G717_V24.[NroIdentificacion] as identificacion
+                          ,[TipoIdentificacion] as TipoIdentificacion
+                          ,G717_V24.[ValorPagado] as valor_pagado
                           ');
 
-        $this->db->join('G719', 'G717_V24.G719_ConsInte__b = G719.G719_ConsInte__b');
+        $this->db->join('InformacionCredito', 'G717_V24.Id = InformacionCredito.Id');
         if ($this->session->userdata('tpo_usuario') == 'ABOGADO') {
           if( $this->session->userdata('codigo_abogado') != NULL){
-              $this->db->where('G719.G719_C17153', $this->session->userdata('codigo_abogado'));
+              $this->db->where('InformacionCredito.Abogado', $this->session->userdata('codigo_abogado'));
           }else{
-              $this->db->where('G719.G719_C17153 IS NOT NULL');
-              $this->db->where('G719.G719_C17153', $this->session->userdata('codigo_abogado'));
+              $this->db->where('InformacionCredito.Abogado IS NOT NULL');
+              $this->db->where('InformacionCredito.Abogado', $this->session->userdata('codigo_abogado'));
           }
         }elseif ($this->session->userdata('tpo_usuario') == 'GESTOR') {
             if($this->session->userdata('identificacion') != NULL){
-                $this->db->where('G719.G719_C17347', $this->session->userdata('identificacion'));
+                $this->db->where('InformacionCredito.G719_C17347', $this->session->userdata('identificacion'));
             }else{
-                $this->db->where('G719.G719_C17347 IS NOT NULL');
-                $this->db->where('G719.G719_C17347', $this->session->userdata('identificacion'));
+                $this->db->where('InformacionCredito.G719_C17347 IS NOT NULL');
+                $this->db->where('InformacionCredito.G719_C17347', $this->session->userdata('identificacion'));
             }
         }elseif ($this->session->userdata('tpo_usuario') == 'FRG') {
             if($this->session->userdata('frg') != NULL){
-                 $this->db->where('G719.G719_C17029', $this->session->userdata('frg'));
+                 $this->db->where('InformacionCredito.FRG', $this->session->userdata('frg'));
             }else{
-                $this->db->where('G719.G719_C17029 IS NOT NULL');
-                $this->db->where('G719.G719_C17029', $this->session->userdata('frg'));
+                $this->db->where('InformacionCredito.FRG IS NOT NULL');
+                $this->db->where('InformacionCredito.FRG', $this->session->userdata('frg'));
             }
         }
         
         // $this->db->where('USUARI_Codigo____b', $codigo); //esto es por si toca filtrarlo por eso lo dejo
-        $this->db->order_by('G717_V24.[G719_C17034]', 'DESC');
+        $this->db->order_by('G717_V24.[ValorPagado]', 'DESC');
         $query = $this->db->get('G717_V24');
         return  $query->result();
     }
 
     function getvistav26(){
-        $this->db->select('G717_V26.[G717_C17240] as nombre
-                          ,G717_V26.[G717_C17005] as identificacion
-                          ,[tipo_identificacion] as tipo_identificacion
-                          ,G717_V26.[G719_C17034] as valor_pagado
+        $this->db->select('G717_V26.[NombreDeudor] as nombre
+                          ,G717_V26.[NroIdentificacion] as identificacion
+                          ,[TipoIdentificacion] as TipoIdentificacion
+                          ,G717_V26.[ValorPagado] as valor_pagado
                           ');
 
-        $this->db->join('G719', 'G717_V26.G719_ConsInte__b = G719.G719_ConsInte__b');
+        $this->db->join('InformacionCredito', 'G717_V26.Id = InformacionCredito.Id');
         if ($this->session->userdata('tpo_usuario') == 'ABOGADO') {
           if( $this->session->userdata('codigo_abogado') != NULL){
-              $this->db->where('G719.G719_C17153', $this->session->userdata('codigo_abogado'));
+              $this->db->where('InformacionCredito.Abogado', $this->session->userdata('codigo_abogado'));
           }else{
-              $this->db->where('G719.G719_C17153 IS NOT NULL');
-              $this->db->where('G719.G719_C17153', $this->session->userdata('codigo_abogado'));
+              $this->db->where('InformacionCredito.Abogado IS NOT NULL');
+              $this->db->where('InformacionCredito.Abogado', $this->session->userdata('codigo_abogado'));
           }
         }elseif ($this->session->userdata('tpo_usuario') == 'GESTOR') {
             if($this->session->userdata('identificacion') != NULL){
-                $this->db->where('G719.G719_C17347', $this->session->userdata('identificacion'));
+                $this->db->where('InformacionCredito.G719_C17347', $this->session->userdata('identificacion'));
             }else{
-                $this->db->where('G719.G719_C17347 IS NOT NULL');
-                $this->db->where('G719.G719_C17347', $this->session->userdata('identificacion'));
+                $this->db->where('InformacionCredito.G719_C17347 IS NOT NULL');
+                $this->db->where('InformacionCredito.G719_C17347', $this->session->userdata('identificacion'));
             }
         }elseif ($this->session->userdata('tpo_usuario') == 'FRG') {
             if($this->session->userdata('frg') != NULL){
-                 $this->db->where('G719.G719_C17029', $this->session->userdata('frg'));
+                 $this->db->where('InformacionCredito.FRG', $this->session->userdata('frg'));
             }else{
-                $this->db->where('G719.G719_C17029 IS NOT NULL');
-                $this->db->where('G719.G719_C17029', $this->session->userdata('frg'));
+                $this->db->where('InformacionCredito.FRG IS NOT NULL');
+                $this->db->where('InformacionCredito.FRG', $this->session->userdata('frg'));
             }
         }
         
         // $this->db->where('USUARI_Codigo____b', $codigo); //esto es por si toca filtrarlo por eso lo dejo
-        $this->db->order_by('G717_V26.[G719_C17034]', 'DESC');
+        $this->db->order_by('G717_V26.[ValorPagado]', 'DESC');
         $query = $this->db->get('G717_V26');
         return  $query->result();
     }
 
     function getvistav27(){
-        $this->db->select('G717_V27.[G717_C17240] as nombre
-                          ,G717_V27.[G717_C17005] as identificacion
-                          ,[tipo_identificacion] as tipo_identificacion
-                          ,G717_V27.[G719_C17034] as valor_pagado
+        $this->db->select('G717_V27.[NombreDeudor] as nombre
+                          ,G717_V27.[NroIdentificacion] as identificacion
+                          ,[TipoIdentificacion] as TipoIdentificacion
+                          ,G717_V27.[ValorPagado] as valor_pagado
                           ');
-        $this->db->join('G719', 'G717_V27.G719_ConsInte__b = G719.G719_ConsInte__b');
+        $this->db->join('InformacionCredito', 'G717_V27.Id = InformacionCredito.Id');
         if ($this->session->userdata('tpo_usuario') == 'ABOGADO') {
           if( $this->session->userdata('codigo_abogado') != NULL){
-              $this->db->where('G719.G719_C17153', $this->session->userdata('codigo_abogado'));
+              $this->db->where('InformacionCredito.Abogado', $this->session->userdata('codigo_abogado'));
           }else{
-              $this->db->where('G719.G719_C17153 IS NOT NULL');
-              $this->db->where('G719.G719_C17153', $this->session->userdata('codigo_abogado'));
+              $this->db->where('InformacionCredito.Abogado IS NOT NULL');
+              $this->db->where('InformacionCredito.Abogado', $this->session->userdata('codigo_abogado'));
           }
         }elseif ($this->session->userdata('tpo_usuario') == 'GESTOR') {
             if($this->session->userdata('identificacion') != NULL){
-                $this->db->where('G719.G719_C17347', $this->session->userdata('identificacion'));
+                $this->db->where('InformacionCredito.G719_C17347', $this->session->userdata('identificacion'));
             }else{
-                $this->db->where('G719.G719_C17347 IS NOT NULL');
-                $this->db->where('G719.G719_C17347', $this->session->userdata('identificacion'));
+                $this->db->where('InformacionCredito.G719_C17347 IS NOT NULL');
+                $this->db->where('InformacionCredito.G719_C17347', $this->session->userdata('identificacion'));
             }
         }elseif ($this->session->userdata('tpo_usuario') == 'FRG') {
             if($this->session->userdata('frg') != NULL){
-                 $this->db->where('G719.G719_C17029', $this->session->userdata('frg'));
+                 $this->db->where('InformacionCredito.FRG', $this->session->userdata('frg'));
             }else{
-                $this->db->where('G719.G719_C17029 IS NOT NULL');
-                $this->db->where('G719.G719_C17029', $this->session->userdata('frg'));
+                $this->db->where('InformacionCredito.FRG IS NOT NULL');
+                $this->db->where('InformacionCredito.FRG', $this->session->userdata('frg'));
             }
         }
         
         // $this->db->where('USUARI_Codigo____b', $codigo); //esto es por si toca filtrarlo por eso lo dejo
-        $this->db->order_by('G717_V27.[G719_C17034]', 'DESC');
+        $this->db->order_by('G717_V27.[ValorPagado]', 'DESC');
         $query = $this->db->get('G717_V27');
         return  $query->result();
     }
 
     function getvistav28(){
-        $this->db->select('G717_V28.[G717_C17240] as nombre
-                          ,G717_V28.[G717_C17005] as identificacion
-                          ,[tipo_identificacion] as tipo_identificacion
-                          ,G717_V28.[G719_C17034] as valor_pagado
+        $this->db->select('G717_V28.[NombreDeudor] as nombre
+                          ,G717_V28.[NroIdentificacion] as identificacion
+                          ,[TipoIdentificacion] as TipoIdentificacion
+                          ,G717_V28.[ValorPagado] as valor_pagado
                           ');
-        $this->db->join('G719', 'G717_V28.G719_ConsInte__b = G719.G719_ConsInte__b');
+        $this->db->join('InformacionCredito', 'G717_V28.Id = InformacionCredito.Id');
         if ($this->session->userdata('tpo_usuario') == 'ABOGADO') {
           if( $this->session->userdata('codigo_abogado') != NULL){
-              $this->db->where('G719.G719_C17153', $this->session->userdata('codigo_abogado'));
+              $this->db->where('InformacionCredito.Abogado', $this->session->userdata('codigo_abogado'));
           }else{
-              $this->db->where('G719.G719_C17153 IS NOT NULL');
-              $this->db->where('G719.G719_C17153', $this->session->userdata('codigo_abogado'));
+              $this->db->where('InformacionCredito.Abogado IS NOT NULL');
+              $this->db->where('InformacionCredito.Abogado', $this->session->userdata('codigo_abogado'));
           }
         }elseif ($this->session->userdata('tpo_usuario') == 'GESTOR') {
             if($this->session->userdata('identificacion') != NULL){
-                $this->db->where('G719.G719_C17347', $this->session->userdata('identificacion'));
+                $this->db->where('InformacionCredito.G719_C17347', $this->session->userdata('identificacion'));
             }else{
-                $this->db->where('G719.G719_C17347 IS NOT NULL');
-                $this->db->where('G719.G719_C17347', $this->session->userdata('identificacion'));
+                $this->db->where('InformacionCredito.G719_C17347 IS NOT NULL');
+                $this->db->where('InformacionCredito.G719_C17347', $this->session->userdata('identificacion'));
             }
         }elseif ($this->session->userdata('tpo_usuario') == 'FRG') {
             if($this->session->userdata('frg') != NULL){
-                 $this->db->where('G719.G719_C17029', $this->session->userdata('frg'));
+                 $this->db->where('InformacionCredito.FRG', $this->session->userdata('frg'));
             }else{
-                $this->db->where('G719.G719_C17029 IS NOT NULL');
-                $this->db->where('G719.G719_C17029', $this->session->userdata('frg'));
+                $this->db->where('InformacionCredito.FRG IS NOT NULL');
+                $this->db->where('InformacionCredito.FRG', $this->session->userdata('frg'));
             }
         }
         
         // $this->db->where('USUARI_Codigo____b', $codigo); //esto es por si toca filtrarlo por eso lo dejo
-        $this->db->order_by('G717_V28.[G719_C17034]', 'DESC');
+        $this->db->order_by('G717_V28.[ValorPagado]', 'DESC');
         $query = $this->db->get('G717_V28');
         return  $query->result();
     }
@@ -832,7 +833,7 @@ class Extrajudicial_Model extends CI_Model {
     function getLiquidaciones(){
         $this->db->select('G719_C17423 as liquidacion');
         $this->db->group_by('G719_C17423');
-        $query = $this->db->get('G719');
+        $query = $this->db->get('InformacionCredito');
         return $query->result();
     }
 
@@ -840,51 +841,51 @@ class Extrajudicial_Model extends CI_Model {
 
     function getDatosbusquedaAvanzada($filtro = null){
         $this->db->select('G719_C17423 as LIQUIDACION
-                          ,G717_C17240 AS DEUDOR
-                          ,G717_C17005 AS IDENTIFICACION
+                          ,NombreDeudor AS DEUDOR
+                          ,NroIdentificacion AS IDENTIFICACION
                           ,[tipo_identificacion] as tipo_identificacion
-                          ,G730_C17126 AS INTERMEDIARIO
-                          ,G719_C17039 AS PROCESO_SAP
+                          ,NombreIF AS INTERMEDIARIO
+                          ,NroProcesoJudicialSAP AS PROCESO_SAP
                           ,G719_C17424 AS VALOR_PAGADO
-                          ,LISOPC_Nombre____b AS ROL
-						              ,G718_C17015 AS CIUDAD_DOMICILIO ');
-        $this->db->from('G717');
-        //$this->db->join('G717' , 'G717.G717_ConsInte__b = G717_V17.G717_ConsInte__b', 'LEFT');
-        $this->db->join('G737' , 'dbo.G717.G717_ConsInte__b = dbo.G737.G737_C17181');
-        $this->db->join('G719' , 'dbo.G737.G737_C17182 = dbo.G719.G719_ConsInte__b');
-        $this->db->join('G730' , 'dbo.G730.G730_ConsInte__b = dbo.G719.G719_C17030','LEFT');
-        $this->db->join('LISOPC' , 'dbo.LISOPC.LISOPC_ConsInte__b = dbo.G737.G737_C17183','LEFT');  
-		    $this->db->join('G718', 'G718_ConsInte__b = G719_C17041', 'LEFT');
-        $this->db->join('G726', ' G726_C17237 = G719.G719_ConsInte__b', 'LEFT');
-        $this->db->join('G744', 'G744_C17280 = G719.G719_ConsInte__b', 'LEFT');
-        $this->db->join('G734', 'G734.G734_C17241 = G719.G719_ConsInte__b', 'LEFT');
+                          ,Nombre_b AS ROL
+						              ,Ciudad AS CIUDAD_DOMICILIO ');
+        $this->db->from('InformacionCliente');
+        //$this->db->join('InformacionCliente' , 'InformacionCliente.Id = G717_V17.Id', 'LEFT');
+        $this->db->join('ClienteObligacion' , 'dbo.InformacionCliente.Id = dbo.ClienteObligacion.InformacionClientesId');
+        $this->db->join('InformacionCredito' , 'dbo.ClienteObligacion.NumeroContratoId = dbo.InformacionCredito.Id');
+        $this->db->join('IntermediarioFinanciero' , 'dbo.IntermediarioFinanciero.Id = dbo.InformacionCredito.IntermediarioFinanciero','LEFT');
+        $this->db->join('ParametroGeneral' , 'dbo.ParametroGeneral.Id = dbo.ClienteObligacion.Rol','LEFT');  
+		    $this->db->join('Ciudad', 'Id = CiudadDespacho', 'LEFT');
+        $this->db->join('AcuerdosPago', ' FechaPagoUltimaCuota = InformacionCredito.Id', 'LEFT');
+        $this->db->join('Factura', 'NumeroContratoId = InformacionCredito.Id', 'LEFT');
+        $this->db->join('G734', 'G734.G734_C17241 = InformacionCredito.Id', 'LEFT');
 
        
         if ($this->session->userdata('tpo_usuario') == 'ABOGADO') {
           if( $this->session->userdata('codigo_abogado') != NULL){
-              $this->db->where('G719.G719_C17153', $this->session->userdata('codigo_abogado'));
+              $this->db->where('InformacionCredito.Abogado', $this->session->userdata('codigo_abogado'));
           }else{
-              $this->db->where('G719.G719_C17153 IS NOT NULL');
-              $this->db->where('G719.G719_C17153', $this->session->userdata('codigo_abogado'));
+              $this->db->where('InformacionCredito.Abogado IS NOT NULL');
+              $this->db->where('InformacionCredito.Abogado', $this->session->userdata('codigo_abogado'));
           }
         }elseif ($this->session->userdata('tpo_usuario') == 'GESTOR') {
             if($this->session->userdata('identificacion') != NULL){
-                $this->db->where('G719.G719_C17347', $this->session->userdata('identificacion'));
+                $this->db->where('InformacionCredito.G719_C17347', $this->session->userdata('identificacion'));
             }else{
-                $this->db->where('G719.G719_C17347 IS NOT NULL');
-                $this->db->where('G719.G719_C17347', $this->session->userdata('identificacion'));
+                $this->db->where('InformacionCredito.G719_C17347 IS NOT NULL');
+                $this->db->where('InformacionCredito.G719_C17347', $this->session->userdata('identificacion'));
             }
         }elseif ($this->session->userdata('tpo_usuario') == 'FRG') {
             if($this->session->userdata('frg') != NULL){
-                 $this->db->where('G719.G719_C17029', $this->session->userdata('frg'));
+                 $this->db->where('InformacionCredito.FRG', $this->session->userdata('frg'));
             }else{
-                $this->db->where('G719.G719_C17029 IS NOT NULL');
-                $this->db->where('G719.G719_C17029', $this->session->userdata('frg'));
+                $this->db->where('InformacionCredito.FRG IS NOT NULL');
+                $this->db->where('InformacionCredito.FRG', $this->session->userdata('frg'));
             }
         }
 
-       // $this->db->where('G719.G719_C17423 IS NULL');
-         $this->db->where('dbo.G737.G737_C17183', 1786);
+       // $this->db->where('InformacionCredito.G719_C17423 IS NULL');
+         $this->db->where('dbo.ClienteObligacion.Rol', 1786);
 
         if(count($filtro) > 0){
             foreach($filtro as $fil => $value)
@@ -898,13 +899,13 @@ class Extrajudicial_Model extends CI_Model {
         }
         
         $this->db->group_by('G719_C17423 
-                            ,G717_C17240 
-                            ,G717_C17005 
+                            ,NombreDeudor 
+                            ,NroIdentificacion 
                             ,[tipo_identificacion]
-                            ,G730_C17126 
-                            ,G719_C17039
+                            ,NombreIF 
+                            ,NroProcesoJudicialSAP
                             ,G719_C17424 
-                            ,LISOPC_Nombre____b,G718_C17015');
+                            ,Nombre_b,Ciudad');
         $query = $this->db->get();
         
         
@@ -916,57 +917,57 @@ class Extrajudicial_Model extends CI_Model {
 
     function getDatosbusquedaAvanzada2(){
         $this->db->select('DISTINCT G719_C17423 as LIQUIDACION 
-                          ,G717_V17.G717_C17240 AS DEUDOR
-                          ,G717_V17.G717_C17005 AS IDENTIFICACION
-                          ,G717_V17.[tipo_identificacion] as tipo_identificacion
-                          ,G717_V17.G730_C17126 AS INTERMEDIARIO
+                          ,G717_V17.NombreDeudor AS DEUDOR
+                          ,G717_V17.NroIdentificacion AS IDENTIFICACION
+                          ,G717_V17.[TipoIdentificacion] as TipoIdentificacion
+                          ,G717_V17.NombreIF AS INTERMEDIARIO
                           ,G719_C17424 AS VALOR_PAGADO
-                          ,G717_V17.G737_C17183 AS ROL
-                          ,G719_C17039 AS PROCESO_SAP
-						              ,G718_C17015 AS CIUDAD_DOMICILIO
-                          ,G717_V17.G717_ConsInte__b
-                          ,G717_V17.G719_ConsInte__b');
+                          ,G717_V17.Rol AS ROL
+                          ,NroProcesoJudicialSAP AS PROCESO_SAP
+						              ,Ciudad AS CIUDAD_DOMICILIO
+                          ,G717_V17.Id
+                          ,G717_V17.Id');
         $this->db->from('G717_V17');
-        $this->db->join('G717' , 'G717.G717_ConsInte__b = G717_V17.G717_ConsInte__b', 'LEFT');
-        $this->db->join('G718', 'G718_ConsInte__b = G719_C17041', 'LEFT');
-        $this->db->join('G719' , 'G719.G719_ConsInte__b = G717_V17.G719_ConsInte__b', 'LEFT');
+        $this->db->join('InformacionCliente' , 'InformacionCliente.Id = G717_V17.Id', 'LEFT');
+        $this->db->join('Ciudad', 'Id = CiudadDespacho', 'LEFT');
+        $this->db->join('InformacionCredito' , 'InformacionCredito.Id = G717_V17.Id', 'LEFT');
 
         
 
         if ($this->session->userdata('tpo_usuario') == 'ABOGADO') {
           if( $this->session->userdata('codigo_abogado') != NULL){
-              $this->db->where('G719.G719_C17153', $this->session->userdata('codigo_abogado'));
+              $this->db->where('InformacionCredito.Abogado', $this->session->userdata('codigo_abogado'));
           }else{
-              $this->db->where('G719.G719_C17153 IS NOT NULL');
-              $this->db->where('G719.G719_C17153', $this->session->userdata('codigo_abogado'));
+              $this->db->where('InformacionCredito.Abogado IS NOT NULL');
+              $this->db->where('InformacionCredito.Abogado', $this->session->userdata('codigo_abogado'));
           }
         }elseif ($this->session->userdata('tpo_usuario') == 'GESTOR') {
             if($this->session->userdata('identificacion') != NULL){
-                $this->db->where('G719.G719_C17347', $this->session->userdata('identificacion'));
+                $this->db->where('InformacionCredito.G719_C17347', $this->session->userdata('identificacion'));
             }else{
-                $this->db->where('G719.G719_C17347 IS NOT NULL');
-                $this->db->where('G719.G719_C17347', $this->session->userdata('identificacion'));
+                $this->db->where('InformacionCredito.G719_C17347 IS NOT NULL');
+                $this->db->where('InformacionCredito.G719_C17347', $this->session->userdata('identificacion'));
             }
         }elseif ($this->session->userdata('tpo_usuario') == 'FRG') {
             if($this->session->userdata('frg') != NULL){
-                 $this->db->where('G719.G719_C17029', $this->session->userdata('frg'));
+                 $this->db->where('InformacionCredito.FRG', $this->session->userdata('frg'));
             }else{
-                $this->db->where('G719.G719_C17029 IS NOT NULL');
-                $this->db->where('G719.G719_C17029', $this->session->userdata('frg'));
+                $this->db->where('InformacionCredito.FRG IS NOT NULL');
+                $this->db->where('InformacionCredito.FRG', $this->session->userdata('frg'));
             }
         }
        
         $this->db->group_by('G719_C17423 
-                            ,G717_C17240 
-                            ,G717_C17005 
+                            ,NombreDeudor 
+                            ,NroIdentificacion 
                             ,[tipo_identificacion]
-                            ,G730_C17126 
-                            ,G719_C17039
+                            ,NombreIF 
+                            ,NroProcesoJudicialSAP
                             ,G719_C17424 
-                            ,LISOPC_Nombre____b 
-                            ,G718_C17015 
-                            ,G717_ConsInte__b
-                            ,G719_ConsInte__b');
+                            ,Nombre_b 
+                            ,Ciudad 
+                            ,Id
+                            ,Id');
         $query = $this->db->get();
         return $query->result();
     }
@@ -974,8 +975,8 @@ class Extrajudicial_Model extends CI_Model {
     
     function eliminarGestionExtraJudicial($IdEliminar){
       
-      $this->db->where('G742_ConsInte__b', $IdEliminar);
-      if($this->db->delete('G742')){
+      $this->db->where('Id', $IdEliminar);
+      if($this->db->delete('GestionExtrajudicial')){
           return '1';
       }else{
           return '0';
@@ -984,37 +985,79 @@ class Extrajudicial_Model extends CI_Model {
 
     // Creado por Jeisson Patiño 26/11/2018
     // La funcion getFiltrosGestion trae los parametros para filtrar en busqueda Tipo de Gestiones
+// resultado comunicacion 
+    function getfiltrosEstado(){
+        $this->db->select('G732_C17129,
+                           Nombre_b');
+        $this->db->join('ParametroGeneral' , 'Id = G732_C17129', 'LEFT');
+        $this->db->group_by('G732_C17129,
+                            Nombre_b');
+        $query = $this->db->get('G732');
+        return $query->result();
+    }
 
-    function getFiltrosGestion(){
-        $this->db->select('LISOPC_Nombre____b as Gestiones,
-                            LISOPC_ConsInte__b as Id');
-        $this->db->where("LISOPC_ConsInte__OPCION_b in (192,193)"); 
+// gestion
+    function getFiltrosGestion($codigo){
+        $this->db->select('G732_C17130,
+                           Nombre_b');
+        $this->db->join('ParametroGeneral' , 'Id = G732_C17130', 'LEFT');
+        if($codigo == 1781){
+         $this->db->where('G732_C17130 != 1785');
+         $this->db->where('G732_C17129', $codigo);
+        }else{
+        $this->db->where('G732_C17129', $codigo);
+        $this->db->where('G732_C17130 != 1816');
+        }
+        $this->db->group_by('G732_C17130,
+                            Nombre_b');
+        $query = $this->db->get('G732');
+        return $query->result();
+    }
 
-        $query = $this->db->get('LISOPC');
-
-       return $query->result();
+// Subgestion
+    function getfiltrosSubgestion($codigo,$gestion){
+        $this->db->select('G732_ConsInte__b,
+                           G732_C17131');
+        $this->db->where('G732_C17129', $codigo);
+        $this->db->where('G732_C17130',$gestion);
+        $this->db->group_by('G732_ConsInte__b,
+                            G732_C17131');
+        $query = $this->db->get('G732');
+        return $query->result();
     }
 
 
-    function getliquidacionPorGestion($tipoGestion,$fechaInicial,$fechaFinal){
-      $this->db->select('NombreDeudor ,
-                         TipoIdentificacion,
-                          NumeroId, 
-                          CiudadDespacho, 
-                          Intermediariofinancero ,   
-                          NumeroLiquidacion,
-                          ProcesoSAP,
-                          valorPagado,
-                          ROL,
-                          fechaIngreso');
+    function getliquidacionPorGestion($codigo,$gestion,$subgestion,$fechaInicial,$fechaFinal){
+      $this->db->select('MAX (Nombre_b) rol,
+                        MAX (NombreDeudor) as nombre,
+                        MAX (tipo_identificacion) as ti,
+                        MAX (NroIdentificacion) as identificacion,
+                        MAX (NombreIF) as intermediario,
+                        G719_C17423 as liquidacion,
+                        MAX (NroProcesoJudicialSAP) as SAP,
+                        MAX (G719_C17424) as Valor,
+                        MAX (Ejecutor) as Gestor,
+                        MAX (dbo.GestionExtrajudicial.HoraEjecucion) AS fechaIngreso');
+      $this->db->join('InformacionCredito' , 'NumeroContrato = Id', 'LEFT');
+      $this->db->join('IntermediarioFinanciero' , 'IntermediarioFinanciero = Id', 'LEFT');
+      $this->db->join('ClienteObligacion' , 'NumeroContratoId = Id', 'LEFT');
+      $this->db->join('InformacionCliente' , 'InformacionClientesId = Id', 'LEFT'); 
+      $this->db->join('ParametroGeneral' , 'Rol = Id', 'LEFT');
+      $this->db->where('G719_C17423 is not null');
+      $this->db->where('ResultadoComunicacion', $codigo);
+      $this->db->where('HoraEjecucion >= ', $fechaInicial);
+      $this->db->where('HoraEjecucion <= ', $fechaFinal);
 
-      $this->db->where('fechaIngreso >= ', $fechaInicial);
-      $this->db->where('fechaIngreso <= ', $fechaFinal);  
-      $this->db->where('Id', $tipoGestion);
-
+      if($gestion != NULL || $gestion != 0 || $gestion != ''){
+        $this->db->where('Gestion', $gestion);
+        if($subgestion != NULL || $subgestion != 0 || $subgestion != ''){
+          $this->db->where('SubGesstion', $subgestion);
+        }
+      }
+      
+      $this->db->group_by('G719_C17423');
       $this->db->order_by('fechaIngreso', 'ASC');
-
-      $query = $this->db->get('VistaGestiones');
+      $query = $this->db->get('GestionExtrajudicial');
     return $query->result();
 
     }

@@ -1,10 +1,10 @@
 <section class="content-header">
     <h1>
-        FRG - Asignación gestores
+        FRG - ASIGNACIÓN GESTORES
     </h1>
     <ol class="breadcrumb">
     	<li><a href="<?php echo base_url();?>home">Inicio</a></li>
-        <li class="active">Asignacion - FRG gestores.</li>
+        <li class="active">Asignación - FRG gestores.</li>
     </ol>
 </section>
 
@@ -50,7 +50,7 @@
                   	<div class="col-sm-10">
                     	<select id="cmbFiltrosMax" name="cmbFiltrosMax" class="form-control">
 	                          <option value="IDENTIFICACION">Identificación</option>
-							              <option value="G719_C17026">No. Contrato</option>
+							              <option value="NoContrato">No. Contrato</option>
                             <option value="G719_C17423">No. Liquidacion</option>
 							              <option value="NOMBRE">Nombre Cliente</option>
                       	</select>
@@ -128,7 +128,7 @@
 						<div class="col-sm-10">
 							<select id="cmbFiltros" class="form-control">
 								<option value="IDENTIFICACION">Identificación</option>
-								<option value="G719_C17026">No. Contrato</option>
+								<option value="NoContrato">No. Contrato</option>
                 <option value="G719_C17423">No. Liquidacion</option>
 								<option value="NOMBRE">Nombre Cliente</option>
 							</select>
@@ -176,7 +176,7 @@
   	</div><!-- /.box -->
 
 </section>
-<<script src="<?php echo base_url();?>assets/plugins/validate/jquery.validate.min.js"></script>
+<script src="<?php echo base_url();?>assets/plugins/validate/jquery.validate.min.js"></script>
 <script src="<?php echo base_url();?>assets/dist/js/alertify.js"></script>
 <script type="text/javascript">
 

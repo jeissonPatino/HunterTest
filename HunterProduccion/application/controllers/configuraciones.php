@@ -110,8 +110,9 @@ class Configuraciones extends Login {
             $resultado = false;
             $usuarioE = $_POST['id'];
             $usuarioEli = $this->Reportes_Model->LlenarTablaLogeliminacionUsuarios($usuario,$id,$usuarioE);
+            $datos = array('USUARI_Bloqueado_b' => '1');
+            $resultado = $this->Wizard_Model->editarDatos('USUARI', $datos,$_POST['id'], 'USUARI_ConsInte__b');
 
-            $resultado = $this->Wizard_Model->borrarDatos('USUARI', $_POST['id'], 'USUARI_ConsInte__b');
             if($resultado){
                 echo "1";
             }else{
@@ -592,9 +593,9 @@ class Configuraciones extends Login {
                                 'estado_obligacion' => 2
                             );
                             $resultado = false;
-                            /*$resultado = $this->Wizard_Model->editarDatos('G719', $datos, $value['A'], 'G719_C17026');*/
-                            $this->db->where('G719_C17026', $value['A']);
-                            if($this->db->delete('G719')){
+                            /*$resultado = $this->Wizard_Model->editarDatos('InformacionCredito', $datos, $value['A'], 'NoContrato');*/
+                            $this->db->where('NoContrato', $value['A']);
+                            if($this->db->delete('InformacionCredito')){
                                 $acertados += 1;
                                 //Aqui guardamos en el log la eliminacion 
                                 $datosLog = array(
@@ -614,9 +615,9 @@ class Configuraciones extends Login {
                                     'estado_obligacion' => 2
                             );
                             $resultado = false;
-                          // $resultado = $this->Wizard_Model->editarDatos('G719', $datos, $value['A'], 'G719_C17423');
+                          // $resultado = $this->Wizard_Model->editarDatos('InformacionCredito', $datos, $value['A'], 'G719_C17423');
                             $this->db->where('G719_C17423', $value['A']);
-                            if($this->db->delete('G719')){
+                            if($this->db->delete('InformacionCredito')){
                                 $acertados += 1;
                                 //Aqui guardamos en el log la eliminacion
                                 $datosLog = array(
@@ -710,9 +711,9 @@ class Configuraciones extends Login {
                                 $existentes++;
                                 $year = date('Y');
                                 //obtengo la info de la obligacion
-                                $this->db->select('G719_C17029 as frg,  G719_C17039 as sap, G719_ConsInte__b');
-                                $this->db->from('G719');
-                                $this->db->where('G719_C17026', $value['A']);
+                                $this->db->select('FRG as frg,  NroProcesoJudicialSAP as sap, Id');
+                                $this->db->from('InformacionCredito');
+                                $this->db->where('NoContrato', $value['A']);
                                 $obligacion = $this->db->get();
 
                                 //busco a ver si tiene factura subrogacion
@@ -720,9 +721,9 @@ class Configuraciones extends Login {
                                 $fecha_auto = NULL;
                                 $numero_factutra =NULL;
                                 
-                                $this->db->select('G744_ConsInte__b, G744_C17262 as fecha_factura, G744_C17264 as fecha_auto, G744_C17263 as numero ');
-                                $this->db->from('G744');
-                                $this->db->where('G744_C17280', $obligacion->row()->G719_ConsInte__b);
+                                $this->db->select('Id, FechaFacturacionAutoSubRogacion as fecha_factura, FechaAutoSubRogacion as fecha_auto, NroFacturaAutoSubRogacion as numero ');
+                                $this->db->from('Factura');
+                                $this->db->where('NumeroContratoId', $obligacion->row()->Id);
                                 $aja = $this->db->get();
                                 $res = $aja->result();
 
@@ -741,7 +742,7 @@ class Configuraciones extends Login {
                                                     'Sub_factura_subrogacion' => $numero_factutra,
                                                     'Sub_fecha_factura'     => $fecha_factura,
                                                     'Sub_fecha_auto'        => $fecha_auto,
-                                                    'Sub_id_obligacion'     => $obligacion->row()->G719_ConsInte__b);
+                                                    'Sub_id_obligacion'     => $obligacion->row()->Id);
                                 $this->db->where('Sub_id', $segurida->row()->Sub_id);
                                 $resultado = $this->db->update('Tabla_base_medicion_subrogaciones', $datosArray);
                                 if($resultado){
@@ -750,9 +751,9 @@ class Configuraciones extends Login {
                             }else{
                                 $year = date('Y');
                                 //obtengo la info de la obligacion
-                                $this->db->select('G719_C17029 as frg,  G719_C17039 as sap, G719_ConsInte__b');
-                                $this->db->from('G719');
-                                $this->db->where('G719_C17026', $value['A']);
+                                $this->db->select('FRG as frg,  NroProcesoJudicialSAP as sap, Id');
+                                $this->db->from('InformacionCredito');
+                                $this->db->where('NoContrato', $value['A']);
                                 $obligacion = $this->db->get();
 
                                 //busco a ver si tiene factura subrogacion
@@ -760,9 +761,9 @@ class Configuraciones extends Login {
                                 $fecha_auto = NULL;
                                 $numero_factutra =NULL;
                                 
-                                $this->db->select('G744_ConsInte__b, G744_C17262 as fecha_factura, G744_C17264 as fecha_auto, G744_C17263 as numero ');
-                                $this->db->from('G744');
-                                $this->db->where('G744_C17280', $obligacion->row()->G719_ConsInte__b);
+                                $this->db->select('Id, FechaFacturacionAutoSubRogacion as fecha_factura, FechaAutoSubRogacion as fecha_auto, NroFacturaAutoSubRogacion as numero ');
+                                $this->db->from('Factura');
+                                $this->db->where('NumeroContratoId', $obligacion->row()->Id);
                                 $aja = $this->db->get();
                                 $res = $aja->result();
 
@@ -781,7 +782,7 @@ class Configuraciones extends Login {
                                                     'Sub_factura_subrogacion' => $numero_factutra,
                                                     'Sub_fecha_factura'     => $fecha_factura,
                                                     'Sub_fecha_auto'        => $fecha_auto,
-                                                    'Sub_id_obligacion'     => $obligacion->row()->G719_ConsInte__b);
+                                                    'Sub_id_obligacion'     => $obligacion->row()->Id);
                                 $resultado = $this->db->insert('Tabla_base_medicion_subrogaciones', $datosArray);
                                 if($resultado){
                                     $acertados++;
@@ -879,9 +880,9 @@ class Configuraciones extends Login {
     function getBaseSurbogaciones(){
         
         $year = date('Y');
-        $this->db->select('Sub_contrato as contrato, Sub_sap as sap, G729_C17121 as frg');
+        $this->db->select('Sub_contrato as contrato, Sub_sap as sap, FRG as frg');
         $this->db->from('Tabla_base_medicion_subrogaciones');
-        $this->db->join('G729', 'Sub_Frg = G729_ConsInte__b','LEFT');
+        $this->db->join('FRG', 'Sub_Frg = Id','LEFT');
         $this->db->where('Sub_fecha_year', $year);
 
         $query = $this->db->get();
@@ -905,7 +906,6 @@ class Configuraciones extends Login {
             ini_set('memory_limit', '1024M');
             $Depuracion = $this->Configuraciones_Model->LimpriarTablaInformes();
             $noEfectivos = $this->Configuraciones_Model->getDatosinicialesNoEfectivos();
-            
             $datosIniciales = array();
             $j = 0;
             foreach($noEfectivos as $key){
@@ -913,10 +913,9 @@ class Configuraciones extends Login {
                 if(!is_null($key->fecha_modificacion)){
                     $fecha = explode(" ", $key->fecha_modificacion)[0];
                     $fecha = explode("-", $fecha);
-                    $fecha2 = "<span style='display: none;'>".$fecha[0]."/".$fecha[1]."/".$fecha[2]."</span>".$fecha[2]."/".$fecha[1]."/".$fecha[0];
+                    $fecha2 = $fecha[2]."/".$fecha[1]."/".$fecha[0];
                 }
-                $datosIniciales[$j]['liquidacion'] =        utf8_encode($key->liquidacion) ;
-                $datosIniciales[$j]['tipo_identifiacion'] = utf8_encode($key->tipo_identifiacion) ;
+
                 $datosIniciales[$j]['identificacion'] =     utf8_encode($key->identificacion) ;
                 $datosIniciales[$j]['ciudadDomicilio'] =    utf8_encode($key->ciudadDomicilio) ;
                 $datosIniciales[$j]['ciudadOficina'] =      utf8_encode($key->ciudadOficina) ;
@@ -955,10 +954,9 @@ class Configuraciones extends Login {
                 if(!is_null($key->Fecha_modificacion)){
                     $fecha = explode(" ", $key->Fecha_modificacion)[0];
                     $fecha = explode("-", $fecha);
-                    $fecha2 = "<span style='display: none;'>".$fecha[0]."/".$fecha[1]."/".$fecha[2]."</span>".$fecha[2]."/".$fecha[1]."/".$fecha[0];
+                    $fecha2 = $fecha[2]."/".$fecha[1]."/".$fecha[0];
                 }
-                $datosInforme1[$j]['liquidacion'] = utf8_encode($key->liquidacion) ;
-                $datosInforme1[$j]['TipoIdentificacion'] = utf8_encode($key->TipoIdentificacion) ;
+
                 $datosInforme1[$j]['Identificacion'] = utf8_encode($key->Identificacion) ;
                 $datosInforme1[$j]['Direccion_domicilio'] = utf8_encode($key->Direccion_domicilio) ;
                 $datosInforme1[$j]['Calificacion_Dir_Domicilio'] = utf8_encode($key->Calificacion_Dir_Domicilio) ;
@@ -996,10 +994,9 @@ class Configuraciones extends Login {
                 if(!is_null($key->Fecha_modificacion)){
                     $fecha = explode(" ", $key->Fecha_modificacion)[0];
                     $fecha = explode("-", $fecha);
-                    $fecha2 = "<span style='display: none;'>".$fecha[0]."/".$fecha[1]."/".$fecha[2]."</span>".$fecha[2]."/".$fecha[1]."/".$fecha[0];
+                    $fecha2 = $fecha[2]."/".$fecha[1]."/".$fecha[0];
                 }
-                $datosInforme2[$j]['liquidacion'] = utf8_encode($key->liquidacion) ;
-                $datosInforme2[$j]['TipoIdentificacion'] = utf8_encode($key->TipoIdentificacion) ;
+
                 $datosInforme2[$j]['Identificacion'] = utf8_encode($key->Identificacion) ;
                 $datosInforme2[$j]['Direccion_domicilio'] = utf8_encode($key->Direccion_domicilio) ;
                 $datosInforme2[$j]['Calificacion_Dir_Domicilio'] = utf8_encode($key->Calificacion_Dir_Domicilio) ;
@@ -1037,10 +1034,9 @@ class Configuraciones extends Login {
                 if(!is_null($key->Fecha_modificacion)){
                     $fecha = explode(" ", $key->Fecha_modificacion)[0];
                     $fecha = explode("-", $fecha);
-                    $fecha2 = "<span style='display: none;'>".$fecha[0]."/".$fecha[1]."/".$fecha[2]."</span>".$fecha[2]."/".$fecha[1]."/".$fecha[0];
+                    $fecha2 = $fecha[2]."/".$fecha[1]."/".$fecha[0];
                 }
-                $datosInforme3[$j]['liquidacion'] = utf8_encode($key->liquidacion) ;
-                $datosInforme3[$j]['TipoIdentificacion'] = utf8_encode($key->TipoIdentificacion) ;
+
                 $datosInforme3[$j]['Identificacion'] = utf8_encode($key->Identificacion) ;
                 $datosInforme3[$j]['Direccion_domicilio'] = utf8_encode($key->Direccion_domicilio) ;
                 $datosInforme3[$j]['Calificacion_Dir_Domicilio'] = utf8_encode($key->Calificacion_Dir_Domicilio) ;
@@ -1104,74 +1100,104 @@ class Configuraciones extends Login {
 
    
 
-   function CargarMasivaDatosCLientes(){
-         $agregar = $this->Configuraciones_Model->IngresarDatosLog_Datos_Inciales();
+   public function CargarMasivaDatosCLientes(){
+    
         if($this->session->userdata('login_ok')){
-           
-            $this->load->library('excel');
-            date_default_timezone_set('America/Bogota');
-            $name   = $_FILES['FilExcell2']['name'];
-          //  var_dump($_FILES[0]);
-            $tname  = $_FILES['FilExcell2']['tmp_name'];
-          //  var_dump( $tname);
-            ini_set('memory_limit', '1024M');
-            $obj_excel = PHPExcel_IOFactory::load($tname);       
-            //$sheetData = $obj_excel->getActiveSheet()->toArray(null,true,true,true);
-            $arr_datos = array();
-            $acertados = 0;
-            $fallos    = 0;
-            $fallosExistenciales = 0;
-            $i = 0;
-            $highestRow = $obj_excel->getActiveSheet()->getHighestRow(); 
-            $obj_excel->getActiveSheet()->getStyle('AB1:AB'.$highestRow)->getNumberFormat()->setFormatCode("YYYY-m-d");
-            $sheetData = $obj_excel->getActiveSheet()->toArray(null,true,true,true);
-            $validador = 0;
-            $datos = array( );
-            $j = 0;
-            foreach ($sheetData as $index => $value) {            
-                if ( $index > 1 ){
-                    if($validador > 26){
-                        break;
-                    }
-                    
-                    if($value['A'] != ""){ 
-                    
-                     $queryS = "INSERT INTO GestionDatosCliente
-                            VALUES ('".$value['A']."','".$value['B']."','".$value['C']."','".$value['D']."','".$value['E']."','".$value['F']."','".$value['G']."','".$value['H']."','".$value['I']."','".$value['J']."','".$value['K']."','".$value['L']."','".$value['M']."','".$value['N']."','".$value['O']."','".$value['P']."','".$value['Q']."','".$value['R']."','".$value['S']."','".$value['T']."','".$value['U']."','".$value['V']."','".$value['W']."','".$value['X']."','".$value['Y']."','".$value['Z']."','".$value['AA']."',getdate())";        
-                         
-                        /*$this ->imprimirPlano($queryS);*/
-                        $this->db->query($queryS);
-                         
+            $retorno = array(
+                'estado' => 0, // 0=error, 1=correcto
+                'mensaje' => ''
+            );
+            if ( isset($_FILES['FilExcell2']) and $_FILES['FilExcell2']['error']==0 ) {
+                $this->load->library('excel');
+                date_default_timezone_set('America/Bogota');
+                ini_set('memory_limit','128M');
+                $name           = $_FILES['FilExcell2']['name'];
+                $tname          = $_FILES['FilExcell2']['tmp_name'];
+                $obj_excel      = PHPExcel_IOFactory::load($tname);       
+                $sheetData      = $obj_excel->getActiveSheet()->toArray(null,true,true,true);
+                $highestRow     = $obj_excel->getActiveSheet()->getHighestRow();
+                $fechaActual = date("Y-m-d");
+                $total_registros=0;
+                $fallidos=0;
+                $actualizados=0;
+                $liq_fallidas='';
+                foreach ($sheetData as $key => $val) {
+                    if ($key>1) { // Inicia en la fila 2 del excel.
+                        if ( !empty($val['A'])) {
+                            if ( is_numeric($val['A'])) {
 
-                }else{
-                        $validador++;
-                    }
-                    
-                    $i++;
+                                
+                                $this->db->select('Id');
+                                $this->db->from('InformacionCliente');
+                                $this->db->where('NroIdentificacion',$val['A'] );
+                                $query  = $this->db->get();
+                                $id = $query->row()->Id;
+                               # echo "<br><br><br>".$this->db->last_query($query); die ('Prueba');
+                               # Array de datos para insertar en la tabla [GestionDatosCliente].
+                                    $datos = array(
+                                        'Identificacion' => $id, // Numero de identificacion
+                                        'Direccion_domicilio' => $val['B'], // Direccion_domicilio 
+                                        'Calificacion_Dir_Domicilio' => 'NO EFECTIVO', // Calificacion_Dir_Domicilio 
+                                        'Ciudad_domicilio' => $val['C'], // Ciudad_domicilio 
+                                        'Calificacion_Ciudad_domicilio' => 'NO EFECTIVO', // Calificacion_Ciudad_domicilio 
+                                        'Direccion_oficina' => $val['D'], // Direccion_oficina 
+                                        'Calificacion_Direccion_oficina' =>'NO EFECTIVO', // Calificacion_Direccion_oficina
+                                        'Ciudad_oficina' => $val['E'], // Ciudad_oficina
+                                        'Calificacion_Ciudad_oficina' => 'NO EFECTIVO', // Calificacion_Ciudad_oficina 
+                                        'Telefono_domicilio' => $val['F'], // Telefono_domicilio 
+                                        'Calificacion_Telefono_domicilio' => 'NO EFECTIVO', // Calificacion_Telefono_domicilio
+                                        'Telefono_oficina' => $val['G'], // Telefono_oficina
+                                        'Calificacion_Telefono_oficina' => 'NO EFECTIVO', // v 
+                                        'Celular' => $val['H'], // Celular 
+                                        'Calificacion_Celular' => 'NO EFECTIVO', // Calificacion_Celular
+                                        'Celular_adicional' => $val['I'], //Celular_adicional 
+                                        'Calificacion_Celular_adicional' => 'NO EFECTIVO', // Calificacion_Celular_adicional
+                                        'Correo_electronico' => $val['J'], // Correo_electronico
+                                        'Calificacion_Correo_electronico' => 'NO EFECTIVO', // Calificacion_Correo_electronico
+                                        'Direccion_adicional' => $val['K'], // Direccion_adicional
+                                        'Calificacion_Direccion_adicional' => 'NO EFECTIVO', // Calificacion_Direccion_adicional
+                                        'Ciudad_adicional' => $val['L'], // Ciudad_adicional
+                                        'Calificacion_Ciudad_adicional' => 'NO EFECTIVO', // Calificacion_Ciudad_adicional
+                                        'Telefono_adicional' => $val['M'], // Telefono_adicional
+                                        'Calificacion_Telefono_adicional' => 'NO EFECTIVO', // Calificacion_Telefono_adicional 
+                                        'Fecha_modificacion' => $fechaActual
+                                    );
+                                    $query = $this->Wizard_Model->guardardatos('GestionDatosCliente', $datos);
+
+                                   # echo "<br><br><br>".$this->db->last_query($query); die ('Prueba');
+                                    if ( $this->db->affected_rows() ) {
+                                        $actualizados++;
+                                    }else{
+                                        $liq_fallidas.= $liquidacion.', ';
+                                        $fallidos++;
+                                    }
+                                
+                            }else{
+                                $liq_fallidas.= !empty($val['A']) ? $val['A'].', ' : '';
+                                $fallidos++;
+                            }
+                        }else{
+                            $liq_fallidas.= !empty($val['A']) ? $val['A'].', ' : '';
+                            $fallidos++;
+                        }
+                        $total_registros++;
+                    }                
                 }
+                $agregar = $this->Configuraciones_Model->IngresarDatosLog_Datos_Inciales();
+               # echo "<br><br><br>".$this->db->last_query($agregar); die ('Prueba');
+                $retorno['mensaje'] .= "<p>Total de registros procesados: ".$total_registros;
+                $retorno['mensaje'] .= "<br>Registros actualizados: ".$actualizados;
+                $retorno['mensaje'] .= "<br>Registros fallidos: ".$fallidos;
+                $retorno['mensaje'] .= "<br>Registros fallidas: ".substr($liq_fallidas, 0, -2);
+                $retorno['mensaje'] .= "</p>";
+                $retorno['estado'] = 1;
+            }else{
+                $retorno['mensaje'] = "El documento Excel no se ha cargado correctamente.";
             }
-            $resultados = array();
-            $resultados['total'] = $i;
-            $resultados['acertados'] = $acertados;
-            $resultados['noExisten'] = $fallosExistenciales;
-
-            
-       $this->output
-                 ->set_content_type('application/json')
-                 ->set_output(json_encode($resultados));
-
+            $this->output->set_content_type('application/json')->set_output(json_encode($retorno));
         }else{
             $this->load->view('Login/login');
         }
-    }
-
-    function LimpriarTablaInformes(){
-        if($this->session->userdata('login_ok')){
-            ini_set('memory_limit', '1024M');
-            $noEfectivos = $this->Configuraciones_Model->LimpriarTablaInformes();
-            echo "1";  
-
-        }  
     }
 
     // Datos Abogados y Gestroes Jeisson Patiño
@@ -1179,6 +1205,7 @@ class Configuraciones extends Login {
     function GestionAbogaos_Gestores(){
          if($this->session->userdata('login_ok')){
             $abogadosDelete = $this->Configuraciones_Model->DatosAbogadosEliminar();
+
             $registros = array();
             $i= 0;
             foreach ($abogadosDelete as $key) {
@@ -1192,6 +1219,7 @@ class Configuraciones extends Login {
 
             }
             $gestoresDelete = $this->Configuraciones_Model->DatosGestoresEliminar();
+
             $datosGestores = array();
             $i= 0;
             foreach ($gestoresDelete as $key) {

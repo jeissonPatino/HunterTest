@@ -17,7 +17,7 @@
     }
 
 ?>
-
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <table class="table table-hover table-bordered" id="tablacontratos">
     <thead>
       	<tr>
@@ -62,7 +62,7 @@
                             }
                             
                         }else{
-                            $datetime1 = new DateTime($key->G719_C17048);
+                            $datetime1 = new DateTime($key->FechaEnvioMemorialSubrogacionFRG);
                             $datetime2 = new DateTime($key->G719_C17051);
                             $interval = $datetime1->diff($datetime2);
                             $trancurrido = $interval->format('%R%a');
@@ -78,7 +78,7 @@
                         date_default_timezone_set('America/Bogota');
                         $fechaIngreso =  date("Y-m-d H:i:s");
 
-                        $datetime1 = new DateTime($key->G719_C17048);
+                        $datetime1 = new DateTime($key->FechaEnvioMemorialSubrogacionFRG);
                         $datetime2 = new DateTime($fechaIngreso);
                         $interval = $datetime1->diff($datetime2);
                     
@@ -103,8 +103,8 @@
                         $fecha1 = $fecha1[2]."/".$fecha1[1]."/".$fecha1[0];
                     }
                     
-                    if(!is_null($key->G719_C17048)){
-                        $fecha2 = explode(" ", $key->G719_C17048)[0];
+                    if(!is_null($key->FechaEnvioMemorialSubrogacionFRG)){
+                        $fecha2 = explode(" ", $key->FechaEnvioMemorialSubrogacionFRG)[0];
                         $fecha2 = explode("-", $fecha2);
                         $fecha2 = $fecha2[2]."/".$fecha2[1]."/".$fecha2[0];
                     }

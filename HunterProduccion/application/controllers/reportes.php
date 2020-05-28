@@ -277,11 +277,11 @@ class Reportes extends CI_Controller {
 
         switch ($tipo) {
             case "6":
-                $consulta .= "sum(iif(LISOPC_Nombre____b = '".$buscarPor."',1,0)) as ".$labelSeries1.", ";
-                $consulta .= "sum(iif(LISOPC_Nombre____b <> '".$buscarPor."',1,0)) as ".$labelSeries2;
+                $consulta .= "sum(iif(Nombre_b = '".$buscarPor."',1,0)) as ".$labelSeries1.", ";
+                $consulta .= "sum(iif(Nombre_b <> '".$buscarPor."',1,0)) as ".$labelSeries2;
                 $from = "G".$aplicacion;
-                $join = " LISOPC"; 
-                $cosojoin = " G".$aplicacion."_C".$analisis." = LISOPC_ConsInte__b ";
+                $join = " ParametroGeneral"; 
+                $cosojoin = " G".$aplicacion."_C".$analisis." = Id ";
                 break;
             case "11":
                 $resultObjectCampo = $this->Reportes_Model->findCampoAsociado($analisis);
@@ -325,10 +325,10 @@ class Reportes extends CI_Controller {
 
         switch ($tipo) {
             case "6":
-                $consulta =  "DISTINCT LISOPC_ConsInte__b as valor1, LISOPC_Nombre____b as valor2";
+                $consulta =  "DISTINCT Id as valor1, Nombre_b as valor2";
                 $from  = "G".$aplicacion;
-                $join  = "LISOPC";
-                $cosojoin = "G".$aplicacion."_C".$analisis." = LISOPC_ConsInte__b";
+                $join  = "ParametroGeneral";
+                $cosojoin = "G".$aplicacion."_C".$analisis." = Id";
                 break;
 
             case "11":
@@ -453,7 +453,7 @@ class Reportes extends CI_Controller {
                                 }
                                 
                             }else{
-                                $datetime1 = new DateTime($key->G719_C17048);
+                                $datetime1 = new DateTime($key->FechaEnvioMemorialSubrogacionFRG);
                                 $datetime2 = new DateTime($key->G719_C17051);
                                 $interval = $datetime1->diff($datetime2);
                                 $tiempoPasado  = $interval->format('%R%a');
@@ -471,7 +471,7 @@ class Reportes extends CI_Controller {
                             $Nasignadas++;
                             date_default_timezone_set('America/Bogota');
                             $fechaIngreso =  date("Y-m-d H:i:s");
-                            $datetime1 = new DateTime($key->G719_C17048);
+                            $datetime1 = new DateTime($key->FechaEnvioMemorialSubrogacionFRG);
                             $datetime2 = new DateTime($fechaIngreso);
                             $interval = $datetime1->diff($datetime2);
                         
@@ -504,8 +504,8 @@ class Reportes extends CI_Controller {
                             $fecha1 = $fecha1[2]."/".$fecha1[1]."/".$fecha1[0];
                         }
                         
-                        if(!is_null($key->G719_C17048)){
-                            $fecha2 = explode(" ", $key->G719_C17048)[0];
+                        if(!is_null($key->FechaEnvioMemorialSubrogacionFRG)){
+                            $fecha2 = explode(" ", $key->FechaEnvioMemorialSubrogacionFRG)[0];
                             $fecha2 = explode("-", $fecha2);
                             $fecha2 = $fecha2[2]."/".$fecha2[1]."/".$fecha2[0];
                         }
@@ -561,7 +561,7 @@ class Reportes extends CI_Controller {
                 
                 foreach ($frgs as $key2) {
                     //luego prgintamos por las obligaciones de esos Frgs
-                    $resultado = $this->Reportes_Model->getReportesAsignacion_abogados( $key2->G729_ConsInte__b , NULL, $fechaInicial, $fechaFinal);
+                    $resultado = $this->Reportes_Model->getReportesAsignacion_abogados( $key2->Id , NULL, $fechaInicial, $fechaFinal);
                     $labels[$valor] = $key2->Frg;
 
                     $i = 0;
@@ -601,7 +601,7 @@ class Reportes extends CI_Controller {
                                     }
                                     
                                 }else{
-                                    $datetime1 = new DateTime($key->G719_C17048);
+                                    $datetime1 = new DateTime($key->FechaEnvioMemorialSubrogacionFRG);
                                     $datetime2 = new DateTime($key->G719_C17051);
                                     $interval = $datetime1->diff($datetime2);
                                     if($tiempo >= $interval->format('%R%a')){
@@ -616,7 +616,7 @@ class Reportes extends CI_Controller {
                                 date_default_timezone_set('America/Bogota');
                                 $fechaIngreso =  date("Y-m-d H:i:s");
 
-                                $datetime1 = new DateTime($key->G719_C17048);
+                                $datetime1 = new DateTime($key->FechaEnvioMemorialSubrogacionFRG);
                                 $datetime2 = new DateTime($fechaIngreso);
                                 $interval = $datetime1->diff($datetime2);
                                 if($tiempo > $interval->format('%R%a')){
@@ -667,7 +667,7 @@ class Reportes extends CI_Controller {
                                 }
                                 
                             }else{
-                                $datetime1 = new DateTime($key->G719_C17048);
+                                $datetime1 = new DateTime($key->FechaEnvioMemorialSubrogacionFRG);
                                 $datetime2 = new DateTime($key->G719_C17051);
                                 $interval = $datetime1->diff($datetime2);
                                 $tiempoPasado  = $interval->format('%R%a');
@@ -683,7 +683,7 @@ class Reportes extends CI_Controller {
                             date_default_timezone_set('America/Bogota');
                             $fechaIngreso =  date("Y-m-d H:i:s");
 
-                            $datetime1 = new DateTime($key->G719_C17048);
+                            $datetime1 = new DateTime($key->FechaEnvioMemorialSubrogacionFRG);
                             $datetime2 = new DateTime($fechaIngreso);
                             $interval = $datetime1->diff($datetime2);
                         
@@ -709,8 +709,8 @@ class Reportes extends CI_Controller {
                             $fecha1 = $fecha1[2]."/".$fecha1[1]."/".$fecha1[0];
                         }
                         
-                        if(!is_null($key->G719_C17048)){
-                            $fecha2 = explode(" ", $key->G719_C17048)[0];
+                        if(!is_null($key->FechaEnvioMemorialSubrogacionFRG)){
+                            $fecha2 = explode(" ", $key->FechaEnvioMemorialSubrogacionFRG)[0];
                             $fecha2 = explode("-", $fecha2);
                             $fecha2 = $fecha2[2]."/".$fecha2[1]."/".$fecha2[0];
                         }
@@ -792,7 +792,7 @@ class Reportes extends CI_Controller {
                     
                     foreach ($frgs as $key2) {
                         //luego prgintamos por las obligaciones de esos Frgs
-                        $resultado = $this->Reportes_Model->getReportesAsignacion_abogados( $key2->G729_ConsInte__b , NULL, $fechaInicial, $fechaFinal);
+                        $resultado = $this->Reportes_Model->getReportesAsignacion_abogados( $key2->Id , NULL, $fechaInicial, $fechaFinal);
                         $labels[$valor] = $key2->Frg;
 
                         $i = 0;
@@ -829,7 +829,7 @@ class Reportes extends CI_Controller {
                                         }
                                         
                                     }else{
-                                        $datetime1 = new DateTime($key->G719_C17048);
+                                        $datetime1 = new DateTime($key->FechaEnvioMemorialSubrogacionFRG);
                                         $datetime2 = new DateTime($key->G719_C17051);
                                         $interval = $datetime1->diff($datetime2);
                                         if($tiempo >= $interval->format('%R%a')){
@@ -844,7 +844,7 @@ class Reportes extends CI_Controller {
                                     date_default_timezone_set('America/Bogota');
                                     $fechaIngreso =  date("Y-m-d H:i:s");
 
-                                    $datetime1 = new DateTime($key->G719_C17048);
+                                    $datetime1 = new DateTime($key->FechaEnvioMemorialSubrogacionFRG);
                                     $datetime2 = new DateTime($fechaIngreso);
                                     $interval = $datetime1->diff($datetime2);
                                     if($tiempo > $interval->format('%R%a')){
@@ -956,7 +956,7 @@ class Reportes extends CI_Controller {
                 $frg = array();
                           $i= 0;
                 foreach ($frgs as $key2) {
-                     $frg[$i]=$key2->G729_ConsInte__b;
+                     $frg[$i]=$key2->Id;
                      $i++;
                 }
             }
@@ -984,7 +984,7 @@ class Reportes extends CI_Controller {
                 $gestion_deglosado = $this->Reportes_Model->getGestion_extrajudicial_mensual_deglosado_0($frg[$j], $fechaGarantia, $fechaFinMesConsulta, $nuevafecha, $nuevafechaDiaFin);
                // 
                 $gestion_deglosado_1 = $this->Reportes_Model->getGestion_extrajudicial_mensual_deglosado_1($frg[$j], $fechaGarantia, $fechaFinMesConsulta);
-                $frgss = $this->db->get_where('G729',array('G729_ConsInte__b' => $frg[$j]));
+                $frgss = $this->db->get_where('FRG',array('Id' => $frg[$j]));
 
                 $array0= array();
                 $nuevo = 0;
@@ -994,7 +994,7 @@ class Reportes extends CI_Controller {
                     if($nuevo != $viejo){
                         $array0[$i]=$nuevo;
                         $totalBaseMedicion++;
-                        $gestions = $this->Reportes_Model->tieneGestionExtrajudicial($key->G719_ConsInte__b, $nuevafecha, $nuevafechaDiaFin);
+                        $gestions = $this->Reportes_Model->tieneGestionExtrajudicial($key->Id, $nuevafecha, $nuevafechaDiaFin);
                         //Manuel Ochoa - Softtek - 19/11/2015 - $CantidadGestionesExtraMens - Configuracion INFORMES FRG - Gestión Extrajudicial Mensual
                         if($gestions >= $CantidadGestionesExtraMens){
                             //Manuel Ochoa - Softtek - 19/11/2015 - Se utiliza htmlentities para darle tilde a la Ó
@@ -1028,7 +1028,7 @@ class Reportes extends CI_Controller {
                     $nuevo = $key->contrato;
                     if($nuevo != $viejo && array_search($key->contrato, $array0) == false){
                         $totalBaseMedicion++;
-                        $gestions = $this->Reportes_Model->tieneGestionExtrajudicial($key->G719_ConsInte__b, $nuevafecha, $nuevafechaDiaFin);
+                        $gestions = $this->Reportes_Model->tieneGestionExtrajudicial($key->Id, $nuevafecha, $nuevafechaDiaFin);
                         //Manuel Ochoa - Softtek - 19/11/2015 - $CantidadGestionesExtraMens - Configuracion INFORMES FRG - Gestión Extrajudicial Mensual
                         if($gestions >= $CantidadGestionesExtraMens){
                             //Manuel Ochoa - Softtek - 19/11/2015 - Se utiliza htmlentities para darle tilde a la Ó
@@ -1057,7 +1057,7 @@ class Reportes extends CI_Controller {
 
                 $gestion1[$j] = $gestion;
                 $gestion2[$j] = $gestion_0;
-                $nombreFrgs[$j] = $frgss->row()->G729_C17121;
+                $nombreFrgs[$j] = $frgss->row()->FRG;
                 $data1[$j] = $cumplimiento;
                 $data2[$j] = $incumpliemiento;
                 $data3[$j] = $totalBaseMedicion;
@@ -1089,7 +1089,7 @@ class Reportes extends CI_Controller {
             $i= 0;
             foreach ($frgs as $key2) {
                 
-                $frgNull = $key2->G729_ConsInte__b;
+                $frgNull = $key2->Id;
                 $gestion = $this->Reportes_Model->getGestion_extrajudicial_mensual_Saldo_0($frgNull, $fechaGarantia, $fechaFinMesConsulta, $nuevafecha, $nuevafechaDiaFin );
                 $gestion_0 = $this->Reportes_Model->getGestion_extrajudicial_mensual_Saldo_1($frgNull, $fechaGarantia, $fechaFinMesConsulta);
                 $totalGestiones = $this->Reportes_Model->getGestion_extrajudicial_mensual_Saldo_0_Total($frgNull, $fechaGarantia, $fechaFinMesConsulta, $nuevafecha, $nuevafechaDiaFin );
@@ -1107,7 +1107,7 @@ class Reportes extends CI_Controller {
                     $nuevo = $key->G719_C17423;
                     if($nuevo != $viejo){
                         $totalBaseMedicion++;
-                        $gestions = $this->Reportes_Model->tieneGestionExtrajudicial($key->G719_ConsInte__b, $nuevafecha, $nuevafechaDiaFin);
+                        $gestions = $this->Reportes_Model->tieneGestionExtrajudicial($key->Id, $nuevafecha, $nuevafechaDiaFin);
                         //Manuel Ochoa - Softtek - 19/11/2015 - $CantidadGestionesExtraMens - Configuracion INFORMES FRG - Gestión Extrajudicial Mensual
                         if($gestions >= $CantidadGestionesExtraMens){
                             $cumplimiento++;
@@ -1127,7 +1127,7 @@ class Reportes extends CI_Controller {
                     $nuevo = $key->contrato;
                     if($nuevo != $viejo){
                         $array0[$i]=$nuevo;
-                        $gestions = $this->Reportes_Model->tieneGestionExtrajudicial($key->G719_ConsInte__b, $nuevafecha, $nuevafechaDiaFin);
+                        $gestions = $this->Reportes_Model->tieneGestionExtrajudicial($key->Id, $nuevafecha, $nuevafechaDiaFin);
                         //Manuel Ochoa - Softtek - 19/11/2015 - $CantidadGestionesExtraMens - Configuracion INFORMES FRG - Gestión Extrajudicial Mensual
                         if($gestions >= $CantidadGestionesExtraMens){
                             //Manuel Ochoa - Softtek - 19/11/2015 - Se utiliza htmlentities para darle tilde a la Ó
@@ -1159,7 +1159,7 @@ class Reportes extends CI_Controller {
                     $nuevo = $key->G719_C17423;
                     if($nuevo != $viejo){
                         $totalBaseMedicion++;
-                        $gestions = $this->Reportes_Model->tieneGestionExtrajudicial($key->G719_ConsInte__b, $nuevafecha, $nuevafechaDiaFin);
+                        $gestions = $this->Reportes_Model->tieneGestionExtrajudicial($key->Id, $nuevafecha, $nuevafechaDiaFin);
                         //Manuel Ochoa - Softtek - 19/11/2015 - $CantidadGestionesExtraMens - Configuracion INFORMES FRG - Gestión Extrajudicial Mensual
                         if($gestions >= $CantidadGestionesExtraMens ){
                             $cumplimiento++;
@@ -1176,7 +1176,7 @@ class Reportes extends CI_Controller {
                 foreach ($gestion_deglosado_1 as $key) {
                     $nuevo = $key->contrato;
                     if($nuevo != $viejo && array_search($key->contrato, $array0) == false){
-                        $gestions = $this->Reportes_Model->tieneGestionExtrajudicial($key->G719_ConsInte__b, $nuevafecha, $nuevafechaDiaFin);
+                        $gestions = $this->Reportes_Model->tieneGestionExtrajudicial($key->Id, $nuevafecha, $nuevafechaDiaFin);
                         //Manuel Ochoa - Softtek - 19/11/2015 - $CantidadGestionesExtraMens - Configuracion INFORMES FRG - Gestión Extrajudicial Mensual
                         if($gestions >= $CantidadGestionesExtraMens ){
                             //Manuel Ochoa - Softtek - 19/11/2015 - Se utiliza htmlentities para darle tilde a la Ó
@@ -1270,7 +1270,7 @@ class Reportes extends CI_Controller {
                 $gestion_deglosado = $this->Reportes_Model->getGestion_extrajudicial_mensual_deglosado_0($frg, $fechaGarantia, $fechaGarantiaFinal, $nuevafecha, $nuevafechaDiaFin);
                 $gestion_deglosado_1 = $this->Reportes_Model->getGestion_extrajudicial_mensual_deglosado_1($frg, $fechaGarantia, $fechaGarantiaFinal);
 
-                $frgss = $this->db->get_where('G729',array('G729_ConsInte__b' => $frg));
+                $frgss = $this->db->get_where('FRG',array('Id' => $frg));
                 $json = array();
                 $i= 0;
 
@@ -1288,7 +1288,7 @@ class Reportes extends CI_Controller {
                     if($nuevo != $viejo){
                         $array0[$i]=$nuevo;
                         $totalBaseMedicion++;
-                        $gestions = $this->Reportes_Model->tieneGestionExtrajudicial($key->G719_ConsInte__b, $nuevafecha, $nuevafechaDiaFin);
+                        $gestions = $this->Reportes_Model->tieneGestionExtrajudicial($key->Id, $nuevafecha, $nuevafechaDiaFin);
                         
                         //Manuel Ochoa - Softtek - 19/11/2015 - $CantidadGestionesExtraMens - Configuracion INFORMES FRG - Gestión Extrajudicial Mensual
                         if($gestions  >= $CantidadGestionesExtraMens ){
@@ -1322,7 +1322,7 @@ class Reportes extends CI_Controller {
                     $nuevo = $key->contrato;
                     if($nuevo != $viejo and array_search($nuevo, $array0)==false){
                         $totalBaseMedicion++;
-                        $gestions = $this->Reportes_Model->tieneGestionExtrajudicial($key->G719_ConsInte__b, $nuevafecha, $nuevafechaDiaFin);
+                        $gestions = $this->Reportes_Model->tieneGestionExtrajudicial($key->Id, $nuevafecha, $nuevafechaDiaFin);
                         //Manuel Ochoa - Softtek - 19/11/2015 - $CantidadGestionesExtraMens - Configuracion INFORMES FRG - Gestión Extrajudicial Mensual
                         if($gestions >= $CantidadGestionesExtraMens ){
                             //Manuel Ochoa - Softtek - 19/11/2015 - Se utiliza htmlentities para darle tilde a la Ó
@@ -1354,7 +1354,7 @@ class Reportes extends CI_Controller {
                             'total' => $totalGestiones ,
                             'fechaInicial' => $nuevafecha,
                             'fecchFinal' =>  $nuevafechaDiaFin,
-                            'frg' => $frgss->row()->G729_C17121,
+                            'frg' => $frgss->row()->FRG,
                             'totalBase' => $totalBaseMedicion,
                             'totalCumplimiento' =>  $cumplimiento,
                             'totalNocumplen' => $Nocumplen);
@@ -1369,7 +1369,7 @@ class Reportes extends CI_Controller {
                 $i= 0;
                 foreach ($frgs as $key2) {
                     
-                    $frgNull = $key2->G729_ConsInte__b;
+                    $frgNull = $key2->Id;
                     $gestion = $this->Reportes_Model->getGestion_extrajudicial_mensual_Saldo_0($frgNull, $fechaGarantia, $fechaGarantiaFinal, $nuevafecha, $nuevafechaDiaFin );
                     $gestion_0 = $this->Reportes_Model->getGestion_extrajudicial_mensual_Saldo_1($frgNull, $fechaGarantia, $fechaGarantiaFinal);
                     $totalGestiones = $this->Reportes_Model->getGestion_extrajudicial_mensual_Saldo_0_Total($frgNull, $fechaGarantia, $fechaGarantiaFinal, $nuevafecha, $nuevafechaDiaFin );
@@ -1389,7 +1389,7 @@ class Reportes extends CI_Controller {
                         if($nuevo != $viejo){
                         $array0[$i]=$nuevo;
                             $totalBaseMedicion++;
-                            $gestions = $this->Reportes_Model->tieneGestionExtrajudicial($key->G719_ConsInte__b, $nuevafecha, $nuevafechaDiaFin);
+                            $gestions = $this->Reportes_Model->tieneGestionExtrajudicial($key->Id, $nuevafecha, $nuevafechaDiaFin);
                             //Manuel Ochoa - Softtek - 19/11/2015 - $CantidadGestionesExtraMens - Configuracion INFORMES FRG - Gestión Extrajudicial Mensual
                             if($gestions >= $CantidadGestionesExtraMens){
                                 //Manuel Ochoa - Softtek - 19/11/2015 - Se utiliza htmlentities para darle tilde a la Ó
@@ -1422,7 +1422,7 @@ class Reportes extends CI_Controller {
                     foreach ($gestion_deglosado_1 as $key) {
                         $nuevo = $key->contrato;
                         if($nuevo != $viejo and array_search($nuevo, $array0)== false){
-                            $gestions = $this->Reportes_Model->tieneGestionExtrajudicial($key->G719_ConsInte__b, $nuevafecha, $nuevafechaDiaFin);
+                            $gestions = $this->Reportes_Model->tieneGestionExtrajudicial($key->Id, $nuevafecha, $nuevafechaDiaFin);
                              $totalBaseMedicion++;
                              //Manuel Ochoa - Softtek - 19/11/2015 - $CantidadGestionesExtraMens - Configuracion INFORMES FRG - Gestión Extrajudicial Mensual
                             if($gestions >= $CantidadGestionesExtraMens){
@@ -1508,7 +1508,7 @@ class Reportes extends CI_Controller {
             $gestion_deglosado = $this->Reportes_Model->getReporteSubrogacionesEfectivasDeglosado($frg, $fechaInicial, $fechaFinal);
 
             $gestionDeglosadoGeneral = $this->Reportes_Model->getReporteSubrogacionesEfectivasGeneral($frg);
-            $frgss = $this->db->get_where('G729',array('G729_ConsInte__b' => $frg));
+            $frgss = $this->db->get_where('FRG',array('Id' => $frg));
             $reporteDatos = $this->Reportes_Model->getParametrosReportes('reporte3');
             $json = array();
             $i= 0;
@@ -1566,7 +1566,7 @@ class Reportes extends CI_Controller {
             $datos = array( 'gestiones' => $gestion ,
                             'gestiones_deglosado' => json_encode($json),
                             'meta' => $reporteDatos->row()->cant_obligaciones ,
-                            'frg' => $frgss->row()->G729_C17121,
+                            'frg' => $frgss->row()->FRG,
                             'total' => $total,
                             'totalBase' =>  $totalBaseMedicion->row()->cantidad);
             $this->load->view('Reportes/subrogaciones_efectivas_datos', $datos);
@@ -1579,13 +1579,13 @@ class Reportes extends CI_Controller {
             $i= 0;
             foreach ($frgs as $key2) {
                 
-                $totalBaseMedicion = $this->Reportes_Model->getBaseSubrogacionesEfectivas($key2->G729_ConsInte__b);
+                $totalBaseMedicion = $this->Reportes_Model->getBaseSubrogacionesEfectivas($key2->Id);
 
-                $gestion = $this->Reportes_Model->getSubrogacionesEfectivas($key2->G729_ConsInte__b, $fechaInicial, $fechaFinal);
+                $gestion = $this->Reportes_Model->getSubrogacionesEfectivas($key2->Id, $fechaInicial, $fechaFinal);
                 $total = 0;
             
-                $gestion_deglosado = $this->Reportes_Model->getReporteSubrogacionesEfectivasDeglosado($key2->G729_ConsInte__b, $fechaInicial, $fechaFinal);
-                $gestionDeglosadoGeneral = $this->Reportes_Model->getReporteSubrogacionesEfectivasGeneral($key2->G729_ConsInte__b);
+                $gestion_deglosado = $this->Reportes_Model->getReporteSubrogacionesEfectivasDeglosado($key2->Id, $fechaInicial, $fechaFinal);
+                $gestionDeglosadoGeneral = $this->Reportes_Model->getReporteSubrogacionesEfectivasGeneral($key2->Id);
 
                 $viejo = 0;
                 $nuevo = 0;
@@ -1636,7 +1636,7 @@ class Reportes extends CI_Controller {
 
 
             
-            $frgss = $this->db->get_where('G729',array('G729_ConsInte__b' => $frg));
+            $frgss = $this->db->get_where('FRG',array('Id' => $frg));
             $reporteDatos = $this->Reportes_Model->getParametrosReportes('reporte3');
             $datos = array( 'datos' => $datoss ,
                             'totales' => $total,
@@ -1654,14 +1654,14 @@ class Reportes extends CI_Controller {
             $gestion = $this->Reportes_Model->getSubrogacionesEfectivas($frg, $fechaInicial, $fechaFinal.' 23:59:00');
             $gestion_deglosado = $this->Reportes_Model->getReporteSubrogacionesEfectivasDeglosado($frg, $fechaInicial, $fechaFinal.' 23:59:00');
             $gestionDeglosadoGeneral = $this->Reportes_Model->getReporteSubrogacionesEfectivasGeneral($frg);
-            $frgss = $this->db->get_where('G729',array('G729_ConsInte__b' => $frg));
+            $frgss = $this->db->get_where('FRG',array('Id' => $frg));
             $reporteDatos = $this->Reportes_Model->getParametrosReportes('reporte3');
 
             $datos = array( 'gestiones' => $gestion ,
                             'gestiones_deglosado' => $gestion_deglosado,
                             'gestiones_deglosado_general' => $gestionDeglosadoGeneral,
                             'meta' => $reporteDatos->row()->cant_obligaciones ,
-                            'frg' => $frgss->row()->G729_C17121);
+                            'frg' => $frgss->row()->FRG);
             $this->load->view('Reportes/subrogaciones_efectivas_datos_exportar', $datos);
         }else{
             $frgs = $this->Configuraciones_Model->getFrgs();
@@ -1671,14 +1671,14 @@ class Reportes extends CI_Controller {
             $i= 0;
             foreach ($frgs as $key2) {
                 $labels[$valor] = $key2->Frg;
-                $gestion = $this->Reportes_Model->getSubrogacionesEfectivas($key2->G729_ConsInte__b, $fechaInicial, $fechaFinal);
+                $gestion = $this->Reportes_Model->getSubrogacionesEfectivas($key2->Id, $fechaInicial, $fechaFinal);
                 $total = 0;
                 /* foreach ($gestion as $key) {
                     $total++;
                 }*/
-                $totalBaseMedicion = $this->Reportes_Model->getBaseSubrogacionesEfectivas($key2->G729_ConsInte__b);
-                $gestionDeglosadoGeneral = $this->Reportes_Model->getReporteSubrogacionesEfectivasGeneral($key2->G729_ConsInte__b);
-                $gestion_deglosado = $this->Reportes_Model->getReporteSubrogacionesEfectivasDeglosado($key2->G729_ConsInte__b, $fechaInicial, $fechaFinal.' 23:59:00');
+                $totalBaseMedicion = $this->Reportes_Model->getBaseSubrogacionesEfectivas($key2->Id);
+                $gestionDeglosadoGeneral = $this->Reportes_Model->getReporteSubrogacionesEfectivasGeneral($key2->Id);
+                $gestion_deglosado = $this->Reportes_Model->getReporteSubrogacionesEfectivasDeglosado($key2->Id, $fechaInicial, $fechaFinal.' 23:59:00');
                 $nuevo = 0;
                 $viejo = 0;
 
@@ -1735,7 +1735,7 @@ class Reportes extends CI_Controller {
 
 
             
-            $frgss = $this->db->get_where('G729',array('G729_ConsInte__b' => $frg));
+            $frgss = $this->db->get_where('FRG',array('Id' => $frg));
             $reporteDatos = $this->Reportes_Model->getParametrosReportes('reporte3');
 
             $datos = array('labels' => $labels,
@@ -1794,7 +1794,7 @@ class Reportes extends CI_Controller {
             //Manuel Ochoa - Softtek - 19/11/2015 - INI - Configuracion INFORMES ABOGADOS - Gestión judicial                
             
             if( $frg != NULL && $frg != '' && $frg != 0){
-                $frgss = $this->db->get_where('G729',array('G729_ConsInte__b' => $frg));
+                $frgss = $this->db->get_where('FRG',array('Id' => $frg));
                 $gestion = $this->Reportes_Model->getBaseGEstionesJudiciales($frg);
                 $gestion_deglosado = $this->Reportes_Model->getBaseGEstionesJudiciales_deglosado($frg,$fechaInicial);
                 $json = array();
@@ -1854,14 +1854,14 @@ class Reportes extends CI_Controller {
                         $fecha_informe = date('m/d/Y');                         
                         
                         $fecha_memorial_subroga = '';
-                        if(!is_null($key->G719_C17048)){
-                            $fecha_memorial_subroga = explode(" ", $key->G719_C17048)[0];
+                        if(!is_null($key->FechaEnvioMemorialSubrogacionFRG)){
+                            $fecha_memorial_subroga = explode(" ", $key->FechaEnvioMemorialSubrogacionFRG)[0];
                         }
                         
                         $json[$i]['fecha_memorial_subroga'] = $fecha_memorial_subroga;
 						$json[$i]['fecha_informe'] = $fechaInicial;
                         $json[$i]['fecha_gestion'] = $fecha_gestion;
-                        $json[$i]['frg'] = trim(utf8_encode($frgss->row()->G729_C17121));
+                        $json[$i]['frg'] = trim(utf8_encode($frgss->row()->FRG));
                         $json[$i]['nom_ejecutor'] = $nom_ejecutor;                      
 
                         
@@ -1900,7 +1900,7 @@ class Reportes extends CI_Controller {
                                 'todaBase' => json_encode($json) , 
                                 'fechaInicial' => $fechaInicial , 
                                 'fechaFinal' => $fechaFinal,
-                                'frg' => $frgss->row()->G729_C17121  );
+                                'frg' => $frgss->row()->FRG  );
                 $this->load->view('Reportes/gestiones_judiciales_datos', $datos);
             }else{
                 
@@ -1916,7 +1916,7 @@ class Reportes extends CI_Controller {
                     $totalBaseMedicion = 0;
                     $Nocumplen = 0;
                     
-                    $gestion_deglosado = $this->Reportes_Model->getBaseGEstionesJudiciales_deglosado($key2->G729_ConsInte__b,$fechaInicial);
+                    $gestion_deglosado = $this->Reportes_Model->getBaseGEstionesJudiciales_deglosado($key2->Id,$fechaInicial);
                    
                     $nuevo = 0;
                     $viejo = 0;
@@ -1971,8 +1971,8 @@ class Reportes extends CI_Controller {
                             $fecha_informe = $fechaInicial;               
                                 
                             $fecha_memorial_subroga = '';
-                            if(!is_null($key->G719_C17048)){
-                                $fecha_memorial_subroga = explode(" ", $key->G719_C17048)[0];
+                            if(!is_null($key->FechaEnvioMemorialSubrogacionFRG)){
+                                $fecha_memorial_subroga = explode(" ", $key->FechaEnvioMemorialSubrogacionFRG)[0];
                             }                           
                             
                             $json[$i]['fecha_memorial_subroga'] = $fecha_memorial_subroga;
@@ -2044,7 +2044,7 @@ function getBaseMedicionJudicial_exportar($frg = NULL,$fechaInicial = NULL, $fec
             //Manuel Ochoa - Softtek - 19/11/2015 - INI - Configuracion INFORMES ABOGADOS - Gestión judicial                
             
             if( $frg != NULL && $frg != '' && $frg != 0){
-                $frgss = $this->db->get_where('G729',array('G729_ConsInte__b' => $frg));
+                $frgss = $this->db->get_where('FRG',array('Id' => $frg));
                 $gestion = $this->Reportes_Model->getBaseGEstionesJudiciales($frg);
                 $gestion_deglosado = $this->Reportes_Model->getBaseGEstionesJudiciales_deglosado($frg,$fechaInicial);
                 $json = array();
@@ -2111,8 +2111,8 @@ function getBaseMedicionJudicial_exportar($frg = NULL,$fechaInicial = NULL, $fec
                         $fecha_informe = $fechaInicial;                 
                         
                         $fecha_memorial_subroga = '';
-                        if(!is_null($key->G719_C17048)){
-                            $fecha_memorial_subroga = explode(" ", $key->G719_C17048)[0];
+                        if(!is_null($key->FechaEnvioMemorialSubrogacionFRG)){
+                            $fecha_memorial_subroga = explode(" ", $key->FechaEnvioMemorialSubrogacionFRG)[0];
                             $fecha_memorial_subroga = explode("-", $fecha_memorial_subroga);
                             $fecha_memorial_subroga = $fecha_memorial_subroga[2]."/".$fecha_memorial_subroga[1]."/".$fecha_memorial_subroga[0];
                         }                   
@@ -2120,7 +2120,7 @@ function getBaseMedicionJudicial_exportar($frg = NULL,$fechaInicial = NULL, $fec
                         $json[$i]['fecha_memorial_subroga'] = $fecha_memorial_subroga;
                         $json[$i]['fecha_informe'] = $fecha_informe;
                         $json[$i]['fecha_gestion'] = $fecha_gestion;
-                        $json[$i]['frg'] = trim(utf8_encode($frgss->row()->G729_C17121));
+                        $json[$i]['frg'] = trim(utf8_encode($frgss->row()->FRG));
                         $json[$i]['nom_ejecutor'] = $nom_ejecutor;                                              
                         $i++;
                     }
@@ -2133,7 +2133,7 @@ function getBaseMedicionJudicial_exportar($frg = NULL,$fechaInicial = NULL, $fec
                                 'todaBase' => $json, 
                                 'fechaInicial' => $fechaInicial , 
                                 'fechaFinal' => $fechaFinal.' 23:59:00',
-                                'frg' => $frgss->row()->G729_C17121  );
+                                'frg' => $frgss->row()->FRG  );
                 $this->load->view('Reportes/gestiones_judiciales_datos_excel', $datos);
 
             }else{
@@ -2149,7 +2149,7 @@ function getBaseMedicionJudicial_exportar($frg = NULL,$fechaInicial = NULL, $fec
                     $totalBaseMedicion = 0;
                     $Nocumplen = 1;
                     
-                    $gestion_deglosado = $this->Reportes_Model->getBaseGEstionesJudiciales_deglosado($key2->G729_ConsInte__b,$fechaInicial);
+                    $gestion_deglosado = $this->Reportes_Model->getBaseGEstionesJudiciales_deglosado($key2->Id,$fechaInicial);
                    
                     $nuevo = 0;
                     $viejo = 0;
@@ -2202,8 +2202,8 @@ function getBaseMedicionJudicial_exportar($frg = NULL,$fechaInicial = NULL, $fec
                             $fecha_informe = $fechaInicial;               
                                 
                             $fecha_memorial_subroga = '';
-                            if(!is_null($key->G719_C17048)){
-                                $fecha_memorial_subroga = explode(" ", $key->G719_C17048)[0];
+                            if(!is_null($key->FechaEnvioMemorialSubrogacionFRG)){
+                                $fecha_memorial_subroga = explode(" ", $key->FechaEnvioMemorialSubrogacionFRG)[0];
                                 $fecha_memorial_subroga = explode("-", $fecha_memorial_subroga);
                                 $fecha_memorial_subroga = $fecha_memorial_subroga[2]."/".$fecha_memorial_subroga[1]."/".$fecha_memorial_subroga[0];
                             }                           
@@ -2367,7 +2367,7 @@ function exportar_clientessingestionjudicial($filtroFecha){
             if( $frg != NULL && $frg != '' && $frg != 0){
                 
                 
-                $frgss = $this->db->get_where('G729',array('G729_ConsInte__b' => $frg));
+                $frgss = $this->db->get_where('FRG',array('Id' => $frg));
 
                 $base = $this->Reportes_Model->getReporteCisa($frg, $fechaVEnta);
                 
@@ -2381,7 +2381,7 @@ function exportar_clientessingestionjudicial($filtroFecha){
                     $nuevo = $keyBase->liquidacion;
                     if($nuevo != $viejo){
                         $totalBaseMedicion++;
-                        $soporte = $this->Reportes_Model->tieneFechaPagoReporte($keyBase->G719_ConsInte__b, $fechaNotificacion, $fechaFinal);
+                        $soporte = $this->Reportes_Model->tieneFechaPagoReporte($keyBase->Id, $fechaNotificacion, $fechaFinal);
                         if($soporte >= 1){
                             $cumplimiento++;
                         }else{
@@ -2401,7 +2401,7 @@ function exportar_clientessingestionjudicial($filtroFecha){
                 
                 $nuevo = $key->contrato;
                 if($nuevo != $viejo){
-                        $soporte = $this->Reportes_Model->tieneFechaPagoReporte($key->G719_ConsInte__b, $fechaNotificacion, $fechaFinal);
+                        $soporte = $this->Reportes_Model->tieneFechaPagoReporte($key->Id, $fechaNotificacion, $fechaFinal);
                         
                         if($soporte >= 1){
                            $json[$i]['cumple'] = 'SI';
@@ -2453,7 +2453,7 @@ function exportar_clientessingestionjudicial($filtroFecha){
                                 'Ven_nombre' => $dat->row()->Ven_nombre,
                                 'fechaInicial' => $fechaNotificacion , 
                                 'fechaFinal' => $fechaFinal,
-                                'frg' => $frgss->row()->G729_C17121);
+                                'frg' => $frgss->row()->FRG);
                 $this->load->view('Reportes/Reporte_Cisa_datos', $datos);
 
             }else{
@@ -2473,7 +2473,7 @@ function exportar_clientessingestionjudicial($filtroFecha){
                     $fechaFinal = $dat->row()->Ven_fecha_Maxima;
                     
 
-                    $base = $this->Reportes_Model->getReporteCisa($key2->G729_ConsInte__b, $fechaVEnta);
+                    $base = $this->Reportes_Model->getReporteCisa($key2->Id, $fechaVEnta);
                    // var_dump($base);
                     if(count( $base) > 0){
                     $nuevo = 0;
@@ -2484,7 +2484,7 @@ function exportar_clientessingestionjudicial($filtroFecha){
                         if($nuevo != $viejo){
                             
                             $totalBaseMedicion++;
-                            $soporte = $this->Reportes_Model->tieneFechaPagoReporte($key->G719_ConsInte__b, $fechaNotificacion, $fechaFinal.' 23:59:00');
+                            $soporte = $this->Reportes_Model->tieneFechaPagoReporte($key->Id, $fechaNotificacion, $fechaFinal.' 23:59:00');
                             if($soporte >= 1){
                                 $cumplimiento++;
                             }else{
@@ -2503,7 +2503,7 @@ function exportar_clientessingestionjudicial($filtroFecha){
                     $frg[$valor]['Frg'] = $key2->Frg;
                     $valor++;
 
-                    $baseDeglosada2 = $this->Reportes_Model->getReporteCisa_deglosadoS($key2->G729_ConsInte__b, $fechaVEnta);
+                    $baseDeglosada2 = $this->Reportes_Model->getReporteCisa_deglosadoS($key2->Id, $fechaVEnta);
 
 
                     $nuevo = 0;
@@ -2513,7 +2513,7 @@ function exportar_clientessingestionjudicial($filtroFecha){
                     $nuevo = $key->contrato;
                     if($nuevo != $viejo){
                        
-                       $soporte = $this->Reportes_Model->tieneFechaPagoReporte($key->G719_ConsInte__b, $fechaNotificacion, $fechaFinal);
+                       $soporte = $this->Reportes_Model->tieneFechaPagoReporte($key->Id, $fechaNotificacion, $fechaFinal);
                     
                         if($soporte >= 1){
                         $json[$i]['cumple'] = 'SI';
@@ -2588,7 +2588,7 @@ function exportar_clientessingestionjudicial($filtroFecha){
                 $fechaVEnta = $dat->row()->Ven_fecha_venta;
                 $fechaNotificacion = $dat->row()->Ven_fecha_notificacion;
                 $fechaFinal = $dat->row()->Ven_fecha_Maxima;
-                $frgss = $this->db->get_where('G729',array('G729_ConsInte__b' => $frg));
+                $frgss = $this->db->get_where('FRG',array('Id' => $frg));
 
 
                 
@@ -2629,7 +2629,7 @@ function exportar_clientessingestionjudicial($filtroFecha){
                     'Ven_nombre' => $dat->row()->Ven_nombre,
                     'fechaInicial' => $fechaNotificacion , 
                     'fechaFinal' => $fechaFinal,
-                    'frg' => $frgss->row()->G729_C17121
+                    'frg' => $frgss->row()->FRG
                 );
 
                 $this->load->view('Reportes/Reporte_Cisa_datos_Exporte', $datos);
@@ -2651,12 +2651,12 @@ function exportar_clientessingestionjudicial($filtroFecha){
                     $fechaFinal = $dat->row()->Ven_fecha_Maxima;
                     
 
-                    $base = $this->Reportes_Model->getReporteCisa($key2->G729_ConsInte__b, $fechaVEnta);
+                    $base = $this->Reportes_Model->getReporteCisa($key2->Id, $fechaVEnta);
                    // var_dump($base);
                     if(count( $base) > 0){
                         foreach ($base as $key) {
                             $totalBaseMedicion++;
-                            $soporte = $this->Reportes_Model->tieneFechaPagoReporte($key->G719_ConsInte__b, $fechaNotificacion, $fechaFinal.' 23:59:00');
+                            $soporte = $this->Reportes_Model->tieneFechaPagoReporte($key->Id, $fechaNotificacion, $fechaFinal.' 23:59:00');
                             if($soporte >= 1){
                                 $cumplimiento++;
                             }else{
@@ -2672,12 +2672,12 @@ function exportar_clientessingestionjudicial($filtroFecha){
                     $frg[$valor]['Frg'] = $key2->Frg;
                     $valor++;
 
-                    $baseDeglosada2 = $this->Reportes_Model->getReporteCisa_deglosadoS($key2->G729_ConsInte__b, $fechaVEnta);
+                    $baseDeglosada2 = $this->Reportes_Model->getReporteCisa_deglosadoS($key2->Id, $fechaVEnta);
                     
 
 
                     foreach($baseDeglosada2 as $key){
-                       $soporte = $this->Reportes_Model->tieneFechaPagoReporte($key->G719_ConsInte__b, $fechaNotificacion, $fechaFinal);
+                       $soporte = $this->Reportes_Model->tieneFechaPagoReporte($key->Id, $fechaNotificacion, $fechaFinal);
                     
                         if($soporte >= 1){
                         $json[$i]['cumple'] = 'SI';
@@ -2943,11 +2943,11 @@ function exportar_clientessingestionjudicial($filtroFecha){
                 
             }
 
-            $frgss = $this->db->get_where('G729',array('G729_ConsInte__b' => $frg));
+            $frgss = $this->db->get_where('FRG',array('Id' => $frg));
 
             $datos  = array(    'Subrogaciones_envio' => $baseSubrogacion , 
                                 'Subrogaciones_envio_corregidos' => $baseSubrogacionCorr,
-                                'frg' => $frgss->row()->G729_C17121,
+                                'frg' => $frgss->row()->FRG,
                                 'contratos' => json_encode($json),
                                 'meta' =>  $reporteDatos->row()->par_meta,
                                 'tiempo' =>  $reporteDatos->row()->par_tiempo_asignacion);
@@ -2969,11 +2969,11 @@ function exportar_clientessingestionjudicial($filtroFecha){
                 $radicadosFueradetiempo = 0;
                 $sinradicarFueradeTiempo = 0;
 
-                $baseSubrogacion = $this->Reportes_Model->getBaseMemorialesSUbrogacion_1($key2->G729_ConsInte__b, $abogado , $fechaInicial, $fechaFinal.' 23:59:00');
-                $baseSubrogacionCorr = $this->Reportes_Model->getBaseMemorialesSUbrogacion_2($key2->G729_ConsInte__b, $abogado , $fechaInicial, $fechaFinal.' 23:59:00');
+                $baseSubrogacion = $this->Reportes_Model->getBaseMemorialesSUbrogacion_1($key2->Id, $abogado , $fechaInicial, $fechaFinal.' 23:59:00');
+                $baseSubrogacionCorr = $this->Reportes_Model->getBaseMemorialesSUbrogacion_2($key2->Id, $abogado , $fechaInicial, $fechaFinal.' 23:59:00');
 
-                $baseSubrogacionDeglosada_ = $this->Reportes_Model->getBaseMemorialesSUbrogacion_deglosado_1($key2->G729_ConsInte__b, $abogado , $fechaInicial, $fechaFinal.' 23:59:00');
-                $baseSubrogacionDeglosada = $this->Reportes_Model->getBaseMemorialesSUbrogacion_deglosado_2($key2->G729_ConsInte__b, $abogado , $fechaInicial, $fechaFinal.' 23:59:00');
+                $baseSubrogacionDeglosada_ = $this->Reportes_Model->getBaseMemorialesSUbrogacion_deglosado_1($key2->Id, $abogado , $fechaInicial, $fechaFinal.' 23:59:00');
+                $baseSubrogacionDeglosada = $this->Reportes_Model->getBaseMemorialesSUbrogacion_deglosado_2($key2->Id, $abogado , $fechaInicial, $fechaFinal.' 23:59:00');
                 $j=1;
                 $arrayContadoresLiquidacion =array();
                 foreach ($baseSubrogacion as $key) {
@@ -3407,11 +3407,11 @@ function exportar_clientessingestionjudicial($filtroFecha){
                     
             }
 
-            $frgss = $this->db->get_where('G729',array('G729_ConsInte__b' => $frg));
+            $frgss = $this->db->get_where('FRG',array('Id' => $frg));
 
             $datos  = array(    'Subrogaciones_envio' => $baseSubrogacion , 
                                 'Subrogaciones_envio_corregidos' => $baseSubrogacionCorr,
-                                'frg' => $frgss->row()->G729_C17121,
+                                'frg' => $frgss->row()->FRG,
                                 'contratos' => $json,
                                 'meta' =>  $reporteDatos->row()->par_meta,
                                 'tiempo' =>  $reporteDatos->row()->par_tiempo_asignacion);
@@ -3433,11 +3433,11 @@ function exportar_clientessingestionjudicial($filtroFecha){
                 $radicadosFueradetiempo = 0;
                 $sinradicarFueradeTiempo = 0;
 
-                $baseSubrogacion = $this->Reportes_Model->getBaseMemorialesSUbrogacion_1($key2->G729_ConsInte__b, $abogado , $fechaInicial, $fechaFinal.' 23:59:00');
-                $baseSubrogacionCorr = $this->Reportes_Model->getBaseMemorialesSUbrogacion_2($key2->G729_ConsInte__b, $abogado , $fechaInicial, $fechaFinal.' 23:59:00');
+                $baseSubrogacion = $this->Reportes_Model->getBaseMemorialesSUbrogacion_1($key2->Id, $abogado , $fechaInicial, $fechaFinal.' 23:59:00');
+                $baseSubrogacionCorr = $this->Reportes_Model->getBaseMemorialesSUbrogacion_2($key2->Id, $abogado , $fechaInicial, $fechaFinal.' 23:59:00');
 
-                $baseSubrogacionDeglosada_ = $this->Reportes_Model->getBaseMemorialesSUbrogacion_deglosado_1($key2->G729_ConsInte__b, $abogado , $fechaInicial, $fechaFinal.' 23:59:00');
-                $baseSubrogacionDeglosada = $this->Reportes_Model->getBaseMemorialesSUbrogacion_deglosado_2($key2->G729_ConsInte__b, $abogado , $fechaInicial, $fechaFinal.' 23:59:00');
+                $baseSubrogacionDeglosada_ = $this->Reportes_Model->getBaseMemorialesSUbrogacion_deglosado_1($key2->Id, $abogado , $fechaInicial, $fechaFinal.' 23:59:00');
+                $baseSubrogacionDeglosada = $this->Reportes_Model->getBaseMemorialesSUbrogacion_deglosado_2($key2->Id, $abogado , $fechaInicial, $fechaFinal.' 23:59:00');
 
                 foreach ($baseSubrogacion as $key) {
                     
@@ -3745,13 +3745,14 @@ function exportar_clientessingestionjudicial($filtroFecha){
 
 
         if(!empty($frgs) and !empty($idgestores) and !empty($fechaInicial) and !empty($fechaFinal)){
-
+            
             $arregloFrgGestores = $this->Reportes_Model->getInformeFrgGestion($frgs,$idgestores,$fechaInicial,$fechaFinal);
-        
-
+            if (!empty($arregloFrgGestores)) {
             $arreglocantidad = array('cantidad' => count($arregloFrgGestores) ,'Gestor' => utf8_encode($arregloFrgGestores[0]->Gestor) );
+            
             $json = array();
             $i= 0;
+
             foreach ($arregloFrgGestores as $key) {
                 $json[$i]['TipoIdentificacion']     = $key->TipoIdentificacion ;
                 $json[$i]['NumeroId']               = utf8_encode($key->NumeroId);
@@ -3776,17 +3777,19 @@ function exportar_clientessingestionjudicial($filtroFecha){
                 $json[$i]['FechaGestion'] =  $fecha3;
                 $i++;
             } 
+
             $infoCantidad[0]=$arreglocantidad;
             $datos = array( 'ResultadoFrgGestiones' => json_encode($json), 'ResultadoCantidadGestionada' => json_encode($infoCantidad));
 
 											
             $this->load->view('Reportes/InformeGestoresDatos', $datos);
         }
-
+        }
     }
 
-    function ExportarGestores($frgs = null , $idgestores = null ,$fechaInicial = null,  $fechaFinal=null  ){
+    function ExportarGestores($frgs, $idgestores ,$fechaInicial ,  $fechaFinal){
         $arregloFrgGestores = $this->Reportes_Model->getInformeFrgGestion($frgs,$idgestores,$fechaInicial,$fechaFinal);
+        
         $arreglocantidad = array('cantidad' => count($arregloFrgGestores) ,'Gestor' =>utf8_encode($arregloFrgGestores[0]->Gestor));
         $json = array();
         $i= 0;

@@ -1,6 +1,6 @@
 <section class="content-header">
     <h1>
-        Eliminar Facturas
+         ELIMINAR FACTURAS
     </h1>
     <ol class="breadcrumb">
     	<li><a href="<?php echo base_url();?>home">Inicio</a></li>
@@ -47,7 +47,7 @@
                   <div class="col-sm-10">
                       <select id="cmbFiltrosLiquid" name="cmbFiltrosLiquid" class="form-control">
                           <option value="G719_C17423">No. Liquidación</option>
-                          <option value="G719_C17026">No. Contrato</option>
+                          <option value="NoContrato">No. Contrato</option>
                       </select>
                   </div>
               </div>
@@ -57,10 +57,10 @@
 	                <label for="inputEmail3" class="col-sm-2 control-label">Buscar por:</label>
 	                <div class="col-sm-10">
 	                    <select id="cmbFiltros" name="filtro" class="form-control">
-	                      	<option value="G744_C17263">No. Factura Auto Subogación</option>
-	                      	<option value="G744_C17265">No. Factura Sentencia Irrecuperable</option>
-	                      	<option value="G744_C17270">No. Factura Soportes CISA</option>
-	                      	<option value="G744_C17423">No. Factura Honorarios Venta CISA</option>
+	                      	<option value="NroFacturaAutoSubRogacion">No. Factura Auto Subogación</option>
+	                      	<option value="NroFacturaSentenciaIrrecuperable">No. Factura Sentencia Irrecuperable</option>
+	                      	<option value="NroFacturaSoporteCISA">No. Factura Soportes CISA</option>
+	                      	<option value="FechaFacturaHonorarioCISA3">No. Factura Honorarios Venta CISA</option>
 	                    </select>
 	                </div>
 	            </div>
@@ -107,7 +107,7 @@
                   <div class="col-sm-10">
                       <select id="cmbFiltrosMax" name="cmbFiltrosMax" class="form-control">
                           <option value="G719_C17423">No. Liquidación</option>
-                          <option value="G719_C17026">No. Contrato</option>
+                          <option value="NoContrato">No. Contrato</option>
                       </select>
                   </div>
               </div>
@@ -121,10 +121,10 @@
 	                  <label for="inputEmail3" class="col-sm-2 control-label">Buscar por</label>
 	                <div class="col-sm-10">
 	                    <select id="cmbFiltros2" name="cmbFiltros2" class="form-control">
-	                        <option value="G744_C17263">No. Factura Auto Subogación</option>
-	                      	<option value="G744_C17265">No. Factura Sentencia Irrecuperable</option>
-	                      	<option value="G744_C17270">No. Factura Soportes CISA</option>
-	                      	<option value="G744_C17423">No. Factura Honorarios Venta CISA</option>
+	                        <option value="NroFacturaAutoSubRogacion">No. Factura Auto Subogación</option>
+	                      	<option value="NroFacturaSentenciaIrrecuperable">No. Factura Sentencia Irrecuperable</option>
+	                      	<option value="NroFacturaSoporteCISA">No. Factura Soportes CISA</option>
+	                      	<option value="FechaFacturaHonorarioCISA3">No. Factura Honorarios Venta CISA</option>
 	                    </select>
 	                </div>
 	            </div>
@@ -221,7 +221,7 @@
           }
 
           if($("#txtnumeroSap").val().length < 1){
-              alertify.error('Debe escribir el numero de la factura');
+              alertify.error('Debe escribir el número de la factura');
               validador = 1;
           }
 
@@ -239,7 +239,7 @@
                                 alertify.success("Registro eliminado!");
                                 otherForm[0].reset();
                             }else if(data == 'NOP'){
-                                alertify.error("El numero de factura no es valido!");
+                                alertify.error("El número de factura no es valido!");
                                // otherForm[0].reset();
                             }
                         }

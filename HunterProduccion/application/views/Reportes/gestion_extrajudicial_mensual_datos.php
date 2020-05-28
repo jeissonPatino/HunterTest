@@ -150,7 +150,6 @@
                 <th>Deudor</th>
                 <th>Tipo Identificaci&oacute;n</th>
                 <th>No. Identificaci&oacute;n</th>
-                
                 <th>IF</th>
                 <th>Valor Pagado</th>
                 <th>Gesti&oacute;n</th>
@@ -179,32 +178,32 @@
             datasets: [
                 {
                     label: "Total Base de Medición",
-                    fillColor: "rgba(54, 162, 235)",
-                    strokeColor: "rgba(210, 214, 222)",
-                    pointColor: "rgba(180, 214, 222)",
+                    fillColor: "rgba(180, 214, 222, 1)",
+                    strokeColor: "rgba(210, 214, 222, 1)",
+                    pointColor: "rgba(180, 214, 222, 1)",
                     pointStrokeColor: "#c1c7d1",
                     pointHighlightFill: "#fff",
-                    pointHighlightStroke: "rgba(220,220,220)",
+                    pointHighlightStroke: "rgba(220,220,220,1)",
                     data: <?php echo $data1;?>
                 },
                 {
                     label: "Cumplimiento",
-                   fillColor: "rgba(153, 255, 51)",
-                    strokeColor: "rgba(210, 214, 222)",
-                    pointColor: "rgba(180, 214, 222)",
+                    fillColor: "rgba(180, 214, 222, 1)",
+                    strokeColor: "rgba(210, 214, 222, 1)",
+                    pointColor: "rgba(180, 214, 222, 1)",
                     pointStrokeColor: "#c1c7d1",
                     pointHighlightFill: "#fff",
-                    pointHighlightStroke: "rgba(220,220,220)",
+                    pointHighlightStroke: "rgba(220,220,220,1)",
                     data: <?php echo $data2;?>
                 },
                 {
                     label: "Incumplimientos",
-                    fillColor: "rgba(255, 255, 51)",
-                    strokeColor: "rgba(210, 214, 222)",
-                    pointColor: "rgba(180, 214, 222)",
+                    fillColor: "rgba(180, 214, 222, 1)",
+                    strokeColor: "rgba(210, 214, 222, 1)",
+                    pointColor: "rgba(180, 214, 222, 1)",
                     pointStrokeColor: "#c1c7d1",
                     pointHighlightFill: "#fff",
-                    pointHighlightStroke: "rgba(220,220,220)",
+                    pointHighlightStroke: "rgba(220,220,220,1)",
                     data: <?php echo $data3;?>
                 }
             ]
@@ -253,8 +252,8 @@
         var barChartCanvas = $("#barChart").get(0).getContext("2d");
         var barChart = new Chart(barChartCanvas);
         var barChartData = areaChartData;
-       // barChartData.datasets[0].fillColor = "#00a65a";
-        //barChartData.datasets[0].strokeColor = "#00a65a";
+        barChartData.datasets[0].fillColor = "#00a65a";
+        barChartData.datasets[0].strokeColor = "#00a65a";
         barChartData.datasets[0].pointColor = "#00a65a";
 
         var barChartOptions = {
@@ -273,11 +272,11 @@
           //Boolean - If there is a stroke on each bar
           barShowStroke: true,
           //Number - Pixel width of the bar stroke
-          barStrokeWidth: 1,
+          barStrokeWidth: 2,
           //Number - Spacing between each of the X value sets
-          barValueSpacing: 1,
+          barValueSpacing: 5,
           //Number - Spacing between data sets within X values
-          barDatasetSpacing: 5,
+          barDatasetSpacing: 1,
           //String - A legend template
           legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].fillColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>",
           //Boolean - whether to make the chart responsive
@@ -297,7 +296,6 @@
                   { mData: "nombre"},
                   { mData: "tipo_identificacion"},
                   { mData: "identificacion"},
-                  
                   { mData: "ifinanciero" },
                   { mData: "valorPagado" },
                   { mData: "gestionado"}
